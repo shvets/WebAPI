@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import EtvnetAPI
+@testable import WebAPI
 
 class ConfigTests: XCTestCase {
   var subject = Config(configName: "etvnet-test.config")

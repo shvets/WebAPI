@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import EtvnetAPI
+@testable import WebAPI
 
 class StorageTests: XCTestCase {
   var subject = Storage()

@@ -1,7 +1,7 @@
 import XCTest
 import SwiftyJSON
 
-@testable import EtvnetAPI
+@testable import WebAPI
 
 class GoogleDocsAPITests: XCTestCase {
   var subject = GoogleDocsAPI()

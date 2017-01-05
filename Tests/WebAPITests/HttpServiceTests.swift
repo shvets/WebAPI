@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import EtvnetAPI
+@testable import WebAPI
 
 class HttpServiceTests: XCTestCase {
   var subject = HttpService()
