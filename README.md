@@ -1,5 +1,5 @@
-# EtvnetAPI
-Swift client and tests for accessing Etvnet API
+# WebAPI
+Swift client and tests for accessing various APIs around the web
 
     # Documentation
 

@@ -3,7 +3,7 @@ import XCTest
 @testable import WebAPI
 
 class ConfigTests: XCTestCase {
-  var subject = Config(configName: "etvnet-test.config")
+  var subject = Config(configName: "config-test.config")
 
   func testLoad() {
     subject.load()
