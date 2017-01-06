@@ -9,12 +9,56 @@ open class JsonConverter {
     let json = JSON(data: contents)
     
     for (key, value) in json {
-      result[key] = value.rawString()
+      if value.type == .dictionary {
+        result[key] = convertToDictionary(value)
+      }
+      else if value.type == .array {
+        result[key] = convertToArray(value)
+      }
+      else {
+        result[key] = value.rawString()
+      }
     }
     
     return result
   }
-  
+
+  static func convertToDictionary(_ json: JSON) -> [String: Any] {
+    var dict: [String: Any] = [:]
+
+    for (key, value) in json.dictionaryObject! {
+      if value as? [String: Any] != nil {
+        dict[key] = value as! [String: Any]
+      }
+      else if value as? [Any] != nil {
+        dict[key] = value as! [Any]
+      }
+      else {
+        dict[key] = (value as! String).description
+      }
+    }
+
+    return dict
+  }
+
+  static func convertToArray(_ json: JSON) -> [Any] {
+    var array: [Any] = []
+
+    for value in json.arrayObject! {
+      if value as? [String: Any] != nil {
+        array.append(value)
+      }
+      else if value as? [Any] != nil {
+        array.append(value)
+      }
+      else {
+        array.append((value as! String).description)
+      }
+    }
+
+    return array
+  }
+
   public static func toData(_ items: [String: Any]) -> Data {
     var content = Data()
     
@@ -40,8 +84,8 @@ open class JsonConverter {
     return text!.replacingOccurrences(of: "\\/", with: "/")
   }
 
-  public static func prettified(_ string: Any?) -> String {
-    let text = JSON(string).rawString(options: .prettyPrinted)
+  public static func prettified(_ any: Any?) -> String {
+    let text = JSON(any!).rawString(options: .prettyPrinted)
 
     return text!.replacingOccurrences(of: "\\/", with: "/")
   }
