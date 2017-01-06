@@ -543,8 +543,16 @@ open class MyHitAPI : HttpService {
   }
 
   public func extractBandwidth(_ url: String) -> String {
-    let index11 = url.find("chunklist_b")
-    let index1 = url.index(index11!, offsetBy: 11)
+    var pattern = "chunklist_b"
+
+    var index11 = url.find(pattern)
+
+    if index11 == nil {
+      pattern = "chunklist"
+      index11 = url.find(pattern)
+    }
+
+    let index1 = url.index(index11!, offsetBy: pattern.characters.count)
     let index2 = url.find(".m3u8")
 
     return url[index1 ... index2!]
