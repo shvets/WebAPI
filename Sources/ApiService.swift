@@ -21,11 +21,11 @@ open class ApiService : AuthService {
   }
   
   public func resetToken() {
-    config.remove("access_token")
-    config.remove("refresh_token")
-    config.remove("device_code")
-    config.remove("user_code")
-    config.remove("activation_url")
+    _ = config.remove("access_token")
+    _ = config.remove("refresh_token")
+    _ = config.remove("device_code")
+    _ = config.remove("user_code")
+    _ = config.remove("activation_url")
     
     config.save()
   }
