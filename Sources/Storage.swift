@@ -15,10 +15,8 @@ open class Storage {
     items[key] = value
   }
 
-  func remove(_ key: String) -> Bool {
-    let result = items.removeValue(forKey: key)
-
-    return result != nil
+  public func remove(_ key: String) -> Bool {
+    return items.removeValue(forKey: key) != nil
   }
 
   public func load() {
