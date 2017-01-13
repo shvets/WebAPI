@@ -4,20 +4,20 @@ import Just
 open class ApiService: AuthService {
   public var config: Config
   
-  let api_url: String
-  let user_agent: String
+  let apiUrl: String
+  let userAgent: String
   
-  init(config: Config, api_url: String, user_agent: String, auth_url: String, client_id: String,
-       client_secret: String, grant_type: String, scope: String) {
+  init(config: Config, apiUrl: String, userAgent: String, authUrl: String, clientId: String,
+       clientSecret: String, grantType: String, scope: String) {
     self.config = config
     
     self.config.load()
     
-    self.api_url = api_url
-    self.user_agent = user_agent
+    self.apiUrl = apiUrl
+    self.userAgent = userAgent
     
-    super.init(auth_url: auth_url, client_id: client_id, client_secret: client_secret,
-               grant_type: grant_type, scope: scope)
+    super.init(authUrl: authUrl, clientId: clientId, clientSecret: clientSecret,
+               grantType: grantType, scope: scope)
   }
   
   public func resetToken() {
@@ -30,49 +30,49 @@ open class ApiService: AuthService {
     config.save()
   }
   
-  func apiRequest(base_url: String, path: String, method: String?,
+  func apiRequest(baseUrl: String, path: String, method: String?,
                   headers: [String: String] = [:], data: [String: String]) -> HTTPResult {
-    let url = base_url + path
+    let url = baseUrl + path
     
     var newHeaders = headers
     
-    newHeaders["User-agent"] = user_agent
+    newHeaders["User-agent"] = userAgent
     
     return httpRequest(url: url, headers: newHeaders, data: data, method: method)
   }
   
-  public func authorization(include_client_secret: Bool=true) -> (user_code: String, device_code: String, activation_url: String) {
-    var activation_url: String
-    var user_code: String
-    var device_code: String
+  public func authorization(includeClientSecret: Bool=true) -> (userCode: String, deviceCode: String, activationUrl: String) {
+    var activationUrl: String
+    var userCode: String
+    var deviceCode: String
     
     if checkAccessData("device_code") && checkAccessData("user_code") {
-      activation_url = config.items["activation_url"]! as! String
-      user_code = config.items["user_code"]! as! String
-      device_code = config.items["device_code"]! as! String
+      activationUrl = config.items["activation_url"]! as! String
+      userCode = config.items["user_code"]! as! String
+      deviceCode = config.items["device_code"]! as! String
 
-      return (user_code: user_code, device_code: device_code, activation_url: activation_url)
+      return (userCode: userCode, deviceCode: deviceCode, activationUrl: activationUrl)
     }
     else {
-      let ac_response = getActivationCodes(include_client_secret: include_client_secret)
+      let acResponse = getActivationCodes(includeClientSecret: includeClientSecret)
       
-      if !ac_response.isEmpty {
-        user_code = ac_response["user_code"]!
-        device_code = ac_response["device_code"]!
-        activation_url = ac_response["activation_url"]!
+      if !acResponse.isEmpty {
+        userCode = acResponse["user_code"]!
+        deviceCode = acResponse["device_code"]!
+        activationUrl = acResponse["activation_url"]!
         
         config.save([
-          "user_code": user_code,
-          "device_code": device_code,
-          "activation_url": activation_url
+          "user_code": userCode,
+          "device_code": deviceCode,
+          "activation_url": activationUrl
         ])
         
-        return (user_code: user_code, device_code: device_code, activation_url: activation_url)
+        return (userCode: userCode, deviceCode: deviceCode, activationUrl: activationUrl)
       }
       else {
         print("Error getting activation codes")
         
-        return (user_code: "", device_code: "", activation_url: "")
+        return (userCode: "", deviceCode: "", activationUrl: "")
       }
     }
   }
@@ -92,20 +92,20 @@ open class ApiService: AuthService {
       return true
     }
     else if config.items["refresh_token"] != nil {
-      let refresh_token = config.items["refresh_token"]
+      let refreshToken = config.items["refresh_token"]
       
-      let response = updateToken(refresh_token: refresh_token! as! String)
+      let response = updateToken(refreshToken: refreshToken! as! String)
       
       config.save(response)
       
       return true
     }
     else if checkAccessData("device_code") {
-      let device_code = config.items["device_code"]
+      let deviceCode = config.items["device_code"]
       
-      var response = createToken(device_code: device_code! as! String)
+      var response = createToken(deviceCode: deviceCode! as! String)
       
-      response["device_code"] = device_code as? String
+      response["device_code"] = deviceCode as? String
       
       config.save(response)
       
@@ -120,19 +120,19 @@ open class ApiService: AuthService {
                    unauthorized: Bool=false) -> Data? {
     var result: Data?
 
-    if let access_token = config.items["access_token"] {
-      var access_path: String
+    if let accessToken = config.items["access_token"] {
+      var accessPath: String
       
       if path.characters.index(of: "?") != nil {
-        access_path = "\(path)&access_token=\(access_token)"
+        accessPath = "\(path)&access_token=\(accessToken)"
       }
       else {
-        access_path = "\(path)?access_token=\(access_token)"
+        accessPath = "\(path)?access_token=\(accessToken)"
       }
+
+      accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
       
-      access_path = access_path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-      
-      let response = apiRequest(base_url: api_url, path: access_path, method: method, data: data)
+      let response = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, data: data)
       
       result = response.content
     }

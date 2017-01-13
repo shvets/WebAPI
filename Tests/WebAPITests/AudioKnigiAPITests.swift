@@ -7,19 +7,19 @@ class AudioKnigiAPITests: XCTestCase {
   var subject = AudioKnigiAPI()
 
   func testAuthorsLetters() throws {
-    let result = try subject.getAuthorsLetters()
+    _ = try subject.getAuthorsLetters()
 
     //print(JsonConverter.prettified(result))
   }
 
   func testPerformersLetters() throws {
-    let result = try subject.getPerformersLetters()
+    _ = try subject.getPerformersLetters()
 
     //print(JsonConverter.prettified(result))
   }
 
   func testGetNewBooks() throws {
-    let result = try subject.getNewBooks()
+    _ = subject.getNewBooks()
 
     //print(JsonConverter.prettified(result))
   }

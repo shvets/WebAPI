@@ -13,7 +13,7 @@ class StorageTests: XCTestCase {
 
   func testRemove() {
     subject.add(key: "name", value: "30")
-    subject.remove("name")
+    _ = subject.remove("name")
 
     XCTAssertEqual(subject.items.count, 0)
   }

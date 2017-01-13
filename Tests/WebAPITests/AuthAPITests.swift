@@ -10,11 +10,11 @@ class AuthAPITests: XCTestCase {
   func testGetActivationCodes() {
     let result = subject.getActivationCodes()
     
-    let activation_url = result["activation_url"]
-    let user_code = result["user_code"]
+    let activationUrl = result["activation_url"]
+    let userCode = result["user_code"]
     
-    print("Activation url: \(activation_url!)")
-    print("Activation code: \(user_code!)")
+    print("Activation url: \(activationUrl!)")
+    print("Activation code: \(userCode!)")
     
     XCTAssertNotNil(result["activation_url"]!)
     XCTAssertNotNil(result["user_code"]!)
@@ -24,11 +24,11 @@ class AuthAPITests: XCTestCase {
   func skipped_testCreateToken() {
     let result = subject.authorization()
   
-    if result.user_code != "" {
+    if result.userCode != "" {
       let response = subject.tryCreateToken(
-          user_code: result.user_code,
-          device_code: result.device_code,
-          activation_url: result.activation_url
+          userCode: result.userCode,
+          deviceCode: result.deviceCode,
+          activationUrl: result.activationUrl
       )
           
       XCTAssertNotNil(response["access_token"]!)
@@ -36,10 +36,10 @@ class AuthAPITests: XCTestCase {
     }
   }
   
-  func skipped_testUpdateToken() {
-    let refresh_token = subject.config.items["refresh_token"]! as! String
+  func skippedTestUpdateToken() {
+    let refreshToken = subject.config.items["refresh_token"]! as! String
     
-    let response = subject.updateToken(refresh_token: refresh_token)
+    let response = subject.updateToken(refreshToken: refreshToken)
     
     subject.config.save(response)
     

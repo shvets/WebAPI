@@ -2,29 +2,29 @@ import Foundation
 import Just
 
 open class AuthService: HttpService {
-  var auth_url: String
-  var client_id: String
-  var client_secret: String
-  var grant_type: String
+  var authUrl: String
+  var clientId: String
+  var clientSecret: String
+  var grantType: String
   var scope: String
   
-  init(auth_url: String, client_id: String, client_secret: String, grant_type: String, scope: String) {
-    self.auth_url = auth_url
-    self.client_id = client_id
-    self.client_secret = client_secret
-    self.grant_type = grant_type
+  init(authUrl: String, clientId: String, clientSecret: String, grantType: String, scope: String) {
+    self.authUrl = authUrl
+    self.clientId = clientId
+    self.clientSecret = clientSecret
+    self.grantType = grantType
     self.scope = scope
   }
   
-  func getActivationCodes(include_client_secret: Bool = true, include_client_id: Bool = false) -> [String: String] {
+  func getActivationCodes(includeClientSecret: Bool = true, includeClientId: Bool = false) -> [String: String] {
     var data = ["scope": scope]
     
-    if include_client_secret {
-      data["client_secret"] = client_secret
+    if includeClientSecret {
+      data["client_secret"] = clientSecret
     }
     
-    if include_client_id {
-      data["client_id"] = client_id
+    if includeClientId {
+      data["client_id"] = clientId
     }
 
     var result: [String: String] = [:]
@@ -35,15 +35,15 @@ open class AuthService: HttpService {
       if let content = httpResult.content {
         result = JsonConverter.toItems(content) as! [String: String]
         
-        result["activation_url"] = auth_url + "device/usercode"
+        result["activation_url"] = authUrl + "device/usercode"
       }
     }
     
     return result
   }
   
-  public func createToken(device_code: String) -> [String: String] {
-    var data: [String: String] = ["grant_type": grant_type, "code": device_code]
+  public func createToken(deviceCode: String) -> [String: String] {
+    var data: [String: String] = ["grant_type": grantType, "code": deviceCode]
     
     let httpResult = authRequest(query: &data)
     
@@ -56,8 +56,8 @@ open class AuthService: HttpService {
     return result
   }
   
-  func updateToken(refresh_token: String) -> [String: String] {
-    var data = ["grant_type": "refresh_token", "refresh_token": refresh_token]
+  func updateToken(refreshToken: String) -> [String: String] {
+    var data = ["grant_type": "refresh_token", "refresh_token": refreshToken]
     
     var result: [String: String] = [:]
     
@@ -71,13 +71,13 @@ open class AuthService: HttpService {
   }
   
   func authRequest(query: inout [String: String], rtype: String="token", method: String="get") -> HTTPResult {
-    query["client_id"] = client_id
+    query["client_id"] = clientId
     
     if rtype == "token" {
-      query["client_secret"] = client_secret
+      query["client_secret"] = clientSecret
     }
     
-    let url = auth_url + rtype
+    let url = authUrl + rtype
     
     return httpRequest(url: url, query: query, method: method)
   }
@@ -85,8 +85,8 @@ open class AuthService: HttpService {
   func addExpires(_ data: [String: String]) -> [String: String] {
     var newData = data
     
-    if let expires_in = newData["expires_in"] {
-      newData["expires"] = String(Int(Date().timeIntervalSince1970) + Int(expires_in)!)
+    if let expiresIn = newData["expires_in"] {
+      newData["expires"] = String(Int(Date().timeIntervalSince1970) + Int(expiresIn)!)
     }
     
     return newData

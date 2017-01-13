@@ -24,8 +24,8 @@ open class AudioKnigiAPI: HttpService {
 
     let items = try document!.select("ul[id='" + filter + "'] li a")
 
-    for item in items.array() {
-      let name = try item.text()
+    for _ in items.array() {
+//      let name = try item.text()
 
       //data << name
     }
@@ -143,11 +143,11 @@ open class AudioKnigiAPI: HttpService {
 
   }
 
-  func generate_authors_list(file_name: String) {
+  func generate_authors_list(fileName: String) {
 
   }
 
-  func generate_performers_list(file_name: String) {
+  func generate_performers_list(fileName: String) {
 
   }
 

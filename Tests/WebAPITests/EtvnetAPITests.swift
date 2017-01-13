@@ -14,8 +14,8 @@ class EtvnetAPITests: XCTestCase {
     if !subject.checkToken() {
       let result = subject.authorization()
 
-      if result.user_code != "" {
-        _ = subject.tryCreateToken(user_code: result.user_code, device_code: result.device_code, activation_url: result.activation_url)
+      if result.userCode != "" {
+        _ = subject.tryCreateToken(userCode: result.userCode, deviceCode: result.deviceCode, activationUrl: result.activationUrl)
       }
     }
   }
@@ -30,7 +30,7 @@ class EtvnetAPITests: XCTestCase {
   }
 
   func testGetArchive() {
-    let result = subject.getArchive(channel_id: 3)
+    let result = subject.getArchive(channelId: 3)
 
     //print(result)
     //print(result["data"]["media"])
@@ -70,7 +70,7 @@ class EtvnetAPITests: XCTestCase {
   func testPagination() {
     let query = "news"
 
-    let result1 = subject.search(query: query, per_page: 20, page: 1)
+    let result1 = subject.search(query: query, perPage: 20, page: 1)
 
 //        print(result1)
 
@@ -82,7 +82,7 @@ class EtvnetAPITests: XCTestCase {
     XCTAssertEqual(pagination1["has_previous"], false)
     XCTAssertEqual(pagination1["page"], 1)
 
-    let result2 = subject.search(query: query, per_page: 20, page: 2)
+    let result2 = subject.search(query: query, perPage: 20, page: 2)
 
     //    #print(result2)
 
@@ -111,9 +111,9 @@ class EtvnetAPITests: XCTestCase {
     let  bitrate = "1200"
     let format = "mp4"
 
-    let url_data = subject.getUrl(id, format: format, mediaProtocol: "hls", bitrate: bitrate)
+    let urlData = subject.getUrl(id, format: format, mediaProtocol: "hls", bitrate: bitrate)
 
-    puts("Media Url: " + url_data["url"]!)
+    puts("Media Url: " + urlData["url"]!)
 
     //    #print("Play list:\n" + self.service.get_play_list(url_data["url"]))
   }
@@ -123,34 +123,34 @@ class EtvnetAPITests: XCTestCase {
     let  bitrate = "800"
     let format = "mp4"
 
-    let url_data = subject.getLiveChannelUrl(id, format: format, bitrate: bitrate)
+    let urlData = subject.getLiveChannelUrl(id, format: format, bitrate: bitrate)
 
-    puts("Media Url: " + url_data["url"]!)
+    puts("Media Url: " + urlData["url"]!)
 
     //    #print("Play list:\n" + self.service.get_play_list(url_data["url"]))
   }
 
   func testGetMediaObjects() {
-    let result = subject.getArchive(channel_id: 3)
+    let result = subject.getArchive(channelId: 3)
 
     //print(result)
 
-    var media_object: JSON? = nil
+    var mediaObject: JSON? = nil
 
     for (_, item) in result["data"]["media"] {
       let type = item["type"]
 
       if type == "MediaObject" {
-        media_object = item
+        mediaObject = item
         break
       }
     }
 
-    print(media_object as Any)
+    print(mediaObject as Any)
   }
 
   func testGetContainer() {
-    let result = subject.getArchive(channel_id: 5)
+    let result = subject.getArchive(channelId: 5)
 
     print(result)
 
@@ -254,7 +254,7 @@ class EtvnetAPITests: XCTestCase {
   }
 
   func testGetLiveFavoriteChannels() {
-    let result = subject.getLiveChannels(favorite_only: true)
+    let result = subject.getLiveChannels(favoriteOnly: true)
 
     print(result)
 
