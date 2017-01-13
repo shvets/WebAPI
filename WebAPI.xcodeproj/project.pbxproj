@@ -100,49 +100,49 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		FA491C651E1DD26C00B1A50C /* PBXContainerItemProxy */ = {
+		FA2C94F81E286F7C00CEDFCE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_103;
 			remoteInfo = Just;
 		};
-		FA491C661E1DD26C00B1A50C /* PBXContainerItemProxy */ = {
+		FA2C94F91E286F7C00CEDFCE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_110;
 			remoteInfo = SwiftyJSON;
 		};
-		FA491C671E1DD26C00B1A50C /* PBXContainerItemProxy */ = {
+		FA2C94FA1E286F7C00CEDFCE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_117;
 			remoteInfo = SwiftSoup;
 		};
-		FA491C681E1DD26C00B1A50C /* PBXContainerItemProxy */ = {
+		FA2C94FB1E286F7F00CEDFCE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_103;
 			remoteInfo = Just;
 		};
-		FA491C691E1DD26C00B1A50C /* PBXContainerItemProxy */ = {
+		FA2C94FC1E286F7F00CEDFCE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_110;
 			remoteInfo = SwiftyJSON;
 		};
-		FA491C6A1E1DD26C00B1A50C /* PBXContainerItemProxy */ = {
+		FA2C94FD1E286F7F00CEDFCE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_117;
 			remoteInfo = SwiftSoup;
 		};
-		FA491C6B1E1DD26C00B1A50C /* PBXContainerItemProxy */ = {
+		FA2C94FE1E286F7F00CEDFCE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
@@ -152,7 +152,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2DBA104ABBE6F1070A54337C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		OBJ_100 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_101 /* WebAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_102 /* WebAPITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -371,7 +370,6 @@
 				OBJ_7 /* Sources */,
 				OBJ_86 /* Tests */,
 				OBJ_97 /* Products */,
-				2DBA104ABBE6F1070A54337C /* .swiftlint.yml */,
 			);
 			name = "";
 			sourceTree = "<group>";
@@ -700,37 +698,37 @@
 		OBJ_204 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_103 /* Just */;
-			targetProxy = FA491C651E1DD26C00B1A50C /* PBXContainerItemProxy */;
+			targetProxy = FA2C94F81E286F7C00CEDFCE /* PBXContainerItemProxy */;
 		};
 		OBJ_205 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_110 /* SwiftyJSON */;
-			targetProxy = FA491C661E1DD26C00B1A50C /* PBXContainerItemProxy */;
+			targetProxy = FA2C94F91E286F7C00CEDFCE /* PBXContainerItemProxy */;
 		};
 		OBJ_206 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_117 /* SwiftSoup */;
-			targetProxy = FA491C671E1DD26C00B1A50C /* PBXContainerItemProxy */;
+			targetProxy = FA2C94FA1E286F7C00CEDFCE /* PBXContainerItemProxy */;
 		};
 		OBJ_226 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_103 /* Just */;
-			targetProxy = FA491C681E1DD26C00B1A50C /* PBXContainerItemProxy */;
+			targetProxy = FA2C94FB1E286F7F00CEDFCE /* PBXContainerItemProxy */;
 		};
 		OBJ_227 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_110 /* SwiftyJSON */;
-			targetProxy = FA491C691E1DD26C00B1A50C /* PBXContainerItemProxy */;
+			targetProxy = FA2C94FC1E286F7F00CEDFCE /* PBXContainerItemProxy */;
 		};
 		OBJ_228 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_117 /* SwiftSoup */;
-			targetProxy = FA491C6A1E1DD26C00B1A50C /* PBXContainerItemProxy */;
+			targetProxy = FA2C94FD1E286F7F00CEDFCE /* PBXContainerItemProxy */;
 		};
 		OBJ_229 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_180 /* WebAPI */;
-			targetProxy = FA491C6B1E1DD26C00B1A50C /* PBXContainerItemProxy */;
+			targetProxy = FA2C94FE1E286F7F00CEDFCE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -942,7 +940,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos10.1;
+				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -962,7 +960,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos10.1;
+				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
