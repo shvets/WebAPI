@@ -24,11 +24,11 @@ extension WatchStatus: RawRepresentable {
     }
   }
 
-  public var description : String {
+  public var description: String {
     switch self {
-      case .new: return "New";
-      case .partiallyWatched: return "Partially Watched";
-      case .finished: return "Finished";
+      case .new: return "New"
+      case .partiallyWatched: return "Partially Watched"
+      case .finished: return "Finished"
     }
   }
 }

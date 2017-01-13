@@ -35,7 +35,7 @@ open class HttpService {
     
     var url = path
     
-    if paramsArray.count > 0 {
+    if !paramsArray.isEmpty {
       url += "?" + paramsArray.joined(separator: "&")
     }
     

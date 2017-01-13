@@ -2,7 +2,7 @@ import Foundation
 import SwiftyJSON
 import SwiftSoup
 
-open class GoogleDocsAPI : HttpService {
+open class GoogleDocsAPI: HttpService {
   let URL = "http://cyro.se"
   let USER_AGENT = "Google Docs User Agent"
 
@@ -246,7 +246,7 @@ open class GoogleDocsAPI : HttpService {
 
       let frameUrl2WithoutExt = components[0...components.count-2].joined(separator: ".")
 
-      if frameUrl2WithoutExt.characters.count > 0 {
+      if !frameUrl2WithoutExt.characters.isEmpty {
         let secondUrlPart2 = frameUrl2WithoutExt + "2.php"
 
         do {
@@ -267,7 +267,7 @@ open class GoogleDocsAPI : HttpService {
 
           let url3 = try data4!.select("iframe").attr("src")
 
-          if url3.characters.count > 0 {
+          if !url3.characters.isEmpty {
             updateUrls(data: &data, url: url3)
           }
         }
@@ -305,7 +305,7 @@ open class GoogleDocsAPI : HttpService {
       "page": page,
       "pages": pages,
       "has_previous": page > 1,
-      "has_next": page < pages,
+      "has_next": page < pages
     ]
   }
 

@@ -1,7 +1,7 @@
 import Foundation
 import SwiftyJSON
 
-open class EtvnetAPI : ApiService {
+open class EtvnetAPI: ApiService {
   static let PER_PAGE = 15
   
   let API_URL = "https://secure.etvnet.com/api/v3.0/"
@@ -448,8 +448,7 @@ open class EtvnetAPI : ApiService {
     dateFormatter.dateFormat = "yyyy-MM-dd@nbsp;HH:mm"
     
     let dateString = dateFormatter.string(from: date)
-    
-    
+
     let params = ["date": dateString]
     
     let path = "video/live/schedule/\(live_channel_id).json"
@@ -490,4 +489,3 @@ open class EtvnetAPI : ApiService {
   }
   
 }
-

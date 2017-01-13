@@ -1,7 +1,7 @@
 import Foundation
 import Just
 
-open class ApiService : AuthService {
+open class ApiService: AuthService {
   public var config: Config
   
   let api_url: String
@@ -38,7 +38,7 @@ open class ApiService : AuthService {
     
     newHeaders["User-agent"] = user_agent
     
-    return httpRequest(url: url, headers: newHeaders, data: data, method: method!)
+    return httpRequest(url: url, headers: newHeaders, data: data, method: method)
   }
   
   public func authorization(include_client_secret: Bool=true) -> (user_code: String, device_code: String, activation_url: String) {
@@ -56,7 +56,7 @@ open class ApiService : AuthService {
     else {
       let ac_response = getActivationCodes(include_client_secret: include_client_secret)
       
-      if ac_response.count > 0 {
+      if !ac_response.isEmpty {
         user_code = ac_response["user_code"]!
         device_code = ac_response["device_code"]!
         activation_url = ac_response["activation_url"]!

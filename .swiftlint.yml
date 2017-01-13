@@ -1,0 +1,31 @@
+# https://habrahabr.ru/company/tcsbank/blog/317892/
+
+disabled_rules:
+  - variable_name
+  - trailing_whitespace
+  - missing_docs
+  - force_unwrapping
+  - force_cast
+  - type_body_length
+  - cyclomatic_complexity
+  - file_length
+  - function_body_length
+  - statement_position
+opt_in_rules:
+  - empty_count
+  - force_unwrapping
+  - private_outlet
+  - missing_docs
+line_length: 200
+#file_length:
+#  warning: 500
+#  error: 600
+type_body_length:
+  warning: 300
+  error: 400
+included:
+  - Sources/
+reporter: "xcode"
+warning_threshold: 15
+
+

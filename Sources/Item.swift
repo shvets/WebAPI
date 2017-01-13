@@ -40,7 +40,7 @@ public class Item: Equatable {
     self.value = value
   }
 
-  public static func ==(lhs: Item, rhs: Item) -> Bool {
+  public static func == (lhs: Item, rhs: Item) -> Bool {
     return lhs.key == rhs.key
   }
 }

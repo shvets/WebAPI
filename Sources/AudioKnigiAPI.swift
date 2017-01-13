@@ -2,7 +2,7 @@ import Foundation
 import SwiftyJSON
 import SwiftSoup
 
-open class AudioKnigiAPI : HttpService {
+open class AudioKnigiAPI: HttpService {
   let URL = "https://audioknigi.club"
 
   func getPagePath(path: String, page: Int=1) -> String {
@@ -33,11 +33,11 @@ open class AudioKnigiAPI : HttpService {
     return data
   }
 
-  func getNewBooks(page: Int=1) -> [Any]  {
+  func getNewBooks(page: Int=1) -> [Any] {
     return getBooks(path: "/index/", page: page)
   }
 
-  func get_best_books(period: String, page:Int=1) -> [Any] {
+  func get_best_books(period: String, page: Int=1) -> [Any] {
     return getBooks(path:"/index/views/", period: period, page: page)
   }
 
@@ -202,7 +202,6 @@ open class AudioKnigiAPI : HttpService {
 //  "has_next": page < pages,
 //}
 
-
     let document = try fetchDocument(URL + path)
 
     var pages = 1
@@ -234,7 +233,7 @@ open class AudioKnigiAPI : HttpService {
       "page": page,
       "pages": pages,
       "has_previous": page > 1,
-      "has_next": page < pages,
+      "has_next": page < pages
     ]
   }
 }

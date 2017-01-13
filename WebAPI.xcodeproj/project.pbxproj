@@ -152,6 +152,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DBA104ABBE6F1070A54337C /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = file.yml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		OBJ_100 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_101 /* WebAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_102 /* WebAPITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -370,6 +371,7 @@
 				OBJ_7 /* Sources */,
 				OBJ_86 /* Tests */,
 				OBJ_97 /* Products */,
+				2DBA104ABBE6F1070A54337C /* .swiftlint.yml */,
 			);
 			name = "";
 			sourceTree = "<group>";

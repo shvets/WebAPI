@@ -2,7 +2,7 @@ import Foundation
 import SwiftyJSON
 import SwiftSoup
 
-open class MyHitAPI : HttpService {
+open class MyHitAPI: HttpService {
   public let URL = "https://my-hit.org"
   let USER_AGENT = "My Hit User Agent"
 
@@ -310,7 +310,7 @@ open class MyHitAPI : HttpService {
 
         currentGroupName = name
 
-        data.append(["name" : name, "items": []])
+        data.append(["name": name, "items": []])
       }
       else if clazz == "text-nowrap" {
         let link = try item.select("a").get(0)
@@ -362,7 +362,7 @@ open class MyHitAPI : HttpService {
 
       let name = (group["name"] as! String)
 
-      collection[currentIndex!] = ["name" : name, "items": items]
+      collection[currentIndex!] = ["name": name, "items": items]
     }
   }
 
@@ -374,7 +374,7 @@ open class MyHitAPI : HttpService {
 
       let name = (group["name"] as! String)
 
-      collection[currentIndex!] = ["name" : name, "items": []]
+      collection[currentIndex!] = ["name": name, "items": []]
     }
   }
 
@@ -382,7 +382,7 @@ open class MyHitAPI : HttpService {
     let currentIndex = itemIndex(collection, name: name)
 
     if currentIndex != nil {
-      collection[currentIndex!] = ["name" : name, "items": items]
+      collection[currentIndex!] = ["name": name, "items": items]
     }
   }
 
@@ -405,7 +405,7 @@ open class MyHitAPI : HttpService {
 
     let playlist = result["playlist"]
     
-    if playlist != JSON.null && playlist[0]["playlist"].arrayValue.count == 0 {
+    if playlist != JSON.null && playlist[0]["playlist"].arrayValue.isEmpty {
       var episodeData: [Any] = []
     
       for (_, episode) in playlist {
@@ -692,7 +692,7 @@ open class MyHitAPI : HttpService {
       "page": page,
       "pages": pages,
       "has_previous": page > 1,
-      "has_next": page < pages,
+      "has_next": page < pages
     ]
   }
 

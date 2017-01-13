@@ -1,7 +1,7 @@
 import Foundation
 import Just
 
-open class AuthService : HttpService {
+open class AuthService: HttpService {
   var auth_url: String
   var client_id: String
   var client_secret: String
