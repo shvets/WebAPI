@@ -71,6 +71,23 @@ open class MyHitAPI: HttpService {
       data.append(["type": type, "id": href, "thumb": thumb, "name": name])
     }
 
+    let starItems = try document!.select("div[class='" + selector + "'] div[class='row star']")
+
+    print(starItems.array().count)
+
+    for item: Element in starItems.array() {
+      let link = try item.select("a").get(0)
+      let href = try link.attr("href")
+
+      let name = try link.attr("title")
+
+      let url = try link.select("img").get(0).attr("src")
+
+      let thumb = self.URL + url
+
+      data.append(["type": "star", "id": href, "thumb": thumb, "name": name])
+    }
+
     if items.size() > 0 {
       paginationData = try extractPaginationData(pagePath, selector: selector, page: page)
     }
