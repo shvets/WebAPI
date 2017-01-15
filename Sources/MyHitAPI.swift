@@ -73,8 +73,6 @@ open class MyHitAPI: HttpService {
 
     let starItems = try document!.select("div[class='" + selector + "'] div[class='row star']")
 
-    print(starItems.array().count)
-
     for item: Element in starItems.array() {
       let link = try item.select("a").get(0)
       let href = try link.attr("href")
