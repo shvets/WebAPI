@@ -367,7 +367,7 @@
 			path = "Packages/SwiftSoup-1.1.5/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -375,7 +375,6 @@
 				OBJ_87 /* Tests */,
 				OBJ_99 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -565,7 +564,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_99 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
