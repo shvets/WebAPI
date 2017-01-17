@@ -56,7 +56,7 @@ open class HttpService {
     return try SwiftSoup.parse(toString(data, encoding: encoding)!)
   }
 
-  func toString(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) throws -> String? {
+  func toString(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) -> String? {
     return String(data: data!, encoding: encoding)
   }
 
