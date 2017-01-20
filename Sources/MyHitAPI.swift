@@ -653,7 +653,7 @@ open class MyHitAPI: HttpService {
     }
 
     let data = httpRequest(url: url).content
-    let content = try toString(data!)
+    let content = toString(data!)
 
     var newLines: [String] = []
 
