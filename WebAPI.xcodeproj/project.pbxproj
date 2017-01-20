@@ -158,7 +158,7 @@
 		OBJ_101 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_102 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_103 /* WebAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_104 /* WebAPITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_104 /* WebAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = WebAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_11 /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		OBJ_13 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		OBJ_14 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
@@ -367,7 +367,7 @@
 			path = "Packages/SwiftSoup-1.1.7/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -375,7 +375,6 @@
 				OBJ_87 /* Tests */,
 				OBJ_99 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -557,6 +556,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
+				TargetAttributes = {
+					OBJ_182 = {
+						LastSwiftMigration = 0820;
+					};
+					OBJ_210 = {
+						LastSwiftMigration = 0820;
+					};
+				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "WebAPI" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -565,7 +572,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_99 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -877,6 +884,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = WebAPI;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_VERSION = 3.0;
 				TARGET_NAME = WebAPI;
 			};
 			name = Debug;
@@ -897,6 +905,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = WebAPI;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SWIFT_VERSION = 3.0;
 				TARGET_NAME = WebAPI;
 			};
 			name = Release;
@@ -914,6 +923,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_VERSION = 3.0;
 				TARGET_NAME = WebAPITests;
 			};
 			name = Debug;
@@ -931,6 +941,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
+				SWIFT_VERSION = 3.0;
 				TARGET_NAME = WebAPITests;
 			};
 			name = Release;

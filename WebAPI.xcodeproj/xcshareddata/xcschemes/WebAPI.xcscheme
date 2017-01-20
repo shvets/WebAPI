@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_103"
+               BlueprintIdentifier = "OBJ_105"
                BuildableName = "Just.framework"
                BlueprintName = "Just"
                ReferencedContainer = "container:WebAPI.xcodeproj">
