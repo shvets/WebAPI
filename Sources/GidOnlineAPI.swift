@@ -338,7 +338,7 @@ open class GidOnlineAPI: HttpService {
     ]
   }
 
-  func retrieveUrls(_ url: String, season: String = "", episode: String="") throws -> [Any] {
+  func retrieveUrls(_ url: String, season: String = "", episode: String="") throws -> [[String: String]] {
     var newUrl = url
 
     if url.find(GidOnlineAPI.URL) != nil && url.find("http://")! == nil {
@@ -347,7 +347,7 @@ open class GidOnlineAPI: HttpService {
 
     let content = try getMovieDocument2(newUrl, season: season, episode: episode)
 
-    var data = getSessionData(content)
+    let data = getSessionData(content)
 
 //    data["mw_pid"] = "4"
 //    data["ad_attr"] = "0"
@@ -362,12 +362,10 @@ open class GidOnlineAPI: HttpService {
       "X-Iframe-Option": "Direct"
     ]
 
-    return getUrls(headers, data: data)
+    return try getUrls(headers, data: data)
   }
 
-  func getUrls(_ headers: [String: String], data: [String: String]) -> [Any] {
-    var urls: [Any] = []
-
+  func getUrls(_ headers: [String: String], data: [String: String]) throws -> [[String: String]] {
     let response = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
 
     let data = JSON(data: response.content!)
@@ -376,9 +374,15 @@ open class GidOnlineAPI: HttpService {
 
     let manifestUrl = manifests["manifest_m3u8"].rawString()!
 
+    return try getPlayListUrls2(manifestUrl).reversed()
+  }
+
+  func getPlayListUrls2(_ url: String) throws -> [[String: String]] {
+    var urls: [[String: String]] = []
+
     var items: [[String]] = []
 
-    let response2 = httpRequest(url: manifestUrl)
+    let response2 = httpRequest(url: url)
 
     let playList = toString(response2.content!)!
 
@@ -389,15 +393,20 @@ open class GidOnlineAPI: HttpService {
         if line.hasPrefix("#EXT-X-STREAM-INF") {
           let pattern = "#EXT-X-STREAM-INF:RESOLUTION=(\\d*)x(\\d*),BANDWIDTH=(\\d*)"
 
-          let regex = try! NSRegularExpression(pattern: pattern)
+          do {
+            let regex = try NSRegularExpression(pattern: pattern)
 
-          let matches = regex.matches(in: line, options: [], range: NSRange(location: 0, length: line.characters.count))
+            let matches = regex.matches(in: line, options: [], range: NSRange(location: 0, length: line.characters.count))
 
-          let width = self.getMatched(line, matches: matches, index: 1)
-          let height = self.getMatched(line, matches: matches, index: 2)
-          let bandwith = self.getMatched(line, matches: matches, index: 3)
+            let width = self.getMatched(line, matches: matches, index: 1)
+            let height = self.getMatched(line, matches: matches, index: 2)
+            let bandwith = self.getMatched(line, matches: matches, index: 3)
 
-          items.append(["", width!, height!, bandwith!])
+            items.append(["", width!, height!, bandwith!])
+          }
+          catch {
+            print("Error in regular expression.")
+          }
         }
         else {
           items[index][0] = line
@@ -407,30 +416,12 @@ open class GidOnlineAPI: HttpService {
       }
     }
 
-    for item in items.reversed() {
+    for item in items {
       urls.append(["type": "movie", "url": item[0], "width": item[1], "height": item[2], "bandwdth": item[3]])
     }
 
     return urls
   }
-
-//  func getPlayListUrls2(_ url: String) throws -> [String] {
-//    var urls: [String] = []
-//
-//    let playList = try getPlayList(url)
-//
-//    playList.enumerateLines {(line, _) in
-//      if line[line.startIndex] != "#" {
-//        urls.append(line)
-//      }
-//    }
-//
-//    return urls
-//  }
-//
-//  func getPlayList2(_ url: String, baseUrl: String="") throws -> String {
-//
-//  }
 
   func getSessionData(_ content: String) -> [String: String] {
     let expr1 = "$.post(session_url, {"
@@ -484,6 +475,32 @@ open class GidOnlineAPI: HttpService {
 //    }
     return ""
   }
+
+  func getSerialInfo(document: Document) throws {
+    var ret: [String: Any] = [:]
+
+    ret["seasons"] = []
+    ret["episodes"] = []
+
+    let items = try document.select("select[id=season] option")
+
+    print("alex")
+    print(items)
+
+    for item: Element in items.array() {
+      print(item)
+
+//      let value = item.attr("value")
+//
+//      ret["seasons"][value] = item.text()
+//
+//      if item.attr("selected") {
+//        ret["current_season"] = value
+//      }
+    }
+
+  }
+
 
   func findPages(_ path: String, link: String) -> Int {
     let searchMode = (!path.isEmpty && path.find("?s=") != nil)

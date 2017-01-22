@@ -111,27 +111,21 @@ class GidOnlineAPITests: XCTestCase {
     print(JsonConverter.prettified(urls))
   }
 
-//it 'gets movie url' do
-//#movie_url = all_movies[1][:path]
-//#
-//# print(movie_url)
+  func testGetSerialUrl() throws {
+    let url = "http://gidonline.club/2016/03/strazhi-galaktiki/"
+
+    let document = try subject.getMovieDocument(url)
+
+    //print(document)
+//    let serialInfo = subject.getSerialInfo(document)
 //
-//movie_url = 'http://gidonline.club/2016/07/pomnish-menya/'
-//
-//urls = subject.retrieve_urls(movie_url)
-//
-//ap urls
-//end
-//
-//it 'gets serials url' do
-//movie_url = 'http://gidonline.club/2016/03/strazhi-galaktiki/'
-//
-//document = subject.get_movie_document(movie_url)
-//
-//serial_info = subject.get_serial_info(document)
-//
-//ap serial_info
-//end
+//    print(serialInfo)
+
+//    print(JsonConverter.prettified(urls))
+  }
+
+
+
 //
 //it 'gets playlist' do
 //movie_url = all_movies[1][:path]
