@@ -42,6 +42,50 @@ open class HttpService {
     return url
   }
 
+  func getPlayListUrls(_ url: String) throws -> [String] {
+    var urls: [String] = []
+
+    let playList = try getPlayList(url)
+
+    playList.enumerateLines {(line, _) in
+      if line[line.startIndex] != "#" {
+        urls.append(line)
+      }
+    }
+
+    return urls
+  }
+
+  func getPlayList(_ url: String, baseUrl: String="") throws -> String {
+    var localBaseUrl = baseUrl
+
+    if localBaseUrl.isEmpty {
+      localBaseUrl = getBaseUrl(url)
+    }
+
+    let data = httpRequest(url: url).content
+    let content = toString(data!)
+
+    var newLines: [String] = []
+
+    content!.enumerateLines {(line, _) in
+      if line[line.startIndex] == "#" {
+        newLines.append(line)
+      }
+      else {
+        newLines.append(localBaseUrl + "/" + line)
+      }
+    }
+
+    return newLines.joined(separator: "\n")
+  }
+
+  func getBaseUrl(_ url: String) -> String {
+    var pathComponents = url.components(separatedBy: "/")
+
+    return pathComponents[0...pathComponents.count-2].joined(separator: "/")
+  }
+
   func fetchDocument(_ url: String, headers: [String: String] = [:], encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
     let content = fetchContent(url, headers: headers)
 

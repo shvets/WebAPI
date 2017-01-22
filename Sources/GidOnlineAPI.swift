@@ -8,9 +8,10 @@ open class GidOnlineAPI: HttpService {
 
   let SESSION_URL1 = "http://pandastream.cc/sessions/create_new"
   let SESSION_URL2 = "http://pandastream.cc/sessions/new"
+  let SESSION_URL3 = "http://pandastream.cc/sessions/new_session"
 
   func sessionUrl() -> String {
-    return SESSION_URL1
+    return SESSION_URL3
   }
 
   func getPagePath(path: String, page: Int=1) -> String {
@@ -211,8 +212,10 @@ open class GidOnlineAPI: HttpService {
     return try fetchDocument(movieUrl, headers: getHeaders(gatewayUrl))
   }
 
-  func getMovieDocument2(_ url: String, season: String="", episode: String="") throws -> (String, Document?) {
+  func getMovieDocument2(_ url: String, season: String="", episode: String="") throws -> String {
     let gatewayUrl = try getGatewayUrl(fetchDocument(url)!)
+
+    print(gatewayUrl)
 
     var movieUrl: String!
 
@@ -227,14 +230,12 @@ open class GidOnlineAPI: HttpService {
       movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
     }
 
-//    return try fetchDocument(movieUrl, headers: getHeaders(gatewayUrl))
-
-    let data = fetchContent(url, headers: getHeaders(gatewayUrl))
+    let data = fetchContent(movieUrl, headers: getHeaders(gatewayUrl))
 
     let html = toString(data, encoding: .utf8)!
-    let document = try toDocument(data, encoding: .utf8)
+    //let document = try toDocument(data, encoding: .utf8)
 
-    return (html, document)
+    return html
   }
 
   func getGatewayUrl(_ document: Document) throws -> String {
@@ -337,83 +338,139 @@ open class GidOnlineAPI: HttpService {
     ]
   }
 
-  func retrieveUrls(_ url: String, season: String = "", episode: String="") throws -> [String] {
+  func retrieveUrls(_ url: String, season: String = "", episode: String="") throws -> [Any] {
     var newUrl = url
 
-    if url.find(GidOnlineAPI.URL)! != nil && url.find("http://")! != nil {
+    if url.find(GidOnlineAPI.URL) != nil && url.find("http://")! == nil {
       newUrl = GidOnlineAPI.URL + url
     }
 
-    let (content, document) = try getMovieDocument2(url, season: season, episode: episode)
+    let content = try getMovieDocument2(newUrl, season: season, episode: episode)
 
-    let data = getSessionData(content)
+    var data = getSessionData(content)
 
-    let contentData = getContentData(content)
+//    data["mw_pid"] = "4"
+//    data["ad_attr"] = "0"
+//    data["debug"] = "false"
+
+    //let contentData = getContentData(content)
 
     let headers = [
       "X-Requested-With": "XMLHttpRequest",
-      "Encoding-Pool": contentData
+      //"X-CSRF-Token": "",
+      //jN1d8rl9v2FuqRYdRQ/zwHjlK0mH2PebcBS79q0UHkL3Cbvut+rMSh1ZMDqmbzP5CRoA6N5aBct5eMkZdZpUig==",
+      "X-Iframe-Option": "Direct"
     ]
 
     return getUrls(headers, data: data)
   }
 
-  func getUrls(_ headers: [String: String], data: [String: String]) -> [String] {
-    var urls: [String] = []
+  func getUrls(_ headers: [String: String], data: [String: String]) -> [Any] {
+    var urls: [Any] = []
 
-    let response = httpRequest(url: sessionUrl(), headers: headers, data: data, method: "post")
+    let response = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
 
-//    let data = JSON.parse(response.body)
-//
-//    let manifestUrl = data["manifest_m3u8"]
-//
-//    let response2 = http_request(url: manifest_url)
-//
-//    let lines = StringIO.new(response2.body).readlines
+    let data = JSON(data: response.content!)
 
-//    lines.each_with_index do |line, index|
-//    if line.start_with?('#EXTM3U')
-//    next
-//    elsif line.strip.size > 0 and not line.start_with?('#EXT-X-STREAM-INF')
-//    data = lines[index-1].match /#EXT-X-STREAM-INF:RESOLUTION=(\d+)x(\d+),BANDWIDTH=(\d+)/
-//
-//urls << {type: 'movie', url: line.strip, width: data[1].to_i, height: data[2].to_i, bandwidth: data[3].to_i}
-//end
-//end
+    let manifests = data["mans"]
 
-    return []
+    let manifestUrl = manifests["manifest_m3u8"].rawString()!
+
+    var items: [[String]] = []
+
+    let response2 = httpRequest(url: manifestUrl)
+
+    let playList = toString(response2.content!)!
+
+    var index = 0
+
+    playList.enumerateLines {(line, _) in
+      if !line.hasPrefix("#EXTM3U") {
+        if line.hasPrefix("#EXT-X-STREAM-INF") {
+          let pattern = "#EXT-X-STREAM-INF:RESOLUTION=(\\d*)x(\\d*),BANDWIDTH=(\\d*)"
+
+          let regex = try! NSRegularExpression(pattern: pattern)
+
+          let matches = regex.matches(in: line, options: [], range: NSRange(location: 0, length: line.characters.count))
+
+          let width = self.getMatched(line, matches: matches, index: 1)
+          let height = self.getMatched(line, matches: matches, index: 2)
+          let bandwith = self.getMatched(line, matches: matches, index: 3)
+
+          items.append(["", width!, height!, bandwith!])
+        }
+        else {
+          items[index][0] = line
+
+          index += 1
+        }
+      }
+    }
+
+    for item in items.reversed() {
+      urls.append(["type": "movie", "url": item[0], "width": item[1], "height": item[2], "bandwdth": item[3]])
+    }
+
+    return urls
   }
 
+//  func getPlayListUrls2(_ url: String) throws -> [String] {
+//    var urls: [String] = []
+//
+//    let playList = try getPlayList(url)
+//
+//    playList.enumerateLines {(line, _) in
+//      if line[line.startIndex] != "#" {
+//        urls.append(line)
+//      }
+//    }
+//
+//    return urls
+//  }
+//
+//  func getPlayList2(_ url: String, baseUrl: String="") throws -> String {
+//
+//  }
+
   func getSessionData(_ content: String) -> [String: String] {
-    let url = NSURL(string: sessionUrl())
-
-    let path = url?.path
-
-    print(url)
-    print(path)
-//    print(content)
-
-    let expr1 = "$.post('\(path)'"
+    let expr1 = "$.post(session_url, {"
     let expr2 = "}).success("
 
     let index1 = content.find(expr1)
 
-    print(index1)
-
     if index1 != nil {
-      let index2 = content[index1! ..< content.endIndex].find(expr2)
+      let rightPart = content[index1! ..< content.endIndex]
 
-      print(index2)
-//      var sessionData = content[index1+expr1.size+1..index1+index2].strip
-//
-//      if sessionData {
-//        session_data = session_data.gsub('condition_detected ? 1 : ', '')
-//
-//        new_session_data = replace_keys(session_data,
-//          ["partner", "d_id", "video_token", "content_type", "access_key", "cd"])
-//
-//        JSON.parse(new_session_data)
-      //}
+      let index2 = rightPart.find(expr2)
+
+      if index2 != nil {
+        let index3 = rightPart.index(rightPart.startIndex, offsetBy: expr1.characters.count)
+        let index4 = rightPart.index(before: index2!)
+
+        var sessionData = rightPart[index3 ... index4].trim()
+
+        if sessionData != "" {
+          sessionData = sessionData.replacingOccurrences(of: "'", with: "\"")
+          sessionData = sessionData.replacingOccurrences(of: "ad_attr: condition_detected ? 1 : 0,", with: "")
+          sessionData = sessionData.replacingOccurrences(of: "video_token", with: "\"video_token\"")
+          sessionData = sessionData.replacingOccurrences(of: "content_type", with: "\"content_type\"")
+          sessionData = sessionData.replacingOccurrences(of: "mw_key", with: "\"mw_key\"")
+          sessionData = sessionData.replacingOccurrences(of: "mw_pid: null,", with: "")
+          sessionData = sessionData.replacingOccurrences(of: "debug: false,", with: "")
+          sessionData = sessionData.replacingOccurrences(of: "mw_domain_id", with: "\"mw_domain_id\"")
+          sessionData = sessionData.replacingOccurrences(of: "uuid", with: "\"uuid\"")
+
+          sessionData = "{\n" + sessionData + "\n}"
+
+          var items: [String: String] = [:]
+
+          for (key, value) in JSON(data: sessionData.data(using: .utf8)!) {
+            items[key] = value.rawString()!
+          }
+
+          return items
+        }
+      }
     }
 
     return [:]

@@ -602,25 +602,25 @@ open class MyHitAPI: HttpService {
 
     for script in scripts!.array() {
       let html = try script.html()
-      
+
       if html != "" {
-        let index1 = html.find( "file:")
+        let index1 = html.find("file:")
         let index2 = html.find(".f4m")
         let index21 = html.find(".m3u8")
-        
+
         if index1 != nil && index2 != nil {
           let index3 = html.index(index1!, offsetBy: 6)
           let text = html[index3 ..< index2!]
-          
+
           if text != "" {
             name = text + ".m3u8"
           }
         }
-        
+
         if index1 != nil && index21 != nil {
           let index3 = html.index(index1!, offsetBy: 6)
           let text = html[index3 ..< index21!]
-          
+
           if text != "" {
             name = text + ".m3u8"
           }
@@ -629,50 +629,6 @@ open class MyHitAPI: HttpService {
     }
 
     return name
-  }
-
-  func getPlayListUrls(_ url: String) throws -> [String] {
-    var urls: [String] = []
-
-    let playList = try getPlayList(url)
-
-    playList.enumerateLines {(line, _) in
-      if line[line.startIndex] != "#" {
-        urls.append(line)
-      }
-    }
-
-    return urls
-  }
-
-  func getPlayList(_ url: String, baseUrl: String="") throws -> String {
-    var localBaseUrl = baseUrl
-
-    if localBaseUrl.isEmpty {
-      localBaseUrl = getBaseUrl(url)
-    }
-
-    let data = httpRequest(url: url).content
-    let content = toString(data!)
-
-    var newLines: [String] = []
-
-    content!.enumerateLines {(line, _) in
-      if line[line.startIndex] == "#" {
-        newLines.append(line)
-      }
-      else {
-        newLines.append(localBaseUrl + "/" + line)
-      }
-    }
-
-    return newLines.joined(separator: "\n")
-  }
-
-  func getBaseUrl(_ url: String) -> String {
-    var pathComponents = url.components(separatedBy: "/")
-
-    return pathComponents[0...pathComponents.count-2].joined(separator: "/")
   }
 
   func extractPaginationData(_ path: String, selector: String, page: Int) throws -> Items {
