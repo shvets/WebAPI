@@ -14,7 +14,7 @@ open class GidOnlineAPI: HttpService {
     return SESSION_URL3
   }
 
-  func getPagePath(_ path: String, page: Int=1) -> String {
+  public func getPagePath(_ path: String, page: Int=1) -> String {
     var newPath: String
 
     if page == 1 {
