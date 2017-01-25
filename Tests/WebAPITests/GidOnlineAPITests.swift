@@ -90,7 +90,7 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetAllMovies() throws {
-    let allMovies = try subject.getMovies(document!)
+    let allMovies = try subject.getAllMovies()
 
     print(JsonConverter.prettified(allMovies))
   }
@@ -106,7 +106,7 @@ class GidOnlineAPITests: XCTestCase {
   func testGetMovieUrl() throws {
     let movieUrl = "http://gidonline.club/2017/01/pravila-sema-teoriya-babnika/"
 
-    let urls = try subject.retrieveUrls(movieUrl)
+    let urls = try subject.getUrls(movieUrl)
 
     print(JsonConverter.prettified(urls))
   }
@@ -165,6 +165,15 @@ class GidOnlineAPITests: XCTestCase {
 //print(serial_info['seasons'][number])
 //end
 //end
+
+  func skip_testIsSerial() throws {
+    let url = "http://gidonline.club/2016/07/priklyucheniya-vudi-i-ego-druzej/"
+
+    let result = try subject.isSerial(url)
+
+    print(JsonConverter.prettified(result))
+  }
+
 //
 //it "checks if media is serial" do
 //url = "http://gidonline.club/2016/07/priklyucheniya-vudi-i-ego-druzej/"
@@ -174,6 +183,7 @@ class GidOnlineAPITests: XCTestCase {
 //ap result
 //end
 //
+
 //it 'searches' do
 //query = 'вуди'
 //

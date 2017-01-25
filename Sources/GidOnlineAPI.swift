@@ -14,7 +14,7 @@ open class GidOnlineAPI: HttpService {
     return SESSION_URL3
   }
 
-  func getPagePath(path: String, page: Int=1) -> String {
+  func getPagePath(_ path: String, page: Int=1) -> String {
     var newPath: String
 
     if page == 1 {
@@ -24,10 +24,16 @@ open class GidOnlineAPI: HttpService {
       var params = [String: String]()
       params["p"] = String(page)
 
-      newPath = "\(path)page/\(page)/"
+      newPath = "\(path)/page/\(page)/"
     }
 
     return newPath
+  }
+
+  public func getAllMovies(page: Int=1) throws -> [String: Any] {
+    let document = try fetchDocument(getPagePath(GidOnlineAPI.URL, page: page))
+
+    return try getMovies(document!)
   }
 
   public func getGenres(_ document: Document, type: String="") throws -> [Any] {
@@ -215,7 +221,7 @@ open class GidOnlineAPI: HttpService {
   func getMovieDocument2(_ url: String, season: String="", episode: String="") throws -> String {
     let gatewayUrl = try getGatewayUrl(fetchDocument(url)!)
 
-    print(gatewayUrl)
+    //print(gatewayUrl)
 
     var movieUrl: String!
 
@@ -276,7 +282,7 @@ open class GidOnlineAPI: HttpService {
     return gatewayUrl
   }
 
-  func getMovies(_ document: Document, path: String="") throws ->  [String: Any]{
+  public func getMovies(_ document: Document, path: String="") throws -> [String: Any] {
     var data: [Any] = []
     var paginationData: [String: Any] = [:]
 
@@ -287,7 +293,7 @@ open class GidOnlineAPI: HttpService {
       let name = try item.select("span").text()
       let thumb = GidOnlineAPI.URL + (try item.select("img").attr("src"))
 
-      data.append(["type": "movie", "path": href, "name": name, "thumb": thumb ])
+      data.append(["type": "movie", "id": href, "name": name, "thumb": thumb ])
     }
 
     if items.array().count > 0 {
@@ -338,7 +344,7 @@ open class GidOnlineAPI: HttpService {
     ]
   }
 
-  func retrieveUrls(_ url: String, season: String = "", episode: String="") throws -> [[String: String]] {
+  public func getUrls(_ url: String, season: String = "", episode: String="") throws -> [[String: String]] {
     var newUrl = url
 
     if url.find(GidOnlineAPI.URL) != nil && url.find("http://")! == nil {
@@ -362,10 +368,10 @@ open class GidOnlineAPI: HttpService {
       "X-Iframe-Option": "Direct"
     ]
 
-    return try getUrls(headers, data: data)
+    return try getUrls0(headers, data: data)
   }
 
-  func getUrls(_ headers: [String: String], data: [String: String]) throws -> [[String: String]] {
+  public func getUrls0(_ headers: [String: String], data: [String: String]) throws -> [[String: String]] {
     let response = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
 
     let data = JSON(data: response.content!)
@@ -551,6 +557,31 @@ open class GidOnlineAPI: HttpService {
     }
 
     return matched
+  }
+
+  func isSerial(_ path: String) throws -> Bool {
+    let document = try getMovieDocument(path)
+
+    //let content = tostring(document.select("body")[0])
+    let content = try document!.select("body").text()
+
+    print(content)
+
+    let data = getSessionData(content)
+
+    let anySeason = try hasSeasons(path)
+
+    return data != nil && data["content_type"] == "serial" || anySeason
+  }
+
+  func hasSeasons(_ url: String) throws -> Bool {
+    //let path = urlparse.urlparse(url).path
+
+    let path = NSURL(fileURLWithPath: url).deletingLastPathComponent!.path
+//    let dirUrl = url.URLByDeletingLastPathComponent!
+//    print(dirUrl.path!)
+
+    return try getSeasons(path).count > 0
   }
 
   func fixName(_ items: [Any]) -> [Any] {

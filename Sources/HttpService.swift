@@ -86,21 +86,21 @@ open class HttpService {
     return pathComponents[0...pathComponents.count-2].joined(separator: "/")
   }
 
-  func fetchDocument(_ url: String, headers: [String: String] = [:], encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
+  public func fetchDocument(_ url: String, headers: [String: String] = [:], encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
     let content = fetchContent(url, headers: headers)
 
     return try toDocument(content, encoding: encoding)
   }
 
-  func fetchContent(_ url: String, headers: [String: String] = [:]) -> Data? {
+  public func fetchContent(_ url: String, headers: [String: String] = [:]) -> Data? {
     return httpRequest(url: url, headers: headers).content
   }
 
-  func toDocument(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
+  public func toDocument(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
     return try SwiftSoup.parse(toString(data, encoding: encoding)!)
   }
 
-  func toString(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) -> String? {
+  public func toString(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) -> String? {
     return String(data: data!, encoding: encoding)
   }
 
