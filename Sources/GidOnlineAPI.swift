@@ -53,7 +53,7 @@ open class GidOnlineAPI: HttpService {
       data.append(["path": path, "name": name ])
     }
 
-    let family_group = [
+    let familyGroup = [
       data[14],
       data[15],
       data[12],
@@ -63,21 +63,21 @@ open class GidOnlineAPI: HttpService {
       data[13]
     ]
 
-    let crime_group = [
+    let crimeGroup = [
       data[4],
       data[9],
       data[2],
       data[0]
     ]
 
-    let fiction_group = [
+    let fictionGroup = [
       data[20],
       data[19],
       data[17],
       data[18]
     ]
 
-    let education_group = [
+    let educationGroup = [
       data[1],
       data[7],
       data[3],
@@ -87,16 +87,16 @@ open class GidOnlineAPI: HttpService {
     ]
 
     switch type {
-      case "Family":
-        return family_group
-      case "Crime":
-        return crime_group
-      case "Fiction":
-        return fiction_group
-      case "Education":
-        return education_group
+      case "FAMILY":
+        return familyGroup
+      case "CRIME":
+        return crimeGroup
+      case "FICTION":
+        return fictionGroup
+      case "EDUCATION":
+        return educationGroup
     default:
-        return family_group + crime_group + fiction_group + education_group
+        return familyGroup + crimeGroup + fictionGroup + educationGroup
     }
   }
 
