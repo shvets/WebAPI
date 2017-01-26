@@ -124,47 +124,48 @@ class GidOnlineAPITests: XCTestCase {
 //    print(JsonConverter.prettified(urls))
   }
 
+  func testGetPlayList() throws {
+    let movieUrl = allMovies[1]["path"]
 
+    print(movieUrl)
 
-//
-//it 'gets playlist' do
-//movie_url = all_movies[1][:path]
-//
-//puts movie_url
-//
-//urls = subject.retrieve_urls(movie_url)
-//
-//ap urls
-//
-//play_list = subject.get_play_list(urls[2][:url])
-//
-//puts play_list
-//end
-//
-//it 'gets media data' do
-//movie_url = all_movies[0][:path]
-//
-//document = subject.fetch_document(url: movie_url)
-//
-//data = subject.get_media_data(document)
-//
-//ap data
-//end
-//
-//it 'gets serials info' do
-//movie_url = 'http://gidonline.club/2016/03/strazhi-galaktiki/'
-//
-//document = subject.get_movie_document(movie_url)
-//
-//serial_info = subject.get_serial_info(document)
-//
-//ap serial_info
-//
-//serial_info['seasons'].keys.each do |number|
-//print(number)
-//print(serial_info['seasons'][number])
-//end
-//end
+    let urls = try subject.retrieveUrls(movieUrl)
+
+    print(JsonConverter.prettified(urls))
+
+    let result = try subject.getPlayList(urls[2]["url"])
+
+    print(JsonConverter.prettified(result))
+  }
+
+  func testGetMediaData() throws {
+    let movieUrl = allMovies[0]["path"]
+
+    print(movieUrl)
+
+    let document = subject.fetchDocument(movieUrl)
+
+    let result = try subject.getMediaData(document)
+
+    print(JsonConverter.prettified(result))
+  }
+
+  func testGetSerialInfo() throws {
+    let movieUrl = "http://gidonline.club/2016/03/strazhi-galaktiki/"
+
+    print(movieUrl)
+
+    let document = subject.fetchDocument(movieUrl)
+
+    let serialInfo = try subject.getSerialInfo(document)
+
+    print(JsonConverter.prettified(serialInfo))
+
+    for (key, value) in serialInfo["seasons"] {
+      print(key)
+      print(serial_info["seasons"][key])
+    }
+  }
 
   func skip_testIsSerial() throws {
     let url = "http://gidonline.club/2016/07/priklyucheniya-vudi-i-ego-druzej/"
@@ -174,38 +175,28 @@ class GidOnlineAPITests: XCTestCase {
     print(JsonConverter.prettified(result))
   }
 
-//
-//it "checks if media is serial" do
-//url = "http://gidonline.club/2016/07/priklyucheniya-vudi-i-ego-druzej/"
-//
-//result = subject.is_serial(url)
-//
-//ap result
-//end
-//
+  func testSearch() throws {
+    let query = "вуди"
 
-//it 'searches' do
-//query = 'вуди'
-//
-//result = subject.search(query)
-//
-//ap result
-//end
-//
-//it 'searches actors' do
-//query = 'Аллен'
-//
-//result = subject.search_actors(document, query)
-//
-//ap result
-//end
-//
-//it 'searches directors' do
-//query = 'Люк'
-//
-//result = subject.search_directors(document, query)
-//
-//ap result
-//end
+    let result = try subject.search(query)
+
+    print(JsonConverter.prettified(result))
+  }
+
+  func testSearchActors() throws {
+    let query = "Аллен"
+
+    let result = try subject.searchActors(document, query)
+
+    print(JsonConverter.prettified(result))
+  }
+
+  func testSearchDirectors() throws {
+    let query = "Люк"
+
+    let result = try subject.searchDirectors(document, query)
+
+    print(JsonConverter.prettified(result))
+  }
 
 }
