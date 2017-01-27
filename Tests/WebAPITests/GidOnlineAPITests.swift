@@ -9,7 +9,7 @@ class GidOnlineAPITests: XCTestCase {
 
   var document: Document?
 
-  var allMovies: [Any]?
+  var allMovies: [[String :Any]]?
 
   override func setUp() {
     super.setUp()
@@ -125,46 +125,46 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetPlayList() throws {
-    let movieUrl = allMovies[1]["path"]
-
-    print(movieUrl)
-
-    let urls = try subject.retrieveUrls(movieUrl)
-
-    print(JsonConverter.prettified(urls))
-
-    let result = try subject.getPlayList(urls[2]["url"])
-
-    print(JsonConverter.prettified(result))
+//    let movieUrl = allMovies![1]["path"] as! String
+//
+//    print(movieUrl)
+//
+//    let urls = try subject.getUrls(movieUrl)
+//
+//    print(JsonConverter.prettified(urls))
+//
+//    let result = try subject.getPlayList(urls[2]["url"])
+//
+//    print(JsonConverter.prettified(result))
   }
 
   func testGetMediaData() throws {
-    let movieUrl = allMovies[0]["path"]
+    let allMovies = try subject.getAllMovies()["items"]! as! [Any]
 
-    print(movieUrl)
+    let movieUrl = (allMovies[0] as! [String: String])["id"]!
 
-    let document = subject.fetchDocument(movieUrl)
+    let document = try subject.fetchDocument(movieUrl)
 
-    let result = try subject.getMediaData(document)
+    let result = try subject.getMediaData(document!)
 
     print(JsonConverter.prettified(result))
   }
 
   func testGetSerialInfo() throws {
-    let movieUrl = "http://gidonline.club/2016/03/strazhi-galaktiki/"
-
-    print(movieUrl)
-
-    let document = subject.fetchDocument(movieUrl)
-
-    let serialInfo = try subject.getSerialInfo(document)
-
-    print(JsonConverter.prettified(serialInfo))
-
-    for (key, value) in serialInfo["seasons"] {
-      print(key)
-      print(serial_info["seasons"][key])
-    }
+//    let movieUrl = "http://gidonline.club/2016/03/strazhi-galaktiki/"
+//
+//    print(movieUrl)
+//
+//    let document = try subject.fetchDocument(movieUrl)
+//
+//    let serialInfo = try subject.getSerialInfo(document!)
+//
+//    print(JsonConverter.prettified(serialInfo))
+//
+//    for (key, value) in serialInfo["seasons"] {
+//      print(key)
+//      print(serial_info["seasons"][key])
+//    }
   }
 
   func skip_testIsSerial() throws {
@@ -183,20 +183,20 @@ class GidOnlineAPITests: XCTestCase {
     print(JsonConverter.prettified(result))
   }
 
-  func testSearchActors() throws {
-    let query = "Аллен"
-
-    let result = try subject.searchActors(document, query)
-
-    print(JsonConverter.prettified(result))
-  }
-
-  func testSearchDirectors() throws {
-    let query = "Люк"
-
-    let result = try subject.searchDirectors(document, query)
-
-    print(JsonConverter.prettified(result))
-  }
+//  func testSearchActors() throws {
+//    let query = "Аллен"
+//
+//    let result = try subject.searchActors(document, query)
+//
+//    print(JsonConverter.prettified(result))
+//  }
+//
+//  func testSearchDirectors() throws {
+//    let query = "Люк"
+//
+//    let result = try subject.searchDirectors(document, query)
+//
+//    print(JsonConverter.prettified(result))
+//  }
 
 }

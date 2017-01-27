@@ -482,7 +482,90 @@ open class GidOnlineAPI: HttpService {
     return ""
   }
 
-  func getSerialInfo(document: Document) throws {
+  func search(_ query: String, page: Int=1) throws -> [String: Any] {
+    let path = getPagePath(GidOnlineAPI.URL, page: page) + "/"
+
+    var params = [String: String]()
+    params["q"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+    let fullPath = self.buildUrl(path: path, params: params as [String : AnyObject])
+
+    print(fullPath)
+
+    let content = fetchContent(fullPath)
+
+    var document = try toDocument(content!)
+
+    print(fullPath)
+
+    let movies = try getMovies(document!, path: fullPath)
+
+    print(movies)
+
+//    let items = (movies as! [String: Any])
+//
+//    if items.count > 0 {
+//      return movies
+//    }
+//    else {
+//      print(response.url)
+
+//      document = fetchDocument(response.url)
+//
+//      let mediaData = getMediaData(document)
+//
+//      if "title" == true {
+//      //in mediaData {
+//        return ["items": [
+//          "path": url,
+//          "name": mediaData["title"],
+//          "thumb": mediaData["thumb"]
+//        ]]
+//      }
+//      else {
+//        return ["items": []]
+//      }
+//    }
+
+    return ["items": []]
+  }
+
+  func getMediaData(_ document: Document) throws -> [String: Any] {
+    var data: [String: Any] = [:]
+
+    let mediaNode = try document.select("div[id=face]")
+
+    if mediaNode.array().count > 0 {
+      let block = mediaNode.get(0)
+
+      let thumb = try block.select("div img[class=t-img]").attr("src")
+
+      print(thumb)
+
+      data["thumb"] = GidOnlineAPI.URL + thumb
+
+      let items1 = try block.select("div div[class=t-row] div[class='r-1'] div[class='rl-2']")
+      let items2 = try block.select("div div[class=t-row] div[class='r-2'] div[class='rl-2']")
+
+      print(items1.array())
+      data["title"] = try items1.array()[0].text()
+      data["countries"] = try items1.array()[1].text().components(separatedBy: ",")
+      data["duration"] = try items1.array()[2].text()
+      data["year"] = try items2.array()[0].text()
+      data["tags"] = try items2.array()[1].text().components(separatedBy: ", ")
+      data["genres"] = try items2.array()[2].text().components(separatedBy: ", ")
+
+      let  descriptionBlock = try document.select("div[class=description]").array()[0]
+
+      data["summary"] = try descriptionBlock.select("div[class=infotext]").array()[0].text()
+
+      data["rating"] = try document.select("div[class=nvz] meta").attr("content")
+    }
+
+    return data
+  }
+
+  func getSerialInfo(_ document: Document) throws {
     var ret: [String: Any] = [:]
 
     ret["seasons"] = []
@@ -490,7 +573,6 @@ open class GidOnlineAPI: HttpService {
 
     let items = try document.select("select[id=season] option")
 
-    print("alex")
     print(items)
 
     for item: Element in items.array() {
@@ -504,9 +586,7 @@ open class GidOnlineAPI: HttpService {
 //        ret["current_season"] = value
 //      }
     }
-
   }
-
 
   func findPages(_ path: String, link: String) -> Int {
     let searchMode = (!path.isEmpty && path.find("?s=") != nil)
