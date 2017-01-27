@@ -110,7 +110,7 @@ open class GidOnlineAPI: HttpService {
       let name = try link.text()
       let thumb = GidOnlineAPI.URL + (try link.select("img").attr("src"))
 
-      data.append(["path": path, "name": name, "thumb": thumb])
+      data.append(["type": "movie", "id": path, "name": name, "thumb": thumb])
     }
 
     return data
