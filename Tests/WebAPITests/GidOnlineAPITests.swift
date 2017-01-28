@@ -15,7 +15,7 @@ class GidOnlineAPITests: XCTestCase {
     super.setUp()
 
     do {
-      document = try subject.fetchDocument(GidOnlineAPI.URL)
+      document = try subject.fetchDocument(GidOnlineAPI.SITE_URL)
     }
     catch {
       print("Error fetching document")
@@ -40,7 +40,7 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetActors() throws {
-    //let document = try subject.fetchDocument(GidOnlineAPI.URL)
+    //let document = try subject.fetchDocument(GidOnlineAPI.SITE_URL)
 
     let result = try subject.getActors(document!)
 
@@ -96,7 +96,7 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetMoviesByGenre() throws {
-    let document = try subject.fetchDocument(GidOnlineAPI.URL + "/genre/vestern/")
+    let document = try subject.fetchDocument(GidOnlineAPI.SITE_URL + "/genre/vestern/")
 
     let result = try subject.getMovies(document!, path: "/genre/vestern/")
 

@@ -58,6 +58,7 @@ open class AudioKnigiAPI: HttpService {
 
   func getBookItems(_ document: Document, path: String, page: Int) throws -> [String: Any] {
     var data: [Any] = []
+    var paginationData: [String: Any] = [:]
 
     let items = try document.select("article")
 
@@ -71,8 +72,6 @@ open class AudioKnigiAPI: HttpService {
 
       data.append(["type": "book", "id": href, "name": name, "thumb": thumb, "description": description ])
     }
-
-    var paginationData: [String: Any] = [:]
 
     if items.array().count > 0 {
       //paginationData = try extractPaginationData(path: path)
@@ -91,6 +90,7 @@ open class AudioKnigiAPI: HttpService {
 
   func getCollection(path: String, page: Int=1) throws -> [String: Any] {
     var data: [Any] = []
+    var paginationData: [String: Any] = [:]
 
     let pagePath = getPagePath(path: path, page: page)
     let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
@@ -106,8 +106,6 @@ open class AudioKnigiAPI: HttpService {
       data.append(["type": "collection", "id": href, "name": name ])
     }
 
-    var paginationData: [String: Any] = [:]
-
     if items.array().count > 0 {
       //paginationData = try extractPaginationData(document, path: path)
     }
@@ -117,6 +115,7 @@ open class AudioKnigiAPI: HttpService {
 
   func getGenres(page: Int=1) throws -> [String: Any] {
     var data: [Any] = []
+    var paginationData: [String: Any] = [:]
 
     let path = "/sections/"
 
@@ -135,8 +134,6 @@ open class AudioKnigiAPI: HttpService {
 
       data.append(["type": "genre", "id": href, "name": name, "thumb": thumb ])
     }
-
-    var paginationData: [String: Any] = [:]
 
     if items.array().count > 0 {
       //paginationData = try extractPaginationData(document, path: path)
