@@ -154,6 +154,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DBA19841A4AE7DED735DB16 /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
+		2DBA1E0617B6C568506CA878 /* test2.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test2.html; sourceTree = "<group>"; };
 		OBJ_100 /* Just.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Just.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_101 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_102 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -374,6 +376,8 @@
 				OBJ_7 /* Sources */,
 				OBJ_87 /* Tests */,
 				OBJ_99 /* Products */,
+				2DBA19841A4AE7DED735DB16 /* test.html */,
+				2DBA1E0617B6C568506CA878 /* test2.html */,
 			);
 			sourceTree = "<group>";
 		};

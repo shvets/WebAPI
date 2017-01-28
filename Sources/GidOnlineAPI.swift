@@ -200,25 +200,12 @@ open class GidOnlineAPI: HttpService {
   }
 
   func getMovieDocument(_ url: String, season: String="", episode: String="") throws -> Document? {
-    let gatewayUrl = try getGatewayUrl(fetchDocument(url)!)
+    let content = try getMovieContent(url, season: season, episode: episode)
 
-    var movieUrl: String!
-
-    if !season.isEmpty {
-      movieUrl = "\(gatewayUrl)?season=\(season)&episode=\(episode)"
-    }
-    else {
-      movieUrl = gatewayUrl
-    }
-
-    if movieUrl.contains("//www.youtube.com") {
-      movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
-    }
-
-    return try fetchDocument(movieUrl, headers: getHeaders(gatewayUrl))
+    return try toDocument(content)
   }
 
-  func getMovieDocument2(_ url: String, season: String="", episode: String="") throws -> String {
+  func getMovieContent(_ url: String, season: String="", episode: String="") throws -> Data? {
     let gatewayUrl = try getGatewayUrl(fetchDocument(url)!)
 
     //print(gatewayUrl)
@@ -238,10 +225,7 @@ open class GidOnlineAPI: HttpService {
 
     let data = fetchContent(movieUrl, headers: getHeaders(gatewayUrl))
 
-    let html = toString(data, encoding: .utf8)!
-    //let document = try toDocument(data, encoding: .utf8)
-
-    return html
+    return data
   }
 
   func getGatewayUrl(_ document: Document) throws -> String {
@@ -351,9 +335,9 @@ open class GidOnlineAPI: HttpService {
       newUrl = GidOnlineAPI.SITE_URL + url
     }
 
-    let content = try getMovieDocument2(newUrl, season: season, episode: episode)
+    let content = try getMovieContent(newUrl, season: season, episode: episode)
 
-    let data = getSessionData(content)
+    let data = getSessionData(toString(content!)!)
 
 //    data["mw_pid"] = "4"
 //    data["ad_attr"] = "0"
@@ -361,10 +345,12 @@ open class GidOnlineAPI: HttpService {
 
     //let contentData = getContentData(content)
 
+    let gatewayUrl = try getGatewayUrl(fetchDocument(newUrl)!)
+
+    print(gatewayUrl)
+
     let headers = [
       "X-Requested-With": "XMLHttpRequest",
-      //"X-CSRF-Token": "",
-      //jN1d8rl9v2FuqRYdRQ/zwHjlK0mH2PebcBS79q0UHkL3Cbvut+rMSh1ZMDqmbzP5CRoA6N5aBct5eMkZdZpUig==",
       "X-Iframe-Option": "Direct"
     ]
 
@@ -447,22 +433,27 @@ open class GidOnlineAPI: HttpService {
         var sessionData = rightPart[index3 ... index4].trim()
 
         if sessionData != "" {
-          sessionData = sessionData.replacingOccurrences(of: "'", with: "\"")
-          sessionData = sessionData.replacingOccurrences(of: "ad_attr: condition_detected ? 1 : 0,", with: "")
-          sessionData = sessionData.replacingOccurrences(of: "video_token", with: "\"video_token\"")
-          sessionData = sessionData.replacingOccurrences(of: "content_type", with: "\"content_type\"")
-          sessionData = sessionData.replacingOccurrences(of: "mw_key", with: "\"mw_key\"")
-          sessionData = sessionData.replacingOccurrences(of: "mw_pid: null,", with: "")
-          sessionData = sessionData.replacingOccurrences(of: "debug: false,", with: "")
-          sessionData = sessionData.replacingOccurrences(of: "mw_domain_id", with: "\"mw_domain_id\"")
-          sessionData = sessionData.replacingOccurrences(of: "uuid", with: "\"uuid\"")
-
-          sessionData = "{\n" + sessionData + "\n}"
+          sessionData = sessionData.replacingOccurrences(of: "'", with: "")
+          sessionData = sessionData.replacingOccurrences(of: ",", with: "")
+          sessionData = sessionData.replacingOccurrences(of: "ad_attr: condition_detected ? 1 : 0", with: "")
 
           var items: [String: String] = [:]
 
-          for (key, value) in JSON(data: sessionData.data(using: .utf8)!) {
-            items[key] = value.rawString()!
+          sessionData.enumerateLines { (line, _) in
+            if !line.isEmpty {
+              let components = line.components(separatedBy: ":")
+
+              if components.count > 1 {
+                let key = components[0].trim()
+                let value = components[1].trim()
+
+                items[key] = value
+              }
+            }
+          }
+
+          if items.count == 0 {
+            print("Error in parsing: \n\(sessionData)")
           }
 
           return items
@@ -501,9 +492,6 @@ open class GidOnlineAPI: HttpService {
       return movies
     }
     else {
-      //print(response)
-//      print(response.url)
-
       let document2 = try fetchDocument(response.url!.path)
 
       let mediaData = try getMediaData(document2!)
@@ -520,8 +508,6 @@ open class GidOnlineAPI: HttpService {
         return ["items": []]
       }
     }
-
-    return ["items": []]
   }
 
   func getMediaData(_ document: Document) throws -> [String: Any] {
