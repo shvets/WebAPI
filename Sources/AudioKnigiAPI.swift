@@ -3,7 +3,7 @@ import SwiftyJSON
 import SwiftSoup
 
 open class AudioKnigiAPI: HttpService {
-  let URL = "https://audioknigi.club"
+  public static let URL = "https://audioknigi.club"
 
   func getPagePath(path: String, page: Int=1) -> String {
     return "\(path)page\(page)/"
@@ -18,191 +18,139 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func getLetters(path: String, filter: String) throws -> [Any] {
-    let data: [Any] = []
+    var data: [Any] = []
 
-    let document = try fetchDocument(URL + path)
+    let document = try fetchDocument(AudioKnigiAPI.URL + path)
 
     let items = try document!.select("ul[id='" + filter + "'] li a")
 
-    for _ in items.array() {
-//      let name = try item.text()
+    for item in items.array() {
+      let name = try item.text()
 
-      //data << name
+      data.append(name)
     }
 
     return data
   }
 
-  func getNewBooks(page: Int=1) -> [Any] {
-    return getBooks(path: "/index/", page: page)
+  func getNewBooks(page: Int=1) throws -> [String: Any] {
+    return try getBooks(path: "/index/", page: page)
   }
 
-  func get_best_books(period: String, page: Int=1) -> [Any] {
-    return getBooks(path:"/index/views/", period: period, page: page)
+  func getBestBooks(period: String, page: Int=1) throws -> [String: Any] {
+    return try getBooks(path: "/index/views/", period: period, page: page)
   }
 
-  func getBooks(path: String, period: String="", page: Int=1) -> [Any] {
-//    let path = URI.decode(path)
-//
-//    let page_path = getPagePath(path, page)
-//
-//    if period != "" {
-//      page_path = page_path + "?period=" + period
-//    }
-//
-//    let document = try fetchDocument(url: URL + page_path)
-//
-//    return getBookItems(document, path=path, page=page)
+  func getBooks(path: String, period: String="", page: Int=1) throws -> [String: Any] {
+    let path = ""
+    //URI.decode(path)
 
-    return []
+    var pagePath = getPagePath(path: path + "/", page: page)
+
+    if period != "" {
+      pagePath = "\(pagePath)?period=\(period)"
+    }
+
+    let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
+
+    return try getBookItems(document!, path: path, page: page)
   }
 
-  func getBookItems(document: Document, path: String, page: Int) {
-//    data = []
-//
-//    items = document.xpath("//article")
-//
-//    items.each do |item|
-//    link = item.xpath("header/h3/a").first
-//
-//    name = link.content
-//    href = link.xpath("@href").text
-//    thumb = item.xpath("img").attr("src").text
-//    description = item.xpath("div[@class="topic-content text"]").children.first.content.strip
-//
-//    data << {"type": "book", "name": name, "path": href, "thumb": thumb, "description": description}
-//  }
-//
-//pagination = extract_pagination_data(document: document, path: path, page: page)
-//
-//{"items": data, "pagination": pagination}
+  func getBookItems(_ document: Document, path: String, page: Int) throws -> [String: Any] {
+    var data: [Any] = []
+
+    let items = try document.select("article")
+
+    for item: Element in items.array() {
+      let link = try item.select("header h3 a")
+      let name = try link.text()
+      let href = try link.attr("href")
+      let thumb = try item.select("img").attr("src")
+      let description = try item.select("div[class='topic-content text']").text()
+          //.children.first.content.strip
+
+      data.append(["type": "book", "id": href, "name": name, "thumb": thumb, "description": description ])
+    }
+
+    var paginationData: [String: Any] = [:]
+
+    if items.array().count > 0 {
+      //paginationData = try extractPaginationData(path: path)
+    }
+
+    return ["items": data, "pagination": paginationData]
   }
 
-  func get_authors(page: Int=1) {
-    return getCollection(path: "/authors/", page: page)
+  func getAuthors(page: Int=1) throws -> [String: Any] {
+    return try getCollection(path: "/authors/", page: page)
   }
 
-  func getPerformers(page: Int=1) {
-    return getCollection(path: "/performers/", page: page)
+  func getPerformers(page: Int=1) throws -> [String: Any] {
+    return try getCollection(path: "/performers/", page: page)
   }
 
-  func getCollection(path: String, page: Int=1) {
-//    data = []
-//
-//    page_path = get_page_path(path, page)
-//
-//    document = fetch_document(url: URL + page_path, encoding: "utf-8")
-//
-//    items = document.xpath("//td[@class="cell-name"]")
-//
-//    items.each do |item|
-//    link = item.xpath("h4/a").first
-//
-//    name = link.text
-//    href = link.attr("href")[URL.length..-1] + "/"
-//
-//    data << {"name": name, "path": URI.decode(href)}
-//  }
-//
-//pagination = extract_pagination_data(document: document, path: path, page: page)
-//
-//{"items": data, "pagination": pagination}
+  func getCollection(path: String, page: Int=1) throws -> [String: Any] {
+    var data: [Any] = []
+
+    let pagePath = getPagePath(path: path, page: page)
+    let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
+
+    let items = try document!.select("td[class=cell-name]")
+
+    for item: Element in items.array() {
+      let link = try item.select("h4 a")
+      let name = try link.text()
+      let href = try link.attr("href")
+      //href = link.attr("href")[URL.length..-1] + "/"
+
+      data.append(["type": "collection", "id": href, "name": name ])
+    }
+
+    var paginationData: [String: Any] = [:]
+
+    if items.array().count > 0 {
+      //paginationData = try extractPaginationData(document, path: path)
+    }
+
+    return ["items": data, "pagination": paginationData]
   }
 
-  func get_genres(page: Int=1) {
-//    data = []
-//
-//    path = "/sections/"
-//
-//    page_path = get_page_path(path, page)
-//
-//    document = fetch_document(url: URL + page_path, encoding: "utf-8")
-//
-//    items = document.xpath("//td[@class="cell-name"]")
-//
-//    items.each do |item|
-//    link = item.xpath("a").first
-//
-//    name = item.xpath("h4/a").first.text
-//    href = link.attr("href")[URL.length]
-//    thumb = link.xpath("img").attr("src")
-//
-//    data << {"name": name, "path": href, "thumb": thumb}
-//  }
-//
-//pagination = extract_pagination_data(document: document, path: path, page: page)
-//
-//{"items": data, "pagination": pagination}
+  func getGenres(page: Int=1) throws -> [String: Any] {
+    var data: [Any] = []
+
+    let path = "/sections/"
+
+    let pagePath = getPagePath(path: path, page: page)
+    let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
+
+    let items = try document!.select("td[class=cell-name]")
+
+    for item: Element in items.array() {
+      let link = try item.select("a")
+      let name = try link.select("h4 a")
+      let href = try link.attr("href")
+      //href = link.get('href')[len(self.URL)+1:]
+
+      let thumb = try link.select("img").attr("src")
+
+      data.append(["type": "genre", "id": href, "name": name, "thumb": thumb ])
+    }
+
+    var paginationData: [String: Any] = [:]
+
+    if items.array().count > 0 {
+      //paginationData = try extractPaginationData(document, path: path)
+    }
+
+    return ["items": data, "pagination": paginationData]
   }
 
-  func get_genre(path: String, page: Int=1) -> [Any] {
-    return getBooks(path: path, page: page)
-  }
-
-  func get_audio_tracks(url: String) {
-
-  }
-
-  func generate_authors_list(fileName: String) {
-
-  }
-
-  func generate_performers_list(fileName: String) {
-
-  }
-
-  func group_items_by_letter(items: [Any]) {
-
-  }
-
-  func merge_small_groups(groups: [Any]) {
-
-  }
-
-  func starts_with_different_letter(list: [Any], name: String) {
-
+  func getGenre(path: String, page: Int=1) throws -> [String: Any] {
+    return try getBooks(path: path, page: page)
   }
 
   func extractPaginationData(_ path: String, selector: String, page: Int) throws -> Items {
-//    pages = 1
-//
-//    pagination_root = document.xpath("//div[@class="paging"]")
-//
-//    if pagination_root and pagination_root.length > 0
-//    pagination_block = pagination_root[0]
-//
-//    items = pagination_block.xpath("ul/li")
-//
-//    last_link = items[items.length - 2].xpath("a")
-//
-//    if last_link.size == 0
-//    last_link = items[items.length - 3].xpath("a")
-//
-//    pages = last_link.text.to_i
-//else
-//href = last_link.attr("href").text
-//
-//pattern = path + "page"
-//
-//index1 = href.index(pattern)
-//index2 = href.index("/?")
-//
-//unless index2
-//index2 = href.length-1
-//}
-//
-//pages = href[index1+pattern.length..index2].to_i
-//}
-//}
-//
-//{
-//  "page": page,
-//  "pages": pages,
-//  "has_previous": page > 1,
-//  "has_next": page < pages,
-//}
-
-    let document = try fetchDocument(URL + path)
+    let document = try fetchDocument(AudioKnigiAPI.URL + path)
 
     var pages = 1
 
@@ -235,5 +183,177 @@ open class AudioKnigiAPI: HttpService {
       "has_previous": page > 1,
       "has_next": page < pages
     ]
+  }
+
+  func search(query: String, page: Int=1) throws -> [String: Any] {
+    let path = "/search/books/"
+
+    let pagePath = getPagePath(path: path, page: page)
+    let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
+
+    return try getBookItems(document!, path: path, page: page)
+  }
+
+  func getAudioTracks(url: String) throws -> [Any] {
+    let bookId = 0
+
+    let document = try fetchDocument(url)
+
+    let scripts = try document!.select("script[type='text/javascript']")
+
+    for script in scripts {
+//      let scriptBody =  try script.text()
+//
+//      let index = scriptBody.select("$(document).audioPlayer")
+//
+//      if index >= 0 {
+//        // bookId = scriptBody[28:scriptBody.find(',')]
+//        bookId = 0
+//
+//        break
+//      }
+    }
+
+//    if bookId > 0 {
+//      let newUrl = AudioKnigiAPI.URL + "/rest/bid/\(bookId)"
+//
+//      let document2 =  try fetchDocument(newUrl)
+//
+//      //tracks = self.to_json(self.httpRequest(newUrl).read())
+//      let tracks: [String: String] = [:]
+//
+//      for track in tracks {
+//        track["name"] = track["title"] + ".mp3"
+//        track["url"] = track["mp3"]
+//
+////        track.delete("title")
+////        track.delete("mp3")
+//      }
+//
+//      return tracks
+//    }
+//    else {
+//      return []
+//    }
+
+    return []
+  }
+
+  func generateAuthorsList(fileName: String) {
+    let data: [Any] = []
+
+//    let result = getAuthors()
+//
+//    data += result["items"]
+//
+//    let pages = result["pagination"]["pages"]
+
+//    for page in range(2, pages) {
+//      result = getAuthors(page: page)
+//
+//      data += result["items"]
+//    }
+
+//    with open(fileName, 'w') as file:
+//    file.write(json.dumps(data, indent=4))
+  }
+
+  func generatePerformersList(fileName: String) {
+    let data: [Any] = []
+
+//    let result = self.getPerformers()
+//
+//    data += result["items"]
+//
+//    let pages = result["pagination"]["pages"]
+//
+//    for page in range(2, pages) {
+//      result = getPerformers(page: page)
+//
+//      data += result["items"]
+//    }
+
+//    with open(fileName, 'w') as file:
+//    file.write(json.dumps(data, indent=4))
+  }
+
+  func groupItemsByLetter(items: [Any]) {
+//    var groups = OrderedDict()
+//
+//    for item in items {
+//      let name = item["name"]
+//      let path = item["path"]
+//
+//      let groupName = ""
+//      //name[0:3].upper()
+//
+////      if groupName ! in groups.keys {
+////        var group = []
+////
+////        groups[groupName] = group
+////      }
+//
+//      groups[groupName].append(["path": path, "name": name])
+//    }
+//
+//    return mergeSmallGroups(groups)
+  }
+
+  func mergeSmallGroups(groups: [Any]) {
+//    // merge groups into bigger groups with size ~ 20 records
+//
+//    var classifier = []
+//
+//    let groupSize = 0
+//
+//    classifier.append([])
+//
+//    var index = 0
+//
+//    for groupName in groups {
+//      groupWeight = len(groups[groupName])
+//      groupSize += groupWeight
+//
+//      if groupSize > 20 || startsWithDifferentLetter(classifier[index], name: groupName) {
+//        groupSize = 0
+//        classifier.append([])
+//        index = index + 1
+//      }
+//
+//      classifier[index].append(groupName)
+//    }
+//
+//    // flatten records from different group within same classification
+//    // assign new name in format firstName-lastName, e.g. ABC-AZZ
+//
+//    var newGroups = OrderedDict()
+//
+//    for groupNames in classifier {
+//      let key = groupNames[0] + "-" + groupNames[len(groupNames) - 1]
+//      newGroups[key] = []
+//
+//      for groupName in groupNames {
+//        for item in groups[groupName] {
+//          newGroups[key].append(item)
+//        }
+//      }
+//    }
+//
+//    return newGroups
+  }
+
+  func startsWithDifferentLetter(_ list: [Any], name: String) -> Bool {
+//    var result = false
+//
+//    for n in list {
+//      if name[0] != n[0] {
+//        result = true
+//        break
+//      }
+//    }
+//
+//    return result
+
+    return true
   }
 }
