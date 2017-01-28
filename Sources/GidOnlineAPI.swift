@@ -206,9 +206,8 @@ open class GidOnlineAPI: HttpService {
   }
 
   func getMovieContent(_ url: String, season: String="", episode: String="") throws -> Data? {
-    let gatewayUrl = try getGatewayUrl(fetchDocument(url)!)
-
-    //print(gatewayUrl)
+    let document = try fetchDocument(url)!
+    let gatewayUrl = try getGatewayUrl(document)
 
     var movieUrl: String!
 
@@ -339,15 +338,9 @@ open class GidOnlineAPI: HttpService {
 
     let data = getSessionData(toString(content!)!)
 
-//    data["mw_pid"] = "4"
-//    data["ad_attr"] = "0"
-//    data["debug"] = "false"
-
     //let contentData = getContentData(content)
 
     let gatewayUrl = try getGatewayUrl(fetchDocument(newUrl)!)
-
-    print(gatewayUrl)
 
     let headers = [
       "X-Requested-With": "XMLHttpRequest",
@@ -418,6 +411,7 @@ open class GidOnlineAPI: HttpService {
   func getSessionData(_ content: String) -> [String: String] {
     let expr1 = "$.post(session_url, {"
     let expr2 = "}).success("
+    let expr3 = "var argv = '"
 
     let index1 = content.find(expr1)
 
@@ -427,16 +421,35 @@ open class GidOnlineAPI: HttpService {
       let index2 = rightPart.find(expr2)
 
       if index2 != nil {
-        let index3 = rightPart.index(rightPart.startIndex, offsetBy: expr1.characters.count)
-        let index4 = rightPart.index(before: index2!)
+        let index21 = rightPart.index(rightPart.startIndex, offsetBy: expr1.characters.count)
+        let index22 = rightPart.index(before: index2!)
 
-        var sessionData = rightPart[index3 ... index4].trim()
+        var sessionData = rightPart[index21 ... index22].trim()
 
         if sessionData != "" {
+          var argv = ""
+
+          let index3 = content.find(expr3)
+
+          if index3 != nil {
+            let index31 = content.index(index3!, offsetBy: expr3.characters.count)
+            let index32 = content.index(index1!, offsetBy: -1)
+
+            argv = content[index31 ... index32]
+
+            argv = argv.replacingOccurrences(of: "'", with: "")
+            argv = argv.replacingOccurrences(of: ";", with: "")
+            argv = argv.replacingOccurrences(of: "\n", with: "")
+          }
+
           sessionData = sessionData.replacingOccurrences(of: "'", with: "")
           sessionData = sessionData.replacingOccurrences(of: ",", with: "")
           sessionData = sessionData.replacingOccurrences(of: "ad_attr: condition_detected ? 1 : 0", with: "")
 
+          sessionData = sessionData.replacingOccurrences(of: "mw_pid: null", with: "")
+          sessionData = sessionData.replacingOccurrences(of: "debug: false", with: "")
+          sessionData = sessionData.replacingOccurrences(of: "argv: argv", with: "")
+          
           var items: [String: String] = [:]
 
           sessionData.enumerateLines { (line, _) in
@@ -451,6 +464,8 @@ open class GidOnlineAPI: HttpService {
               }
             }
           }
+
+          items["argv"] = argv.trim()
 
           if items.count == 0 {
             print("Error in parsing: \n\(sessionData)")
