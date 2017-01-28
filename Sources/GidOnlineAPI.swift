@@ -482,11 +482,11 @@ open class GidOnlineAPI: HttpService {
     return ""
   }
 
-  func search(_ query: String, page: Int=1) throws -> [String: Any] {
+  public func search(_ query: String, page: Int=1) throws -> [String: Any] {
     let path = getPagePath(GidOnlineAPI.SITE_URL, page: page) + "/"
 
     var params = [String: String]()
-    params["q"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    params["s"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
     let fullPath = self.buildUrl(path: path, params: params as [String : AnyObject])
 
@@ -583,7 +583,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   func findPages(_ path: String, link: String) -> Int {
-    let searchMode = (!path.isEmpty && path.find("?q=") != nil)
+    let searchMode = (!path.isEmpty && path.find("?s=") != nil)
 
     var pattern: String?
 

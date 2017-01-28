@@ -176,7 +176,7 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testSearch() throws {
-    let query = "вуди"
+    let query = "акула"
 
     let result = try subject.search(query)
 
