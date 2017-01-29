@@ -586,7 +586,9 @@ open class MyHitAPI: HttpService {
     }
 
     if sourceUrl != "" {
-      urls = try self.getPlayListUrls(sourceUrl)
+      for url in try self.getPlayListUrls(sourceUrl) {
+        urls.append(url["url"]!)
+      }
     }
 
     return urls.reversed()

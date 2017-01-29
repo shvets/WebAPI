@@ -245,28 +245,28 @@ open class GidOnlineAPI: HttpService {
       gatewayUrl = urls
     }
     else {
-      let url = GidOnlineAPI.SITE_URL + "/trailer.php"
-
-      let block1 = try document.select("head meta[id=meta]")
-
-      let block2 = try block1.select("@content")
-
-      let data = [
-        "id_post": ""
-        //try document.select("head meta[id=meta]").select("@content").array()
-      ]
-
-      let response = httpRequest(url: url, data: data, method: "post")
-
-      let content = response.content
-
-      let document2 = try toDocument(content)
-
-      urls = try document2!.select("iframe[class='ifram']").attr("src")
-
-      if urls.trim().characters.count > 0 {
-        gatewayUrl = urls
-      }
+//      let url = GidOnlineAPI.SITE_URL + "/trailer.php"
+//
+//      let block1 = try document.select("head meta[id=meta]")
+//
+//      let block2 = try block1.select("@content")
+//
+//      let data = [
+//        "id_post": ""
+//        //try document.select("head meta[id=meta]").select("@content").array()
+//      ]
+//
+//      let response = httpRequest(url: url, data: data, method: "post")
+//
+//      let content = response.content
+//
+//      let document2 = try toDocument(content)
+//
+//      urls = try document2!.select("iframe[class='ifram']").attr("src")
+//
+//      if urls.trim().characters.count > 0 {
+//        gatewayUrl = urls
+//      }
     }
 
     return gatewayUrl
@@ -345,38 +345,44 @@ open class GidOnlineAPI: HttpService {
 
     let data = getSessionData(toString(content!)!)
 
-    //let contentData = getContentData(content)
-
-    let gatewayUrl = try getGatewayUrl(fetchDocument(newUrl)!)
-
     let headers = [
       "X-Requested-With": "XMLHttpRequest",
       "X-Iframe-Option": "Direct"
     ]
 
-    return try getUrls0(headers, data: data)
-  }
+    //return try getUrls0(headers, data: data)
 
-  public func getUrls0(_ headers: [String: String], data: [String: String]) throws -> [[String: String]] {
-    let response = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
+    let response2 = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
 
-    let data = JSON(data: response.content!)
+    let data2 = JSON(data: response2.content!)
 
-    let manifests = data["mans"]
+    let manifests = data2["mans"]
 
     let manifestUrl = manifests["manifest_m3u8"].rawString()!
 
-    return try getPlayListUrls2(manifestUrl).reversed()
+    return try getPlayListUrls(manifestUrl).reversed()
   }
 
-  func getPlayListUrls2(_ url: String) throws -> [[String: String]] {
+//  public func getUrls0(_ headers: [String: String], data: [String: String]) throws -> [[String: String]] {
+//    let response = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
+//
+//    let data = JSON(data: response.content!)
+//
+//    let manifests = data["mans"]
+//
+//    let manifestUrl = manifests["manifest_m3u8"].rawString()!
+//
+//    return try getPlayListUrls(manifestUrl).reversed()
+//  }
+
+  override func getPlayListUrls(_ url: String) throws -> [[String: String]] {
     var urls: [[String: String]] = []
 
     var items: [[String]] = []
 
-    let response2 = httpRequest(url: url)
+    let response = httpRequest(url: url)
 
-    let playList = toString(response2.content!)!
+    let playList = toString(response.content!)!
 
     var index = 0
 
@@ -486,15 +492,6 @@ open class GidOnlineAPI: HttpService {
     return [:]
   }
 
-  func getContentData(_ content: String) -> String {
-//    let data = content.match(/setRequestHeader\|\|([^|]+)/m)
-//
-//    if data {
-//      Base64.encode64(data[1]).strip
-//    }
-    return ""
-  }
-
   public func search(_ query: String, page: Int=1) throws -> [String: Any] {
     let path = getPagePath(GidOnlineAPI.SITE_URL, page: page) + "/"
 
@@ -518,8 +515,7 @@ open class GidOnlineAPI: HttpService {
 
       let mediaData = try getMediaData(document2!)
 
-      if "title" == true {
-      //in mediaData {
+      if mediaData["title"] != nil {
         return ["movies": [
           "id": fullPath,
           "name": mediaData["title"],

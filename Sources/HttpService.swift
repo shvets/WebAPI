@@ -42,14 +42,14 @@ open class HttpService {
     return url
   }
 
-  func getPlayListUrls(_ url: String) throws -> [String] {
-    var urls: [String] = []
+  func getPlayListUrls(_ url: String) throws -> [[String: String]] {
+    var urls: [[String: String]] = []
 
     let playList = try getPlayList(url)
 
     playList.enumerateLines {(line, _) in
       if line[line.startIndex] != "#" {
-        urls.append(line)
+        urls.append(["url": line])
       }
     }
 
