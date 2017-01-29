@@ -290,7 +290,7 @@ open class GidOnlineAPI: HttpService {
       paginationData = try extractPaginationData(document, path: path)
     }
 
-    return ["items": data, "pagination": paginationData]
+    return ["movies": data, "pagination": paginationData]
   }
 
   func extractPaginationData(_ document: Document, path: String) throws -> [String: Any] {
@@ -520,19 +520,19 @@ open class GidOnlineAPI: HttpService {
 
       if "title" == true {
       //in mediaData {
-        return ["items": [
+        return ["movies": [
           "id": fullPath,
           "name": mediaData["title"],
           "thumb": mediaData["thumb"]
         ]]
       }
       else {
-        return ["items": []]
+        return ["movies": []]
       }
     }
   }
 
-  func getMediaData(_ document: Document) throws -> [String: Any] {
+  public func getMediaData(_ document: Document) throws -> [String: Any] {
     var data: [String: Any] = [:]
 
     let mediaNode = try document.select("div[id=face]")
@@ -542,14 +542,11 @@ open class GidOnlineAPI: HttpService {
 
       let thumb = try block.select("div img[class=t-img]").attr("src")
 
-      print(thumb)
-
       data["thumb"] = GidOnlineAPI.SITE_URL + thumb
 
       let items1 = try block.select("div div[class=t-row] div[class='r-1'] div[class='rl-2']")
       let items2 = try block.select("div div[class=t-row] div[class='r-2'] div[class='rl-2']")
 
-      print(items1.array())
       data["title"] = try items1.array()[0].text()
       data["countries"] = try items1.array()[1].text().components(separatedBy: ",")
       data["duration"] = try items1.array()[2].text()
@@ -575,11 +572,7 @@ open class GidOnlineAPI: HttpService {
 
     let items = try document.select("select[id=season] option")
 
-    print(items)
-
     for item: Element in items.array() {
-      print(item)
-
 //      let value = item.attr("value")
 //
 //      ret["seasons"][value] = item.text()
@@ -646,8 +639,6 @@ open class GidOnlineAPI: HttpService {
 
     //let content = tostring(document.select("body")[0])
     let content = try document!.select("body").text()
-
-    print(content)
 
     let data = getSessionData(content)
 
