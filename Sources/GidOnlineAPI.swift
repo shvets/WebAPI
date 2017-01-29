@@ -6,6 +6,11 @@ open class GidOnlineAPI: HttpService {
   public static let SITE_URL = "http://gidonline.club"
   let USER_AGENT = "Gid Online User Agent"
 
+  public static let CYRILLIC_LETTERS = [
+    "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П",
+    "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"
+  ]
+
   let SESSION_URL1 = "http://pandastream.cc/sessions/create_new"
   let SESSION_URL2 = "http://pandastream.cc/sessions/new"
   let SESSION_URL3 = "http://pandastream.cc/sessions/new_session"
@@ -168,11 +173,11 @@ open class GidOnlineAPI: HttpService {
     return fixPath(data)
   }
 
-  func getCountries(_ document: Document) throws -> [Any] {
+  public func getCountries(_ document: Document) throws -> [Any] {
     return fixPath(try getCategory("country-dropdown", document: document))
   }
 
-  func getYears(_ document: Document) throws -> [Any] {
+  public func getYears(_ document: Document) throws -> [Any] {
     return fixPath(try getCategory("year-dropdown", document: document))
   }
 
@@ -190,10 +195,12 @@ open class GidOnlineAPI: HttpService {
     let links = try document.select("select[id='" + id + "'] option")
 
     for link: Element in links.array() {
-      let path = try link.attr("value")
+      let id = try link.attr("value")
       let name = try link.text()
 
-      data.append(["id": path, "name": name])
+      if id != "#" {
+        data.append(["id": id, "name": name])
+      }
     }
 
     return data
