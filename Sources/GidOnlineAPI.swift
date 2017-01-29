@@ -350,8 +350,6 @@ open class GidOnlineAPI: HttpService {
       "X-Iframe-Option": "Direct"
     ]
 
-    //return try getUrls0(headers, data: data)
-
     let response2 = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
 
     let data2 = JSON(data: response2.content!)
@@ -362,18 +360,6 @@ open class GidOnlineAPI: HttpService {
 
     return try getPlayListUrls(manifestUrl).reversed()
   }
-
-//  public func getUrls0(_ headers: [String: String], data: [String: String]) throws -> [[String: String]] {
-//    let response = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
-//
-//    let data = JSON(data: response.content!)
-//
-//    let manifests = data["mans"]
-//
-//    let manifestUrl = manifests["manifest_m3u8"].rawString()!
-//
-//    return try getPlayListUrls(manifestUrl).reversed()
-//  }
 
   override func getPlayListUrls(_ url: String) throws -> [[String: String]] {
     var urls: [[String: String]] = []

@@ -124,22 +124,29 @@ class GidOnlineAPITests: XCTestCase {
 //    print(JsonConverter.prettified(urls))
   }
 
-  func testGetPlayList() throws {
-//    let movieUrl = allMovies![1]["path"] as! String
+  func testGetPlayListUrls() throws {
+    let allMovies = try subject.getAllMovies()["movies"]! as! [Any]
+
+    let movieUrl = (allMovies[0] as! [String: String])["id"]!
+
+    print(movieUrl)
+
+    let urls = try subject.getUrls(movieUrl)
+
+    print(JsonConverter.prettified(urls))
+
+//    let url = urls[2]["url"]!
 //
-//    print(movieUrl)
+//    print(url)
+
+//    let result = try subject.getPlayListUrls(url)
 //
-//    let urls = try subject.getUrls(movieUrl)
-//
-//    print(JsonConverter.prettified(urls))
-//
-//    let result = try subject.getPlayList(urls[2]["url"])
-//
+//    print(result)
 //    print(JsonConverter.prettified(result))
   }
 
   func testGetMediaData() throws {
-    let allMovies = try subject.getAllMovies()["items"]! as! [Any]
+    let allMovies = try subject.getAllMovies()["movies"]! as! [Any]
 
     let movieUrl = (allMovies[0] as! [String: String])["id"]!
 
