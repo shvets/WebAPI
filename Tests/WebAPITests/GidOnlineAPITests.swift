@@ -117,32 +117,11 @@ class GidOnlineAPITests: XCTestCase {
     let document = try subject.getMovieDocument(url)
 
     //print(document)
-//    let serialInfo = subject.getSerialInfo(document)
-//
+    let serialInfo = try subject.getSerialInfo(document!)
+
 //    print(serialInfo)
 
 //    print(JsonConverter.prettified(urls))
-  }
-
-  func testGetPlayListUrls() throws {
-    let allMovies = try subject.getAllMovies()["movies"]! as! [Any]
-
-    let movieUrl = (allMovies[0] as! [String: String])["id"]!
-
-    print(movieUrl)
-
-    let urls = try subject.getUrls(movieUrl)
-
-    print(JsonConverter.prettified(urls))
-
-//    let url = urls[2]["url"]!
-//
-//    print(url)
-
-//    let result = try subject.getPlayListUrls(url)
-//
-//    print(result)
-//    print(JsonConverter.prettified(result))
   }
 
   func testGetMediaData() throws {
@@ -158,16 +137,18 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetSerialInfo() throws {
-//    let movieUrl = "http://gidonline.club/2016/03/strazhi-galaktiki/"
-//
-//    print(movieUrl)
-//
+    let movieUrl = "http://gidonline.club/2016/03/strazhi-galaktiki/"
+
+    print(movieUrl)
+
 //    let document = try subject.fetchDocument(movieUrl)
-//
-//    let serialInfo = try subject.getSerialInfo(document!)
-//
-//    print(JsonConverter.prettified(serialInfo))
-//
+
+    let document = try subject.getMovieDocument(movieUrl)
+
+    let serialInfo = try subject.getSerialInfo(document!)
+
+    print(JsonConverter.prettified(serialInfo))
+
 //    for (key, value) in serialInfo["seasons"] {
 //      print(key)
 //      print(serial_info["seasons"][key])
@@ -190,20 +171,20 @@ class GidOnlineAPITests: XCTestCase {
     print(JsonConverter.prettified(result))
   }
 
-//  func testSearchActors() throws {
-//    let query = "Аллен"
-//
-//    let result = try subject.searchActors(document, query)
-//
-//    print(JsonConverter.prettified(result))
-//  }
-//
-//  func testSearchDirectors() throws {
-//    let query = "Люк"
-//
-//    let result = try subject.searchDirectors(document, query)
-//
-//    print(JsonConverter.prettified(result))
-//  }
+  func testSearchActors() throws {
+    let query = "Аллен"
+
+    let result = try subject.searchActors(document, query)
+
+    print(JsonConverter.prettified(result))
+  }
+
+  func testSearchDirectors() throws {
+    let query = "Люк"
+
+    let result = try subject.searchDirectors(document, query)
+
+    print(JsonConverter.prettified(result))
+  }
 
 }

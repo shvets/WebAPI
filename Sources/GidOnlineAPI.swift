@@ -181,11 +181,11 @@ open class GidOnlineAPI: HttpService {
     return fixPath(try getCategory("year-dropdown", document: document))
   }
 
-  func getSeasons(_ path: String) throws -> [Any] {
+  public func getSeasons(_ path: String) throws -> [Any] {
     return try getCategory("season", document: getMovieDocument(GidOnlineAPI.SITE_URL + path)!)
   }
 
-  func getEpisodes(_ path: String) throws -> [Any] {
+  public func getEpisodes(_ path: String) throws -> [Any] {
     return try getCategory("episode", document: getMovieDocument(GidOnlineAPI.SITE_URL + path)!)
   }
 
@@ -206,7 +206,7 @@ open class GidOnlineAPI: HttpService {
     return data
   }
 
-  func getMovieDocument(_ url: String, season: String="", episode: String="") throws -> Document? {
+  public func getMovieDocument(_ url: String, season: String="", episode: String="") throws -> Document? {
     let content = try getMovieContent(url, season: season, episode: episode)
 
     return try toDocument(content)
@@ -229,9 +229,7 @@ open class GidOnlineAPI: HttpService {
       movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
     }
 
-    let data = fetchContent(movieUrl, headers: getHeaders(gatewayUrl))
-
-    return data
+    return fetchContent(movieUrl, headers: getHeaders(gatewayUrl))
   }
 
   func getGatewayUrl(_ document: Document) throws -> String {
@@ -283,7 +281,7 @@ open class GidOnlineAPI: HttpService {
       let name = try item.select("span").text()
       let thumb = GidOnlineAPI.SITE_URL + (try item.select("img").attr("src"))
 
-      data.append(["type": "movie", "id": href, "name": name, "thumb": thumb ])
+      data.append(["id": href, "name": name, "thumb": thumb ])
     }
 
     if items.array().count > 0 {
@@ -347,7 +345,7 @@ open class GidOnlineAPI: HttpService {
 
     let headers = [
       "X-Requested-With": "XMLHttpRequest",
-      "X-Iframe-Option": "Direct"
+      "X-Iframe-Param": "Redirect"
     ]
 
     let response2 = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
@@ -401,81 +399,52 @@ open class GidOnlineAPI: HttpService {
     }
 
     for item in items {
-      urls.append(["type": "movie", "url": item[0], "width": item[1], "height": item[2], "bandwdth": item[3]])
+      urls.append(["url": item[0], "width": item[1], "height": item[2], "bandwidth": item[3]])
     }
 
     return urls
   }
 
   func getSessionData(_ content: String) -> [String: String] {
-    let expr1 = "$.post(session_url, {"
-    let expr2 = "}).success("
-    let expr3 = "var argv = '"
+    var items: [String: String] = [:]
 
-    let index1 = content.find(expr1)
+    var dataSection = false
 
-    if index1 != nil {
-      let rightPart = content[index1! ..< content.endIndex]
+    content.enumerateLines { (line, _) in
+      if line.find("var cparam =") != nil {
+        let index1 = line.find("'")
+        let index2 = line.find(";")
+        let index11 = line.index(index1!, offsetBy: 1)
+        let index21 = line.index(index2!, offsetBy: -2)
 
-      let index2 = rightPart.find(expr2)
+        items["dparam"] = line[index11 ... index21]
+      }
+      else if line.find("var session_params = {") != nil {
+        dataSection = true
+      }
+      else if dataSection == true {
+        if line.find("};") != nil {
+          dataSection = false
+        }
+        else if !line.isEmpty {
+          var data = line
 
-      if index2 != nil {
-        let index21 = rightPart.index(rightPart.startIndex, offsetBy: expr1.characters.count)
-        let index22 = rightPart.index(before: index2!)
+          data = data.replacingOccurrences(of: "'", with: "")
+          data = data.replacingOccurrences(of: ",", with: "")
 
-        var sessionData = rightPart[index21 ... index22].trim()
+          let components = data.components(separatedBy: ":")
 
-        if sessionData != "" {
-          var argv = ""
+          if components.count > 1 {
+            let key = components[0].trim()
+            let value = components[1].trim()
 
-          let index3 = content.find(expr3)
-
-          if index3 != nil {
-            let index31 = content.index(index3!, offsetBy: expr3.characters.count)
-            let index32 = content.index(index1!, offsetBy: -1)
-
-            argv = content[index31 ... index32]
-
-            argv = argv.replacingOccurrences(of: "'", with: "")
-            argv = argv.replacingOccurrences(of: ";", with: "")
-            argv = argv.replacingOccurrences(of: "\n", with: "")
+            items[key] = value
           }
-
-          sessionData = sessionData.replacingOccurrences(of: "'", with: "")
-          sessionData = sessionData.replacingOccurrences(of: ",", with: "")
-          sessionData = sessionData.replacingOccurrences(of: "ad_attr: condition_detected ? 1 : 0", with: "")
-
-          sessionData = sessionData.replacingOccurrences(of: "mw_pid: null", with: "")
-          sessionData = sessionData.replacingOccurrences(of: "debug: false", with: "")
-          sessionData = sessionData.replacingOccurrences(of: "argv: argv", with: "")
-          
-          var items: [String: String] = [:]
-
-          sessionData.enumerateLines { (line, _) in
-            if !line.isEmpty {
-              let components = line.components(separatedBy: ":")
-
-              if components.count > 1 {
-                let key = components[0].trim()
-                let value = components[1].trim()
-
-                items[key] = value
-              }
-            }
-          }
-
-          items["argv"] = argv.trim()
-
-          if items.count == 0 {
-            print("Error in parsing: \n\(sessionData)")
-          }
-
-          return items
         }
       }
     }
 
-    return [:]
+    return items
   }
 
   public func search(_ query: String, page: Int=1) throws -> [String: Any] {
@@ -514,6 +483,35 @@ open class GidOnlineAPI: HttpService {
     }
   }
 
+  func searchActors(_ document: Document, query: String) throws -> [Any] {
+    return searchInList(try getActors(document), query: query)
+  }
+
+  func searchDirectors(_ document: Document, query: String) throws -> [Any] {
+    return searchInList(try getDirectors(document), query: query)
+  }
+
+  func searchCountries(_ document: Document, query: String) throws -> [Any] {
+    return searchInList(try getCountries(document), query: query)
+  }
+
+  func searchYears(_ document: Document, query: String) throws -> [Any] {
+    return searchInList(try getYears(document), query: query)
+  }
+
+  func searchInList(_ list: [Any], query: String) -> [Any] {
+    var newList: [Any] = []
+
+    for item in list {
+      if true {
+      //item[:name].downcase.index(query.downcase) {
+        newList.append(item)
+      }
+    }
+
+    return newList
+  }
+
   public func getMediaData(_ document: Document) throws -> [String: Any] {
     var data: [String: Any] = [:]
 
@@ -546,23 +544,52 @@ open class GidOnlineAPI: HttpService {
     return data
   }
 
-  func getSerialInfo(_ document: Document) throws {
-    var ret: [String: Any] = [:]
+  public func getSerialInfo(_ path: String) throws -> [String: Any] {
+    var result: [String: Any] = [:]
 
-    ret["seasons"] = []
-    ret["episodes"] = []
+    let content = try getMovieContent(path)
 
-    let items = try document.select("select[id=season] option")
+    let data = getSessionData(toString(content!)!)
 
-    for item: Element in items.array() {
-//      let value = item.attr("value")
-//
-//      ret["seasons"][value] = item.text()
-//
-//      if item.attr("selected") {
-//        ret["current_season"] = value
-//      }
+    let document = try toDocument(content)
+
+    var seasons: [Any] = []
+
+    let items1 = try document!.select("select[id=season] option")
+
+    for item in items1.array() {
+      let value = try item.attr("value")
+
+      print(value)
+
+      seasons.append(try item.text())
+
+      if try item.attr("selected") != nil {
+        result["current_season"] = value
+      }
     }
+
+    result["seasons"] = seasons
+
+    var episodes: [Any] = []
+
+    let items2 = try document!.select("select[id=episode] option")
+
+    for item in items2.array() {
+      let value = try item.attr("value")
+
+      print(value)
+
+      episodes.append(try item.text())
+
+      if try item.attr("selected") != nil {
+        result["current_episode"] = value
+      }
+    }
+
+    result["episodes"] = episodes
+
+    return result
   }
 
   func findPages(_ path: String, link: String) -> Int {
@@ -616,17 +643,18 @@ open class GidOnlineAPI: HttpService {
     return matched
   }
 
-  func isSerial(_ path: String) throws -> Bool {
-    let document = try getMovieDocument(path)
+  public func isSerial(_ path: String) throws -> Bool {
+    let content = try getMovieContent(path)
 
-    //let content = tostring(document.select("body")[0])
-    let content = try document!.select("body").text()
+    let text = toString(content)
 
-    let data = getSessionData(content)
+    let data = getSessionData(text!)
 
-    let anySeason = try hasSeasons(path)
+//    let anySeason = try hasSeasons(path)
+//
+//    return data != nil && data["content_type"] == "serial" || anySeason
 
-    return data != nil && data["content_type"] == "serial" || anySeason
+    return data != nil && data["content_type"] == "serial"
   }
 
   func hasSeasons(_ url: String) throws -> Bool {
