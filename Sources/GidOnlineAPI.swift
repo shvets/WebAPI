@@ -736,6 +736,16 @@ open class GidOnlineAPI: HttpService {
     return newItems
   }
 
+  func getEpisodeUrl(url: String, season: String, episode: String) -> String {
+    var episodeUrl = url
+
+    if !season.isEmpty {
+      episodeUrl = "\(url)?season=\(season)&episode=\(episode)"
+    }
+
+    return episodeUrl
+  }
+
   func getHeaders(_ referer: String) -> [String: String] {
     return [
       "User-Agent": USER_AGENT,
