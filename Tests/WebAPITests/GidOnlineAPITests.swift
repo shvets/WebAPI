@@ -22,10 +22,9 @@ class GidOnlineAPITests: XCTestCase {
     }
   }
 
-  override func tearDown() {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    super.tearDown()
-  }
+//  override func tearDown() {
+//    super.tearDown()
+//  }
 
   func testGetGenres() throws {
     let result = try subject.getGenres(document!)
@@ -40,8 +39,6 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetActors() throws {
-    //let document = try subject.fetchDocument(GidOnlineAPI.SITE_URL)
-
     let result = try subject.getActors(document!)
 
     print(JsonConverter.prettified(result))
@@ -111,17 +108,12 @@ class GidOnlineAPITests: XCTestCase {
     print(JsonConverter.prettified(urls))
   }
 
-  func testGetSerialUrl() throws {
+  func testGetSerialInfo() throws {
     let url = "http://gidonline.club/2016/03/strazhi-galaktiki/"
 
-    let document = try subject.getMovieDocument(url)
+    let result = try subject.getSerialInfo(url)
 
-    //print(document)
-    let serialInfo = try subject.getSerialInfo(document!)
-
-//    print(serialInfo)
-
-//    print(JsonConverter.prettified(urls))
+    print(JsonConverter.prettified(result))
   }
 
   func testGetMediaData() throws {
@@ -134,25 +126,6 @@ class GidOnlineAPITests: XCTestCase {
     let result = try subject.getMediaData(document!)
 
     print(JsonConverter.prettified(result))
-  }
-
-  func testGetSerialInfo() throws {
-    let movieUrl = "http://gidonline.club/2016/03/strazhi-galaktiki/"
-
-    print(movieUrl)
-
-//    let document = try subject.fetchDocument(movieUrl)
-
-    let document = try subject.getMovieDocument(movieUrl)
-
-    let serialInfo = try subject.getSerialInfo(document!)
-
-    print(JsonConverter.prettified(serialInfo))
-
-//    for (key, value) in serialInfo["seasons"] {
-//      print(key)
-//      print(serial_info["seasons"][key])
-//    }
   }
 
   func skip_testIsSerial() throws {
@@ -174,7 +147,7 @@ class GidOnlineAPITests: XCTestCase {
   func testSearchActors() throws {
     let query = "Аллен"
 
-    let result = try subject.searchActors(document, query)
+    let result = try subject.searchActors(document!, query: query)
 
     print(JsonConverter.prettified(result))
   }
@@ -182,7 +155,23 @@ class GidOnlineAPITests: XCTestCase {
   func testSearchDirectors() throws {
     let query = "Люк"
 
-    let result = try subject.searchDirectors(document, query)
+    let result = try subject.searchDirectors(document!, query: query)
+
+    print(JsonConverter.prettified(result))
+  }
+
+  func testSearchCountries() throws {
+    let query = "Франция"
+
+    let result = try subject.searchCountries(document!, query: query)
+
+    print(JsonConverter.prettified(result))
+  }
+
+  func testSearchYears() throws {
+    let query = "1984"
+
+    let result = try subject.searchYears(document!, query: query)
 
     print(JsonConverter.prettified(result))
   }

@@ -503,8 +503,9 @@ open class GidOnlineAPI: HttpService {
     var newList: [Any] = []
 
     for item in list {
-      if true {
-      //item[:name].downcase.index(query.downcase) {
+      let name = (item as! [String: String])["name"]!.lowercased()
+
+      if name.find(query.lowercased()) != nil {
         newList.append(item)
       }
     }
@@ -549,7 +550,7 @@ open class GidOnlineAPI: HttpService {
 
     let content = try getMovieContent(path)
 
-    let data = getSessionData(toString(content!)!)
+    //let data = getSessionData(toString(content!)!)
 
     let document = try toDocument(content)
 
