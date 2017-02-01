@@ -4,7 +4,7 @@ import SwiftyJSON
 open class JsonConverter {
   
   public static func toItems(_ contents: Data) -> [String: Any] {
-    var result: [String: Any] = [:]
+    var result = [String: Any]()
     
     let json = JSON(data: contents)
     
@@ -24,7 +24,7 @@ open class JsonConverter {
   }
 
   static func convertToDictionary(_ json: JSON) -> [String: Any] {
-    var dict: [String: Any] = [:]
+    var dict = [String: Any]()
 
     for (key, value) in json.dictionaryObject! {
       if value as? [String: Any] != nil {
@@ -42,7 +42,7 @@ open class JsonConverter {
   }
 
   static func convertToArray(_ json: JSON) -> [Any] {
-    var array: [Any] = []
+    var array = [Any]()
 
     for value in json.arrayObject! {
       if value as? [String: Any] != nil {

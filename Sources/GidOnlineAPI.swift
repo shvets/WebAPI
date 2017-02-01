@@ -42,7 +42,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func getGenres(_ document: Document, type: String="") throws -> [Any] {
-    var data: [Any] = []
+    var data = [Any]()
 
     let links = try document.select("div[id='catline'] li a")
 
@@ -106,7 +106,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func getTopLinks(_ document: Document) throws -> [Any] {
-    var data: [Any] = []
+    var data = [Any]()
 
     let links = try document.select("div[id='topls'] a[class='toplink']")
 
@@ -122,7 +122,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func getActors(_ document: Document, letter: String="") throws -> [Any] {
-    var data: [Any] = []
+    var data = [Any]()
 
     let list = fixName(try getCategory( "actors-dropdown", document: document))
 
@@ -148,7 +148,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func getDirectors(_ document: Document, letter: String="") throws -> [Any] {
-    var data: [Any] = []
+    var data = [Any]()
 
     let list = fixName(try getCategory( "director-dropdown", document: document))
 
@@ -190,7 +190,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   func getCategory(_ id: String, document: Document) throws -> [Any] {
-    var data: [Any] = []
+    var data = [Any]()
 
     let links = try document.select("select[id='" + id + "'] option")
 
@@ -239,7 +239,7 @@ open class GidOnlineAPI: HttpService {
 
     var urls = try frameBlock.select("iframe[class=ifram]").attr("src")
 
-    if urls.characters.count > 0 {
+    if !urls.isEmpty {
       gatewayUrl = urls
     }
     else {
@@ -271,8 +271,8 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func getMovies(_ document: Document, path: String="") throws -> [String: Any] {
-    var data: [Any] = []
-    var paginationData: [String: Any] = [:]
+    var data = [Any]()
+    var paginationData = [String: Any]()
 
     let items = try document.select("div[id=main] div[id=posts] a[class=mainlink]")
 
@@ -284,7 +284,7 @@ open class GidOnlineAPI: HttpService {
       data.append(["id": href, "name": name, "thumb": thumb ])
     }
 
-    if items.array().count > 0 {
+    if !items.array().isEmpty {
       paginationData = try extractPaginationData(document, path: path)
     }
 
@@ -297,17 +297,17 @@ open class GidOnlineAPI: HttpService {
 
     let paginationRoot = try document.select("div[id=page_navi] div[class='wp-pagenavi']")
 
-    if paginationRoot.array().count > 0 {
+    if !paginationRoot.array().isEmpty {
       let paginationBlock = paginationRoot.get(0)
 
       page = try Int(paginationBlock.select("span[class=current]").text())!
 
       let lastBlock = try paginationBlock.select("a[class=last]")
 
-      if lastBlock.array().count > 0 {
+      if !lastBlock.array().isEmpty {
         let pagesLink = try lastBlock.get(0).attr("href")
 
-        pages = findPages(path, link: pagesLink)
+        pages = try findPages(path, link: pagesLink)
       }
       else {
         let pageBlock = try paginationBlock.select("a[class='page larger']")
@@ -319,7 +319,7 @@ open class GidOnlineAPI: HttpService {
         else {
           let pagesLink = try pageBlock.get(pagesLen - 1).attr("href")
 
-          pages = findPages(path, link: pagesLink)
+          pages = try findPages(path, link: pagesLink)
         }
       }
     }
@@ -360,9 +360,9 @@ open class GidOnlineAPI: HttpService {
   }
 
   override func getPlayListUrls(_ url: String) throws -> [[String: String]] {
-    var urls: [[String: String]] = []
+    var urls = [[String: String]]()
 
-    var items: [[String]] = []
+    var items = [[String]]()
 
     let response = httpRequest(url: url)
 
@@ -382,9 +382,9 @@ open class GidOnlineAPI: HttpService {
 
             let width = self.getMatched(line, matches: matches, index: 1)
             let height = self.getMatched(line, matches: matches, index: 2)
-            let bandwith = self.getMatched(line, matches: matches, index: 3)
+            let bandwidth = self.getMatched(line, matches: matches, index: 3)
 
-            items.append(["", width!, height!, bandwith!])
+            items.append(["", width!, height!, bandwidth!])
           }
           catch {
             print("Error in regular expression.")
@@ -406,7 +406,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   func getSessionData(_ content: String) -> [String: String] {
-    var items: [String: String] = [:]
+    var items = [String: String]()
 
     var dataSection = false
 
@@ -462,7 +462,7 @@ open class GidOnlineAPI: HttpService {
 
     let movies = try getMovies(document!, path: fullPath)
 
-    if movies.count > 0 {
+    if !movies.isEmpty {
       return movies
     }
     else {
@@ -500,7 +500,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   func searchInList(_ list: [Any], query: String) -> [Any] {
-    var newList: [Any] = []
+    var newList = [Any]()
 
     for item in list {
       let name = (item as! [String: String])["name"]!.lowercased()
@@ -514,11 +514,11 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func getMediaData(_ document: Document) throws -> [String: Any] {
-    var data: [String: Any] = [:]
+    var data = [String: Any]()
 
     let mediaNode = try document.select("div[id=face]")
 
-    if mediaNode.array().count > 0 {
+    if !mediaNode.array().isEmpty {
       let block = mediaNode.get(0)
 
       let thumb = try block.select("div img[class=t-img]").attr("src")
@@ -545,16 +545,16 @@ open class GidOnlineAPI: HttpService {
     return data
   }
 
-  public func getSerialInfo(_ path: String) throws -> [String: Any] {
-    var result: [String: Any] = [:]
+  public func getSerialInfo(_ path: String, season: String="", episode: String="") throws -> [String: Any] {
+    var result = [String: Any]()
 
-    let content = try getMovieContent(path)
+    let content = try getMovieContent(path, season: season, episode: episode)
 
     //let data = getSessionData(toString(content!)!)
 
     let document = try toDocument(content)
 
-    var seasons: [Any] = []
+    var seasons = [Any]()
 
     let items1 = try document!.select("select[id=season] option")
 
@@ -572,7 +572,7 @@ open class GidOnlineAPI: HttpService {
 
     result["seasons"] = seasons
 
-    var episodes: [Any] = []
+    var episodes = [Any]()
 
     let items2 = try document!.select("select[id=episode] option")
 
@@ -593,7 +593,7 @@ open class GidOnlineAPI: HttpService {
     return result
   }
 
-  func findPages(_ path: String, link: String) -> Int {
+  func findPages(_ path: String, link: String) throws -> Int {
     let searchMode = (!path.isEmpty && path.find("?s=") != nil)
 
     var pattern: String?
@@ -615,7 +615,7 @@ open class GidOnlineAPI: HttpService {
 
     let rePattern = "(\(pattern!))(\\d*)\\/"
 
-    let regex = try! NSRegularExpression(pattern: rePattern)
+    let regex = try NSRegularExpression(pattern: rePattern)
 
     let matches = regex.matches(in: link, options: [], range: NSRange(location: 0, length: link.characters.count))
 
@@ -627,7 +627,7 @@ open class GidOnlineAPI: HttpService {
     }
   }
 
-  func getMatched(_ link: String,  matches: [NSTextCheckingResult], index: Int) -> String? {
+  func getMatched(_ link: String, matches: [NSTextCheckingResult], index: Int) -> String? {
     var matched: String?
 
     let match = matches.first
@@ -665,11 +665,11 @@ open class GidOnlineAPI: HttpService {
 //    let dirUrl = url.URLByDeletingLastPathComponent!
 //    print(dirUrl.path!)
 
-    return try getSeasons(path).count > 0
+    return try !getSeasons(path).isEmpty
   }
 
   func fixName(_ items: [Any]) -> [Any] {
-    var newItems: [Any] = []
+    var newItems = [Any]()
 
     for item in items {
       var currentItem = (item as! [String: Any])
@@ -713,7 +713,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   func fixPath(_ items: [Any]) -> [Any] {
-    var newItems: [Any] = []
+    var newItems = [Any]()
 
     for item in items {
       var currentItem = (item as! [String: Any])

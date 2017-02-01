@@ -46,7 +46,7 @@ open class EtvnetAPI: ApiService {
                       activationUrl: String) -> [String: String] {
     print("Register activation code on web site \(activationUrl): \(userCode)")
     
-    var result: [String: String] = [:]
+    var result = [String: String]()
     
     var done = false
     

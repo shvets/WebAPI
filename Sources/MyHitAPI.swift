@@ -45,7 +45,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getMovies(path: String, type: String="movie", selector: String="film-list", page: Int=1) throws -> Items {
-    var data: [Any] = []
+    var data = [Any]()
     var paginationData: Items = [:]
 
     let pagePath = getPagePath(path: path, page: page)
@@ -98,7 +98,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getSoundtracks(page: Int=1) throws -> Items {
-    var data: [Any] = []
+    var data = [Any]()
     var paginationData: Items = [:]
 
     let path = "/soundtrack/"
@@ -134,13 +134,13 @@ open class MyHitAPI: HttpService {
   }
 
   public func getAlbums(_ path: String) throws -> Items {
-    var data: [[String: Any]] = []
+    var data = [[String: Any]]()
 
     let pagePath = getPagePath(path: path)
 
     let document = try fetchDocument(URL + pagePath)
 
-    var allTracks: [[[String: Any]]] = []
+    var allTracks = [[[String: Any]]]()
 
     let tracksBlock = try document?.select("div table[id='soundtrack_modify_table']")
 
@@ -196,7 +196,7 @@ open class MyHitAPI: HttpService {
       }
     }
 
-    var albums: [Any] = []
+    var albums = [Any]()
 
     for (_, album) in data.enumerated() {
       let name = album["name"] as! String
@@ -204,7 +204,7 @@ open class MyHitAPI: HttpService {
       let artist = album["composer"] as! String
       let tracks = album["tracks"] as! [[String: Any]]
 
-      var tracksData: [[String: Any]] = []
+      var tracksData = [[String: Any]]()
 
       for track in tracks {
         let url = track["url"]!
@@ -224,7 +224,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getSelections(page: Int=1) throws -> Items {
-    var data: [Any] = []
+    var data = [Any]()
     var paginationData: Items = [:]
 
     let path = "/selection/"
@@ -266,7 +266,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getSelection(path: String, page: Int=1) throws -> Items {
-    var data: [Any] = []
+    var data = [Any]()
     var paginationData: Items = [:]
 
     let selector = "selection-view"
@@ -307,7 +307,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getFilters(mode: String="film") throws -> [Any] {
-    var data: [Any] = []
+    var data = [Any]()
 
     let document = try fetchDocument(URL + "/" + mode + "/")
 
@@ -340,7 +340,7 @@ open class MyHitAPI: HttpService {
 
         let liItems = try item.select("ul li")
 
-        var currentGroup: [Any] = []
+        var currentGroup = [Any]()
 
         for liItem in liItems.array() {
           let link = try liItem.select("a").get(0)
@@ -414,14 +414,14 @@ open class MyHitAPI: HttpService {
   }
 
   public func getSeasons(_ path: String) -> Items {
-    var data: [Any] = []
+    var data = [Any]()
 
     var result = JSON(data: fetchContent(URL + path + "/playlist.txt")!)
 
     let playlist = result["playlist"]
     
     if playlist != JSON.null && playlist[0]["playlist"].arrayValue.isEmpty {
-      var episodeData: [Any] = []
+      var episodeData = [Any]()
     
       for (_, episode) in playlist {
         let episodeId = episode["file"].stringValue
@@ -439,7 +439,7 @@ open class MyHitAPI: HttpService {
         let episodes = season["playlist"]
         let thumb = URL + season["poster"].stringValue
         
-        var episodeData: [Any] = []
+        var episodeData = [Any]()
         
         for (_, episode) in episodes {
           let episodeId = episode["file"].stringValue
@@ -457,7 +457,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getMediaData(pathOrUrl: String) throws -> [String: Any] {
-    var data: [String: Any] = [:]
+    var data = [String: Any]()
 
     var url: String = ""
 
@@ -524,7 +524,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getMetadata(_ url: String) throws -> [String: String] {
-    var data: [[String: String]] = []
+    var data = [[String: String]]()
 
     let sourceUrl = getBaseUrl(url) + "/manifest.f4m"
 
@@ -574,7 +574,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getUrls(path: String="", url: String="") throws -> [String] {
-    var urls: [String] = []
+    var urls = [String]()
 
     var sourceUrl: String = ""
 

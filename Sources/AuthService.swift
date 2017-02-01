@@ -27,7 +27,7 @@ open class AuthService: HttpService {
       data["client_id"] = clientId
     }
 
-    var result: [String: String] = [:]
+    var result = [String: String]()
     
     let httpResult = authRequest(query: &data, rtype: "device/code", method: "get")
     
@@ -47,7 +47,7 @@ open class AuthService: HttpService {
     
     let httpResult = authRequest(query: &data)
     
-    var result: [String: String] = [:]
+    var result = [String: String]()
     
     if httpResult.ok {
       result = JsonConverter.toItems(httpResult.content!) as! [String: String]
@@ -59,7 +59,7 @@ open class AuthService: HttpService {
   func updateToken(refreshToken: String) -> [String: String] {
     var data = ["grant_type": "refresh_token", "refresh_token": refreshToken]
     
-    var result: [String: String] = [:]
+    var result = [String: String]()
     
     let httpResult = authRequest(query: &data)
     

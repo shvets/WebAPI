@@ -43,7 +43,7 @@ open class HttpService {
   }
 
   func getPlayListUrls(_ url: String) throws -> [[String: String]] {
-    var urls: [[String: String]] = []
+    var urls = [[String: String]]()
 
     let playList = try getPlayList(url)
 
@@ -66,7 +66,7 @@ open class HttpService {
     let data = httpRequest(url: url).content
     let content = toString(data!)
 
-    var newLines: [String] = []
+    var newLines = [String]()
 
     content!.enumerateLines {(line, _) in
       if line[line.startIndex] == "#" {

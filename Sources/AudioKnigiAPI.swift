@@ -18,7 +18,7 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func getLetters(path: String, filter: String) throws -> [Any] {
-    var data: [Any] = []
+    var data = [Any]()
 
     let document = try fetchDocument(AudioKnigiAPI.URL + path)
 
@@ -57,8 +57,8 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func getBookItems(_ document: Document, path: String, page: Int) throws -> [String: Any] {
-    var data: [Any] = []
-    var paginationData: [String: Any] = [:]
+    var data = [Any]()
+    var paginationData = [String: Any]()
 
     let items = try document.select("article")
 
@@ -73,7 +73,7 @@ open class AudioKnigiAPI: HttpService {
       data.append(["type": "book", "id": href, "name": name, "thumb": thumb, "description": description ])
     }
 
-    if items.array().count > 0 {
+    if !items.array().isEmpty {
       //paginationData = try extractPaginationData(path: path)
     }
 
@@ -89,8 +89,8 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func getCollection(path: String, page: Int=1) throws -> [String: Any] {
-    var data: [Any] = []
-    var paginationData: [String: Any] = [:]
+    var data = [Any]()
+    var paginationData = [String: Any]()
 
     let pagePath = getPagePath(path: path, page: page)
     let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
@@ -106,7 +106,7 @@ open class AudioKnigiAPI: HttpService {
       data.append(["type": "collection", "id": href, "name": name ])
     }
 
-    if items.array().count > 0 {
+    if !items.array().isEmpty {
       //paginationData = try extractPaginationData(document, path: path)
     }
 
@@ -114,8 +114,8 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func getGenres(page: Int=1) throws -> [String: Any] {
-    var data: [Any] = []
-    var paginationData: [String: Any] = [:]
+    var data = [Any]()
+    var paginationData = [String: Any]()
 
     let path = "/sections/"
 
@@ -135,7 +135,7 @@ open class AudioKnigiAPI: HttpService {
       data.append(["type": "genre", "id": href, "name": name, "thumb": thumb ])
     }
 
-    if items.array().count > 0 {
+    if !items.array().isEmpty {
       //paginationData = try extractPaginationData(document, path: path)
     }
 
@@ -217,7 +217,7 @@ open class AudioKnigiAPI: HttpService {
 //      let document2 =  try fetchDocument(newUrl)
 //
 //      //tracks = self.to_json(self.httpRequest(newUrl).read())
-//      let tracks: [String: String] = [:]
+//      let tracks = [String: String]()
 //
 //      for track in tracks {
 //        track["name"] = track["title"] + ".mp3"
@@ -237,7 +237,7 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func generateAuthorsList(fileName: String) {
-    let data: [Any] = []
+    let data = [Any]()
 
 //    let result = getAuthors()
 //
@@ -256,7 +256,7 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func generatePerformersList(fileName: String) {
-    let data: [Any] = []
+    let data = [Any]()
 
 //    let result = self.getPerformers()
 //
