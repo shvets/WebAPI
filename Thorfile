@@ -24,7 +24,7 @@ class Project < Thor
   desc "tag", "tag project"
   def tag
     system "git tag 1.0.0"
-    system "gut push --tags"
+    system "git push --tags"
   end
 
   desc "clean", "cleans project"
