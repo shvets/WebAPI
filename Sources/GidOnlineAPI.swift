@@ -628,7 +628,7 @@ open class GidOnlineAPI: HttpService {
 
     let match = matches.first
 
-    if index < match!.numberOfRanges {
+    if match != nil && index < match!.numberOfRanges {
       let capturedGroupIndex = match!.rangeAt(index)
 
       let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
