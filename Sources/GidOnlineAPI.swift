@@ -561,8 +561,6 @@ open class GidOnlineAPI: HttpService {
     for item in items1.array() {
       let value = try item.attr("value")
 
-      print(value)
-
       seasons.append(try item.text())
 
       if try item.attr("selected") != nil {
@@ -578,8 +576,6 @@ open class GidOnlineAPI: HttpService {
 
     for item in items2.array() {
       let value = try item.attr("value")
-
-      print(value)
 
       episodes.append(try item.text())
 
