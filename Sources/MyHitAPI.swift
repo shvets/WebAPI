@@ -434,14 +434,19 @@ open class MyHitAPI: HttpService {
       data.append([ "type": "season", "name": "Сезон 1", "episodes": episodeData])
     }
     else {
+      var index1 = 0
       for (_, season) in playlist {
+        index1 += 1
+
         let name = season["comment"].stringValue
         let episodes = season["playlist"]
         let thumb = URL + season["poster"].stringValue
         
         var episodeData = [Any]()
         
+        var index2 = 0
         for (_, episode) in episodes {
+          index2 += 1
           let episodeId = episode["file"].stringValue
           let episodeName = episode["comment"].stringValue
           let episodeThumb = URL + episode["poster"].stringValue
@@ -449,7 +454,7 @@ open class MyHitAPI: HttpService {
           episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
         }
         
-        data.append(["type": "season", "name": name, "thumb": thumb, "episodes": episodeData])
+        data.append(["type": "season", "name": name, "id": path, "series_num": index1, "thumb": thumb, "episodes": episodeData])
       }
     }
 
