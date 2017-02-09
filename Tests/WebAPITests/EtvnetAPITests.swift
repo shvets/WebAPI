@@ -59,7 +59,7 @@ class EtvnetAPITests: XCTestCase {
 
   func testSearch() {
     let query = "news"
-    let result = subject.search(query: query)
+    let result = subject.search(query)
 
 //        print(result)
 
@@ -70,7 +70,7 @@ class EtvnetAPITests: XCTestCase {
   func testPagination() {
     let query = "news"
 
-    let result1 = subject.search(query: query, perPage: 20, page: 1)
+    let result1 = subject.search(query, perPage: 20, page: 1)
 
 //        print(result1)
 
@@ -82,7 +82,7 @@ class EtvnetAPITests: XCTestCase {
     XCTAssertEqual(pagination1["has_previous"], false)
     XCTAssertEqual(pagination1["page"], 1)
 
-    let result2 = subject.search(query: query, perPage: 20, page: 2)
+    let result2 = subject.search(query, perPage: 20, page: 2)
 
     //    #print(result2)
 

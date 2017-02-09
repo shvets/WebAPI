@@ -175,7 +175,7 @@ open class EtvnetAPI: ApiService {
     return getArchive(channelId: 158, perPage: perPage, page: page)
   }
   
-  public func search(query: String, perPage: Int=PER_PAGE, page: Int=1, dir: String? = nil) -> JSON {
+  public func search(_ query: String, perPage: Int=PER_PAGE, page: Int=1, dir: String? = nil) -> JSON {
     var newDir = dir
     
     if newDir == nil {
