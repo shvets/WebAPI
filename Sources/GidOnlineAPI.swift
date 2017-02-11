@@ -100,7 +100,7 @@ open class GidOnlineAPI: HttpService {
         return fictionGroup
       case "EDUCATION":
         return educationGroup
-    default:
+      default:
         return familyGroup + crimeGroup + fictionGroup + educationGroup
     }
   }
@@ -335,7 +335,7 @@ open class GidOnlineAPI: HttpService {
   public func getUrls(_ url: String, season: String = "", episode: String="") throws -> [[String: String]] {
     var newUrl = url
 
-    if url.find(GidOnlineAPI.SITE_URL) != nil && url.find("http://")! == nil {
+    if url.find(GidOnlineAPI.SITE_URL) != nil && url.find("http://") == nil {
       newUrl = GidOnlineAPI.SITE_URL + url
     }
 
@@ -563,7 +563,7 @@ open class GidOnlineAPI: HttpService {
 
       seasons.append(try item.text())
 
-      if try item.attr("selected") != nil {
+      if try !item.attr("selected").isEmpty {
         result["current_season"] = value
       }
     }
@@ -579,7 +579,7 @@ open class GidOnlineAPI: HttpService {
 
       episodes.append(try item.text())
 
-      if try item.attr("selected") != nil {
+      if try !item.attr("selected").isEmpty {
         result["current_episode"] = value
       }
     }
@@ -651,7 +651,7 @@ open class GidOnlineAPI: HttpService {
 //
 //    return data != nil && data["content_type"] == "serial" || anySeason
 
-    return data != nil && data["content_type"] == "serial"
+    return data["content_type"] == "serial"
   }
 
   func hasSeasons(_ url: String) throws -> Bool {

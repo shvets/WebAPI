@@ -115,7 +115,7 @@ open class AudioKnigiAPI: HttpService {
 
   func getGenres(page: Int=1) throws -> [String: Any] {
     var data = [Any]()
-    var paginationData = [String: Any]()
+    let paginationData = [String: Any]()
 
     let path = "/sections/"
 
