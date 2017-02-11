@@ -237,7 +237,7 @@ open class GidOnlineAPI: HttpService {
 
     let frameBlock = try document.select("div[class=tray]").array()[0]
 
-    var urls = try frameBlock.select("iframe[class=ifram]").attr("src")
+    let urls = try frameBlock.select("iframe[class=ifram]").attr("src")
 
     if !urls.isEmpty {
       gatewayUrl = urls
@@ -341,7 +341,7 @@ open class GidOnlineAPI: HttpService {
 
     let content = try getMovieContent(newUrl, season: season, episode: episode)
 
-    var data = getSessionData(toString(content!)!)
+    let data = getSessionData(toString(content!)!)
 
     let headers = [
       "X-Requested-With": "XMLHttpRequest",

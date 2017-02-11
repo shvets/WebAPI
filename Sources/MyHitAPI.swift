@@ -431,7 +431,7 @@ open class MyHitAPI: HttpService {
         episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
       }
       
-      data.append([ "type": "season", "name": "Сезон 1", "episodes": episodeData])
+      data.append([ "type": "season", "name": "Сезон 1", "seasonNumber": 1, "episodes": episodeData])
     }
     else {
       var index1 = 0
@@ -454,11 +454,32 @@ open class MyHitAPI: HttpService {
           episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
         }
         
-        data.append(["type": "season", "name": name, "id": path, "series_num": index1, "thumb": thumb, "episodes": episodeData])
+        data.append(["type": "season", "name": name, "id": path, "seasonNumber": index1, "thumb": thumb, "episodes": episodeData])
       }
     }
 
     return ["movies": data]
+  }
+
+  public func getEpisodes(_ path: String, seasonNumber: String, pageSize: Int, page: Int) -> Items {
+    var data = [Any]()
+
+    let seasons = getSeasons(path)["movies"] as! [Any]
+
+    if let seasonNumber = Int(seasonNumber) {
+      let episodes = seasons[seasonNumber-1]
+
+      data = (episodes as! [String: Any])["episodes"] as! [Any]
+    }
+
+    var newData: [Any] = []
+
+    for index in (page-1)*pageSize ..< page*pageSize {
+      if index < data.count {
+        newData.append(data[index])
+      }
+    }
+    return ["movies": newData]
   }
 
   public func getMediaData(pathOrUrl: String) throws -> [String: Any] {
