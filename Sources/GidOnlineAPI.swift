@@ -343,9 +343,9 @@ open class GidOnlineAPI: HttpService {
 
     let data = getSessionData(toString(content!)!)
 
-    let headers = [
+    let headers: [String: String] = [
       "X-Requested-With": "XMLHttpRequest",
-      "X-Var-Document": "String"
+      "X-Condition-Safe": "Normal"
     ]
 
     let response2 = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
@@ -411,13 +411,13 @@ open class GidOnlineAPI: HttpService {
     var dataSection = false
 
     content.enumerateLines { (line, _) in
-      if line.find("var varb1 =") != nil {
+      if line.find("var condition_safe =") != nil {
         let index1 = line.find("'")
         let index2 = line.find(";")
         let index11 = line.index(index1!, offsetBy: 1)
         let index21 = line.index(index2!, offsetBy: -2)
 
-        items["varb1"] = line[index11 ... index21]
+        items["condition_safe"] = line[index11 ... index21]
       }
       else if line.find("var session_params = {") != nil {
         dataSection = true
