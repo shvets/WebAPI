@@ -87,7 +87,7 @@ class GidOnlineAPITests: XCTestCase {
 //  }
 
   func testGetEpisodes() throws {
-    let result = try subject.getEpisodes("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki")
+    let result = try subject.getEpisodes("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki", seasonNumber: "1")
 
     print(JsonConverter.prettified(result))
   }
