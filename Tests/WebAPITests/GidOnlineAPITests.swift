@@ -75,13 +75,19 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetSeasons() throws {
-    let result = try subject.getSeasons("/2016/03/strazhi-galaktiki/")
+    let result = try subject.getSeasons("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki/", parentName: "parentName")
 
     print(JsonConverter.prettified(result))
   }
 
+//  func testGetEpisodes() throws {
+//    let result = try subject.getEpisodes("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki")
+//
+//    print(JsonConverter.prettified(result))
+//  }
+
   func testGetEpisodes() throws {
-    let result = try subject.getEpisodes("/2016/03/strazhi-galaktiki")
+    let result = try subject.getEpisodes("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki")
 
     print(JsonConverter.prettified(result))
   }

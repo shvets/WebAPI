@@ -181,12 +181,66 @@ open class GidOnlineAPI: HttpService {
     return fixPath(try getCategory("year-dropdown", document: document))
   }
 
-  public func getSeasons(_ path: String) throws -> [Any] {
-    return try getCategory("season", document: getMovieDocument(GidOnlineAPI.SITE_URL + path)!)
+  public func getSeasons(_ url: String, parentName: String?=nil, thumb: String?=nil) throws -> [Any] {
+    var newSeasons = [Any]()
+
+    let seasons = try getCategory("season", document: getMovieDocument(url)!)
+
+    for item in seasons {
+      var season = item as! [String: String]
+
+      season["type"] = "season"
+      season["parentId"] = url
+
+      if let parentName = parentName {
+        season["parentName"] = parentName
+      }
+
+      if let thumb = thumb {
+        season["thumb"] = thumb
+      }
+
+      season["parentId"] = url
+
+      newSeasons.append(season)
+    }
+
+    return newSeasons
   }
 
-  public func getEpisodes(_ path: String) throws -> [Any] {
-    return try getCategory("episode", document: getMovieDocument(GidOnlineAPI.SITE_URL + path)!)
+//  public func getEpisodes(_ url: String) throws -> [Any] {
+//    return try getCategory("episode", document: getMovieDocument(url)!)
+//  }
+
+  public func getEpisodes(_ url: String, seasonNumber: String, thumb: String?=nil) throws -> [Any] {
+    var newEpisodes = [Any]()
+
+    let serialInfo = try getSerialInfo(url, season: seasonNumber, episode: "1")
+
+    let episodes = serialInfo["episodes"] as! [String]
+
+    for name in episodes {
+      let index1 = name.index(name.startIndex, offsetBy: 6)
+      let index2 = name.endIndex
+
+      let episodeNumber = name[index1..<index2]
+
+      var episode = [String: String]()
+
+      episode["name"] = name
+      episode["id"] = url
+      episode["type"] = "episode"
+      episode["seasonNumber"] = seasonNumber
+      episode["episodeNumber"] = episodeNumber
+
+      if let thumb = thumb {
+        episode["thumb"] = thumb
+      }
+
+      newEpisodes.append(episode)
+    }
+
+    return newEpisodes
   }
 
   func getCategory(_ id: String, document: Document) throws -> [Any] {
@@ -654,15 +708,15 @@ open class GidOnlineAPI: HttpService {
     return data["content_type"] == "serial"
   }
 
-  func hasSeasons(_ url: String) throws -> Bool {
-    //let path = urlparse.urlparse(url).path
-
-    let path = NSURL(fileURLWithPath: url).deletingLastPathComponent!.path
-//    let dirUrl = url.URLByDeletingLastPathComponent!
-//    print(dirUrl.path!)
-
-    return try !getSeasons(path).isEmpty
-  }
+//  func hasSeasons(_ url: String) throws -> Bool {
+//    //let path = urlparse.urlparse(url).path
+//
+//    let path = NSURL(fileURLWithPath: url).deletingLastPathComponent!.path
+////    let dirUrl = url.URLByDeletingLastPathComponent!
+////    print(dirUrl.path!)
+//
+//    return try !getSeasons(path).isEmpty
+//  }
 
   func fixName(_ items: [Any]) -> [Any] {
     var newItems = [Any]()
