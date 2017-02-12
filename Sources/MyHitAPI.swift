@@ -12,7 +12,7 @@ open class MyHitAPI: HttpService {
     return try document!.select("div[class='container'] div[class='row']")
   }
 
-  func getPagePath(path: String, page: Int=1) -> String {
+  func getPagePath(path: String, filter: String?=nil, page: Int=1) -> String {
     var newPath: String
 
     if page == 1 {
@@ -21,6 +21,10 @@ open class MyHitAPI: HttpService {
     else {
       var params = [String: String]()
       params["p"] = String(page)
+
+      if filter != nil {
+        params["s"] = filter
+      }
 
       newPath = buildUrl(path: path, params: params as [String : AnyObject])
     }
@@ -37,18 +41,18 @@ open class MyHitAPI: HttpService {
   }
 
   public func getPopularMovies(page: Int=1) throws -> Items {
-    return try getMovies(path: "/film/?s=3", page: page)
+    return try getMovies(path: "/film/", filter: "3", page: page)
   }
 
   public func getPopularSeries(page: Int=1) throws -> Items {
-    return try getSeries(path: "/serial/?s=3", page: page)
+    return try getSeries(path: "/serial/", filter: "3", page: page)
   }
 
-  public func getMovies(path: String, type: String="movie", selector: String="film-list", page: Int=1) throws -> Items {
+  public func getMovies(path: String, type: String="movie", selector: String="film-list", filter: String?=nil, page: Int=1) throws -> Items {
     var data = [Any]()
     var paginationData: Items = [:]
 
-    let pagePath = getPagePath(path: path, page: page)
+    let pagePath = getPagePath(path: path, filter: filter, page: page)
 
     let document = try fetchDocument(URL + pagePath)
 
@@ -93,8 +97,8 @@ open class MyHitAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-  public func getSeries(path: String, page: Int=1) throws -> Items {
-    return try getMovies(path: path, type: "serie", selector: "serial-list", page: page)
+  public func getSeries(path: String, filter: String?=nil, page: Int=1) throws -> Items {
+    return try getMovies(path: path, type: "serie", selector: "serial-list", filter: filter, page: page)
   }
 
   public func getSoundtracks(page: Int=1) throws -> Items {
