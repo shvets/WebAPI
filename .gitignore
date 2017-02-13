@@ -67,3 +67,4 @@ fastlane/test_output
 *.config
 .idea
 .DS_Store
+archive

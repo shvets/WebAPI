@@ -54,9 +54,25 @@ https://github.com/Sweebi/tvProgress
 swift package generate-xcodeproj
 swift package init --type=executable
 swift package init --type=library
+swift build
+swift test -l
+swift test -s <testname>
 
 git tag 1.0.0
 git push --tags
+
+xcodebuild -showsdks # to get SDK
+    
+xcodebuild -list # to get Targets and Build Configurations
+
+xcodebuild clean
+    
+xcodebuild build -sdk appletvos10.1 -configuration Debug -scheme WebAPI
+
+xcodebuild test -scheme WebAPI
+
+xcodebuild archive -sdk appletvos10.1 -configuration Release -scheme WebAPI -archivePath archive/WebAPI.xcarchive 
+
 
     # Tools
   
