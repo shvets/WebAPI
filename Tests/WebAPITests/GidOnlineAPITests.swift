@@ -115,7 +115,8 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetSerialInfo() throws {
-    let url = "http://gidonline.club/2016/03/strazhi-galaktiki/"
+    //let url = "http://gidonline.club/2016/03/strazhi-galaktiki/"
+    let url = "http://gidonline.club/2017/02/molodoj-papa/"
 
     let result = try subject.getSerialInfo(url)
 

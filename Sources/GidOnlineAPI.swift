@@ -270,55 +270,57 @@ open class GidOnlineAPI: HttpService {
     let document = try fetchDocument(url)!
     let gatewayUrl = try getGatewayUrl(document)
 
-    var movieUrl: String!
+    if let gatewayUrl = gatewayUrl {
+      var movieUrl: String!
 
-    if !season.isEmpty {
-      movieUrl = "\(gatewayUrl)?season=\(season)&episode=\(episode)"
+      if !season.isEmpty {
+        movieUrl = "\(gatewayUrl)?season=\(season)&episode=\(episode)"
+      }
+      else {
+        movieUrl = gatewayUrl
+      }
+
+      if movieUrl.contains("//www.youtube.com") {
+        movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
+      }
+
+      return fetchContent(movieUrl, headers: getHeaders(gatewayUrl))
     }
     else {
-      movieUrl = gatewayUrl
+      return nil
     }
-
-    if movieUrl.contains("//www.youtube.com") {
-      movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
-    }
-
-    return fetchContent(movieUrl, headers: getHeaders(gatewayUrl))
   }
 
-  func getGatewayUrl(_ document: Document) throws -> String {
-    var gatewayUrl: String!
+  func getGatewayUrl(_ document: Document) throws -> String? {
+    var gatewayUrl: String?
 
     let frameBlock = try document.select("div[class=tray]").array()[0]
 
-    let urls = try frameBlock.select("iframe[class=ifram]").attr("src")
+    var urls = try frameBlock.select("iframe[class=ifram]").attr("src")
 
     if !urls.isEmpty {
       gatewayUrl = urls
     }
     else {
-//      let url = GidOnlineAPI.SITE_URL + "/trailer.php"
-//
-//      let block1 = try document.select("head meta[id=meta]")
-//
-//      let block2 = try block1.select("@content")
-//
-//      let data = [
-//        "id_post": ""
-//        //try document.select("head meta[id=meta]").select("@content").array()
-//      ]
-//
-//      let response = httpRequest(url: url, data: data, method: "post")
-//
-//      let content = response.content
-//
-//      let document2 = try toDocument(content)
-//
-//      urls = try document2!.select("iframe[class='ifram']").attr("src")
-//
-//      if urls.trim().characters.count > 0 {
-//        gatewayUrl = urls
-//      }
+      let url = "\(GidOnlineAPI.SITE_URL)/trailer.php"
+
+      let idPost = try document.select("head meta[id=meta]").attr("content")
+
+      let data = [
+        "id_post": idPost
+      ]
+
+      let response = httpRequest(url: url, data: data, method: "post")
+
+      let content = response.content
+
+      let document2 = try toDocument(content)
+
+      urls = try document2!.select("iframe[class='ifram']").attr("src")
+
+      if urls.trim().characters.count > 0 {
+        gatewayUrl = urls
+      }
     }
 
     return gatewayUrl
@@ -444,7 +446,7 @@ open class GidOnlineAPI: HttpService {
             print("Error in regular expression.")
           }
         }
-        else {
+        else if !line.isEmpty {
           items[index][0] = line
 
           index += 1

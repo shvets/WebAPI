@@ -13,13 +13,13 @@ open class HttpService {
       response = Just.get(url, params: query, headers: headers)
     }
     else if method == "post" {
-      response = Just.post(url, params: query, data: query, headers: headers)
+      response = Just.post(url, params: query, data: data, headers: headers)
     }
     else if method == "put" {
-      response = Just.put(url, params: query, data: query, headers: headers)
+      response = Just.put(url, params: query, data: data, headers: headers)
     }
     else if method == "delete" {
-      response = Just.delete(url, params: query, data: query, headers: headers)
+      response = Just.delete(url, params: query, data: data, headers: headers)
     }
     else {
       response = Just.get(url, params: query, headers: headers)
