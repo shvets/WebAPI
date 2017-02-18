@@ -415,6 +415,50 @@ open class GidOnlineAPI: HttpService {
     return try getPlayListUrls(manifestUrl).reversed()
   }
 
+  func getSessionData(_ content: String) -> [String: String] {
+    var items = [String: String]()
+
+    var dataSection = false
+
+    content.enumerateLines { (line, _) in
+      if line.find("var version_control =") != nil {
+        let index1 = line.find("'")
+        let index2 = line.find(";")
+        let index11 = line.index(index1!, offsetBy: 1)
+        let index21 = line.index(index2!, offsetBy: -2)
+
+        items["version_control"] = line[index11 ... index21]
+      }
+      else if line.find("var banners_script_clickunder = {") != nil {
+        dataSection = true
+      }
+      else if dataSection == true {
+        if line.find("};") != nil {
+          dataSection = false
+        }
+        else if !line.isEmpty {
+          var data = line
+
+          data = data.replacingOccurrences(of: "'", with: "")
+          data = data.replacingOccurrences(of: ",", with: "")
+
+          let components = data.components(separatedBy: ":")
+
+          if components.count > 1 {
+            let key = components[0].trim()
+            let value = components[1].trim()
+
+            items[key] = value
+          }
+        }
+      }
+    }
+
+    items["mw_key"] = "1152сb1dd4c4d544"
+
+    return items
+  }
+
   override func getPlayListUrls(_ url: String) throws -> [[String: String]] {
     var urls = [[String: String]]()
 
@@ -459,48 +503,6 @@ open class GidOnlineAPI: HttpService {
     }
 
     return urls
-  }
-
-  func getSessionData(_ content: String) -> [String: String] {
-    var items = [String: String]()
-
-    var dataSection = false
-
-    content.enumerateLines { (line, _) in
-      if line.find("var condition_safe =") != nil {
-        let index1 = line.find("'")
-        let index2 = line.find(";")
-        let index11 = line.index(index1!, offsetBy: 1)
-        let index21 = line.index(index2!, offsetBy: -2)
-
-        items["condition_safe"] = line[index11 ... index21]
-      }
-      else if line.find("var session_params = {") != nil {
-        dataSection = true
-      }
-      else if dataSection == true {
-        if line.find("};") != nil {
-          dataSection = false
-        }
-        else if !line.isEmpty {
-          var data = line
-
-          data = data.replacingOccurrences(of: "'", with: "")
-          data = data.replacingOccurrences(of: ",", with: "")
-
-          let components = data.components(separatedBy: ":")
-
-          if components.count > 1 {
-            let key = components[0].trim()
-            let value = components[1].trim()
-
-            items[key] = value
-          }
-        }
-      }
-    }
-
-    return items
   }
 
   public func search(_ query: String, page: Int=1) throws -> [String: Any] {

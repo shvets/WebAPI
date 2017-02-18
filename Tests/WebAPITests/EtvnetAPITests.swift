@@ -220,7 +220,7 @@ class EtvnetAPITests: XCTestCase {
   }
   
   func testGetTopics() {
-    for topic in EtvnetAPI.TOPICS {
+    for topic in EtvnetAPI.Topics {
       //print(topic)
       let result = subject.getTopicItems(topic)
 

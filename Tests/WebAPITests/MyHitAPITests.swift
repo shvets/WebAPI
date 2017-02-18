@@ -67,7 +67,7 @@ class MyHitAPITests: XCTestCase {
   }
 
   func testGetSeasons() throws {
-    let result = subject.getSeasons("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki/", parentName: "parentName")
+    let result = subject.getSeasons("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki/", parentName: "parentName")
 
     print(JsonConverter.prettified(result))
   }

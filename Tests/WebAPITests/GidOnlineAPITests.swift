@@ -15,7 +15,7 @@ class GidOnlineAPITests: XCTestCase {
     super.setUp()
 
     do {
-      document = try subject.fetchDocument(GidOnlineAPI.SITE_URL)
+      document = try subject.fetchDocument(GidOnlineAPI.SiteUrl)
     }
     catch {
       print("Error fetching document")
@@ -75,19 +75,19 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetSeasons() throws {
-    let result = try subject.getSeasons("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki/", parentName: "parentName")
+    let result = try subject.getSeasons("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki/", parentName: "parentName")
 
     print(JsonConverter.prettified(result))
   }
 
 //  func testGetEpisodes() throws {
-//    let result = try subject.getEpisodes("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki")
+//    let result = try subject.getEpisodes("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki")
 //
 //    print(JsonConverter.prettified(result))
 //  }
 
   func testGetEpisodes() throws {
-    let result = try subject.getEpisodes("\(GidOnlineAPI.SITE_URL)/2016/03/strazhi-galaktiki", seasonNumber: "1")
+    let result = try subject.getEpisodes("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki", seasonNumber: "1")
 
     print(JsonConverter.prettified(result))
   }
@@ -99,7 +99,7 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetMoviesByGenre() throws {
-    let document = try subject.fetchDocument(GidOnlineAPI.SITE_URL + "/genre/vestern/")
+    let document = try subject.fetchDocument(GidOnlineAPI.SiteUrl + "/genre/vestern/")
 
     let result = try subject.getMovies(document!, path: "/genre/vestern/")
 
@@ -108,6 +108,7 @@ class GidOnlineAPITests: XCTestCase {
 
   func testGetMovieUrl() throws {
     let movieUrl = "http://gidonline.club/2017/01/ulichnyj-kot-po-klichke-bob/"
+    //let movieUrl = "http://gidonline.club/2016/12/moana/"
 
     let urls = try subject.getUrls(movieUrl)
 
