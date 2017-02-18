@@ -3,20 +3,20 @@ import SwiftyJSON
 import SwiftSoup
 
 open class GidOnlineAPI: HttpService {
-  public static let SITE_URL = "http://gidonline.club"
-  let USER_AGENT = "Gid Online User Agent"
+  public static let SiteUrl = "http://gidonline.club"
+  let UserAgent = "Gid Online User Agent"
 
-  public static let CYRILLIC_LETTERS = [
+  public static let CyrillicLetters = [
     "А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П",
     "Р", "С", "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"
   ]
 
-  let SESSION_URL1 = "http://pandastream.cc/sessions/create_new"
-  let SESSION_URL2 = "http://pandastream.cc/sessions/new"
-  let SESSION_URL3 = "http://pandastream.cc/sessions/new_session"
+  let SessionUrl1 = "http://pandastream.cc/sessions/create_new"
+  let SessionUrl2 = "http://pandastream.cc/sessions/new"
+  let SessionUrl3 = "http://pandastream.cc/sessions/new_session"
 
   func sessionUrl() -> String {
-    return SESSION_URL3
+    return SessionUrl3
   }
 
   public func getPagePath(_ path: String, page: Int=1) -> String {
@@ -36,7 +36,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func getAllMovies(page: Int=1) throws -> [String: Any] {
-    let document = try fetchDocument(getPagePath(GidOnlineAPI.SITE_URL, page: page))
+    let document = try fetchDocument(getPagePath(GidOnlineAPI.SiteUrl, page: page))
 
     return try getMovies(document!)
   }
@@ -113,7 +113,7 @@ open class GidOnlineAPI: HttpService {
     for link: Element in links.array() {
       let path = try link.attr("href")
       let name = try link.text()
-      let thumb = GidOnlineAPI.SITE_URL + (try link.select("img").attr("src"))
+      let thumb = GidOnlineAPI.SiteUrl + (try link.select("img").attr("src"))
 
       data.append(["type": "movie", "id": path, "name": name, "thumb": thumb])
     }
@@ -302,7 +302,7 @@ open class GidOnlineAPI: HttpService {
       gatewayUrl = urls
     }
     else {
-      let url = "\(GidOnlineAPI.SITE_URL)/trailer.php"
+      let url = "\(GidOnlineAPI.SiteUrl)/trailer.php"
 
       let idPost = try document.select("head meta[id=meta]").attr("content")
 
@@ -335,7 +335,7 @@ open class GidOnlineAPI: HttpService {
     for item: Element in items.array() {
       let href = try item.attr("href")
       let name = try item.select("span").text()
-      let thumb = GidOnlineAPI.SITE_URL + (try item.select("img").attr("src"))
+      let thumb = GidOnlineAPI.SiteUrl + (try item.select("img").attr("src"))
 
       data.append(["id": href, "name": name, "thumb": thumb ])
     }
@@ -391,8 +391,8 @@ open class GidOnlineAPI: HttpService {
   public func getUrls(_ url: String, season: String = "", episode: String="") throws -> [[String: String]] {
     var newUrl = url
 
-    if url.find(GidOnlineAPI.SITE_URL) != nil && url.find("http://") == nil {
-      newUrl = GidOnlineAPI.SITE_URL + url
+    if url.find(GidOnlineAPI.SiteUrl) != nil && url.find("http://") == nil {
+      newUrl = GidOnlineAPI.SiteUrl + url
     }
 
     let content = try getMovieContent(newUrl, season: season, episode: episode)
@@ -504,7 +504,7 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func search(_ query: String, page: Int=1) throws -> [String: Any] {
-    let path = getPagePath(GidOnlineAPI.SITE_URL, page: page) + "/"
+    let path = getPagePath(GidOnlineAPI.SiteUrl, page: page) + "/"
 
     var params = [String: String]()
     params["s"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
@@ -579,7 +579,7 @@ open class GidOnlineAPI: HttpService {
 
       let thumb = try block.select("div img[class=t-img]").attr("src")
 
-      data["thumb"] = GidOnlineAPI.SITE_URL + thumb
+      data["thumb"] = GidOnlineAPI.SiteUrl + thumb
 
       let items1 = try block.select("div div[class=t-row] div[class='r-1'] div[class='rl-2']")
       let items2 = try block.select("div div[class=t-row] div[class='r-2'] div[class='rl-2']")
@@ -652,14 +652,14 @@ open class GidOnlineAPI: HttpService {
 
     if !path.isEmpty {
       if searchMode {
-        pattern = GidOnlineAPI.SITE_URL + "/page/"
+        pattern = GidOnlineAPI.SiteUrl + "/page/"
       }
       else {
-        pattern = GidOnlineAPI.SITE_URL + path + "page/"
+        pattern = GidOnlineAPI.SiteUrl + path + "page/"
       }
     }
     else {
-      pattern = GidOnlineAPI.SITE_URL + "/page/"
+      pattern = GidOnlineAPI.SiteUrl + "/page/"
     }
 
     pattern = pattern!.replacingOccurrences(of: "/", with: "\\/")
@@ -772,7 +772,7 @@ open class GidOnlineAPI: HttpService {
 
       let path = currentItem["id"] as! String
 
-      let index1 = path.index(path.startIndex, offsetBy: GidOnlineAPI.SITE_URL.characters.count, limitedBy: path.endIndex)
+      let index1 = path.index(path.startIndex, offsetBy: GidOnlineAPI.SiteUrl.characters.count, limitedBy: path.endIndex)
       let index2 = path.index(before: path.endIndex)
 
       if index1 != nil {
@@ -800,7 +800,7 @@ open class GidOnlineAPI: HttpService {
 
   func getHeaders(_ referer: String) -> [String: String] {
     return [
-      "User-Agent": USER_AGENT,
+      "User-Agent": UserAgent,
       "Referer": referer
     ]
   }

@@ -3,7 +3,7 @@ import SwiftyJSON
 import SwiftSoup
 
 open class AudioKnigiAPI: HttpService {
-  public static let URL = "https://audioknigi.club"
+  public static let SiteUrl = "https://audioknigi.club"
 
   func getPagePath(path: String, page: Int=1) -> String {
     return "\(path)page\(page)/"
@@ -20,7 +20,7 @@ open class AudioKnigiAPI: HttpService {
   func getLetters(path: String, filter: String) throws -> [Any] {
     var data = [Any]()
 
-    let document = try fetchDocument(AudioKnigiAPI.URL + path)
+    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + path)
 
     let items = try document!.select("ul[id='" + filter + "'] li a")
 
@@ -51,7 +51,7 @@ open class AudioKnigiAPI: HttpService {
       pagePath = "\(pagePath)?period=\(period)"
     }
 
-    let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
+    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
 
     return try getBookItems(document!, path: path, page: page)
   }
@@ -93,7 +93,7 @@ open class AudioKnigiAPI: HttpService {
     var paginationData = [String: Any]()
 
     let pagePath = getPagePath(path: path, page: page)
-    let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
+    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
 
     let items = try document!.select("td[class=cell-name]")
 
@@ -101,7 +101,7 @@ open class AudioKnigiAPI: HttpService {
       let link = try item.select("h4 a")
       let name = try link.text()
       let href = try link.attr("href")
-      //href = link.attr("href")[URL.length..-1] + "/"
+      //href = link.attr("href")[SiteUrl.length..-1] + "/"
 
       data.append(["type": "collection", "id": href, "name": name ])
     }
@@ -120,7 +120,7 @@ open class AudioKnigiAPI: HttpService {
     let path = "/sections/"
 
     let pagePath = getPagePath(path: path, page: page)
-    let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
+    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
 
     let items = try document!.select("td[class=cell-name]")
 
@@ -128,7 +128,7 @@ open class AudioKnigiAPI: HttpService {
       let link = try item.select("a")
       let name = try link.select("h4 a")
       let href = try link.attr("href")
-      //href = link.get('href')[len(self.URL)+1:]
+      //href = link.get('href')[len(self.SiteUrl)+1:]
 
       let thumb = try link.select("img").attr("src")
 
@@ -147,7 +147,7 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func extractPaginationData(_ path: String, selector: String, page: Int) throws -> Items {
-    let document = try fetchDocument(AudioKnigiAPI.URL + path)
+    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + path)
 
     var pages = 1
 
@@ -186,7 +186,7 @@ open class AudioKnigiAPI: HttpService {
     let path = "/search/books/"
 
     let pagePath = getPagePath(path: path, page: page)
-    let document = try fetchDocument(AudioKnigiAPI.URL + pagePath)
+    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
 
     return try getBookItems(document!, path: path, page: page)
   }

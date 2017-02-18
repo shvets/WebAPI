@@ -3,11 +3,11 @@ import SwiftyJSON
 import SwiftSoup
 
 open class GoogleDocsAPI: HttpService {
-  let URL = "http://cyro.se"
-  let USER_AGENT = "Google Docs User Agent"
+  let SiteUrl = "http://cyro.se"
+  let UserAgent = "Google Docs User Agent"
 
   func available() throws -> Elements {
-    let document = try fetchDocument(URL, headers: getHeaders())
+    let document = try fetchDocument(SiteUrl, headers: getHeaders())
 
     return try document!.select("td.topic_content")
   }
@@ -41,7 +41,7 @@ open class GoogleDocsAPI: HttpService {
       pagePath = "/index.php?show=latest-topics&" + "page=\(page)"
     }
 
-    let document = try fetchDocument(URL + pagePath, headers: getHeaders())
+    let document = try fetchDocument(SiteUrl + pagePath, headers: getHeaders())
 
     let items = try document!.select("td.topic_content")
 
@@ -59,7 +59,7 @@ open class GoogleDocsAPI: HttpService {
 
       let name = try item.select("div a img").attr("alt")
       let urlPath = try item.select("div a img").attr("src")
-      let thumb = URL + urlPath
+      let thumb = SiteUrl + urlPath
 
       data.append(["path": path!, "thumb": thumb, "name": name])
     }
@@ -74,7 +74,7 @@ open class GoogleDocsAPI: HttpService {
   func getGenres(page: Int=1) throws -> Items {
     var data = [Any]()
 
-    let document = try fetchDocument(URL + "/movies/genre.php?showC=27", headers: getHeaders())
+    let document = try fetchDocument(SiteUrl + "/movies/genre.php?showC=27", headers: getHeaders())
 
     let items = try document!.select("td.topic_content")
 
@@ -83,7 +83,7 @@ open class GoogleDocsAPI: HttpService {
       let src = try item.select("div a img").attr("src")
 
       let path = "/movies/\(href)"
-      let thumb = "\(URL)\(src)"
+      let thumb = "\(SiteUrl)\(src)"
 
       let fileName = thumb.components(separatedBy: "/").last!
       let index1 = fileName.startIndex
@@ -100,13 +100,13 @@ open class GoogleDocsAPI: HttpService {
     var data = [Any]()
     var paginationData: Items = [:]
 
-    let response = httpRequest(url: URL + getCorrectedPath(path), headers: getHeaders())
+    let response = httpRequest(url: SiteUrl + getCorrectedPath(path), headers: getHeaders())
 
     let newPath = "\(response.url!.path)?\(response.url!.query!)"
 
     let pagePath = newPath + "&page=\(page)"
 
-    let document = try fetchDocument(URL + pagePath, headers: getHeaders())
+    let document = try fetchDocument(SiteUrl + pagePath, headers: getHeaders())
 
     let items = try document!.select("td.topic_content")
 
@@ -116,7 +116,7 @@ open class GoogleDocsAPI: HttpService {
       let path = "/movies/" + href
       let name = try item.select("div a img").attr("alt")
       let urlPath = try item.select("div a img").attr("src")
-      let thumb = URL + urlPath
+      let thumb = SiteUrl + urlPath
 
       data.append(["path": path, "thumb": thumb, "name": name])
     }
@@ -131,7 +131,7 @@ open class GoogleDocsAPI: HttpService {
   func getSerie(path: String, page: Int=1) throws -> Items {
     var data = [Any]()
 
-    let document = try fetchDocument(URL + path, headers: getHeaders())
+    let document = try fetchDocument(SiteUrl + path, headers: getHeaders())
 
     let items = try document!.select("div.titleline h2 a")
 
@@ -150,7 +150,7 @@ open class GoogleDocsAPI: HttpService {
   func getPreviousSeasons(_ path: String) throws -> Items {
     var data = [Any]()
 
-    let document = try fetchDocument(URL + path, headers: getHeaders())
+    let document = try fetchDocument(SiteUrl + path, headers: getHeaders())
 
     let items = try document!.select("div.titleline h2 a")
 
@@ -185,7 +185,7 @@ open class GoogleDocsAPI: HttpService {
 //  func getSeason(_ path: String) throws -> Items {
 //    var data = [Any]()
 //
-////    let document = try fetchDocument(URL + getCorrectedPath(path), headers: getHeaders())
+////    let document = try fetchDocument(SiteUrl + getCorrectedPath(path), headers: getHeaders())
 ////
 ////    let items = try document!.select("div.inner h3 a")
 ////
@@ -216,7 +216,7 @@ open class GoogleDocsAPI: HttpService {
   func getMovie(_ id: String) throws -> [String: Any] {
     var data = [String: Any]()
 
-    let response = httpRequest(url: URL + id, headers: getHeaders())
+    let response = httpRequest(url: SiteUrl + id, headers: getHeaders())
 
     let url = response.url!
 
@@ -225,18 +225,18 @@ open class GoogleDocsAPI: HttpService {
     let name = try document!.select("title").text()
 
     data["name"] = extractName(name)
-    data["thumb"] = URL + (try document!.select("img[id='nameimage']").attr("src"))
+    data["thumb"] = SiteUrl + (try document!.select("img[id='nameimage']").attr("src"))
 
     data["urls"] = []
 
     let frameUrl1 = try document!.select("iframe").attr("src")
 
     if frameUrl1 != "" {
-      let data1 = try fetchDocument(URL + frameUrl1, headers: getHeaders())
+      let data1 = try fetchDocument(SiteUrl + frameUrl1, headers: getHeaders())
 
       let frameUrl2 = try data1!.select("iframe").attr("src")
 
-      let data2 = try fetchDocument(URL + frameUrl2, headers: getHeaders())
+      let data2 = try fetchDocument(SiteUrl + frameUrl2, headers: getHeaders())
 
       let url1 = try data2!.select("iframe").attr("src")
 
@@ -250,7 +250,7 @@ open class GoogleDocsAPI: HttpService {
         let secondUrlPart2 = frameUrl2WithoutExt + "2.php"
 
         do {
-          let data3 = try fetchDocument(URL + secondUrlPart2, headers: getHeaders())
+          let data3 = try fetchDocument(SiteUrl + secondUrlPart2, headers: getHeaders())
 
           let url2 = try data3!.select("iframe").attr("src")
 
@@ -263,7 +263,7 @@ open class GoogleDocsAPI: HttpService {
         do {
           let secondFrameUrlPart3 = frameUrl2WithoutExt + "3.php"
 
-          let data4 = try fetchDocument(URL + secondFrameUrlPart3, headers: getHeaders())
+          let data4 = try fetchDocument(SiteUrl + secondFrameUrlPart3, headers: getHeaders())
 
           let url3 = try data4!.select("iframe").attr("src")
 
@@ -278,7 +278,7 @@ open class GoogleDocsAPI: HttpService {
     }
 
 //    if document.select("iframe[contains(@src,'ytid=')]/@src")) > 0 {
-//      let el = URL + document!.xpath("//iframe[contains(@src,'ytid=')]/@src")[0]
+//      let el = SiteUrl + document!.xpath("//iframe[contains(@src,'ytid=')]/@src")[0]
 //
 //      //data["trailer_url"] = el.split("?",1)[0].replace("http://dayt.se/bits/pastube.php", "https://www.youtube.com/watch?v=") + el.split("=",1)[1]
 //    }
@@ -287,7 +287,7 @@ open class GoogleDocsAPI: HttpService {
   }
 
   func extractPaginationData(_ path: String, page: Int) throws -> Items {
-    let document = try fetchDocument(URL + path, headers: getHeaders())
+    let document = try fetchDocument(SiteUrl + path, headers: getHeaders())
 
     var pages = 1
 
@@ -338,7 +338,7 @@ open class GoogleDocsAPI: HttpService {
 
   func getHeaders() -> [String: String] {
     return [
-      "User-Agent": USER_AGENT
+      "User-Agent": UserAgent
     ]
   }
 

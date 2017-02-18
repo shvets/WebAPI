@@ -4,14 +4,14 @@ import SwiftyJSON
 open class EtvnetAPI: ApiService {
   static let PER_PAGE = 15
   
-  let API_URL = "https://secure.etvnet.com/api/v3.0/"
-  let USER_AGENT = "Etvnet User Agent"
+  let ApiUrl = "https://secure.etvnet.com/api/v3.0/"
+  let UserAgent = "Etvnet User Agent"
   
-  let AUTH_URL = "https://accounts.etvnet.com/auth/oauth/"
-  let CLIENT_ID = "a332b9d61df7254dffdc81a260373f25592c94c9"
-  let CLIENT_SECRET = "744a52aff20ec13f53bcfd705fc4b79195265497"
+  let AuthUrl = "https://accounts.etvnet.com/auth/oauth/"
+  let ClientId = "a332b9d61df7254dffdc81a260373f25592c94c9"
+  let ClientSecret = "744a52aff20ec13f53bcfd705fc4b79195265497"
   
-  let SCOPE = [
+  let Scope = [
     "com.etvnet.media.browse",
     "com.etvnet.media.watch",
     "com.etvnet.media.bookmarks",
@@ -23,9 +23,9 @@ open class EtvnetAPI: ApiService {
     "com.etvnet.notifications"
     ].joined(separator: " ")
   
-  let GRANT_TYPE = "http://oauth.net/grant_type/device/1.0"
+  let GrantType = "http://oauth.net/grant_type/device/1.0"
   
-  let TIME_SHIFT = [
+  let TimeShift = [
     "0": 0,  // Moscow
     "1": 2,  // Berlin
     "2": 3,  // London
@@ -35,11 +35,11 @@ open class EtvnetAPI: ApiService {
     "6": 11  // Los Angeles
   ]
   
-  public static let TOPICS = ["etvslider/main", "newmedias", "best", "top", "newest", "now_watched", "recommend"]
+  public static let Topics = ["etvslider/main", "newmedias", "best", "top", "newest", "now_watched", "recommend"]
   
   public init(config: Config) {
-    super.init(config: config, apiUrl: API_URL, userAgent: USER_AGENT, authUrl: AUTH_URL, clientId: CLIENT_ID,
-               clientSecret: CLIENT_SECRET, grantType: GRANT_TYPE, scope: SCOPE)
+    super.init(config: config, apiUrl: ApiUrl, userAgent: UserAgent, authUrl: AuthUrl, clientId: ClientId,
+               clientSecret: ClientSecret, grantType: GrantType, scope: Scope)
   }
   
   func tryCreateToken(userCode: String, deviceCode: String,
