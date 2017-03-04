@@ -62,15 +62,15 @@ open class MyHitAPI: HttpService {
       let link = try item.select("a").get(0)
       let href = try link.attr("href")
 
-      var name = try link.attr("title")
+      let name = try link.attr("title")
 
-      let index1 = name.startIndex
-      let index2 = name.index(name.endIndex, offsetBy: -18)
-      name = name[index1 ..< index2]
+//      let index1 = name.startIndex
+//      let index2 = name.index(name.endIndex, offsetBy: -18)
+//      name = name[index1 ..< index2]
 
       let url = try link.select("div img").get(0).attr("src")
 
-      let thumb = self.SiteUrl + url
+      let thumb = SiteUrl + url
 
       data.append(["type": type, "id": href, "thumb": thumb, "name": name])
     }
@@ -85,7 +85,7 @@ open class MyHitAPI: HttpService {
 
       let url = try link.select("img").get(0).attr("src")
 
-      let thumb = self.SiteUrl + url
+      let thumb = SiteUrl + url
 
       data.append(["type": "star", "id": href, "thumb": thumb, "name": name])
     }
@@ -251,7 +251,7 @@ open class MyHitAPI: HttpService {
 
       if thumb != "" {
         if name != "Актёры и актрисы" && name != "Актеры и актрисы" {
-          data.append(["type": "selection", "id": href, "thumb": self.SiteUrl + thumb, "name": name])
+          data.append(["type": "selection", "id": href, "thumb": SiteUrl + thumb, "name": name])
         }
       }
     }
