@@ -401,7 +401,7 @@ open class GidOnlineAPI: HttpService {
 
     let headers: [String: String] = [
       "X-Requested-With": "XMLHttpRequest",
-      "X-Condition-Safe": "Normal"
+      "X-Bool-Ray": "XRAY"
     ]
 
     let response2 = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
@@ -453,8 +453,6 @@ open class GidOnlineAPI: HttpService {
         }
       }
     }
-
-    items["mw_key"] = "1152сb1dd4c4d544"
 
     return items
   }
