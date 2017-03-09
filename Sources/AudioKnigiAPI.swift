@@ -42,10 +42,10 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func getBooks(path: String, period: String="", page: Int=1) throws -> [String: Any] {
-    let path = ""
+    let path = path
     //URI.decode(path)
 
-    var pagePath = getPagePath(path: path + "/", page: page)
+    var pagePath = getPagePath(path: path, page: page)
 
     if period != "" {
       pagePath = "\(pagePath)?period=\(period)"
@@ -58,7 +58,6 @@ open class AudioKnigiAPI: HttpService {
 
   func getBookItems(_ document: Document, path: String, page: Int) throws -> [String: Any] {
     var data = [Any]()
-    var paginationData = [String: Any]()
 
     let items = try document.select("article")
 
@@ -73,9 +72,9 @@ open class AudioKnigiAPI: HttpService {
       data.append(["type": "book", "id": href, "name": name, "thumb": thumb, "description": description ])
     }
 
-    if !items.array().isEmpty {
-      //paginationData = try extractPaginationData(path: path)
-    }
+    //if !items.array().isEmpty {
+    let paginationData = try extractPaginationData(document: document, path: path, page: page)
+    //}
 
     return ["items": data, "pagination": paginationData]
   }
@@ -146,32 +145,35 @@ open class AudioKnigiAPI: HttpService {
     return try getBooks(path: path, page: page)
   }
 
-  func extractPaginationData(_ path: String, selector: String, page: Int) throws -> Items {
-    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + path)
-
+  func extractPaginationData(document: Document, path: String, page: Int) throws -> Items {
     var pages = 1
 
-    let paginationRoot = try document?.select("div[class='" + selector + "'] ~ div[class='row']")
+    let paginationRoot = try document.select("div[class='paging']")
 
-    if paginationRoot != nil {
-      let paginationBlock = paginationRoot!.get(0)
+    let paginationBlock = paginationRoot.get(0)
 
-      let text = try paginationBlock.text()
+    let items = try paginationBlock.select("ul li")
 
-      let index11 = text.find(":")
-      let index21 = text.find("(")
+    var lastLink = try items.get(items.size() - 2).select("a")
 
-      if index11 != nil && index21 != nil {
-        let index1 = text.index(index11!, offsetBy: 1)
+    if lastLink.size() == 1 {
+      lastLink = try items.get(items.size() - 3).select("a")
 
-        let items = Int(text[index1 ..< index21!].trim())
+      pages = try Int(lastLink.text())!
+    }
+    else {
+      let href = try items.attr("href")
 
-        pages = items! / 24
+      let pattern = path + "page"
 
-        if items! % 24 > 0 {
-          pages = pages + 1
-        }
-      }
+      let index1 = href.find(pattern)
+      var index2 = href.find("/?")
+
+//        if index2 != nil {
+//          index2 = href.endIndex-1
+//        }
+
+      //pages = href[index1+pattern.length..index2].to_i
     }
 
     return [
