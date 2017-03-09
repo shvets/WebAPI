@@ -287,12 +287,12 @@ open class MyHitAPI: HttpService {
       let link = try item.select("div a").get(0)
 
       let href = try link.attr("href")
-      var name = try link.attr("title")
+      let name = try link.attr("title")
 
-      let index1 = name.startIndex
-      let index2 = name.index(name.endIndex, offsetBy: -18-1)
-
-      name = name[index1 ... index2]
+//      let index1 = name.startIndex
+//      let index2 = name.index(name.endIndex, offsetBy: -18-1)
+//
+//      name = name[index1 ... index2]
 
       let url = try link.select("div img").get(0).attr("src")
 
