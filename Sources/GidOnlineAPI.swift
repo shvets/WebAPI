@@ -401,7 +401,7 @@ open class GidOnlineAPI: HttpService {
 
     let headers: [String: String] = [
       "X-Requested-With": "XMLHttpRequest",
-      "X-Bool-Ray": "XRAY"
+      "X-Mega-Version": "505"
     ]
 
     let response2 = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
@@ -421,13 +421,13 @@ open class GidOnlineAPI: HttpService {
     var dataSection = false
 
     content.enumerateLines { (line, _) in
-      if line.find("var version_control =") != nil {
+      if line.find("var detect_true =") != nil {
         let index1 = line.find("'")
         let index2 = line.find(";")
         let index11 = line.index(index1!, offsetBy: 1)
         let index21 = line.index(index2!, offsetBy: -2)
 
-        items["version_control"] = line[index11 ... index21]
+        items["detect_true"] = line[index11 ... index21]
       }
       else if line.find("var banners_script_clickunder = {") != nil {
         dataSection = true
