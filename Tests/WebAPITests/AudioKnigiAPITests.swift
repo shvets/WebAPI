@@ -44,22 +44,24 @@ class AudioKnigiAPITests: XCTestCase {
 
   func testGetAuthorBooks() throws {
     let result = try subject.getAuthors()
+    let items = result["items"] as! [Any]
 
-//    let path = result["items"][0]["path"]
-//
-//    let result2 = subject.getBooks(path: path)
-//
-//    print(JsonConverter.prettified(result2))
+    let id = (items[0] as! [String: String])["id"]!
+
+    let result2 = try subject.getBooks(path: id)
+
+    print(JsonConverter.prettified(result2))
   }
 
   func testGetPerformersBooks() throws {
     let result = try subject.getPerformers()
+    let items = result["items"] as! [Any]
 
-//    let path = result["items"][0]["path"]
-//
-//    let result2 = subject.getBooks(path: path)
-//
-//    print(JsonConverter.prettified(result2))
+    let id = (items[0] as! [String: String])["id"]!
+
+    let result2 = try subject.getBooks(path: id)
+
+    print(JsonConverter.prettified(result2))
   }
 
   func testGetAuthors() throws {
@@ -87,13 +89,13 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetGenre() throws {
     let genres = try subject.getGenres(page: 1)
 
-    //print(JsonConverter.prettified(result1))
+    let items = genres["items"] as! [Any]
 
-//    let path = genres["items"][0]["path"]
-//
-//    let result = subject.getGenre(path: path)
-//
-//    print(JsonConverter.prettified(result))
+    let id = (items[0] as! [String: String])["id"]!
+
+    let result = try subject.getGenre(path: id)
+
+    print(JsonConverter.prettified(result))
   }
 
   func testPagination() throws {
@@ -127,18 +129,28 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   func testSearch() throws {
-//    query = 'пратчетт'
-//
-//    result = subject.search(query)
-//
-//    ap result
+    let query = "пратчетт"
+
+    let result = try subject.search(query: query)
+
+    print(JsonConverter.prettified(result))
   }
 
   func testGrouping() throws {
-//    authors = JSON.parse(File.open("authors.json").read)
-//
-//    authors = subject.groupItemsByLetter(authors)
-//
-//    ap authors
+    let data: Data? = Files.readFile("authors.json")
+
+    let authors = JSON(data: data!)
+
+    let result = subject.groupItemsByLetter(JsonConverter.convertToArray(authors) as! [[String: String]])
+
+    print(result)
+  }
+
+  func testGenerateAuthorsList() throws {
+    //try subject.generateAuthorsList("authors.json")
+  }
+
+  func testGeneratePerformersList() throws {
+    //try subject.generatePerformersList("preformers.json")
   }
 }

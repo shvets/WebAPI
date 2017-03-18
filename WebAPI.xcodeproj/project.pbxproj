@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DBA169DC9D8386FBE160607 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA17F078B7CA4CCC5C8BF2 /* Files.swift */; };
 		OBJ_110 /* Just.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Just.swift */; };
 		OBJ_117 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SwiftyJSON.swift */; };
 		OBJ_124 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* ArrayExt.swift */; };
@@ -154,6 +155,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DBA17F078B7CA4CCC5C8BF2 /* Files.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
 		OBJ_100 /* Just.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Just.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_101 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_102 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -384,6 +386,7 @@
 				OBJ_10 /* SwiftyJSON */,
 				OBJ_12 /* SwiftSoup */,
 				OBJ_70 /* WebAPI */,
+				2DBA17F078B7CA4CCC5C8BF2 /* Files.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_110 /* Just.swift in Sources */,
+				2DBA169DC9D8386FBE160607 /* Files.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

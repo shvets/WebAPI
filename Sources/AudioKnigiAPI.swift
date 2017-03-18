@@ -6,7 +6,12 @@ open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
 
   func getPagePath(path: String, page: Int=1) -> String {
-    return "\(path)page\(page)/"
+    if page == 1 {
+      return path
+    }
+    else {
+      return "\(path)page\(page)/"
+    }
   }
 
   func getAuthorsLetters() throws -> [Any] {
@@ -42,12 +47,12 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func getBooks(path: String, period: String="", page: Int=1) throws -> [String: Any] {
-    let path = path
-    //URI.decode(path)
+//    var path = path.removingPercentEncoding!
+//    path = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
     var pagePath = getPagePath(path: path, page: page)
 
-    if period != "" {
+    if !period.isEmpty {
       pagePath = "\(pagePath)?period=\(period)"
     }
 
@@ -72,9 +77,7 @@ open class AudioKnigiAPI: HttpService {
       data.append(["type": "book", "id": href, "name": name, "thumb": thumb, "description": description ])
     }
 
-    //if !items.array().isEmpty {
     let paginationData = try extractPaginationData(document: document, path: path, page: page)
-    //}
 
     return ["items": data, "pagination": paginationData]
   }
@@ -100,13 +103,16 @@ open class AudioKnigiAPI: HttpService {
       let link = try item.select("h4 a")
       let name = try link.text()
       let href = try link.attr("href")
-      //href = link.attr("href")[SiteUrl.length..-1] + "/"
 
-      data.append(["type": "collection", "id": href, "name": name ])
+      let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
+
+      let id = href[index ..< href.endIndex] + "/"
+
+      data.append(["type": "collection", "id": id, "name": name ])
     }
 
     if !items.array().isEmpty {
-      //paginationData = try extractPaginationData(document, path: path)
+      paginationData = try extractPaginationData(document: document!, path: path, page: page)
     }
 
     return ["items": data, "pagination": paginationData]
@@ -114,7 +120,7 @@ open class AudioKnigiAPI: HttpService {
 
   func getGenres(page: Int=1) throws -> [String: Any] {
     var data = [Any]()
-    let paginationData = [String: Any]()
+    var paginationData = [String: Any]()
 
     let path = "/sections/"
 
@@ -125,17 +131,20 @@ open class AudioKnigiAPI: HttpService {
 
     for item: Element in items.array() {
       let link = try item.select("a")
-      let name = try link.select("h4 a")
+      let name = try link.select("h4 a").text()
       let href = try link.attr("href")
-      //href = link.get('href')[len(self.SiteUrl)+1:]
+
+      let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
+
+      let id = href[index ..< href.endIndex]
 
       let thumb = try link.select("img").attr("src")
 
-      data.append(["type": "genre", "id": href, "name": name, "thumb": thumb ])
+      data.append(["type": "genre", "id": id, "name": name, "thumb": thumb])
     }
 
     if !items.array().isEmpty {
-      //paginationData = try extractPaginationData(document, path: path)
+      paginationData = try extractPaginationData(document: document!, path: path, page: page)
     }
 
     return ["items": data, "pagination": paginationData]
@@ -150,30 +159,43 @@ open class AudioKnigiAPI: HttpService {
 
     let paginationRoot = try document.select("div[class='paging']")
 
-    let paginationBlock = paginationRoot.get(0)
+    if paginationRoot.size() > 0 {
+      let paginationBlock = paginationRoot.get(0)
 
-    let items = try paginationBlock.select("ul li")
+      let items = try paginationBlock.select("ul li")
 
-    var lastLink = try items.get(items.size() - 2).select("a")
+      var lastLink = try items.get(items.size() - 1).select("a")
 
-    if lastLink.size() == 1 {
-      lastLink = try items.get(items.size() - 3).select("a")
+      if lastLink.size() == 1 {
+        lastLink = try items.get(items.size() - 2).select("a")
 
-      pages = try Int(lastLink.text())!
-    }
-    else {
-      let href = try items.attr("href")
+        if try lastLink.text() == "последняя" {
+          let link = try lastLink.select("a").attr("href")
 
-      let pattern = path + "page"
+          let index = link.find("page")!
+          let index1 = link.index(index, offsetBy: "page".characters.count)
+          let index2 = link.index(link.endIndex, offsetBy: -1)
 
-      let index1 = href.find(pattern)
-      var index2 = href.find("/?")
+          pages = Int(link[index1..<index2])!
+        }
+        else {
+          pages = try Int(lastLink.text())!
+        }
+      }
+      else {
+        let href = try items.attr("href")
+
+        let pattern = path + "page"
+
+        let index1 = href.find(pattern)
+        var index2 = href.find("/?")
 
 //        if index2 != nil {
 //          index2 = href.endIndex-1
 //        }
 
-      //pages = href[index1+pattern.length..index2].to_i
+        //pages = href[index1+pattern.length..index2].to_i
+      }
     }
 
     return [
@@ -188,7 +210,13 @@ open class AudioKnigiAPI: HttpService {
     let path = "/search/books/"
 
     let pagePath = getPagePath(path: path, page: page)
-    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
+
+    var params = [String: String]()
+    params["q"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+    let fullPath = buildUrl(path: pagePath, params: params as [String : AnyObject])
+
+    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + fullPath)
 
     return try getBookItems(document!, path: path, page: page)
   }
@@ -238,23 +266,33 @@ open class AudioKnigiAPI: HttpService {
     return []
   }
 
-  func generateAuthorsList(fileName: String) {
-    let data = [Any]()
+  func generateAuthorsList(_ fileName: String) throws {
+    var data = [Any]()
 
-//    let result = getAuthors()
-//
-//    data += result["items"]
-//
-//    let pages = result["pagination"]["pages"]
+    var result = try getAuthors()
 
-//    for page in range(2, pages) {
-//      result = getAuthors(page: page)
-//
-//      data += result["items"]
-//    }
+    data += (result["items"] as! [Any])
 
-//    with open(fileName, 'w') as file:
-//    file.write(json.dumps(data, indent=4))
+    //print(data.count)
+
+    let pagination = result["pagination"] as! [String: Any]
+
+    let pages = pagination["pages"] as! Int
+
+    print(pages)
+
+    for page in (2...pages) {
+      result = try getAuthors(page: page)
+
+      data += (result["items"] as! [Any])
+
+      //print(data.count)
+    }
+
+    let jsonData = try JSON(data)
+    let prettified = JsonConverter.prettified(jsonData)
+
+    Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
   }
 
   func generatePerformersList(fileName: String) {
@@ -276,83 +314,84 @@ open class AudioKnigiAPI: HttpService {
 //    file.write(json.dumps(data, indent=4))
   }
 
-  func groupItemsByLetter(items: [Any]) {
-//    var groups = OrderedDict()
-//
-//    for item in items {
-//      let name = item["name"]
-//      let path = item["path"]
-//
-//      let groupName = ""
-//      //name[0:3].upper()
-//
-////      if groupName ! in groups.keys {
-////        var group = []
-////
-////        groups[groupName] = group
-////      }
-//
-//      groups[groupName].append(["path": path, "name": name])
-//    }
-//
-//    return mergeSmallGroups(groups)
+  func groupItemsByLetter(_ items: [[String: String]]) -> [(key: String, value: [String])] {
+    var groups = [String: [[String: String]]]()
+
+    for item in items {
+      let name = item["name"]!
+      let path = item["path"]!
+
+      let index = name.index(name.startIndex, offsetBy: 3)
+      let groupName = name[name.startIndex..<index].uppercased()
+
+      if !groups.keys.contains(groupName) {
+        let group: [[String: String]] = []
+
+        groups[groupName] = group
+      }
+
+      groups[groupName]!.append(["path": path, "name": name])
+    }
+
+    let sortedGroups = groups.sorted { $0.key < $1.key }
+
+    return mergeSmallGroups(sortedGroups)
   }
 
-  func mergeSmallGroups(groups: [Any]) {
-//    // merge groups into bigger groups with size ~ 20 records
-//
-//    var classifier = []
-//
-//    let groupSize = 0
-//
-//    classifier.append([])
-//
-//    var index = 0
-//
-//    for groupName in groups {
-//      groupWeight = len(groups[groupName])
-//      groupSize += groupWeight
-//
-//      if groupSize > 20 || startsWithDifferentLetter(classifier[index], name: groupName) {
-//        groupSize = 0
-//        classifier.append([])
-//        index = index + 1
-//      }
-//
-//      classifier[index].append(groupName)
-//    }
-//
-//    // flatten records from different group within same classification
-//    // assign new name in format firstName-lastName, e.g. ABC-AZZ
-//
-//    var newGroups = OrderedDict()
-//
-//    for groupNames in classifier {
-//      let key = groupNames[0] + "-" + groupNames[len(groupNames) - 1]
-//      newGroups[key] = []
-//
-//      for groupName in groupNames {
-//        for item in groups[groupName] {
-//          newGroups[key].append(item)
-//        }
-//      }
-//    }
-//
-//    return newGroups
+  func mergeSmallGroups(_ groups: [(key: String, value: [[String : String]])]) -> [(key: String, value: [String])] {
+    // merge groups into bigger groups with size ~ 20 records
+
+    var classifier: [[String]] = []
+
+    var groupSize = 0
+
+    classifier.append([])
+
+    var index = 0
+
+    for (groupName, group) in groups {
+      let groupWeight = group.count
+      groupSize += groupWeight
+
+      if groupSize > 20 || startsWithDifferentLetter(classifier[index], name: groupName) {
+        groupSize = 0
+        classifier.append([])
+        index = index + 1
+      }
+
+      classifier[index].append(groupName)
+    }
+
+    // flatten records from different group within same classification
+    // assign new name in format firstName-lastName, e.g. ABC-AZZ
+
+    var newGroups = [(key: String, value: [String])]()
+
+    for groupNames in classifier {
+      let key = groupNames[0] + "-" + groupNames[groupNames.count - 1]
+
+      var value: [String] = []
+
+      for groupName in groupNames {
+        value.append(groupName)
+      }
+
+      newGroups.append((key: key, value: value))
+    }
+
+    return newGroups
   }
 
-  func startsWithDifferentLetter(_ list: [Any], name: String) -> Bool {
-//    var result = false
-//
-//    for n in list {
-//      if name[0] != n[0] {
-//        result = true
-//        break
-//      }
-//    }
-//
-//    return result
+  func startsWithDifferentLetter(_ list: [String], name: String) -> Bool {
+    var result = false
 
-    return true
+    for n in list {
+      if name[name.startIndex] != n[name.startIndex] {
+        result = true
+        break
+      }
+    }
+
+    return result
   }
 }
