@@ -99,33 +99,29 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   func testPagination() throws {
-//    result = subject.getNewBooks(page: 1)
-//
-//    ap result
-//
-//    pagination = result[:pagination]
-//
-//    expect(pagination[:has_next]).to eq(true)
-//    expect(pagination[:has_previous]).to eq(false)
-//    expect(pagination[:page]).to eq(1)
-//
-//    result = subject.getNewBooks(page: 2)
-//
-//    ap result
-//
-//    pagination = result[:pagination]
-//
-//    expect(pagination[:has_next]).to eq(true)
-//    expect(pagination[:has_previous]).to eq(true)
-//    expect(pagination[:page]).to eq(2)
+    let result1 = try subject.getNewBooks(page: 1)
+
+    let pagination1 = result1["pagination"] as! [String: Any]
+
+    XCTAssertEqual(pagination1["has_next"] as! Bool, true)
+    XCTAssertEqual(pagination1["has_previous"] as! Bool, false)
+    XCTAssertEqual(pagination1["page"] as! Int, 1)
+
+    let result2 = try subject.getNewBooks(page: 2)
+
+    let pagination2 = result2["pagination"] as! [String: Any]
+
+    XCTAssertEqual(pagination2["has_next"] as! Bool, true)
+    XCTAssertEqual(pagination2["has_previous"] as! Bool, true)
+    XCTAssertEqual(pagination2["page"] as! Int, 2)
   }
 
   func testGetAudioTracks() throws {
-//    path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
-//
-//    result = subject.getAudioTracks(path)
-//
-//    ap result
+    let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
+
+    let result = try subject.getAudioTracks(path)
+
+    print(result)
   }
 
   func testSearch() throws {

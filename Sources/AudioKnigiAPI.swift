@@ -172,11 +172,20 @@ open class AudioKnigiAPI: HttpService {
         if try lastLink.text() == "последняя" {
           let link = try lastLink.select("a").attr("href")
 
-          let index = link.find("page")!
-          let index1 = link.index(index, offsetBy: "page".characters.count)
-          let index2 = link.index(link.endIndex, offsetBy: -1)
+          let index1 = link.find("page")
+          let index2 = link.find("?")
 
-          pages = Int(link[index1..<index2])!
+          let index3 = link.index(index1!, offsetBy: "page".characters.count)
+          var index4: String.Index?
+
+          if index2 == nil {
+            index4 = link.index(link.endIndex, offsetBy: -1)
+          }
+          else {
+            index4 = link.index(index2!, offsetBy: -1)
+          }
+
+          pages = Int(link[index3..<index4!])!
         }
         else {
           pages = try Int(lastLink.text())!
@@ -221,49 +230,47 @@ open class AudioKnigiAPI: HttpService {
     return try getBookItems(document!, path: path, page: page)
   }
 
-  func getAudioTracks(url: String) throws -> [Any] {
-    let bookId = 0
+  func getAudioTracks(_ url: String) throws -> [Any] {
+    var bookId = 0
 
     let document = try fetchDocument(url)
 
     let scripts = try document!.select("script[type='text/javascript']")
 
     for script in scripts {
-//      let scriptBody =  try script.text()
-//
-//      let index = scriptBody.select("$(document).audioPlayer")
-//
-//      if index >= 0 {
-//        // bookId = scriptBody[28:scriptBody.find(',')]
-//        bookId = 0
-//
-//        break
-//      }
+      let scriptBody =  try script.html()
+
+      let index = scriptBody.find("$(document).audioPlayer")
+
+      if index != nil {
+        let index1 = scriptBody.index(scriptBody.startIndex, offsetBy: "$(document).audioPlayer".characters.count+1)
+        let index2 = scriptBody.find(",")!
+
+        bookId = Int(scriptBody[index1..<index2])!
+
+        break
+      }
     }
 
-//    if bookId > 0 {
-//      let newUrl = AudioKnigiAPI.URL + "/rest/bid/\(bookId)"
-//
-//      let document2 =  try fetchDocument(newUrl)
-//
-//      //tracks = self.to_json(self.httpRequest(newUrl).read())
-//      let tracks = [String: String]()
-//
-//      for track in tracks {
-//        track["name"] = track["title"] + ".mp3"
-//        track["url"] = track["mp3"]
-//
-////        track.delete("title")
-////        track.delete("mp3")
-//      }
-//
-//      return tracks
-//    }
-//    else {
-//      return []
-//    }
+    if bookId > 0 {
+      let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
 
-    return []
+      let response = httpRequest(url: newUrl)
+      let content = response.content
+
+      let tracks = JSON(data: content!)
+
+      var newTracks = [Any]()
+
+      for (_, track) in tracks {
+        newTracks.append(["name": track["title"].stringValue + ".mp3", "url": track["mp3"]] as! Any)
+      }
+
+      return newTracks
+    }
+    else {
+      return []
+    }
   }
 
   func generateAuthorsList(_ fileName: String) throws {
@@ -273,45 +280,43 @@ open class AudioKnigiAPI: HttpService {
 
     data += (result["items"] as! [Any])
 
-    //print(data.count)
-
     let pagination = result["pagination"] as! [String: Any]
 
     let pages = pagination["pages"] as! Int
-
-    print(pages)
 
     for page in (2...pages) {
       result = try getAuthors(page: page)
 
       data += (result["items"] as! [Any])
-
-      //print(data.count)
     }
 
-    let jsonData = try JSON(data)
+    let jsonData = JSON(data)
     let prettified = JsonConverter.prettified(jsonData)
 
     Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
   }
 
-  func generatePerformersList(fileName: String) {
-    let data = [Any]()
+  func generatePerformersList(_ fileName: String) throws {
+    var data = [Any]()
 
-//    let result = self.getPerformers()
-//
-//    data += result["items"]
-//
-//    let pages = result["pagination"]["pages"]
-//
-//    for page in range(2, pages) {
-//      result = getPerformers(page: page)
-//
-//      data += result["items"]
-//    }
+    var result = try getPerformers()
 
-//    with open(fileName, 'w') as file:
-//    file.write(json.dumps(data, indent=4))
+    data += (result["items"] as! [Any])
+
+    let pagination = result["pagination"] as! [String: Any]
+
+    let pages = pagination["pages"] as! Int
+
+    for page in (2...pages) {
+      result = try getPerformers(page: page)
+
+      data += (result["items"] as! [Any])
+    }
+
+    let jsonData = JSON(data)
+    let prettified = JsonConverter.prettified(jsonData)
+
+    Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
   }
 
   func groupItemsByLetter(_ items: [[String: String]]) -> [(key: String, value: [String])] {
@@ -319,7 +324,7 @@ open class AudioKnigiAPI: HttpService {
 
     for item in items {
       let name = item["name"]!
-      let path = item["path"]!
+      let id = item["id"]!
 
       let index = name.index(name.startIndex, offsetBy: 3)
       let groupName = name[name.startIndex..<index].uppercased()
@@ -330,7 +335,7 @@ open class AudioKnigiAPI: HttpService {
         groups[groupName] = group
       }
 
-      groups[groupName]!.append(["path": path, "name": name])
+      groups[groupName]!.append(["id": id, "name": name])
     }
 
     let sortedGroups = groups.sorted { $0.key < $1.key }
