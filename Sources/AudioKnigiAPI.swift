@@ -79,7 +79,7 @@ open class AudioKnigiAPI: HttpService {
 
     let paginationData = try extractPaginationData(document: document, path: path, page: page)
 
-    return ["items": data, "pagination": paginationData]
+    return ["movies": data, "pagination": paginationData]
   }
 
   func getAuthors(page: Int=1) throws -> [String: Any] {
@@ -115,7 +115,7 @@ open class AudioKnigiAPI: HttpService {
       paginationData = try extractPaginationData(document: document!, path: path, page: page)
     }
 
-    return ["items": data, "pagination": paginationData]
+    return ["movies": data, "pagination": paginationData]
   }
 
   public func getGenres(page: Int=1) throws -> [String: Any] {
@@ -147,7 +147,7 @@ open class AudioKnigiAPI: HttpService {
       paginationData = try extractPaginationData(document: document!, path: path, page: page)
     }
 
-    return ["items": data, "pagination": paginationData]
+    return ["movies": data, "pagination": paginationData]
   }
 
   func getGenre(path: String, page: Int=1) throws -> [String: Any] {
@@ -278,7 +278,7 @@ open class AudioKnigiAPI: HttpService {
 
     var result = try getAuthors()
 
-    data += (result["items"] as! [Any])
+    data += (result["movies"] as! [Any])
 
     let pagination = result["pagination"] as! [String: Any]
 
@@ -287,7 +287,7 @@ open class AudioKnigiAPI: HttpService {
     for page in (2...pages) {
       result = try getAuthors(page: page)
 
-      data += (result["items"] as! [Any])
+      data += (result["movies"] as! [Any])
     }
 
     let jsonData = JSON(data)
@@ -301,7 +301,7 @@ open class AudioKnigiAPI: HttpService {
 
     var result = try getPerformers()
 
-    data += (result["items"] as! [Any])
+    data += (result["movies"] as! [Any])
 
     let pagination = result["pagination"] as! [String: Any]
 
@@ -310,7 +310,7 @@ open class AudioKnigiAPI: HttpService {
     for page in (2...pages) {
       result = try getPerformers(page: page)
 
-      data += (result["items"] as! [Any])
+      data += (result["movies"] as! [Any])
     }
 
     let jsonData = JSON(data)

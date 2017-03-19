@@ -44,7 +44,7 @@ class AudioKnigiAPITests: XCTestCase {
 
   func testGetAuthorBooks() throws {
     let result = try subject.getAuthors()
-    let items = result["items"] as! [Any]
+    let items = result["movies"] as! [Any]
 
     let id = (items[0] as! [String: String])["id"]!
 
@@ -55,7 +55,7 @@ class AudioKnigiAPITests: XCTestCase {
 
   func testGetPerformersBooks() throws {
     let result = try subject.getPerformers()
-    let items = result["items"] as! [Any]
+    let items = result["movies"] as! [Any]
 
     let id = (items[0] as! [String: String])["id"]!
 
@@ -89,7 +89,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetGenre() throws {
     let genres = try subject.getGenres(page: 1)
 
-    let items = genres["items"] as! [Any]
+    let items = genres["movies"] as! [Any]
 
     let id = (items[0] as! [String: String])["id"]!
 
