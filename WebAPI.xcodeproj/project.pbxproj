@@ -7,160 +7,161 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2DBA169DC9D8386FBE160607 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA17F078B7CA4CCC5C8BF2 /* Files.swift */; };
-		OBJ_110 /* Just.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Just.swift */; };
-		OBJ_117 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SwiftyJSON.swift */; };
-		OBJ_124 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* ArrayExt.swift */; };
-		OBJ_125 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Attribute.swift */; };
-		OBJ_126 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* Attributes.swift */; };
-		OBJ_127 /* BooleanAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* BooleanAttribute.swift */; };
-		OBJ_128 /* CharacterExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* CharacterExt.swift */; };
-		OBJ_129 /* CharacterReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* CharacterReader.swift */; };
-		OBJ_130 /* Cleaner.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Cleaner.swift */; };
-		OBJ_131 /* Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Collector.swift */; };
-		OBJ_132 /* CombiningEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* CombiningEvaluator.swift */; };
-		OBJ_133 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Comment.swift */; };
-		OBJ_134 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* Connection.swift */; };
-		OBJ_135 /* DataNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* DataNode.swift */; };
-		OBJ_136 /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* DataUtil.swift */; };
-		OBJ_137 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* Document.swift */; };
-		OBJ_138 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* DocumentType.swift */; };
-		OBJ_139 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Element.swift */; };
-		OBJ_140 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Elements.swift */; };
-		OBJ_141 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Entities.swift */; };
-		OBJ_142 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Evaluator.swift */; };
-		OBJ_143 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Exception.swift */; };
-		OBJ_144 /* FormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* FormElement.swift */; };
-		OBJ_145 /* HtmlTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* HtmlTreeBuilder.swift */; };
-		OBJ_146 /* HtmlTreeBuilderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* HtmlTreeBuilderState.swift */; };
-		OBJ_147 /* HttpStatusException.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* HttpStatusException.swift */; };
-		OBJ_148 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* Node.swift */; };
-		OBJ_149 /* NodeTraversor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* NodeTraversor.swift */; };
-		OBJ_150 /* NodeVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* NodeVisitor.swift */; };
-		OBJ_151 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* OrderedDictionary.swift */; };
-		OBJ_152 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* OrderedSet.swift */; };
-		OBJ_153 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* ParseError.swift */; };
-		OBJ_154 /* ParseErrorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* ParseErrorList.swift */; };
-		OBJ_155 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* Parser.swift */; };
-		OBJ_156 /* ParseSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* ParseSettings.swift */; };
-		OBJ_157 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* Pattern.swift */; };
-		OBJ_158 /* PlatformTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* PlatformTypes.swift */; };
-		OBJ_159 /* QueryParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* QueryParser.swift */; };
-		OBJ_160 /* Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* Selector.swift */; };
-		OBJ_161 /* SerializationException.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* SerializationException.swift */; };
-		OBJ_162 /* SimpleDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* SimpleDictionary.swift */; };
-		OBJ_163 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* StreamReader.swift */; };
-		OBJ_164 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* String.swift */; };
-		OBJ_165 /* StringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* StringBuilder.swift */; };
-		OBJ_166 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* StringUtil.swift */; };
-		OBJ_167 /* StructuralEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* StructuralEvaluator.swift */; };
-		OBJ_168 /* SwiftSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* SwiftSoup.swift */; };
-		OBJ_169 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* Tag.swift */; };
-		OBJ_170 /* TextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* TextNode.swift */; };
-		OBJ_171 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* Token.swift */; };
-		OBJ_172 /* Tokeniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* Tokeniser.swift */; };
-		OBJ_173 /* TokeniserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* TokeniserState.swift */; };
-		OBJ_174 /* TokenQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* TokenQueue.swift */; };
-		OBJ_175 /* TreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* TreeBuilder.swift */; };
-		OBJ_176 /* UnicodeScalar.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* UnicodeScalar.swift */; };
-		OBJ_177 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* Validate.swift */; };
-		OBJ_178 /* Whitelist.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_67 /* Whitelist.swift */; };
-		OBJ_179 /* XmlDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* XmlDeclaration.swift */; };
-		OBJ_180 /* XmlTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* XmlTreeBuilder.swift */; };
-		OBJ_187 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_71 /* ApiService.swift */; };
-		OBJ_188 /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_72 /* AudioKnigiAPI.swift */; };
-		OBJ_189 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* AuthService.swift */; };
-		OBJ_190 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* Config.swift */; };
-		OBJ_191 /* EtvnetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* EtvnetAPI.swift */; };
-		OBJ_192 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* FileStorage.swift */; };
-		OBJ_193 /* GidOnlineAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* GidOnlineAPI.swift */; };
-		OBJ_194 /* GoogleDocsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* GoogleDocsAPI.swift */; };
-		OBJ_195 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* HttpService.swift */; };
-		OBJ_196 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* Item.swift */; };
-		OBJ_197 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* Items.swift */; };
-		OBJ_198 /* JsonConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_82 /* JsonConverter.swift */; };
-		OBJ_199 /* MyHitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_83 /* MyHitAPI.swift */; };
-		OBJ_200 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_84 /* Storage.swift */; };
-		OBJ_201 /* String-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_85 /* String-extension.swift */; };
-		OBJ_202 /* WatchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* WatchStatus.swift */; };
-		OBJ_204 /* Just.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_100 /* Just.framework */; };
-		OBJ_205 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_101 /* SwiftyJSON.framework */; };
-		OBJ_206 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_102 /* SwiftSoup.framework */; };
-		OBJ_215 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_89 /* AudioKnigiAPITests.swift */; };
-		OBJ_216 /* AuthAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_90 /* AuthAPITests.swift */; };
-		OBJ_217 /* ConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_91 /* ConfigTests.swift */; };
-		OBJ_218 /* EtvnetAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_92 /* EtvnetAPITests.swift */; };
-		OBJ_219 /* FileStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_93 /* FileStorageTests.swift */; };
-		OBJ_220 /* GidOnlineAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_94 /* GidOnlineAPITests.swift */; };
-		OBJ_221 /* GoogleDocsAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* GoogleDocsAPITests.swift */; };
-		OBJ_222 /* HttpServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_96 /* HttpServiceTests.swift */; };
-		OBJ_223 /* MyHitAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_97 /* MyHitAPITests.swift */; };
-		OBJ_224 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_98 /* StorageTests.swift */; };
-		OBJ_226 /* Just.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_100 /* Just.framework */; };
-		OBJ_227 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_101 /* SwiftyJSON.framework */; };
-		OBJ_228 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_102 /* SwiftSoup.framework */; };
-		OBJ_229 /* WebAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_103 /* WebAPI.framework */; };
+		OBJ_113 /* Just.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Just.swift */; };
+		OBJ_120 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SwiftyJSON.swift */; };
+		OBJ_127 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* ArrayExt.swift */; };
+		OBJ_128 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* Attribute.swift */; };
+		OBJ_129 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* Attributes.swift */; };
+		OBJ_130 /* BooleanAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* BooleanAttribute.swift */; };
+		OBJ_131 /* CharacterExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* CharacterExt.swift */; };
+		OBJ_132 /* CharacterReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* CharacterReader.swift */; };
+		OBJ_133 /* Cleaner.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* Cleaner.swift */; };
+		OBJ_134 /* Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* Collector.swift */; };
+		OBJ_135 /* CombiningEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* CombiningEvaluator.swift */; };
+		OBJ_136 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* Comment.swift */; };
+		OBJ_137 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* Connection.swift */; };
+		OBJ_138 /* DataNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* DataNode.swift */; };
+		OBJ_139 /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* DataUtil.swift */; };
+		OBJ_140 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* Document.swift */; };
+		OBJ_141 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* DocumentType.swift */; };
+		OBJ_142 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Element.swift */; };
+		OBJ_143 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* Elements.swift */; };
+		OBJ_144 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Entities.swift */; };
+		OBJ_145 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* Evaluator.swift */; };
+		OBJ_146 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_32 /* Exception.swift */; };
+		OBJ_147 /* FormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* FormElement.swift */; };
+		OBJ_148 /* HtmlTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_34 /* HtmlTreeBuilder.swift */; };
+		OBJ_149 /* HtmlTreeBuilderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_35 /* HtmlTreeBuilderState.swift */; };
+		OBJ_150 /* HttpStatusException.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* HttpStatusException.swift */; };
+		OBJ_151 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* Node.swift */; };
+		OBJ_152 /* NodeTraversor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* NodeTraversor.swift */; };
+		OBJ_153 /* NodeVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* NodeVisitor.swift */; };
+		OBJ_154 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* OrderedDictionary.swift */; };
+		OBJ_155 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* OrderedSet.swift */; };
+		OBJ_156 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* ParseError.swift */; };
+		OBJ_157 /* ParseErrorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* ParseErrorList.swift */; };
+		OBJ_158 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* Parser.swift */; };
+		OBJ_159 /* ParseSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* ParseSettings.swift */; };
+		OBJ_160 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* Pattern.swift */; };
+		OBJ_161 /* PlatformTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_47 /* PlatformTypes.swift */; };
+		OBJ_162 /* QueryParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_48 /* QueryParser.swift */; };
+		OBJ_163 /* Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* Selector.swift */; };
+		OBJ_164 /* SerializationException.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* SerializationException.swift */; };
+		OBJ_165 /* SimpleDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_51 /* SimpleDictionary.swift */; };
+		OBJ_166 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* StreamReader.swift */; };
+		OBJ_167 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* String.swift */; };
+		OBJ_168 /* StringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* StringBuilder.swift */; };
+		OBJ_169 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* StringUtil.swift */; };
+		OBJ_170 /* StructuralEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* StructuralEvaluator.swift */; };
+		OBJ_171 /* SwiftSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* SwiftSoup.swift */; };
+		OBJ_172 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* Tag.swift */; };
+		OBJ_173 /* TextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* TextNode.swift */; };
+		OBJ_174 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* Token.swift */; };
+		OBJ_175 /* Tokeniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* Tokeniser.swift */; };
+		OBJ_176 /* TokeniserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* TokeniserState.swift */; };
+		OBJ_177 /* TokenQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* TokenQueue.swift */; };
+		OBJ_178 /* TreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* TreeBuilder.swift */; };
+		OBJ_179 /* UnicodeScalar.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* UnicodeScalar.swift */; };
+		OBJ_180 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* Validate.swift */; };
+		OBJ_181 /* Whitelist.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_67 /* Whitelist.swift */; };
+		OBJ_182 /* XmlDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* XmlDeclaration.swift */; };
+		OBJ_183 /* XmlTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* XmlTreeBuilder.swift */; };
+		OBJ_190 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_71 /* ApiService.swift */; };
+		OBJ_191 /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_72 /* AudioKnigiAPI.swift */; };
+		OBJ_192 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* AuthService.swift */; };
+		OBJ_193 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* Config.swift */; };
+		OBJ_194 /* EtvnetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* EtvnetAPI.swift */; };
+		OBJ_195 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* Files.swift */; };
+		OBJ_196 /* FileStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* FileStorage.swift */; };
+		OBJ_197 /* GidOnlineAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* GidOnlineAPI.swift */; };
+		OBJ_198 /* GoogleDocsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* GoogleDocsAPI.swift */; };
+		OBJ_199 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* HttpService.swift */; };
+		OBJ_200 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* Item.swift */; };
+		OBJ_201 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_82 /* Items.swift */; };
+		OBJ_202 /* JsonConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_83 /* JsonConverter.swift */; };
+		OBJ_203 /* MyHitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_84 /* MyHitAPI.swift */; };
+		OBJ_204 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_85 /* Storage.swift */; };
+		OBJ_205 /* String-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* String-extension.swift */; };
+		OBJ_206 /* WatchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* WatchStatus.swift */; };
+		OBJ_208 /* Just.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_103 /* Just.framework */; };
+		OBJ_209 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_104 /* SwiftyJSON.framework */; };
+		OBJ_210 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* SwiftSoup.framework */; };
+		OBJ_219 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_90 /* AudioKnigiAPITests.swift */; };
+		OBJ_220 /* AuthAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_91 /* AuthAPITests.swift */; };
+		OBJ_221 /* ConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_92 /* ConfigTests.swift */; };
+		OBJ_222 /* EtvnetAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_93 /* EtvnetAPITests.swift */; };
+		OBJ_223 /* FileStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_94 /* FileStorageTests.swift */; };
+		OBJ_224 /* GidOnlineAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* GidOnlineAPITests.swift */; };
+		OBJ_225 /* GoogleDocsAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_96 /* GoogleDocsAPITests.swift */; };
+		OBJ_226 /* HttpServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_97 /* HttpServiceTests.swift */; };
+		OBJ_227 /* MyHitAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_98 /* MyHitAPITests.swift */; };
+		OBJ_228 /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_99 /* StorageTests.swift */; };
+		OBJ_230 /* Just.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_103 /* Just.framework */; };
+		OBJ_231 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_104 /* SwiftyJSON.framework */; };
+		OBJ_232 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* SwiftSoup.framework */; };
+		OBJ_233 /* WebAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* WebAPI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		FA15CF8D1E569DF80078B960 /* PBXContainerItemProxy */ = {
+		FA6F8A3A1E7DDF450022E16D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_105;
+			remoteGlobalIDString = OBJ_108;
 			remoteInfo = Just;
 		};
-		FA15CF8E1E569DF80078B960 /* PBXContainerItemProxy */ = {
+		FA6F8A3B1E7DDF450022E16D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_112;
+			remoteGlobalIDString = OBJ_115;
 			remoteInfo = SwiftyJSON;
 		};
-		FA15CF8F1E569DF80078B960 /* PBXContainerItemProxy */ = {
+		FA6F8A3C1E7DDF450022E16D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_119;
+			remoteGlobalIDString = OBJ_122;
 			remoteInfo = SwiftSoup;
 		};
-		FA15CF901E569DFA0078B960 /* PBXContainerItemProxy */ = {
+		FA6F8A3D1E7DDF450022E16D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_105;
+			remoteGlobalIDString = OBJ_108;
 			remoteInfo = Just;
 		};
-		FA15CF911E569DFA0078B960 /* PBXContainerItemProxy */ = {
+		FA6F8A3E1E7DDF450022E16D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_112;
+			remoteGlobalIDString = OBJ_115;
 			remoteInfo = SwiftyJSON;
 		};
-		FA15CF921E569DFA0078B960 /* PBXContainerItemProxy */ = {
+		FA6F8A3F1E7DDF450022E16D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_119;
+			remoteGlobalIDString = OBJ_122;
 			remoteInfo = SwiftSoup;
 		};
-		FA15CF931E569DFA0078B960 /* PBXContainerItemProxy */ = {
+		FA6F8A401E7DDF450022E16D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = OBJ_182;
+			remoteGlobalIDString = OBJ_185;
 			remoteInfo = WebAPI;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2DBA17F078B7CA4CCC5C8BF2 /* Files.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
-		OBJ_100 /* Just.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Just.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_101 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_102 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_103 /* WebAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_104 /* WebAPITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_100 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = SOURCE_ROOT; };
+		OBJ_101 /* WebAPITests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = WebAPITests; sourceTree = SOURCE_ROOT; };
+		OBJ_103 /* Just.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Just.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_104 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_105 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_106 /* WebAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_107 /* WebAPITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_11 /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		OBJ_13 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
 		OBJ_14 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
@@ -225,70 +226,71 @@
 		OBJ_73 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		OBJ_74 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		OBJ_75 /* EtvnetAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtvnetAPI.swift; sourceTree = "<group>"; };
-		OBJ_76 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
-		OBJ_77 /* GidOnlineAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GidOnlineAPI.swift; sourceTree = "<group>"; };
-		OBJ_78 /* GoogleDocsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDocsAPI.swift; sourceTree = "<group>"; };
-		OBJ_79 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
-		OBJ_80 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
-		OBJ_81 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
-		OBJ_82 /* JsonConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonConverter.swift; sourceTree = "<group>"; };
-		OBJ_83 /* MyHitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHitAPI.swift; sourceTree = "<group>"; };
-		OBJ_84 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		OBJ_85 /* String-extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-extension.swift"; sourceTree = "<group>"; };
-		OBJ_86 /* WatchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchStatus.swift; sourceTree = "<group>"; };
-		OBJ_89 /* AudioKnigiAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKnigiAPITests.swift; sourceTree = "<group>"; };
+		OBJ_76 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
+		OBJ_77 /* FileStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorage.swift; sourceTree = "<group>"; };
+		OBJ_78 /* GidOnlineAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GidOnlineAPI.swift; sourceTree = "<group>"; };
+		OBJ_79 /* GoogleDocsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDocsAPI.swift; sourceTree = "<group>"; };
+		OBJ_80 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
+		OBJ_81 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		OBJ_82 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
+		OBJ_83 /* JsonConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonConverter.swift; sourceTree = "<group>"; };
+		OBJ_84 /* MyHitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHitAPI.swift; sourceTree = "<group>"; };
+		OBJ_85 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
+		OBJ_86 /* String-extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-extension.swift"; sourceTree = "<group>"; };
+		OBJ_87 /* WatchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchStatus.swift; sourceTree = "<group>"; };
 		OBJ_9 /* Just.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Just.swift; sourceTree = "<group>"; };
-		OBJ_90 /* AuthAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPITests.swift; sourceTree = "<group>"; };
-		OBJ_91 /* ConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigTests.swift; sourceTree = "<group>"; };
-		OBJ_92 /* EtvnetAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtvnetAPITests.swift; sourceTree = "<group>"; };
-		OBJ_93 /* FileStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageTests.swift; sourceTree = "<group>"; };
-		OBJ_94 /* GidOnlineAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GidOnlineAPITests.swift; sourceTree = "<group>"; };
-		OBJ_95 /* GoogleDocsAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDocsAPITests.swift; sourceTree = "<group>"; };
-		OBJ_96 /* HttpServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceTests.swift; sourceTree = "<group>"; };
-		OBJ_97 /* MyHitAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHitAPITests.swift; sourceTree = "<group>"; };
-		OBJ_98 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
+		OBJ_90 /* AudioKnigiAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKnigiAPITests.swift; sourceTree = "<group>"; };
+		OBJ_91 /* AuthAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPITests.swift; sourceTree = "<group>"; };
+		OBJ_92 /* ConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigTests.swift; sourceTree = "<group>"; };
+		OBJ_93 /* EtvnetAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtvnetAPITests.swift; sourceTree = "<group>"; };
+		OBJ_94 /* FileStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileStorageTests.swift; sourceTree = "<group>"; };
+		OBJ_95 /* GidOnlineAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GidOnlineAPITests.swift; sourceTree = "<group>"; };
+		OBJ_96 /* GoogleDocsAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDocsAPITests.swift; sourceTree = "<group>"; };
+		OBJ_97 /* HttpServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceTests.swift; sourceTree = "<group>"; };
+		OBJ_98 /* MyHitAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHitAPITests.swift; sourceTree = "<group>"; };
+		OBJ_99 /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		OBJ_111 /* Frameworks */ = {
+		OBJ_114 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_118 /* Frameworks */ = {
+		OBJ_121 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_181 /* Frameworks */ = {
+		OBJ_184 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_203 /* Frameworks */ = {
+		OBJ_207 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_204 /* Just.framework in Frameworks */,
-				OBJ_205 /* SwiftyJSON.framework in Frameworks */,
-				OBJ_206 /* SwiftSoup.framework in Frameworks */,
+				OBJ_208 /* Just.framework in Frameworks */,
+				OBJ_209 /* SwiftyJSON.framework in Frameworks */,
+				OBJ_210 /* SwiftSoup.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_225 /* Frameworks */ = {
+		OBJ_229 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_226 /* Just.framework in Frameworks */,
-				OBJ_227 /* SwiftyJSON.framework in Frameworks */,
-				OBJ_228 /* SwiftSoup.framework in Frameworks */,
-				OBJ_229 /* WebAPI.framework in Frameworks */,
+				OBJ_230 /* Just.framework in Frameworks */,
+				OBJ_231 /* SwiftyJSON.framework in Frameworks */,
+				OBJ_232 /* SwiftSoup.framework in Frameworks */,
+				OBJ_233 /* WebAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -303,6 +305,18 @@
 			name = SwiftyJSON;
 			path = "Packages/SwiftyJSON-3.1.4/Source";
 			sourceTree = SOURCE_ROOT;
+		};
+		OBJ_102 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_103 /* Just.framework */,
+				OBJ_104 /* SwiftyJSON.framework */,
+				OBJ_105 /* SwiftSoup.framework */,
+				OBJ_106 /* WebAPI.framework */,
+				OBJ_107 /* WebAPITests.xctest */,
+			);
+			name = Products;
+			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		OBJ_12 /* SwiftSoup */ = {
 			isa = PBXGroup;
@@ -366,17 +380,20 @@
 				OBJ_69 /* XmlTreeBuilder.swift */,
 			);
 			name = SwiftSoup;
-			path = "Packages/SwiftSoup-1.2.0/Sources";
+			path = "Packages/SwiftSoup-1.2.4/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 = {
+		OBJ_5 /*  */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
-				OBJ_87 /* Tests */,
-				OBJ_99 /* Products */,
+				OBJ_88 /* Tests */,
+				OBJ_100 /* Pods */,
+				OBJ_101 /* WebAPITests */,
+				OBJ_102 /* Products */,
 			);
+			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -386,7 +403,6 @@
 				OBJ_10 /* SwiftyJSON */,
 				OBJ_12 /* SwiftSoup */,
 				OBJ_70 /* WebAPI */,
-				2DBA17F078B7CA4CCC5C8BF2 /* Files.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -399,17 +415,18 @@
 				OBJ_73 /* AuthService.swift */,
 				OBJ_74 /* Config.swift */,
 				OBJ_75 /* EtvnetAPI.swift */,
-				OBJ_76 /* FileStorage.swift */,
-				OBJ_77 /* GidOnlineAPI.swift */,
-				OBJ_78 /* GoogleDocsAPI.swift */,
-				OBJ_79 /* HttpService.swift */,
-				OBJ_80 /* Item.swift */,
-				OBJ_81 /* Items.swift */,
-				OBJ_82 /* JsonConverter.swift */,
-				OBJ_83 /* MyHitAPI.swift */,
-				OBJ_84 /* Storage.swift */,
-				OBJ_85 /* String-extension.swift */,
-				OBJ_86 /* WatchStatus.swift */,
+				OBJ_76 /* Files.swift */,
+				OBJ_77 /* FileStorage.swift */,
+				OBJ_78 /* GidOnlineAPI.swift */,
+				OBJ_79 /* GoogleDocsAPI.swift */,
+				OBJ_80 /* HttpService.swift */,
+				OBJ_81 /* Item.swift */,
+				OBJ_82 /* Items.swift */,
+				OBJ_83 /* JsonConverter.swift */,
+				OBJ_84 /* MyHitAPI.swift */,
+				OBJ_85 /* Storage.swift */,
+				OBJ_86 /* String-extension.swift */,
+				OBJ_87 /* WatchStatus.swift */,
 			);
 			name = WebAPI;
 			path = Sources;
@@ -424,53 +441,41 @@
 			path = "Packages/Just-0.5.7/Sources/Just";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_87 /* Tests */ = {
+		OBJ_88 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_88 /* WebAPITests */,
+				OBJ_89 /* WebAPITests */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
 		};
-		OBJ_88 /* WebAPITests */ = {
+		OBJ_89 /* WebAPITests */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_89 /* AudioKnigiAPITests.swift */,
-				OBJ_90 /* AuthAPITests.swift */,
-				OBJ_91 /* ConfigTests.swift */,
-				OBJ_92 /* EtvnetAPITests.swift */,
-				OBJ_93 /* FileStorageTests.swift */,
-				OBJ_94 /* GidOnlineAPITests.swift */,
-				OBJ_95 /* GoogleDocsAPITests.swift */,
-				OBJ_96 /* HttpServiceTests.swift */,
-				OBJ_97 /* MyHitAPITests.swift */,
-				OBJ_98 /* StorageTests.swift */,
+				OBJ_90 /* AudioKnigiAPITests.swift */,
+				OBJ_91 /* AuthAPITests.swift */,
+				OBJ_92 /* ConfigTests.swift */,
+				OBJ_93 /* EtvnetAPITests.swift */,
+				OBJ_94 /* FileStorageTests.swift */,
+				OBJ_95 /* GidOnlineAPITests.swift */,
+				OBJ_96 /* GoogleDocsAPITests.swift */,
+				OBJ_97 /* HttpServiceTests.swift */,
+				OBJ_98 /* MyHitAPITests.swift */,
+				OBJ_99 /* StorageTests.swift */,
 			);
 			name = WebAPITests;
 			path = Tests/WebAPITests;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_99 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_100 /* Just.framework */,
-				OBJ_101 /* SwiftyJSON.framework */,
-				OBJ_102 /* SwiftSoup.framework */,
-				OBJ_103 /* WebAPI.framework */,
-				OBJ_104 /* WebAPITests.xctest */,
-			);
-			name = Products;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		OBJ_105 /* Just */ = {
+		OBJ_108 /* Just */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_106 /* Build configuration list for PBXNativeTarget "Just" */;
+			buildConfigurationList = OBJ_109 /* Build configuration list for PBXNativeTarget "Just" */;
 			buildPhases = (
-				OBJ_109 /* Sources */,
-				OBJ_111 /* Frameworks */,
+				OBJ_112 /* Sources */,
+				OBJ_114 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -478,15 +483,15 @@
 			);
 			name = Just;
 			productName = Just;
-			productReference = OBJ_100 /* Just.framework */;
+			productReference = OBJ_103 /* Just.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_112 /* SwiftyJSON */ = {
+		OBJ_115 /* SwiftyJSON */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_113 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
+			buildConfigurationList = OBJ_116 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
 			buildPhases = (
-				OBJ_116 /* Sources */,
-				OBJ_118 /* Frameworks */,
+				OBJ_119 /* Sources */,
+				OBJ_121 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -494,15 +499,15 @@
 			);
 			name = SwiftyJSON;
 			productName = SwiftyJSON;
-			productReference = OBJ_101 /* SwiftyJSON.framework */;
+			productReference = OBJ_104 /* SwiftyJSON.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_119 /* SwiftSoup */ = {
+		OBJ_122 /* SwiftSoup */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_120 /* Build configuration list for PBXNativeTarget "SwiftSoup" */;
+			buildConfigurationList = OBJ_123 /* Build configuration list for PBXNativeTarget "SwiftSoup" */;
 			buildPhases = (
-				OBJ_123 /* Sources */,
-				OBJ_181 /* Frameworks */,
+				OBJ_126 /* Sources */,
+				OBJ_184 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -510,46 +515,46 @@
 			);
 			name = SwiftSoup;
 			productName = SwiftSoup;
-			productReference = OBJ_102 /* SwiftSoup.framework */;
+			productReference = OBJ_105 /* SwiftSoup.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_182 /* WebAPI */ = {
+		OBJ_185 /* WebAPI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_183 /* Build configuration list for PBXNativeTarget "WebAPI" */;
+			buildConfigurationList = OBJ_186 /* Build configuration list for PBXNativeTarget "WebAPI" */;
 			buildPhases = (
-				OBJ_186 /* Sources */,
-				OBJ_203 /* Frameworks */,
+				OBJ_189 /* Sources */,
+				OBJ_207 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_207 /* PBXTargetDependency */,
-				OBJ_208 /* PBXTargetDependency */,
-				OBJ_209 /* PBXTargetDependency */,
+				OBJ_211 /* PBXTargetDependency */,
+				OBJ_212 /* PBXTargetDependency */,
+				OBJ_213 /* PBXTargetDependency */,
 			);
 			name = WebAPI;
 			productName = WebAPI;
-			productReference = OBJ_103 /* WebAPI.framework */;
+			productReference = OBJ_106 /* WebAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_210 /* WebAPITests */ = {
+		OBJ_214 /* WebAPITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_211 /* Build configuration list for PBXNativeTarget "WebAPITests" */;
+			buildConfigurationList = OBJ_215 /* Build configuration list for PBXNativeTarget "WebAPITests" */;
 			buildPhases = (
-				OBJ_214 /* Sources */,
-				OBJ_225 /* Frameworks */,
+				OBJ_218 /* Sources */,
+				OBJ_229 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				OBJ_230 /* PBXTargetDependency */,
-				OBJ_231 /* PBXTargetDependency */,
-				OBJ_232 /* PBXTargetDependency */,
-				OBJ_233 /* PBXTargetDependency */,
+				OBJ_234 /* PBXTargetDependency */,
+				OBJ_235 /* PBXTargetDependency */,
+				OBJ_236 /* PBXTargetDependency */,
+				OBJ_237 /* PBXTargetDependency */,
 			);
 			name = WebAPITests;
 			productName = WebAPITests;
-			productReference = OBJ_104 /* WebAPITests.xctest */;
+			productReference = OBJ_107 /* WebAPITests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -559,11 +564,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 9999;
-				TargetAttributes = {
-					OBJ_182 = {
-						DevelopmentTeam = Y63DEDERL2;
-					};
-				};
 			};
 			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "WebAPI" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -572,184 +572,184 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5;
-			productRefGroup = OBJ_99 /* Products */;
+			mainGroup = OBJ_5 /*  */;
+			productRefGroup = OBJ_102 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				OBJ_105 /* Just */,
-				OBJ_112 /* SwiftyJSON */,
-				OBJ_119 /* SwiftSoup */,
-				OBJ_182 /* WebAPI */,
-				OBJ_210 /* WebAPITests */,
+				OBJ_108 /* Just */,
+				OBJ_115 /* SwiftyJSON */,
+				OBJ_122 /* SwiftSoup */,
+				OBJ_185 /* WebAPI */,
+				OBJ_214 /* WebAPITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		OBJ_109 /* Sources */ = {
+		OBJ_112 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_110 /* Just.swift in Sources */,
-				2DBA169DC9D8386FBE160607 /* Files.swift in Sources */,
+				OBJ_113 /* Just.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_116 /* Sources */ = {
+		OBJ_119 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_117 /* SwiftyJSON.swift in Sources */,
+				OBJ_120 /* SwiftyJSON.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_123 /* Sources */ = {
+		OBJ_126 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_124 /* ArrayExt.swift in Sources */,
-				OBJ_125 /* Attribute.swift in Sources */,
-				OBJ_126 /* Attributes.swift in Sources */,
-				OBJ_127 /* BooleanAttribute.swift in Sources */,
-				OBJ_128 /* CharacterExt.swift in Sources */,
-				OBJ_129 /* CharacterReader.swift in Sources */,
-				OBJ_130 /* Cleaner.swift in Sources */,
-				OBJ_131 /* Collector.swift in Sources */,
-				OBJ_132 /* CombiningEvaluator.swift in Sources */,
-				OBJ_133 /* Comment.swift in Sources */,
-				OBJ_134 /* Connection.swift in Sources */,
-				OBJ_135 /* DataNode.swift in Sources */,
-				OBJ_136 /* DataUtil.swift in Sources */,
-				OBJ_137 /* Document.swift in Sources */,
-				OBJ_138 /* DocumentType.swift in Sources */,
-				OBJ_139 /* Element.swift in Sources */,
-				OBJ_140 /* Elements.swift in Sources */,
-				OBJ_141 /* Entities.swift in Sources */,
-				OBJ_142 /* Evaluator.swift in Sources */,
-				OBJ_143 /* Exception.swift in Sources */,
-				OBJ_144 /* FormElement.swift in Sources */,
-				OBJ_145 /* HtmlTreeBuilder.swift in Sources */,
-				OBJ_146 /* HtmlTreeBuilderState.swift in Sources */,
-				OBJ_147 /* HttpStatusException.swift in Sources */,
-				OBJ_148 /* Node.swift in Sources */,
-				OBJ_149 /* NodeTraversor.swift in Sources */,
-				OBJ_150 /* NodeVisitor.swift in Sources */,
-				OBJ_151 /* OrderedDictionary.swift in Sources */,
-				OBJ_152 /* OrderedSet.swift in Sources */,
-				OBJ_153 /* ParseError.swift in Sources */,
-				OBJ_154 /* ParseErrorList.swift in Sources */,
-				OBJ_155 /* Parser.swift in Sources */,
-				OBJ_156 /* ParseSettings.swift in Sources */,
-				OBJ_157 /* Pattern.swift in Sources */,
-				OBJ_158 /* PlatformTypes.swift in Sources */,
-				OBJ_159 /* QueryParser.swift in Sources */,
-				OBJ_160 /* Selector.swift in Sources */,
-				OBJ_161 /* SerializationException.swift in Sources */,
-				OBJ_162 /* SimpleDictionary.swift in Sources */,
-				OBJ_163 /* StreamReader.swift in Sources */,
-				OBJ_164 /* String.swift in Sources */,
-				OBJ_165 /* StringBuilder.swift in Sources */,
-				OBJ_166 /* StringUtil.swift in Sources */,
-				OBJ_167 /* StructuralEvaluator.swift in Sources */,
-				OBJ_168 /* SwiftSoup.swift in Sources */,
-				OBJ_169 /* Tag.swift in Sources */,
-				OBJ_170 /* TextNode.swift in Sources */,
-				OBJ_171 /* Token.swift in Sources */,
-				OBJ_172 /* Tokeniser.swift in Sources */,
-				OBJ_173 /* TokeniserState.swift in Sources */,
-				OBJ_174 /* TokenQueue.swift in Sources */,
-				OBJ_175 /* TreeBuilder.swift in Sources */,
-				OBJ_176 /* UnicodeScalar.swift in Sources */,
-				OBJ_177 /* Validate.swift in Sources */,
-				OBJ_178 /* Whitelist.swift in Sources */,
-				OBJ_179 /* XmlDeclaration.swift in Sources */,
-				OBJ_180 /* XmlTreeBuilder.swift in Sources */,
+				OBJ_127 /* ArrayExt.swift in Sources */,
+				OBJ_128 /* Attribute.swift in Sources */,
+				OBJ_129 /* Attributes.swift in Sources */,
+				OBJ_130 /* BooleanAttribute.swift in Sources */,
+				OBJ_131 /* CharacterExt.swift in Sources */,
+				OBJ_132 /* CharacterReader.swift in Sources */,
+				OBJ_133 /* Cleaner.swift in Sources */,
+				OBJ_134 /* Collector.swift in Sources */,
+				OBJ_135 /* CombiningEvaluator.swift in Sources */,
+				OBJ_136 /* Comment.swift in Sources */,
+				OBJ_137 /* Connection.swift in Sources */,
+				OBJ_138 /* DataNode.swift in Sources */,
+				OBJ_139 /* DataUtil.swift in Sources */,
+				OBJ_140 /* Document.swift in Sources */,
+				OBJ_141 /* DocumentType.swift in Sources */,
+				OBJ_142 /* Element.swift in Sources */,
+				OBJ_143 /* Elements.swift in Sources */,
+				OBJ_144 /* Entities.swift in Sources */,
+				OBJ_145 /* Evaluator.swift in Sources */,
+				OBJ_146 /* Exception.swift in Sources */,
+				OBJ_147 /* FormElement.swift in Sources */,
+				OBJ_148 /* HtmlTreeBuilder.swift in Sources */,
+				OBJ_149 /* HtmlTreeBuilderState.swift in Sources */,
+				OBJ_150 /* HttpStatusException.swift in Sources */,
+				OBJ_151 /* Node.swift in Sources */,
+				OBJ_152 /* NodeTraversor.swift in Sources */,
+				OBJ_153 /* NodeVisitor.swift in Sources */,
+				OBJ_154 /* OrderedDictionary.swift in Sources */,
+				OBJ_155 /* OrderedSet.swift in Sources */,
+				OBJ_156 /* ParseError.swift in Sources */,
+				OBJ_157 /* ParseErrorList.swift in Sources */,
+				OBJ_158 /* Parser.swift in Sources */,
+				OBJ_159 /* ParseSettings.swift in Sources */,
+				OBJ_160 /* Pattern.swift in Sources */,
+				OBJ_161 /* PlatformTypes.swift in Sources */,
+				OBJ_162 /* QueryParser.swift in Sources */,
+				OBJ_163 /* Selector.swift in Sources */,
+				OBJ_164 /* SerializationException.swift in Sources */,
+				OBJ_165 /* SimpleDictionary.swift in Sources */,
+				OBJ_166 /* StreamReader.swift in Sources */,
+				OBJ_167 /* String.swift in Sources */,
+				OBJ_168 /* StringBuilder.swift in Sources */,
+				OBJ_169 /* StringUtil.swift in Sources */,
+				OBJ_170 /* StructuralEvaluator.swift in Sources */,
+				OBJ_171 /* SwiftSoup.swift in Sources */,
+				OBJ_172 /* Tag.swift in Sources */,
+				OBJ_173 /* TextNode.swift in Sources */,
+				OBJ_174 /* Token.swift in Sources */,
+				OBJ_175 /* Tokeniser.swift in Sources */,
+				OBJ_176 /* TokeniserState.swift in Sources */,
+				OBJ_177 /* TokenQueue.swift in Sources */,
+				OBJ_178 /* TreeBuilder.swift in Sources */,
+				OBJ_179 /* UnicodeScalar.swift in Sources */,
+				OBJ_180 /* Validate.swift in Sources */,
+				OBJ_181 /* Whitelist.swift in Sources */,
+				OBJ_182 /* XmlDeclaration.swift in Sources */,
+				OBJ_183 /* XmlTreeBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_186 /* Sources */ = {
+		OBJ_189 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_187 /* ApiService.swift in Sources */,
-				OBJ_188 /* AudioKnigiAPI.swift in Sources */,
-				OBJ_189 /* AuthService.swift in Sources */,
-				OBJ_190 /* Config.swift in Sources */,
-				OBJ_191 /* EtvnetAPI.swift in Sources */,
-				OBJ_192 /* FileStorage.swift in Sources */,
-				OBJ_193 /* GidOnlineAPI.swift in Sources */,
-				OBJ_194 /* GoogleDocsAPI.swift in Sources */,
-				OBJ_195 /* HttpService.swift in Sources */,
-				OBJ_196 /* Item.swift in Sources */,
-				OBJ_197 /* Items.swift in Sources */,
-				OBJ_198 /* JsonConverter.swift in Sources */,
-				OBJ_199 /* MyHitAPI.swift in Sources */,
-				OBJ_200 /* Storage.swift in Sources */,
-				OBJ_201 /* String-extension.swift in Sources */,
-				OBJ_202 /* WatchStatus.swift in Sources */,
+				OBJ_190 /* ApiService.swift in Sources */,
+				OBJ_191 /* AudioKnigiAPI.swift in Sources */,
+				OBJ_192 /* AuthService.swift in Sources */,
+				OBJ_193 /* Config.swift in Sources */,
+				OBJ_194 /* EtvnetAPI.swift in Sources */,
+				OBJ_195 /* Files.swift in Sources */,
+				OBJ_196 /* FileStorage.swift in Sources */,
+				OBJ_197 /* GidOnlineAPI.swift in Sources */,
+				OBJ_198 /* GoogleDocsAPI.swift in Sources */,
+				OBJ_199 /* HttpService.swift in Sources */,
+				OBJ_200 /* Item.swift in Sources */,
+				OBJ_201 /* Items.swift in Sources */,
+				OBJ_202 /* JsonConverter.swift in Sources */,
+				OBJ_203 /* MyHitAPI.swift in Sources */,
+				OBJ_204 /* Storage.swift in Sources */,
+				OBJ_205 /* String-extension.swift in Sources */,
+				OBJ_206 /* WatchStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		OBJ_214 /* Sources */ = {
+		OBJ_218 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_215 /* AudioKnigiAPITests.swift in Sources */,
-				OBJ_216 /* AuthAPITests.swift in Sources */,
-				OBJ_217 /* ConfigTests.swift in Sources */,
-				OBJ_218 /* EtvnetAPITests.swift in Sources */,
-				OBJ_219 /* FileStorageTests.swift in Sources */,
-				OBJ_220 /* GidOnlineAPITests.swift in Sources */,
-				OBJ_221 /* GoogleDocsAPITests.swift in Sources */,
-				OBJ_222 /* HttpServiceTests.swift in Sources */,
-				OBJ_223 /* MyHitAPITests.swift in Sources */,
-				OBJ_224 /* StorageTests.swift in Sources */,
+				OBJ_219 /* AudioKnigiAPITests.swift in Sources */,
+				OBJ_220 /* AuthAPITests.swift in Sources */,
+				OBJ_221 /* ConfigTests.swift in Sources */,
+				OBJ_222 /* EtvnetAPITests.swift in Sources */,
+				OBJ_223 /* FileStorageTests.swift in Sources */,
+				OBJ_224 /* GidOnlineAPITests.swift in Sources */,
+				OBJ_225 /* GoogleDocsAPITests.swift in Sources */,
+				OBJ_226 /* HttpServiceTests.swift in Sources */,
+				OBJ_227 /* MyHitAPITests.swift in Sources */,
+				OBJ_228 /* StorageTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		OBJ_207 /* PBXTargetDependency */ = {
+		OBJ_211 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_105 /* Just */;
-			targetProxy = FA15CF8D1E569DF80078B960 /* PBXContainerItemProxy */;
+			target = OBJ_108 /* Just */;
+			targetProxy = FA6F8A3A1E7DDF450022E16D /* PBXContainerItemProxy */;
 		};
-		OBJ_208 /* PBXTargetDependency */ = {
+		OBJ_212 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_112 /* SwiftyJSON */;
-			targetProxy = FA15CF8E1E569DF80078B960 /* PBXContainerItemProxy */;
+			target = OBJ_115 /* SwiftyJSON */;
+			targetProxy = FA6F8A3B1E7DDF450022E16D /* PBXContainerItemProxy */;
 		};
-		OBJ_209 /* PBXTargetDependency */ = {
+		OBJ_213 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_119 /* SwiftSoup */;
-			targetProxy = FA15CF8F1E569DF80078B960 /* PBXContainerItemProxy */;
+			target = OBJ_122 /* SwiftSoup */;
+			targetProxy = FA6F8A3C1E7DDF450022E16D /* PBXContainerItemProxy */;
 		};
-		OBJ_230 /* PBXTargetDependency */ = {
+		OBJ_234 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_105 /* Just */;
-			targetProxy = FA15CF901E569DFA0078B960 /* PBXContainerItemProxy */;
+			target = OBJ_108 /* Just */;
+			targetProxy = FA6F8A3D1E7DDF450022E16D /* PBXContainerItemProxy */;
 		};
-		OBJ_231 /* PBXTargetDependency */ = {
+		OBJ_235 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_112 /* SwiftyJSON */;
-			targetProxy = FA15CF911E569DFA0078B960 /* PBXContainerItemProxy */;
+			target = OBJ_115 /* SwiftyJSON */;
+			targetProxy = FA6F8A3E1E7DDF450022E16D /* PBXContainerItemProxy */;
 		};
-		OBJ_232 /* PBXTargetDependency */ = {
+		OBJ_236 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_119 /* SwiftSoup */;
-			targetProxy = FA15CF921E569DFA0078B960 /* PBXContainerItemProxy */;
+			target = OBJ_122 /* SwiftSoup */;
+			targetProxy = FA6F8A3F1E7DDF450022E16D /* PBXContainerItemProxy */;
 		};
-		OBJ_233 /* PBXTargetDependency */ = {
+		OBJ_237 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_182 /* WebAPI */;
-			targetProxy = FA15CF931E569DFA0078B960 /* PBXContainerItemProxy */;
+			target = OBJ_185 /* WebAPI */;
+			targetProxy = FA6F8A401E7DDF450022E16D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		OBJ_107 /* Debug */ = {
+		OBJ_110 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -769,7 +769,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_108 /* Release */ = {
+		OBJ_111 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -789,7 +789,7 @@
 			};
 			name = Release;
 		};
-		OBJ_114 /* Debug */ = {
+		OBJ_117 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -809,7 +809,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_115 /* Release */ = {
+		OBJ_118 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -829,7 +829,7 @@
 			};
 			name = Release;
 		};
-		OBJ_121 /* Debug */ = {
+		OBJ_124 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -849,7 +849,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_122 /* Release */ = {
+		OBJ_125 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ENABLE_TESTABILITY = YES;
@@ -869,11 +869,9 @@
 			};
 			name = Release;
 		};
-		OBJ_184 /* Debug */ = {
+		OBJ_187 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = Y63DEDERL2;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -891,10 +889,9 @@
 			};
 			name = Debug;
 		};
-		OBJ_185 /* Release */ = {
+		OBJ_188 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = Y63DEDERL2;
 				ENABLE_TESTABILITY = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -912,7 +909,7 @@
 			};
 			name = Release;
 		};
-		OBJ_212 /* Debug */ = {
+		OBJ_216 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -929,7 +926,7 @@
 			};
 			name = Debug;
 		};
-		OBJ_213 /* Release */ = {
+		OBJ_217 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -959,7 +956,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
+				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -979,7 +976,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = appletvos;
+				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
@@ -991,38 +988,38 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		OBJ_106 /* Build configuration list for PBXNativeTarget "Just" */ = {
+		OBJ_109 /* Build configuration list for PBXNativeTarget "Just" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_107 /* Debug */,
-				OBJ_108 /* Release */,
+				OBJ_110 /* Debug */,
+				OBJ_111 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_113 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
+		OBJ_116 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_114 /* Debug */,
-				OBJ_115 /* Release */,
+				OBJ_117 /* Debug */,
+				OBJ_118 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_120 /* Build configuration list for PBXNativeTarget "SwiftSoup" */ = {
+		OBJ_123 /* Build configuration list for PBXNativeTarget "SwiftSoup" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_121 /* Debug */,
-				OBJ_122 /* Release */,
+				OBJ_124 /* Debug */,
+				OBJ_125 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_183 /* Build configuration list for PBXNativeTarget "WebAPI" */ = {
+		OBJ_186 /* Build configuration list for PBXNativeTarget "WebAPI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_184 /* Debug */,
-				OBJ_185 /* Release */,
+				OBJ_187 /* Debug */,
+				OBJ_188 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
@@ -1036,11 +1033,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_211 /* Build configuration list for PBXNativeTarget "WebAPITests" */ = {
+		OBJ_215 /* Build configuration list for PBXNativeTarget "WebAPITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				OBJ_212 /* Debug */,
-				OBJ_213 /* Release */,
+				OBJ_216 /* Debug */,
+				OBJ_217 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

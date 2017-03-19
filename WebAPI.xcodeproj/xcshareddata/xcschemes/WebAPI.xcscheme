@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_105"
+               BlueprintIdentifier = "OBJ_108"
                BuildableName = "Just.framework"
                BlueprintName = "Just"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_112"
+               BlueprintIdentifier = "OBJ_115"
                BuildableName = "SwiftyJSON.framework"
                BlueprintName = "SwiftyJSON"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_119"
+               BlueprintIdentifier = "OBJ_122"
                BuildableName = "SwiftSoup.framework"
                BlueprintName = "SwiftSoup"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -56,7 +56,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_182"
+               BlueprintIdentifier = "OBJ_185"
                BuildableName = "WebAPI.framework"
                BlueprintName = "WebAPI"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -74,7 +74,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_210"
+               BlueprintIdentifier = "OBJ_214"
                BuildableName = "WebAPITests.xctest"
                BlueprintName = "WebAPITests"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -97,7 +97,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_105"
+            BlueprintIdentifier = "OBJ_108"
             BuildableName = "Just.framework"
             BlueprintName = "Just"
             ReferencedContainer = "container:WebAPI.xcodeproj">

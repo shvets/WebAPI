@@ -14,11 +14,11 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-  func getAuthorsLetters() throws -> [Any] {
+  public func getAuthorsLetters() throws -> [Any] {
     return try getLetters(path: "/authors/", filter: "author-prefix-filter")
   }
 
-  func getPerformersLetters() throws -> [Any] {
+  public func getPerformersLetters() throws -> [Any] {
     return try getLetters(path: "/performers/", filter: "performer-prefix-filter")
   }
 
@@ -38,11 +38,11 @@ open class AudioKnigiAPI: HttpService {
     return data
   }
 
-  func getNewBooks(page: Int=1) throws -> [String: Any] {
+  public func getNewBooks(page: Int=1) throws -> [String: Any] {
     return try getBooks(path: "/index/", page: page)
   }
 
-  func getBestBooks(period: String, page: Int=1) throws -> [String: Any] {
+  public func getBestBooks(period: String, page: Int=1) throws -> [String: Any] {
     return try getBooks(path: "/index/views/", period: period, page: page)
   }
 
@@ -118,7 +118,7 @@ open class AudioKnigiAPI: HttpService {
     return ["items": data, "pagination": paginationData]
   }
 
-  func getGenres(page: Int=1) throws -> [String: Any] {
+  public func getGenres(page: Int=1) throws -> [String: Any] {
     var data = [Any]()
     var paginationData = [String: Any]()
 
@@ -192,12 +192,12 @@ open class AudioKnigiAPI: HttpService {
         }
       }
       else {
-        let href = try items.attr("href")
-
-        let pattern = path + "page"
-
-        let index1 = href.find(pattern)
-        var index2 = href.find("/?")
+//        let href = try items.attr("href")
+//
+//        let pattern = path + "page"
+//
+//        let index1 = href.find(pattern)
+//        let index2 = href.find("/?")
 
 //        if index2 != nil {
 //          index2 = href.endIndex-1
@@ -215,7 +215,7 @@ open class AudioKnigiAPI: HttpService {
     ]
   }
 
-  func search(query: String, page: Int=1) throws -> [String: Any] {
+  public func search(_ query: String, page: Int=1) throws -> [String: Any] {
     let path = "/search/books/"
 
     let pagePath = getPagePath(path: path, page: page)
@@ -263,7 +263,7 @@ open class AudioKnigiAPI: HttpService {
       var newTracks = [Any]()
 
       for (_, track) in tracks {
-        newTracks.append(["name": track["title"].stringValue + ".mp3", "url": track["mp3"]] as! Any)
+        newTracks.append(["name": track["title"].stringValue + ".mp3", "url": track["mp3"]])
       }
 
       return newTracks
@@ -293,7 +293,7 @@ open class AudioKnigiAPI: HttpService {
     let jsonData = JSON(data)
     let prettified = JsonConverter.prettified(jsonData)
 
-    Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
+    _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
   }
 
   func generatePerformersList(_ fileName: String) throws {
@@ -316,7 +316,7 @@ open class AudioKnigiAPI: HttpService {
     let jsonData = JSON(data)
     let prettified = JsonConverter.prettified(jsonData)
 
-    Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
+    _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
   }
 
   func groupItemsByLetter(_ items: [[String: String]]) -> [(key: String, value: [String])] {

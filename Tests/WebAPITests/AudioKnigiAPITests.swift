@@ -127,7 +127,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testSearch() throws {
     let query = "пратчетт"
 
-    let result = try subject.search(query: query)
+    let result = try subject.search(query)
 
     print(JsonConverter.prettified(result))
   }
