@@ -82,11 +82,11 @@ open class AudioKnigiAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-  func getAuthors(page: Int=1) throws -> [String: Any] {
+  public func getAuthors(page: Int=1) throws -> [String: Any] {
     return try getCollection(path: "/authors/", page: page)
   }
 
-  func getPerformers(page: Int=1) throws -> [String: Any] {
+  public func getPerformers(page: Int=1) throws -> [String: Any] {
     return try getCollection(path: "/performers/", page: page)
   }
 
@@ -317,6 +317,16 @@ open class AudioKnigiAPI: HttpService {
     let prettified = JsonConverter.prettified(jsonData)
 
     _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
+  }
+
+  public func getItemsInGroups(_ fileName: String)-> [(key: String, value: [String])] {
+    let data: Data? = Files.readFile(fileName)
+
+    let json = JSON(data: data!)
+
+    let items = JsonConverter.convertToArray(json) as! [[String: String]]
+
+    return groupItemsByLetter(items)
   }
 
   func groupItemsByLetter(_ items: [[String: String]]) -> [(key: String, value: [String])] {

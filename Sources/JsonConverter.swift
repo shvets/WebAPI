@@ -41,7 +41,7 @@ open class JsonConverter {
     return dict
   }
 
-  static func convertToArray(_ json: JSON) -> [Any] {
+  public static func convertToArray(_ json: JSON) -> [Any] {
     var array = [Any]()
 
     for value in json.arrayObject! {

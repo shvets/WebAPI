@@ -1,6 +1,6 @@
 import Foundation
 
-class Files {
+open class Files {
   private static let DefaultFileManager = FileManager.default
 
   open class func exist(path: String) -> Bool {
