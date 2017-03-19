@@ -46,7 +46,7 @@ open class AudioKnigiAPI: HttpService {
     return try getBooks(path: "/index/views/", period: period, page: page)
   }
 
-  func getBooks(path: String, period: String="", page: Int=1) throws -> [String: Any] {
+  public func getBooks(path: String, period: String="", page: Int=1) throws -> [String: Any] {
 //    var path = path.removingPercentEncoding!
 //    path = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
