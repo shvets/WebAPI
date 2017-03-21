@@ -19,6 +19,12 @@ open class GidOnlineAPI: HttpService {
     return SessionUrl3
   }
 
+  public func available() throws -> Bool {
+    let document = try fetchDocument(GidOnlineAPI.SiteUrl)
+
+    return try document!.select("div[id=main] div[id=posts] a[class=mainlink]").size() > 0
+  }
+
   public func getPagePath(_ path: String, page: Int=1) -> String {
     var newPath: String
 

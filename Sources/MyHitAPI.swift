@@ -6,10 +6,10 @@ open class MyHitAPI: HttpService {
   public let SiteUrl = "https://my-hit.org"
   let UserAgent = "My Hit User Agent"
 
-  public func available() throws -> Elements {
+  public func available() throws -> Bool {
     let document = try fetchDocument(SiteUrl)
 
-    return try document!.select("div[class='container'] div[class='row']")
+    return try document!.select("div[class=container] div[class=row]").size() > 0
   }
 
   func getPagePath(path: String, filter: String?=nil, page: Int=1) -> String {

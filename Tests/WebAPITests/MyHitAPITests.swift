@@ -6,6 +6,12 @@ import SwiftyJSON
 class MyHitAPITests: XCTestCase {
   var subject = MyHitAPI()
 
+  func testAvailable() throws {
+    let result = try subject.available()
+
+    print(try result.text())
+  }
+
   func testGetAllMovies() throws {
     let result = try subject.getAllMovies()
 
