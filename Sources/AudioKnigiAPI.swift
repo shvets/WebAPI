@@ -344,7 +344,7 @@ open class AudioKnigiAPI: HttpService {
       let name = item["name"]!
       let id = item["id"]!
 
-      let index = name.index(name.startIndex, offsetBy: 3)
+      let index = name.characters.count < 3 ? name.index(name.startIndex, offsetBy: name.characters.count) : name.index(name.startIndex, offsetBy: 3)
       let groupName = name[name.startIndex..<index].uppercased()
 
       if !groups.keys.contains(groupName) {
