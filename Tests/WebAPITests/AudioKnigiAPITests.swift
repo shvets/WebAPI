@@ -143,10 +143,10 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   func testGenerateAuthorsList() throws {
-    //try subject.generateAuthorsList("authors.json")
+    try subject.generateAuthorsList("authors.json")
   }
 
   func testGeneratePerformersList() throws {
-    //try subject.generatePerformersList("performers.json")
+    try subject.generatePerformersList("performers.json")
   }
 }

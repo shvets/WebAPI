@@ -131,7 +131,7 @@ open class AudioKnigiAPI: HttpService {
 
     for item: Element in items.array() {
       let link = try item.select("a")
-      let name = try link.select("h4 a").text()
+      let name = try item.select("h4 a").text()
       let href = try link.attr("href")
 
       let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
@@ -290,7 +290,9 @@ open class AudioKnigiAPI: HttpService {
       data += (result["movies"] as! [Any])
     }
 
-    let jsonData = JSON(data)
+    let filteredData = data.map {["id": ($0 as! [String: String])["id"], "name": ($0 as! [String: String])["name"]] }
+
+    let jsonData = JSON(filteredData)
     let prettified = JsonConverter.prettified(jsonData)
 
     _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
@@ -313,7 +315,9 @@ open class AudioKnigiAPI: HttpService {
       data += (result["movies"] as! [Any])
     }
 
-    let jsonData = JSON(data)
+    let filteredData = data.map {["id": ($0 as! [String: String])["id"], "name": ($0 as! [String: String])["name"]] }
+
+    let jsonData = JSON(filteredData)
     let prettified = JsonConverter.prettified(jsonData)
 
     _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
