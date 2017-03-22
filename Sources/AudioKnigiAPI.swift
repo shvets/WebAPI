@@ -108,7 +108,7 @@ open class AudioKnigiAPI: HttpService {
 
       let id = href[index ..< href.endIndex] + "/"
 
-      data.append(["type": "collection", "id": id, "name": name ])
+      data.append(["type": "collection", "id": id.removingPercentEncoding as Any, "name": name ])
     }
 
     if !items.array().isEmpty {
@@ -319,7 +319,7 @@ open class AudioKnigiAPI: HttpService {
     _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
   }
 
-  public func getItemsInGroups(_ fileName: String)-> [(key: String, value: [String])] {
+  public func getItemsInGroups(_ fileName: String)-> [(key: String, value: [Any])] {
     let data: Data? = Files.readFile(fileName)
 
     let json = JSON(data: data!)
@@ -329,7 +329,7 @@ open class AudioKnigiAPI: HttpService {
     return groupItemsByLetter(items)
   }
 
-  func groupItemsByLetter(_ items: [[String: String]]) -> [(key: String, value: [String])] {
+  func groupItemsByLetter(_ items: [[String: String]]) -> [(key: String, value: [Any])] {
     var groups = [String: [[String: String]]]()
 
     for item in items {
@@ -353,7 +353,7 @@ open class AudioKnigiAPI: HttpService {
     return mergeSmallGroups(sortedGroups)
   }
 
-  func mergeSmallGroups(_ groups: [(key: String, value: [[String : String]])]) -> [(key: String, value: [String])] {
+  func mergeSmallGroups(_ groups: [(key: String, value: [[String : String]])]) -> [(key: String, value: [Any])] {
     // merge groups into bigger groups with size ~ 20 records
 
     var classifier: [[String]] = []
@@ -380,15 +380,17 @@ open class AudioKnigiAPI: HttpService {
     // flatten records from different group within same classification
     // assign new name in format firstName-lastName, e.g. ABC-AZZ
 
-    var newGroups = [(key: String, value: [String])]()
+    var newGroups: [(key: String, value: [Any])] = []
 
     for groupNames in classifier {
       let key = groupNames[0] + "-" + groupNames[groupNames.count - 1]
 
-      var value: [String] = []
+      var value: [Any] = []
 
       for groupName in groupNames {
-        value.append(groupName)
+        let group = groups.filter { $0.key == groupName }.first
+
+        value.append(group!.value.first!)
       }
 
       newGroups.append((key: key, value: value))

@@ -9,7 +9,7 @@ class MyHitAPITests: XCTestCase {
   func testAvailable() throws {
     let result = try subject.available()
 
-    print(try result.text())
+    print(result)
   }
 
   func testGetAllMovies() throws {
