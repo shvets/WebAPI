@@ -233,7 +233,7 @@ open class AudioKnigiAPI: HttpService {
     return try getBookItems(document!, path: path, page: page)
   }
 
-  func getAudioTracks(_ url: String) throws -> [Any] {
+  public func getAudioTracks(_ url: String) throws -> [Any] {
     var bookId = 0
 
     let document = try fetchDocument(url)
@@ -266,7 +266,7 @@ open class AudioKnigiAPI: HttpService {
       var newTracks = [Any]()
 
       for (_, track) in tracks {
-        newTracks.append(["name": track["title"].stringValue + ".mp3", "url": track["mp3"]])
+        newTracks.append(["name": track["title"].stringValue + ".mp3", "id": track["mp3"]])
       }
 
       return newTracks
