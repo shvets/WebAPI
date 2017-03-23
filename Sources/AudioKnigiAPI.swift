@@ -103,7 +103,6 @@ open class AudioKnigiAPI: HttpService {
       let link = try item.select("h4 a")
       let name = try link.text()
       let href = try link.attr("href")
-      let link2 = try item.select("a")
       let thumb = "https://audioknigi.club/templates/skin/aclub/images/avatar_blog_48x48.png"
         //try link.select("img").attr("src")
 

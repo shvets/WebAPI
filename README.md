@@ -20,8 +20,14 @@ https://developer.apple.com/library/content/samplecode/UsingPhotosFramework/Intr
 https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/URLLoadingSystem/URLLoadingSystem.html#//apple_ref/doc/uid/10000165i
 https://developer.apple.com/library/content/documentation/General/Reference/HLSAuthoringSpec/index.html#//apple_ref/doc/uid/TP40016596
 
-https://developer.apple.com/library/content/documentation/UserExperience/Conceptual/AutolayoutPG/index.html#//apple_ref/doc/uid/TP40010853
 https://developer.apple.com/library/content/documentation/General/Conceptual/AppleTV_PG/index.html#//apple_ref/doc/uid/TP40015241
+
+https://github.com/Wolg/awesome-swift  
+
+https://developer.apple.com/swift/blog/
+https://developer.apple.com/tvos/resources/
+
+https://github.com/neonichu/swiftpm-talk  
 
 http://iswift.org/cookbook  
 
@@ -29,14 +35,7 @@ http://iswift.org/cookbook
 
 https://swift.org/package-manager
 https://github.com/apple/swift-package-manager/blob/master/Documentation/Reference.md
-
-https://github.com/Wolg/awesome-swift  
-
-https://developer.apple.com/swift/blog/
-https://developer.apple.com/tvos/resources/
-
 https://github.com/nikolasburk/swift-package-manager-tutorial
-https://github.com/neonichu/swiftpm-talk  
 
     # Projects
 
