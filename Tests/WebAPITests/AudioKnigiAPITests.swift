@@ -48,9 +48,9 @@ class AudioKnigiAPITests: XCTestCase {
 
     let id = (items[0] as! [String: String])["id"]!
 
-    let result2 = try subject.getBooks(path: id)
+    let books = try subject.getBooks(path: id)
 
-    print(JsonConverter.prettified(result2))
+    print(JsonConverter.prettified(books))
   }
 
   func testGetPerformersBooks() throws {
@@ -59,9 +59,9 @@ class AudioKnigiAPITests: XCTestCase {
 
     let id = (items[0] as! [String: String])["id"]!
 
-    let result2 = try subject.getBooks(path: id)
+    let books = try subject.getBooks(path: id)
 
-    print(JsonConverter.prettified(result2))
+    print(JsonConverter.prettified(books))
   }
 
   func testGetAuthors() throws {

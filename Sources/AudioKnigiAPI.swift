@@ -47,10 +47,9 @@ open class AudioKnigiAPI: HttpService {
   }
 
   public func getBooks(path: String, period: String="", page: Int=1) throws -> [String: Any] {
-//    var path = path.removingPercentEncoding!
-//    path = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
-    var pagePath = getPagePath(path: path, page: page)
+    var pagePath = getPagePath(path: encodedPath, page: page)
 
     if !period.isEmpty {
       pagePath = "\(pagePath)?period=\(period)"
@@ -58,7 +57,7 @@ open class AudioKnigiAPI: HttpService {
 
     let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
 
-    return try getBookItems(document!, path: path, page: page)
+    return try getBookItems(document!, path: encodedPath, page: page)
   }
 
   func getBookItems(_ document: Document, path: String, page: Int) throws -> [String: Any] {
