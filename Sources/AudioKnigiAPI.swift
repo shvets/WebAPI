@@ -265,7 +265,7 @@ open class AudioKnigiAPI: HttpService {
       var newTracks = [Any]()
 
       for (_, track) in tracks {
-        newTracks.append(["name": track["title"].stringValue + ".mp3", "id": track["mp3"]])
+        newTracks.append(["name": track["title"].stringValue + ".mp3", "id": track["mp3"].stringValue])
       }
 
       return newTracks
