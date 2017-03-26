@@ -396,7 +396,9 @@ open class AudioKnigiAPI: HttpService {
       for groupName in groupNames {
         let group = groups.filter { $0.key == groupName }.first
 
-        value.append(group!.value.first!)
+        for item in group!.value {
+          value.append(item)
+        }
       }
 
       newGroups.append((key: key, value: value))
