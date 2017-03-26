@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "OBJ_114"
                BuildableName = "Just.framework"
                BlueprintName = "Just"
-               ReferencedContainer = "container:WebAPI.xcodeproj"
-               BlueprintIdentifier = "OBJ_111">
+               ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,7 +28,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BuildableName = "&apos;lib$(TARGET_NAME)&apos;"
+               BlueprintIdentifier = "OBJ_121"
+               BuildableName = "SwiftyJSON.framework"
                BlueprintName = "SwiftyJSON"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
@@ -41,7 +42,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BuildableName = "&apos;lib$(TARGET_NAME)&apos;"
+               BlueprintIdentifier = "OBJ_128"
+               BuildableName = "SwiftSoup.framework"
                BlueprintName = "SwiftSoup"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
@@ -54,7 +56,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BuildableName = "&apos;lib$(TARGET_NAME)&apos;"
+               BlueprintIdentifier = "OBJ_191"
+               BuildableName = "Wrap.framework"
                BlueprintName = "Wrap"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
@@ -67,7 +70,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BuildableName = "&apos;lib$(TARGET_NAME)&apos;"
+               BlueprintIdentifier = "OBJ_198"
+               BuildableName = "Unbox.framework"
                BlueprintName = "Unbox"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
@@ -80,7 +84,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BuildableName = "&apos;lib$(TARGET_NAME)&apos;"
+               BlueprintIdentifier = "OBJ_205"
+               BuildableName = "WebAPI.framework"
                BlueprintName = "WebAPI"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
@@ -91,18 +96,56 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "NO">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BuildableName = "&apos;$(TARGET_NAME)&apos;"
+               BlueprintIdentifier = "OBJ_238"
+               BuildableName = "WebAPITests.xctest"
                BlueprintName = "WebAPITests"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <AdditionalOptions>
+      </AdditionalOptions>
    </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "OBJ_114"
+            BuildableName = "Just.framework"
+            BlueprintName = "Just"
+            ReferencedContainer = "container:WebAPI.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
+      <AdditionalOptions>
+      </AdditionalOptions>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
 </Scheme>
