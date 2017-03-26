@@ -103,49 +103,49 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		FA2C28FF1E7F005A0090C9D5 /* PBXContainerItemProxy */ = {
+		FA62DE4F1E87484B00637BBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_108;
 			remoteInfo = Just;
 		};
-		FA2C29001E7F005A0090C9D5 /* PBXContainerItemProxy */ = {
+		FA62DE501E87484B00637BBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_115;
 			remoteInfo = SwiftyJSON;
 		};
-		FA2C29011E7F005A0090C9D5 /* PBXContainerItemProxy */ = {
+		FA62DE511E87484B00637BBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_122;
 			remoteInfo = SwiftSoup;
 		};
-		FA2C29021E7F005A0090C9D5 /* PBXContainerItemProxy */ = {
+		FA62DE521E87484B00637BBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_108;
 			remoteInfo = Just;
 		};
-		FA2C29031E7F005A0090C9D5 /* PBXContainerItemProxy */ = {
+		FA62DE531E87484B00637BBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_115;
 			remoteInfo = SwiftyJSON;
 		};
-		FA2C29041E7F005A0090C9D5 /* PBXContainerItemProxy */ = {
+		FA62DE541E87484B00637BBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_122;
 			remoteInfo = SwiftSoup;
 		};
-		FA2C29051E7F005A0090C9D5 /* PBXContainerItemProxy */ = {
+		FA62DE551E87484B00637BBA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
@@ -160,7 +160,7 @@
 		OBJ_103 /* Just.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Just.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_104 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_105 /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_106 /* WebAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_106 /* WebAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = WebAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_107 /* WebAPITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_11 /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		OBJ_13 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
@@ -380,10 +380,10 @@
 				OBJ_69 /* XmlTreeBuilder.swift */,
 			);
 			name = SwiftSoup;
-			path = "Packages/SwiftSoup-1.2.4/Sources";
+			path = "Packages/SwiftSoup-1.2.5/Sources";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 = {
+		OBJ_5 /*  */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -393,6 +393,7 @@
 				OBJ_101 /* WebAPITests */,
 				OBJ_102 /* Products */,
 			);
+			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -571,7 +572,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5;
+			mainGroup = OBJ_5 /*  */;
 			productRefGroup = OBJ_102 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -713,37 +714,37 @@
 		OBJ_211 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_108 /* Just */;
-			targetProxy = FA2C28FF1E7F005A0090C9D5 /* PBXContainerItemProxy */;
+			targetProxy = FA62DE4F1E87484B00637BBA /* PBXContainerItemProxy */;
 		};
 		OBJ_212 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_115 /* SwiftyJSON */;
-			targetProxy = FA2C29001E7F005A0090C9D5 /* PBXContainerItemProxy */;
+			targetProxy = FA62DE501E87484B00637BBA /* PBXContainerItemProxy */;
 		};
 		OBJ_213 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_122 /* SwiftSoup */;
-			targetProxy = FA2C29011E7F005A0090C9D5 /* PBXContainerItemProxy */;
+			targetProxy = FA62DE511E87484B00637BBA /* PBXContainerItemProxy */;
 		};
 		OBJ_234 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_108 /* Just */;
-			targetProxy = FA2C29021E7F005A0090C9D5 /* PBXContainerItemProxy */;
+			targetProxy = FA62DE521E87484B00637BBA /* PBXContainerItemProxy */;
 		};
 		OBJ_235 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_115 /* SwiftyJSON */;
-			targetProxy = FA2C29031E7F005A0090C9D5 /* PBXContainerItemProxy */;
+			targetProxy = FA62DE531E87484B00637BBA /* PBXContainerItemProxy */;
 		};
 		OBJ_236 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_122 /* SwiftSoup */;
-			targetProxy = FA2C29041E7F005A0090C9D5 /* PBXContainerItemProxy */;
+			targetProxy = FA62DE541E87484B00637BBA /* PBXContainerItemProxy */;
 		};
 		OBJ_237 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_185 /* WebAPI */;
-			targetProxy = FA2C29051E7F005A0090C9D5 /* PBXContainerItemProxy */;
+			targetProxy = FA62DE551E87484B00637BBA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
