@@ -276,14 +276,24 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-  public func getItemsInGroups(_ fileName: String) throws -> [(key: String, value: [Any])] {
+  public func getItemsInGroups(_ fileName: String) -> [NameClassifier.ItemsGroup] {
     let data: Data? = Files.readFile(fileName)
 
-    let items: [NameClassifier.Item] = try unbox(data: data!)
+    var items: [NameClassifier.ItemsGroup] = []
+    
+    do {
+      items = try unbox(data: data!)
+    }
+    catch {
+    }
 
-    let classifier = NameClassifier()
+    return items
 
-    return try classifier.classify(items: items)
+//    let classifier = NameClassifier()
+//
+//    return try classifier.classify(items: items)
+
+    //return JSON(data: data!) as! [(key: String, value: [Any])]
   }
 
 }

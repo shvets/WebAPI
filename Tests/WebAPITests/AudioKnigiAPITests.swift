@@ -188,7 +188,7 @@ class AudioKnigiAPITests: XCTestCase {
     _ = Files.createFile("performers-in-groups.json", data: prettified.data(using: String.Encoding.utf8))
   }
 
-  func generateAuthorsList(_ fileName: String) throws {
+  private func generateAuthorsList(_ fileName: String) throws {
     var data = [Any]()
 
     var result = try subject.getAuthors()
@@ -213,7 +213,7 @@ class AudioKnigiAPITests: XCTestCase {
     _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
   }
 
-  func generatePerformersList(_ fileName: String) throws {
+  private func generatePerformersList(_ fileName: String) throws {
     var data = [Any]()
 
     var result = try subject.getPerformers()
