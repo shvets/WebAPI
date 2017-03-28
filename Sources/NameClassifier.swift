@@ -1,22 +1,27 @@
 import Unbox
 
-class NameClassifier {
-  struct Item: Unboxable {
-    let id: String
-    let name: String
+open class NameClassifier {
+  public struct Item: Unboxable {
+    public let id: String
+    public let name: String
 
-    init(unboxer: Unboxer) throws {
+    public init(unboxer: Unboxer) throws {
       self.id = try unboxer.unbox(key: "id")
       self.name = try unboxer.unbox(key: "name")
     }
   }
 
-  struct Record {
-    let key: String
-    let value: [Item]
+  public struct ItemsGroup: Unboxable {
+    public let key: String
+    public let value: [Item]
+
+    public init(unboxer: Unboxer) throws {
+      self.key = try unboxer.unbox(key: "key")
+      self.value = try unboxer.unbox(key: "value")
+    }
   }
 
-  func classify(items: [Item]) throws -> [(key: String, value: [Any])] {
+  public func classify(items: [Item]) throws -> [(key: String, value: [Any])] {
     var groups = [String: [Item]]()
 
     for item in items {
@@ -40,13 +45,13 @@ class NameClassifier {
     return mergeSmallGroups(sortedGroups)
   }
 
-  func classify2(items: [Item]) throws -> [Record] {
+  public func classify2(items: [Item]) throws -> [ItemsGroup] {
     let result = try classify(items: items)
 
-    var items: [Record] = []
+    var items: [ItemsGroup] = []
 
     for item in result {
-      items.append(Record(key: item.key, value: item.value as! [Item]))
+      items.append(try unbox(dictionary: ["key": item.key, "value": item.value as! [Item]]))
     }
 
     return items
