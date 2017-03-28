@@ -1,5 +1,7 @@
 import XCTest
 import SwiftyJSON
+import Wrap
+import Unbox
 
 @testable import WebAPI
 
@@ -135,18 +137,104 @@ class AudioKnigiAPITests: XCTestCase {
   func testGrouping() throws {
     let data: Data? = Files.readFile("authors.json")
 
-    let authors = JSON(data: data!)
+    //let authors = JSON(data: data!)
+    //let items = JsonConverter.convertToArray(authors) as! [[String: String]]
+    let items: [NameClassifier.Item] = try unbox(data: data!)
 
-    let result = subject.groupItemsByLetter(JsonConverter.convertToArray(authors) as! [[String: String]])
+    let classifier = NameClassifier()
+    let classified = try classifier.classify(items: items)
 
-    print(result)
+    let array: [Any] = try wrap(classified)
+
+    print(JsonConverter.prettified(array))
   }
 
   func testGenerateAuthorsList() throws {
-    try subject.generateAuthorsList("authors.json")
+    try generateAuthorsList("authors.json")
   }
 
   func testGeneratePerformersList() throws {
-    try subject.generatePerformersList("performers.json")
+    try generatePerformersList("performers.json")
+  }
+
+  func testGenerateAuthorsInGroupsList() throws {
+    let data: Data? = Files.readFile("authors.json")
+
+    //let items = JsonConverter.convertToArray(authors) as! [[String: String]]
+    let items: [NameClassifier.Item] = try unbox(data: data!)
+
+    let classifier = NameClassifier()
+    let classified = try classifier.classify2(items: items)
+
+    let array: [Any] = try wrap(classified)
+
+    let prettified = JsonConverter.prettified(array)
+
+    _ = Files.createFile("authors-in-groups.json", data: prettified.data(using: String.Encoding.utf8))
+  }
+
+  func testGeneratePerformersInGroupsList() throws {
+    let data: Data? = Files.readFile("performers.json")
+
+    let items: [NameClassifier.Item] = try unbox(data: data!)
+
+    let classifier = NameClassifier()
+    let classified = try classifier.classify2(items: items)
+
+    let array: [Any] = try wrap(classified)
+
+    let prettified = JsonConverter.prettified(array)
+
+    _ = Files.createFile("performers-in-groups.json", data: prettified.data(using: String.Encoding.utf8))
+  }
+
+  func generateAuthorsList(_ fileName: String) throws {
+    var data = [Any]()
+
+    var result = try subject.getAuthors()
+
+    data += (result["movies"] as! [Any])
+
+    let pagination = result["pagination"] as! [String: Any]
+
+    let pages = pagination["pages"] as! Int
+
+    for page in (2...pages) {
+      result = try subject.getAuthors(page: page)
+
+      data += (result["movies"] as! [Any])
+    }
+
+    let filteredData = data.map {["id": ($0 as! [String: String])["id"], "name": ($0 as! [String: String])["name"]] }
+
+    let jsonData = JSON(filteredData)
+    let prettified = JsonConverter.prettified(jsonData)
+
+    _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
+  }
+
+  func generatePerformersList(_ fileName: String) throws {
+    var data = [Any]()
+
+    var result = try subject.getPerformers()
+
+    data += (result["movies"] as! [Any])
+
+    let pagination = result["pagination"] as! [String: Any]
+
+    let pages = pagination["pages"] as! Int
+
+    for page in (2...pages) {
+      result = try subject.getPerformers(page: page)
+
+      data += (result["movies"] as! [Any])
+    }
+
+    let filteredData = data.map {["id": ($0 as! [String: String])["id"], "name": ($0 as! [String: String])["name"]] }
+
+    let jsonData = JSON(filteredData)
+    let prettified = JsonConverter.prettified(jsonData)
+
+    _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
   }
 }

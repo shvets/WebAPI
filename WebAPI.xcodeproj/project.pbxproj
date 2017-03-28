@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2DBA1CED6E9C86ACE71CF40E /* NameClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1E5BA4EE5A4110A4299E /* NameClassifier.swift */; };
 		OBJ_119 /* Just.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Just.swift */; };
 		OBJ_126 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SwiftyJSON.swift */; };
 		OBJ_133 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* ArrayExt.swift */; };
@@ -189,6 +190,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DBA1E5BA4EE5A4110A4299E /* NameClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameClassifier.swift; sourceTree = "<group>"; };
 		OBJ_100 /* GoogleDocsAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDocsAPITests.swift; sourceTree = "<group>"; };
 		OBJ_101 /* HttpServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceTests.swift; sourceTree = "<group>"; };
 		OBJ_102 /* MyHitAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHitAPITests.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 				OBJ_70 /* Wrap */,
 				OBJ_72 /* Unbox */,
 				OBJ_74 /* WebAPI */,
+				2DBA1E5BA4EE5A4110A4299E /* NameClassifier.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -708,6 +711,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_119 /* Just.swift in Sources */,
+				2DBA1CED6E9C86ACE71CF40E /* NameClassifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

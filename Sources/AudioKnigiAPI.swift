@@ -1,6 +1,7 @@
 import Foundation
 import SwiftyJSON
 import SwiftSoup
+import Unbox
 
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
@@ -275,148 +276,14 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-  func generateAuthorsList(_ fileName: String) throws {
-    var data = [Any]()
-
-    var result = try getAuthors()
-
-    data += (result["movies"] as! [Any])
-
-    let pagination = result["pagination"] as! [String: Any]
-
-    let pages = pagination["pages"] as! Int
-
-    for page in (2...pages) {
-      result = try getAuthors(page: page)
-
-      data += (result["movies"] as! [Any])
-    }
-
-    let filteredData = data.map {["id": ($0 as! [String: String])["id"], "name": ($0 as! [String: String])["name"]] }
-
-    let jsonData = JSON(filteredData)
-    let prettified = JsonConverter.prettified(jsonData)
-
-    _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
-  }
-
-  func generatePerformersList(_ fileName: String) throws {
-    var data = [Any]()
-
-    var result = try getPerformers()
-
-    data += (result["movies"] as! [Any])
-
-    let pagination = result["pagination"] as! [String: Any]
-
-    let pages = pagination["pages"] as! Int
-
-    for page in (2...pages) {
-      result = try getPerformers(page: page)
-
-      data += (result["movies"] as! [Any])
-    }
-
-    let filteredData = data.map {["id": ($0 as! [String: String])["id"], "name": ($0 as! [String: String])["name"]] }
-
-    let jsonData = JSON(filteredData)
-    let prettified = JsonConverter.prettified(jsonData)
-
-    _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
-  }
-
-  public func getItemsInGroups(_ fileName: String)-> [(key: String, value: [Any])] {
+  public func getItemsInGroups(_ fileName: String) throws -> [(key: String, value: [Any])] {
     let data: Data? = Files.readFile(fileName)
 
-    let json = JSON(data: data!)
+    let items: [NameClassifier.Item] = try unbox(data: data!)
 
-    let items = JsonConverter.convertToArray(json) as! [[String: String]]
+    let classifier = NameClassifier()
 
-    return groupItemsByLetter(items)
+    return try classifier.classify(items: items)
   }
 
-  func groupItemsByLetter(_ items: [[String: String]]) -> [(key: String, value: [Any])] {
-    var groups = [String: [[String: String]]]()
-
-    for item in items {
-      let name = item["name"]!
-      let id = item["id"]!
-
-      let index = name.characters.count < 3 ? name.index(name.startIndex, offsetBy: name.characters.count) : name.index(name.startIndex, offsetBy: 3)
-      let groupName = name[name.startIndex..<index].uppercased()
-
-      if !groups.keys.contains(groupName) {
-        let group: [[String: String]] = []
-
-        groups[groupName] = group
-      }
-
-      groups[groupName]!.append(["id": id, "name": name])
-    }
-
-    let sortedGroups = groups.sorted { $0.key < $1.key }
-
-    return mergeSmallGroups(sortedGroups)
-  }
-
-  func mergeSmallGroups(_ groups: [(key: String, value: [[String : String]])]) -> [(key: String, value: [Any])] {
-    // merge groups into bigger groups with size ~ 20 records
-
-    var classifier: [[String]] = []
-
-    var groupSize = 0
-
-    classifier.append([])
-
-    var index = 0
-
-    for (groupName, group) in groups {
-      let groupWeight = group.count
-      groupSize += groupWeight
-
-      if groupSize > 20 || startsWithDifferentLetter(classifier[index], name: groupName) {
-        groupSize = 0
-        classifier.append([])
-        index = index + 1
-      }
-
-      classifier[index].append(groupName)
-    }
-
-    // flatten records from different group within same classification
-    // assign new name in format firstName-lastName, e.g. ABC-AZZ
-
-    var newGroups: [(key: String, value: [Any])] = []
-
-    for groupNames in classifier {
-      let key = groupNames[0] + "-" + groupNames[groupNames.count - 1]
-
-      var value: [Any] = []
-
-      for groupName in groupNames {
-        let group = groups.filter { $0.key == groupName }.first
-
-        for item in group!.value {
-          value.append(item)
-        }
-      }
-
-      newGroups.append((key: key, value: value))
-    }
-
-    return newGroups
-  }
-
-  func startsWithDifferentLetter(_ list: [String], name: String) -> Bool {
-    var result = false
-
-    for n in list {
-      if name[name.startIndex] != n[name.startIndex] {
-        result = true
-        break
-      }
-    }
-
-    return result
-  }
 }
