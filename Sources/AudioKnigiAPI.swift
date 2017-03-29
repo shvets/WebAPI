@@ -288,12 +288,6 @@ open class AudioKnigiAPI: HttpService {
     }
 
     return items
-
-//    let classifier = NameClassifier()
-//
-//    return try classifier.classify(items: items)
-
-    //return JSON(data: data!) as! [(key: String, value: [Any])]
   }
 
 }
