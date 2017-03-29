@@ -1,0 +1,36 @@
+{
+  "autoPin": true,
+  "pins": [
+    {
+      "package": "Just",
+      "reason": null,
+      "repositoryURL": "https://github.com/JustHTTP/Just.git",
+      "version": "0.5.7"
+    },
+    {
+      "package": "SwiftSoup",
+      "reason": null,
+      "repositoryURL": "https://github.com/scinfu/SwiftSoup",
+      "version": "1.2.6"
+    },
+    {
+      "package": "SwiftyJSON",
+      "reason": null,
+      "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+      "version": "3.1.4"
+    },
+    {
+      "package": "Unbox",
+      "reason": null,
+      "repositoryURL": "https://github.com/johnsundell/unbox.git",
+      "version": "2.3.1"
+    },
+    {
+      "package": "Wrap",
+      "reason": null,
+      "repositoryURL": "https://github.com/JohnSundell/Wrap.git",
+      "version": "2.1.0"
+    }
+  ],
+  "version": 1
+}

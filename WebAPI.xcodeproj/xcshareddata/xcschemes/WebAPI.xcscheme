@@ -102,7 +102,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_238"
+               BlueprintIdentifier = "OBJ_239"
                BuildableName = "WebAPITests.xctest"
                BlueprintName = "WebAPITests"
                ReferencedContainer = "container:WebAPI.xcodeproj">
