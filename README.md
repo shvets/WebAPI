@@ -118,6 +118,10 @@ https://www.youtube.com/watch?v=XmLdEcq-QNI&feature=youtu.be&a
 https://www.themoviedb.org/documentation/api
 
 
+https://icomoon.io/
+https://linearicons.com/free
+http://www.flaticon.com/free-icon
+
 Manually
 
 Drag the tvProgress.xcodeproj file into your project.
