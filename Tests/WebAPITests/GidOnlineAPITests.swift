@@ -106,7 +106,7 @@ class GidOnlineAPITests: XCTestCase {
     print(JsonConverter.prettified(result))
   }
 
-  func testGetMovieUrl() throws {
+  func testGetUrls() throws {
     let movieUrl = "http://gidonline.club/2017/01/ulichnyj-kot-po-klichke-bob/"
     //let movieUrl = "http://gidonline.club/2016/12/moana/"
 

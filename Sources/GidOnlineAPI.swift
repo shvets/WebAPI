@@ -290,7 +290,17 @@ open class GidOnlineAPI: HttpService {
         movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
       }
 
-      return fetchContent(movieUrl, headers: getHeaders(gatewayUrl))
+      var response = httpRequest(url: movieUrl, headers: getHeaders(gatewayUrl))
+
+      if response.statusCode == 302 {
+        let newGatewayUrl = response.headers["Location"]
+
+        response = httpRequest(url: movieUrl, headers: getHeaders(newGatewayUrl!))
+      }
+
+      let content = response.content
+
+      return content
     }
     else {
       return nil
@@ -407,7 +417,7 @@ open class GidOnlineAPI: HttpService {
 
     let headers: [String: String] = [
       "X-Requested-With": "XMLHttpRequest",
-      "X-Mega-Version": "505"
+      "X-Format-Token": "B300"
     ]
 
     let response2 = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
@@ -424,19 +434,29 @@ open class GidOnlineAPI: HttpService {
   func getSessionData(_ content: String) -> [String: String] {
     var items = [String: String]()
 
+    var mw_key: String?
+
     var dataSection = false
 
     content.enumerateLines { (line, _) in
-      if line.find("var detect_true =") != nil {
+      if line.find("var async_method =") != nil {
         let index1 = line.find("'")
         let index2 = line.find(";")
         let index11 = line.index(index1!, offsetBy: 1)
         let index21 = line.index(index2!, offsetBy: -2)
 
-        items["detect_true"] = line[index11 ... index21]
+        items["async_method"] = line[index11 ... index21]
       }
-      else if line.find("var banners_script_clickunder = {") != nil {
+      else if line.find("var post_method = {") != nil {
         dataSection = true
+      }
+      else if line.find("var mw_key =") != nil {
+        let index1 = line.find("'")
+        let index2 = line.find(";")
+        let index11 = line.index(index1!, offsetBy: 1)
+        let index21 = line.index(index2!, offsetBy: -2)
+
+        mw_key = line[index11 ... index21]
       }
       else if dataSection == true {
         if line.find("};") != nil {
@@ -457,6 +477,10 @@ open class GidOnlineAPI: HttpService {
             items[key] = value
           }
         }
+      }
+
+      if mw_key != nil {
+        items["mw_key"] = mw_key
       }
     }
 
