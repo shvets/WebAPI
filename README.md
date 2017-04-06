@@ -64,7 +64,7 @@ git tag 1.0.0
 git push --tags
 
 xcodebuild -showsdks # to get SDK
-    
+     
 xcodebuild -list # to get Targets and Build Configurations
 
 xcodebuild clean
