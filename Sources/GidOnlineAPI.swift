@@ -439,13 +439,13 @@ open class GidOnlineAPI: HttpService {
     var dataSection = false
 
     content.enumerateLines { (line, _) in
-      if line.find("var async_method =") != nil {
+      if line.find("post_method.runner_go =") != nil {
         let index1 = line.find("'")
         let index2 = line.find(";")
         let index11 = line.index(index1!, offsetBy: 1)
         let index21 = line.index(index2!, offsetBy: -2)
 
-        items["async_method"] = line[index11 ... index21]
+        items["runner_go"] = line[index11 ... index21]
       }
       else if line.find("var post_method = {") != nil {
         dataSection = true
