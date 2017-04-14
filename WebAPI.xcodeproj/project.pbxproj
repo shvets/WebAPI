@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D56A766CC7A5B4B202E2FE86 /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56A7704C76719116C0DB336 /* AudioBooAPITests.swift */; };
+		D56A7C015F51A172DBA1D156 /* AudioBooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56A713A64A847E6B78E4BEA /* AudioBooAPI.swift */; };
 		OBJ_124 /* Just.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_110 /* Just.swift */; };
 		OBJ_131 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* SwiftyJSON.swift */; };
 		OBJ_138 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_49 /* ArrayExt.swift */; };
@@ -194,6 +196,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D56A713A64A847E6B78E4BEA /* AudioBooAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBooAPI.swift; sourceTree = "<group>"; };
+		D56A7704C76719116C0DB336 /* AudioBooAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioBooAPITests.swift; path = Tests/WebAPITests/AudioBooAPITests.swift; sourceTree = "<group>"; };
 		OBJ_10 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		OBJ_100 /* TreeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeBuilder.swift; sourceTree = "<group>"; };
 		OBJ_101 /* UnicodeScalar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnicodeScalar.swift; sourceTree = "<group>"; };
@@ -534,6 +538,7 @@
 				OBJ_42 /* WebAPI_tvOS */,
 				OBJ_43 /* Dependencies */,
 				OBJ_111 /* Products */,
+				D56A7704C76719116C0DB336 /* AudioBooAPITests.swift */,
 			);
 			name = "";
 			sourceTree = "<group>";
@@ -561,6 +566,7 @@
 				OBJ_25 /* Storage.swift */,
 				OBJ_26 /* String-extension.swift */,
 				OBJ_27 /* WatchStatus.swift */,
+				D56A713A64A847E6B78E4BEA /* AudioBooAPI.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -728,6 +734,8 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_124 /* Just.swift in Sources */,
+				D56A7C015F51A172DBA1D156 /* AudioBooAPI.swift in Sources */,
+				D56A766CC7A5B4B202E2FE86 /* AudioBooAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
