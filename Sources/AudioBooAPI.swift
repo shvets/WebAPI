@@ -6,7 +6,11 @@ import Unbox
 open class AudioBooAPI: HttpService {
   public static let SiteUrl = "http://audioboo.ru"
   public static let ArchiveUrl = "https://archive.org"
-  
+
+  public func getDocument(_ url: String) throws -> Document? {
+    return try fetchDocument(url, encoding: .windowsCP1251)
+  }
+
   func getPagePath(path: String, page: Int=1) -> String {
     if page == 1 {
       return path
@@ -15,11 +19,11 @@ open class AudioBooAPI: HttpService {
       return "\(path)page\(page)/"
     }
   }
-  
+
   func getLetters() throws -> [Any] {
     var data = [Any]()
 
-    let document = try fetchDocument(AudioBooAPI.SiteUrl)
+    let document = try getDocument(AudioBooAPI.SiteUrl)
 
     let items = try document!.select("div[class=content] div div a[class=alfavit]")
 
@@ -34,8 +38,111 @@ open class AudioBooAPI: HttpService {
     return data
   }
 
-  func getAuthorsByLetter(path: String) {
+  func getAuthorsByLetter(_ path: String) throws -> [(key: String, value: [Any])] {
+    var groups: [String: [Any]] = [:]
 
+    let document = try getDocument(AudioBooAPI.SiteUrl + path)
+
+    let items = try document!.select("div[class=full-news-content] div a")
+
+    for item in items.array() {
+      let href = try item.attr("href")
+      let name = try item.text().trim()
+
+      if !name.isEmpty && !name.hasPrefix("ALIAS") && Int(name) == nil {
+        let index1 = name.startIndex
+        let index2 = name.index(name.startIndex, offsetBy: 3)
+
+        let groupName = name[index1 ..< index2].uppercased()
+
+        if !groups.keys.contains(groupName) {
+          groups[groupName] = []
+        }
+
+        var group: [Any] = []
+
+        for item in groups[groupName]! {
+          group.append(item)
+        }
+
+        group.append(["id": href, "name": name])
+
+        groups[groupName] = group
+      }
+    }
+
+    //print(groups)
+
+    var newGroups: [(key: String, value: [[String : String]])] = []
+
+    for (groupName, group) in groups {
+      newGroups.append((key: groupName, value: group as! [[String : String]]))
+    }
+
+    print(newGroups)
+
+    return mergeSmallGroups(newGroups)
+  }
+
+  func mergeSmallGroups(_ groups: [(key: String, value: [[String: String]])]) -> [(key: String, value: [Any])] {
+    // merge groups into bigger groups with size ~ 20 records
+
+    var classifier: [[String]] = []
+
+    var groupSize = 0
+
+    classifier.append([])
+
+    var index = 0
+
+    for (groupName, group) in groups {
+      let groupWeight = group.count
+      groupSize += groupWeight
+
+      if groupSize > 20 || startsWithDifferentLetter(classifier[index], name: groupName) {
+        groupSize = 0
+        classifier.append([])
+        index = index + 1
+      }
+
+      classifier[index].append(groupName)
+    }
+
+    // flatten records from different group within same classification
+    // assign new name in format firstName-lastName, e.g. ABC-AZZ
+
+    var newGroups: [(key: String, value: [Any])] = []
+
+    for groupNames in classifier {
+      let key = groupNames[0] + "-" + groupNames[groupNames.count - 1]
+
+      var value: [Any] = []
+
+      for groupName in groupNames {
+        let group = groups.filter { $0.key == groupName }.first
+
+        for item in group!.value {
+          value.append(item)
+        }
+      }
+
+      newGroups.append((key: key, value: value))
+    }
+
+    return newGroups
+  }
+
+  func startsWithDifferentLetter(_ list: [String], name: String) -> Bool {
+    var result = false
+
+    for n in list {
+      if name[name.startIndex] != n[name.startIndex] {
+        result = true
+        break
+      }
+    }
+
+    return result
   }
 
   public func getBooks(url: String) throws -> [Any] {
