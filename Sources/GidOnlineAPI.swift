@@ -435,6 +435,7 @@ open class GidOnlineAPI: HttpService {
     var items = [String: String]()
 
     var mw_key: String?
+    var random_key: String?
 
     var dataSection = false
 
@@ -447,10 +448,12 @@ open class GidOnlineAPI: HttpService {
 
         items["runner_go"] = line[index11 ... index21]
       }
-      else if line.find("var post_method = {") != nil {
-        dataSection = true
-      }
+//      else if line.find("var post_method = {") != nil {
+//        dataSection = true
+//      }
       else if line.find("var mw_key =") != nil {
+        dataSection = true
+
         let index1 = line.find("'")
         let index2 = line.find(";")
         let index11 = line.index(index1!, offsetBy: 1)
@@ -463,6 +466,13 @@ open class GidOnlineAPI: HttpService {
           dataSection = false
         }
         else if !line.isEmpty {
+          if line.find("var ") != nil {
+            let index2 = line.find(" = {")
+            let index11 = line.index(line.startIndex, offsetBy: 4)
+            let index21 = line.index(index2!, offsetBy: -1)
+            random_key = line[index11 ... index21]
+          }
+
           var data = line
 
           data = data.replacingOccurrences(of: "'", with: "")
@@ -478,9 +488,29 @@ open class GidOnlineAPI: HttpService {
           }
         }
       }
+    }
 
-      if mw_key != nil {
-        items["mw_key"] = mw_key
+    if mw_key != nil {
+      items["mw_key"] = mw_key
+    }
+
+    if random_key != nil {
+      content.enumerateLines { (line, _) in
+        if line.find("\(random_key!)['") != nil {
+          let text1 = line.trim()
+
+          let index1 = text1.find("['")
+
+          let text2 = text1[index1! ..< text1.endIndex]
+
+          let index2 = text2.find("']")
+          let index3 = text2.find("= '")
+
+          let key = text2[text2.index(text2.startIndex, offsetBy: 2) ..< index2!]
+          let value = text2[text2.index(index3!, offsetBy: 3) ..< text2.index(text2.endIndex, offsetBy: -2)]
+
+          items[key] = value
+        }
       }
     }
 
