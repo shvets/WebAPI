@@ -11,6 +11,12 @@ open class AudioBooAPI: HttpService {
     return try fetchDocument(url, encoding: .windowsCP1251)
   }
 
+  public func searchDocument(_ url: String, data: [String: String]) throws -> Document? {
+    let headers = ["X-Requested-With": "XMLHttpRequest"]
+
+    return try fetchDocument(url, headers: headers, data: data, method: "post", encoding: .windowsCP1251)
+  }
+
   func getPagePath(path: String, page: Int=1) -> String {
     if page == 1 {
       return path
@@ -39,7 +45,7 @@ open class AudioBooAPI: HttpService {
   }
 
   func getAuthorsByLetter(_ path: String) throws -> [(key: String, value: [Any])] {
-    var groups: [String: [Any]] = [:]
+    var groups: [String: [NameClassifier.Item]] = [:]
 
     let document = try getDocument(AudioBooAPI.SiteUrl + path)
 
@@ -59,96 +65,31 @@ open class AudioBooAPI: HttpService {
           groups[groupName] = []
         }
 
-        var group: [Any] = []
+        var group: [NameClassifier.Item] = []
 
         for item in groups[groupName]! {
           group.append(item)
         }
 
-        group.append(["id": href, "name": name])
+        group.append(try unbox(dictionary: ["id": href, "name": name]))
 
         groups[groupName] = group
       }
     }
 
-    //print(groups)
-
-    var newGroups: [(key: String, value: [[String : String]])] = []
+    var newGroups: [(key: String, value: [NameClassifier.Item])] = []
 
     for (groupName, group) in groups {
-      newGroups.append((key: groupName, value: group as! [[String : String]]))
+      newGroups.append((key: groupName, value: group))
     }
 
-    print(newGroups)
-
-    return mergeSmallGroups(newGroups)
+    return NameClassifier().mergeSmallGroups(newGroups)
   }
 
-  func mergeSmallGroups(_ groups: [(key: String, value: [[String: String]])]) -> [(key: String, value: [Any])] {
-    // merge groups into bigger groups with size ~ 20 records
-
-    var classifier: [[String]] = []
-
-    var groupSize = 0
-
-    classifier.append([])
-
-    var index = 0
-
-    for (groupName, group) in groups {
-      let groupWeight = group.count
-      groupSize += groupWeight
-
-      if groupSize > 20 || startsWithDifferentLetter(classifier[index], name: groupName) {
-        groupSize = 0
-        classifier.append([])
-        index = index + 1
-      }
-
-      classifier[index].append(groupName)
-    }
-
-    // flatten records from different group within same classification
-    // assign new name in format firstName-lastName, e.g. ABC-AZZ
-
-    var newGroups: [(key: String, value: [Any])] = []
-
-    for groupNames in classifier {
-      let key = groupNames[0] + "-" + groupNames[groupNames.count - 1]
-
-      var value: [Any] = []
-
-      for groupName in groupNames {
-        let group = groups.filter { $0.key == groupName }.first
-
-        for item in group!.value {
-          value.append(item)
-        }
-      }
-
-      newGroups.append((key: key, value: value))
-    }
-
-    return newGroups
-  }
-
-  func startsWithDifferentLetter(_ list: [String], name: String) -> Bool {
-    var result = false
-
-    for n in list {
-      if name[name.startIndex] != n[name.startIndex] {
-        result = true
-        break
-      }
-    }
-
-    return result
-  }
-
-  public func getBooks(url: String) throws -> [Any] {
+  public func getBooks(_ url: String) throws -> [Any] {
     var data = [Any]()
 
-    let document = try fetchDocument(url)
+    let document = try getDocument(url)
 
     let items = try document!.select("div[class=biography-main]")
 
@@ -156,14 +97,11 @@ open class AudioBooAPI: HttpService {
       let name = try item.select("div[class=biography-title] h2 a").text()
       let href = try item.select("div div[class=biography-image] a").attr("href")
       let thumb = try item.select("div div[class=biography-image] a img").attr("src")
-      let content = try item.select("div[class=biography-content] div").text()
-      let ratingNode = try item.select("div[class=biography-content] div div[class=rating] ul li")
 
-      var rating = ""
+      let elements = try item.select("div[class=biography-content] div").array()
 
-      if ratingNode != nil {
-        //rating = ratingNode.text
-      }
+      let content = try elements[0].text()
+      let rating = try elements[2].select("div[class=rating] ul li[class=current-rating]").text()
 
       data.append(["type": "book", "id": href, "name": name, "thumb": thumb, "content": content, "rating": rating])
     }
@@ -171,71 +109,63 @@ open class AudioBooAPI: HttpService {
     return data
   }
 
-  func getPlaylistUrls(url: String) throws -> [Any] {
+  func getPlaylistUrls(_ url: String) throws -> [Any] {
     var data = [Any]()
 
-    let document = try fetchDocument(url)
+    let document = try getDocument(url)
 
     let items = try document!.select("object")
 
     for item: Element in items.array() {
-      data.append(try item.select("data"))
+      data.append(try item.attr("data"))
     }
 
     return data
   }
 
-  public func getAudioTracks(url: String) throws -> [Any] {
+  public func getAudioTracks(_ url: String) throws -> [Any] {
     var data = [Any]()
 
-    let document = try fetchDocument(url)
+    let document = try getDocument(url)
 
-//    let items = try document!.select("script")
-//
-//    for item: Element in items.array() {
-//      let text = script.text()
+    let items = try document!.select("script")
 
-//      index1 = text.find("Play('jw6',")
-//      index2 = text.find('{"start":0,')
-//
-//      if index1 >= 0 && index2 >= 0 {
-//        content = text[index1 + 10:index2 - 1].strip()
-//
-//        content = content[2:len(content) - 1].strip()
-//
-//        data.append(json.loads(content))
-//      }
-    //
+    for item in items.array() {
+      let text = try item.html()
 
-//    return data[0]
+      let index1 = text.find("Play('jw6',")
+      let index2 = text.find("{\"start\":0,")
+
+      if index1 != nil && index2 != nil {
+        let content = text[text.index(index1!, offsetBy: 10) ... text.index(index2!, offsetBy: -1)].trim()
+
+        let content2 = content[content.index(content.startIndex, offsetBy: 2) ..< content.index(content.endIndex, offsetBy: -2)]
+
+        data.append(JSON(content2))
+      }
+    }
+
     return data
   }
 
-  public func search(_ query: String, page: Int=1) throws -> [String: Any] {
+  public func search(_ query: String, page: Int=1) throws -> [Any] {
+    var data = [Any]()
+
     let url = AudioBooAPI.SiteUrl + "/engine/ajax/search.php"
 
-//    headers = {'X-Requested-With': 'XMLHttpRequest'}
-//
-//    content = self.http_request(url, headers=headers, data={'query': query}, method='POST').read()
-//
-//    document = self.to_document(content)
-//
-//    data = []
+    let document = try searchDocument(url, data: ["query": query])
 
-    var data = [String: Any]()
+    let items = try document!.select("a")
 
-//
-//    items = document.xpath('a')
-//
-//    for item in items {
-//      href = item.xpath('@href')[0]
-//      name = item.text_content().upper()
-//
-//      data.append({'path': href, 'name': name})
-//    }
+    for item in items.array() {
+      let name = try item.text()
+
+      let href = try item.attr("href")
+
+      data.append(["id": href, "name": name])
+    }
 
     return data
   }
-
 
 }
