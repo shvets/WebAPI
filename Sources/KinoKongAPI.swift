@@ -3,7 +3,7 @@ import SwiftSoup
 import SwiftyJSON
 
 open class KinoKongAPI: HttpService {
-  static let SiteUrl = "http://kinokong.cc"
+  public static let SiteUrl = "http://kinokong.cc"
   let UserAgent = "KinoKong User Agent"
 
   public func getDocument(_ url: String) throws -> Document? {
@@ -186,7 +186,7 @@ open class KinoKongAPI: HttpService {
     return try getMovies(path, page: page)
   }
 
-  func getUrls(_ path: String) throws -> [String] {
+  public func getUrls(_ path: String) throws -> [String] {
     var urls: [String] = []
 
     let document = try getDocument(KinoKongAPI.SiteUrl + path)
