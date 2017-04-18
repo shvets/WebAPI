@@ -20,6 +20,12 @@ class KinoKongAPITests: XCTestCase {
     print(JsonConverter.prettified(result))
   }
 
+  func testGetNewMovies() throws {
+    let result = try subject.getNewMovies()
+
+    print(JsonConverter.prettified(result))
+  }
+
   func testGetGroupedGenres() throws {
     let result = try subject.getGroupedGenres()
 

@@ -34,14 +34,14 @@ open class KinoKongAPI: HttpService {
   }
 
   public func getNewMovies(page: Int=1) throws -> [String: Any] {
-    return try getMovies("/films/novinki", page: page)
+    return try getMovies("/films/novinki-kino", page: page)
   }
 
   public func getAllSeries(page: Int=1) throws -> [String: Any] {
     return try getMovies("/serial/", page: page)
   }
 
-  public func getAnimation(page: Int=1) throws -> [String: Any] {
+  public func getAnimations(page: Int=1) throws -> [String: Any] {
     return try getMovies("/multfilm/", page: page)
   }
 
@@ -66,7 +66,8 @@ open class KinoKongAPI: HttpService {
     for item: Element in items.array() {
       var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
       let name = try item.select("div[class=main-sliders-title] a").text()
-      let thumb = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
+      let thumb = try KinoKongAPI.SiteUrl +
+        item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
 
       let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()
 
