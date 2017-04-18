@@ -129,7 +129,7 @@ open class KinoKongAPI: HttpService {
     return data
   }
 
-  func getMoviesByCriteriaPaginated(_ path: String, page: Int=1, perPage: Int=25) throws -> [String: Any] {
+  public func getMoviesByCriteriaPaginated(_ path: String, page: Int=1, perPage: Int=25) throws -> [String: Any] {
     let data = try getMoviesByCriteria(path)
 
     var items: [Any] = []
@@ -142,10 +142,10 @@ open class KinoKongAPI: HttpService {
 
     let pagination = buildPaginationData(data, page: page, perPage: perPage)
 
-    return ["items": items, "pagination": pagination]
+    return ["movies": items, "pagination": pagination]
   }
 
-  func getTags() throws -> [Any] {
+  public func getTags() throws -> [Any] {
     var data = [Any]()
 
     let document = try getDocument(KinoKongAPI.SiteUrl + "/podborka.html")
@@ -324,10 +324,12 @@ open class KinoKongAPI: HttpService {
       let genresNode2 = try item.select("span a")
 
       var href = try hrefLink.attr("href")
-//      href = href[href.index(href.startIndex, offsetBy: 1) ..< href.endIndex]
 
-      if href.isEmpty {
+      if href == "#" {
         href = "top"
+      }
+      else {
+        href = href[href.index(href.startIndex, offsetBy: 1) ..< href.index(href.endIndex, offsetBy: -1)]
       }
 
       var genresNode: Elements?
@@ -404,8 +406,6 @@ open class KinoKongAPI: HttpService {
 
   func extractPaginationData(_ document: Document?, page: Int) throws -> [String: Any] {
     var response = [String: Any]()
-
-    //let document = try fetchDocument(KinoKongAPI.SiteUrl + getPagePath(path))
 
     var pages = 1
 
