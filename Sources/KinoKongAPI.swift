@@ -209,10 +209,10 @@ open class KinoKongAPI: HttpService {
       }
     }
 
-    return urls
+    return urls.reversed()
   }
 
-  func getSeriePlaylistUrl(_ path: String) throws -> String {
+  public func getSeriePlaylistUrl(_ path: String) throws -> String {
     var url = ""
 
     let document = try getDocument(KinoKongAPI.SiteUrl + path)
@@ -286,29 +286,52 @@ open class KinoKongAPI: HttpService {
 //    return urls_items
   }
 
-  func getMetadata(_ url: String) {
-//    data = {}
-//
-//    groups = url.split('.')
-//    text = groups[len(groups) - 2]
-//
-//    result = re.search('(\d+)p_(\d+)', text)
-//
-//    if result and len(result.groups()) == 2 {
-//      data['width'] = result.group(1)
-//      data['video_resolution'] = result.group(1)
-//      data['height'] = result.group(2)
-//    }
-//    else {
-//      result = re.search('_(\d+)', text)
-//
-//      if result and len(result.groups()) == 1 {
-//        data['width'] = result.group(1)
-//        data['video_resolution'] = result.group(1)
-//      }
-//    }
+  public func getMetadata(_ url: String) -> [String: String] {
+    var data = [String: String]()
 
-//    return data
+    let groups = url.components(separatedBy: ".")
+
+    let text = groups[groups.count-2]
+
+    print(text)
+
+    let pattern = "(\\d+)p_(\\d+)"
+
+    do {
+      let regex = try NSRegularExpression(pattern: pattern)
+
+      let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.characters.count))
+
+      if let width = getMatched(text, matches: matches, index: 1) {
+        data["width"] = width
+      }
+
+      if let height = getMatched(text, matches: matches, index: 2) {
+        data["height"] = height
+      }
+    }
+    catch {
+      print("Error in regular expression.")
+    }
+
+    return data
+  }
+
+  func getMatched(_ link: String, matches: [NSTextCheckingResult], index: Int) -> String? {
+    var matched: String?
+
+    let match = matches.first
+
+    if match != nil && index < match!.numberOfRanges {
+      let capturedGroupIndex = match!.rangeAt(index)
+
+      let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
+      let index2 = link.index(index1, offsetBy: capturedGroupIndex.length-1)
+
+      matched = link[index1 ... index2]
+    }
+
+    return matched
   }
 
   public func getGroupedGenres() throws -> [String: [Any]] {
@@ -427,7 +450,7 @@ open class KinoKongAPI: HttpService {
     ]
   }
 
-  func getSerieInfo(_ playlistUrl: String) throws -> [[String: Any]] {
+  public func getSerieInfo(_ playlistUrl: String) throws -> [[String: Any]] {
     var serieInfo: [[String: Any]] = []
 
     let data = fetchContent(playlistUrl, headers: getHeaders())

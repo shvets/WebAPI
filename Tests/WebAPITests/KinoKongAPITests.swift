@@ -48,14 +48,14 @@ class KinoKongAPITests: XCTestCase {
     print(JsonConverter.prettified(result))
   }
 
-  func testGetUrlMetadata() throws {
+  func testGetMetadata() throws {
     let path = "/26545-lovushka-dlya-privideniya-2015-smotret-online.html"
 
     let urls = try subject.getUrls(path)
 
-//    let result = try subject.gettUrlMetadata(urls)
-//
-//    print(JsonConverter.prettified(result))
+    let result = try subject.getMetadata(urls[0])
+
+    print(JsonConverter.prettified(result))
   }
 
   func testSearch() throws {
