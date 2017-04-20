@@ -69,7 +69,7 @@ open class KinoKongAPI: HttpService {
       let thumb = try KinoKongAPI.SiteUrl +
         item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
 
-      let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()
+      let seasonNode = try item.select("div[class=main-sliders-shadow] div[class=main-sliders-season]").text()
 
       if href.find(KinoKongAPI.SiteUrl) != nil {
         let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
@@ -77,7 +77,9 @@ open class KinoKongAPI: HttpService {
         href = href[index ..< href.endIndex]
       }
 
-      data.append(["id": href, "name": name, "thumb": thumb, "isSerie": !seasonNode.isEmpty])
+      let type = seasonNode.isEmpty ? "movie" : "serie"
+
+      data.append(["id": href, "name": name, "thumb": thumb, "type": type])
     }
 
     if items.size() > 0 {
@@ -417,7 +419,8 @@ open class KinoKongAPI: HttpService {
         href = href[index ..< href.endIndex]
       }
 
-      data.append(["id": href, "name": name, "thumb": thumb, "isSerie": !seasonNode.isEmpty])
+      let type = seasonNode.isEmpty ? "movie" : "serie"
+      data.append(["id": href, "name": name, "thumb": thumb, "type": type])
     }
 
     if items.size() > 0 {
