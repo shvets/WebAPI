@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D56A724B48E6233A6D445237 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56A75983329B45A04D8CF09 /* Track.swift */; };
 		OBJ_125 /* Just.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* Just.swift */; };
 		OBJ_132 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_108 /* SwiftyJSON.swift */; };
 		OBJ_139 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_50 /* ArrayExt.swift */; };
@@ -196,6 +197,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D56A75983329B45A04D8CF09 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		OBJ_10 /* AudioKnigiAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKnigiAPI.swift; sourceTree = "<group>"; };
 		OBJ_100 /* TokenQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenQueue.swift; sourceTree = "<group>"; };
 		OBJ_101 /* TreeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeBuilder.swift; sourceTree = "<group>"; };
@@ -565,6 +567,7 @@
 				OBJ_26 /* Storage.swift */,
 				OBJ_27 /* String-extension.swift */,
 				OBJ_28 /* WatchStatus.swift */,
+				D56A75983329B45A04D8CF09 /* Track.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -732,6 +735,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_125 /* Just.swift in Sources */,
+				D56A724B48E6233A6D445237 /* Track.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

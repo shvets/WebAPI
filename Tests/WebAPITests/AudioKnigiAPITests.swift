@@ -126,6 +126,14 @@ class AudioKnigiAPITests: XCTestCase {
     print(result)
   }
 
+  func testDownloadAudioTracks() throws {
+    let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
+
+    let result = try subject.downloadAudioTracks(path)
+
+//    print(result)
+  }
+
   func testSearch() throws {
     let query = "пратчетт"
 

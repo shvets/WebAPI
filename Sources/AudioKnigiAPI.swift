@@ -2,6 +2,8 @@ import Foundation
 import SwiftyJSON
 import SwiftSoup
 import Unbox
+import Wrap
+import Just
 
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
@@ -233,6 +235,7 @@ open class AudioKnigiAPI: HttpService {
     return try getBookItems(document!, path: path, page: page)
   }
 
+  //public func getAudioTracks(_ url: String) throws -> [Track] {
   public func getAudioTracks(_ url: String) throws -> [Any] {
     var bookId = 0
 
@@ -263,10 +266,12 @@ open class AudioKnigiAPI: HttpService {
 
       let tracks = JSON(data: content!)
 
+      //var newTracks = [Track]()
       var newTracks = [Any]()
 
       for (_, track) in tracks {
         newTracks.append(["name": track["title"].stringValue + ".mp3", "id": track["mp3"].stringValue])
+        //newTracks.append(Track(id: track["mp3"].stringValue, name: track["title"].stringValue + ".mp3"))
       }
 
       return newTracks
@@ -275,6 +280,41 @@ open class AudioKnigiAPI: HttpService {
       return []
     }
   }
+//
+//  public func downloadAudioTracks(_ url: String) throws {
+//    let audioTracks = try getAudioTracks(url)
+//
+//    for track in audioTracks {
+//      print(track.id)
+//
+//      downloadTrack(track.id, destination: ".")
+//      break
+//    }
+//  }
+//
+//  func downloadTrack(_ path: String, destination: String) {
+//
+////    let documentsUrl:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
+////    let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.jpg")
+////
+////    print(destinationFileUrl)
+//     //print(URL(string: path)!.deletingLastPathComponent())
+//
+//    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+//
+//
+////    let semaphore = DispatchSemaphore.init(value: 0)
+////
+////    let r = Just.get(encodedPath) { r in
+////      if r.ok {
+////        FileManager.default.createFile(atPath: "destinationFileUrl.mp4", contents: r.content)
+////      }
+////
+////      semaphore.signal()
+////    }
+////
+////    semaphore.wait(timeout: DispatchTime.distantFuture)
+//  }
 
   public func getItemsInGroups(_ fileName: String) -> [NameClassifier.ItemsGroup] {
     let data: Data? = Files.readFile(fileName)
