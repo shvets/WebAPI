@@ -124,7 +124,7 @@ open class KinoKongAPI: HttpService {
 
         let rating = try tds[tds.count-1].text()
 
-        data.append(["id": href, "name": name, "rating": rating])
+        data.append(["id": href, "name": name, "rating": rating, "type": "rating"])
       }
     }
 
