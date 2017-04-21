@@ -201,13 +201,13 @@ open class EtvnetAPI: ApiService {
     var path: String
     
     if channelId != nil && genre != nil {
-      path = "video/media/channel/\(channelId)/new_arrivals/\(genre).json"
+      path = "video/media/channel/\(channelId!)/new_arrivals/\(genre!).json"
     }
     else if genre != nil {
-      path = "video/media/new_arrivals/\(genre).json"
+      path = "video/media/new_arrivals/\(genre!).json"
     }
     else if channelId != nil {
-      path = "video/media/channel/\(channelId)/new_arrivals.json"
+      path = "video/media/channel/\(channelId!)/new_arrivals.json"
     }
     else {
       path = "video/media/new_arrivals.json"
