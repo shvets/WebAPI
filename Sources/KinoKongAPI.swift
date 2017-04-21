@@ -295,8 +295,6 @@ open class KinoKongAPI: HttpService {
 
     let text = groups[groups.count-2]
 
-    print(text)
-
     let pattern = "(\\d+)p_(\\d+)"
 
     do {
@@ -508,6 +506,43 @@ open class KinoKongAPI: HttpService {
 
     return newPlaylist
   }
+
+  public func getSeasons(path: String, serieName: String, thumb: String) throws -> [Any] {
+    var data = [Any]()
+
+    let playlistUrl = try getSeriePlaylistUrl(path)
+
+    let serieInfo = try getSerieInfo(playlistUrl)
+
+    for (index, item) in serieInfo.enumerated() {
+      let seasonName = (item["comment"] as! String).replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+
+      let episodes = getEpisodes(item["playlist"] as! Any, serieName: serieName, season: index+1, thumb: thumb)
+
+      data.append(["type": "season", "id": path, "name": seasonName, "serieName": serieName,
+                   "seasonNumber": index+1, "thumb": thumb, "episodes": episodes])
+    }
+
+    return data
+  }
+
+  func getEpisodes(_ playlist: Any, serieName: String, season: Int, thumb: String) -> [Any] {
+    var data = [Any]()
+
+    let episodes = JSON(playlist)
+
+    for (index, episode) in episodes {
+      let episodeName = episode["comment"].stringValue.replacingOccurrences(of: "<br>", with: "")
+      let path = episode["file"].arrayValue[0].stringValue
+
+      data.append(["type": "episode", "id": path, "season": season,
+                   "name": episodeName, "serieName": serieName,
+                   "thumb": thumb])
+    }
+
+    return data
+  }
+
 
   func getEpisodeUrl(url: String, season: String, episode: String) -> String {
     var episodeUrl = url
