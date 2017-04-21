@@ -507,10 +507,14 @@ open class KinoKongAPI: HttpService {
     return newPlaylist
   }
 
-  public func getSeasons(path: String, serieName: String, thumb: String) throws -> [Any] {
+  public func getSeasons(_ path: String, serieName: String, thumb: String) throws -> [Any] {
     var data = [Any]()
 
+    print(path)
+
     let playlistUrl = try getSeriePlaylistUrl(path)
+
+    print(playlistUrl)
 
     let serieInfo = try getSerieInfo(playlistUrl)
 

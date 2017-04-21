@@ -32,6 +32,13 @@ class KinoKongAPITests: XCTestCase {
     print(JsonConverter.prettified(result))
   }
 
+  func testGetSeasons() throws {
+    let path = "/22422-morskaya-policiya-novyy-orlean-1-3-sezon-26-04-2017.html"
+    let result = try subject.getSeasons(path, serieName: "serieName", thumb: "thumb")
+
+    print(JsonConverter.prettified(result))
+  }
+
   func testGetGroupedGenres() throws {
     let result = try subject.getGroupedGenres()
 
@@ -59,7 +66,7 @@ class KinoKongAPITests: XCTestCase {
 
     let urls = try subject.getUrls(path)
 
-    let result = try subject.getMetadata(urls[0])
+    let result = subject.getMetadata(urls[0])
 
     print(JsonConverter.prettified(result))
   }
@@ -107,7 +114,7 @@ class KinoKongAPITests: XCTestCase {
   }
 
   func testGetSerieInfo() throws {
-    let series = try subject.getAllSeries()["movies"]
+    //let series = try subject.getAllSeries()["movies"]
 
     //print(series)
 
