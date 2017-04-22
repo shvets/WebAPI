@@ -429,8 +429,6 @@ open class KinoKongAPI: HttpService {
   }
 
   func extractPaginationData(_ document: Document?, page: Int) throws -> [String: Any] {
-    var response = [String: Any]()
-
     var pages = 1
 
     let paginationRoot = try document!.select("div[class=basenavi] div[class=navigation]")
@@ -521,7 +519,7 @@ open class KinoKongAPI: HttpService {
     for (index, item) in serieInfo.enumerated() {
       let seasonName = (item["comment"] as! String).replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
 
-      let episodes = getEpisodes(item["playlist"] as! Any, serieName: serieName, season: index+1, thumb: thumb)
+      let episodes = getEpisodes(item["playlist"]!, serieName: serieName, season: index+1, thumb: thumb)
 
       data.append(["type": "season", "id": path, "name": seasonName, "serieName": serieName,
                    "seasonNumber": index+1, "thumb": thumb, "episodes": episodes])
@@ -535,7 +533,7 @@ open class KinoKongAPI: HttpService {
 
     let episodes = JSON(playlist)
 
-    for (index, episode) in episodes {
+    for (_, episode) in episodes {
       let episodeName = episode["comment"].stringValue.replacingOccurrences(of: "<br>", with: "")
       let path = episode["file"].arrayValue[0].stringValue
 

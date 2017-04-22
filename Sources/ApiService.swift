@@ -144,8 +144,6 @@ open class ApiService: AuthService {
 
       let response = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, data: data)
 
-      print(response.statusCode)
-
       if (response.statusCode == 401 || response.statusCode == 400) && !unauthorized {
         let refreshToken = config.items["refresh_token"]
 
