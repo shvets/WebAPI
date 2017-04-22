@@ -3,7 +3,9 @@ import Just
 
 open class ApiService: AuthService {
   public var config: Config
-  
+
+  public var authorizeCallback: () -> Void = {}
+
   let apiUrl: String
   let userAgent: String
   
@@ -18,6 +20,10 @@ open class ApiService: AuthService {
     
     super.init(authUrl: authUrl, clientId: clientId, clientSecret: clientSecret,
                grantType: grantType, scope: scope)
+  }
+
+  public func authorize(authorizeCallback: @escaping () -> Void) {
+    self.authorizeCallback = authorizeCallback
   }
   
   public func resetToken() {
@@ -120,9 +126,13 @@ open class ApiService: AuthService {
                    unauthorized: Bool=false) -> Data? {
     var result: Data?
 
+    if !checkToken() {
+      authorizeCallback()
+    }
+
     if let accessToken = config.items["access_token"] {
       var accessPath: String
-      
+
       if path.characters.index(of: "?") != nil {
         accessPath = "\(path)&access_token=\(accessToken)"
       }
@@ -131,10 +141,28 @@ open class ApiService: AuthService {
       }
 
       accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-      
+
       let response = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, data: data)
-      
-      result = response.content
+
+      print(response.statusCode)
+
+      if (response.statusCode == 401 || response.statusCode == 400) && !unauthorized {
+        let refreshToken = config.items["refresh_token"]
+
+        let response = updateToken(refreshToken: refreshToken! as! String)
+
+        if !response.isEmpty {
+          config.save(response)
+
+          result = fullRequest(path: path, method: method, data: data, unauthorized: true)
+        }
+        else {
+          print("error")
+        }
+      }
+      else {
+        result = response.content
+      }
     }
 
     return result

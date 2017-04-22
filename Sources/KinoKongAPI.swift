@@ -168,7 +168,7 @@ open class KinoKongAPI: HttpService {
 
       let name = try title.text()
 
-      data.append(["id": href, "name": name, "thumb": thumb])
+      data.append(["id": href, "name": name, "thumb": thumb, "type": "movie"])
     }
 
     return data
