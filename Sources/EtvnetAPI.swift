@@ -345,7 +345,7 @@ open class EtvnetAPI: ApiService {
     var path: String
     
     if folder != nil {
-      path = "video/bookmarks/folders/\(folder)/items.json"
+      path = "video/bookmarks/folders/\(folder!)/items.json"
     }
     else {
       path = "video/bookmarks/items.json"
