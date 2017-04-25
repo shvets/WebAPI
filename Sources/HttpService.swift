@@ -8,7 +8,7 @@ open class HttpService {
   public func httpRequest(url: String, headers: [String: String] = [:], query: [String: String] = [:],
                           data: [String: String] = [:], method: String? = "get") -> HTTPResult {
     var response: HTTPResult
-    
+
     if method == "get" {
       response = Just.get(url, params: query, headers: headers)
     }
