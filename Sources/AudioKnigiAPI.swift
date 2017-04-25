@@ -74,7 +74,6 @@ open class AudioKnigiAPI: HttpService {
       let href = try link.attr("href")
       let thumb = try item.select("img").attr("src")
       let description = try item.select("div[class='topic-content text']").text()
-          //.children.first.content.strip
 
       data.append(["type": "book", "id": href, "name": name, "thumb": thumb, "description": description ])
     }

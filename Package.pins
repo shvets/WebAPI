@@ -2,6 +2,12 @@
   "autoPin": true,
   "pins": [
     {
+      "package": "Alamofire",
+      "reason": null,
+      "repositoryURL": "https://github.com/Alamofire/Alamofire",
+      "version": "4.4.0"
+    },
+    {
       "package": "Just",
       "reason": null,
       "repositoryURL": "https://github.com/JustHTTP/Just.git",

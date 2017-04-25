@@ -1,6 +1,6 @@
 import Foundation
-import Just
 import SwiftSoup
+import Just
 
 open class HttpService {
   public init() {}
