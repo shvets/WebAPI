@@ -1,44 +1,92 @@
 import Foundation
 import SwiftSoup
-import Just
+import Alamofire
 
 open class HttpService {
-  public init() {}
-  
-  public func httpRequest(url: String, headers: [String: String] = [:], query: [String: String] = [:],
-                          data: [String: String] = [:], method: String? = "get") -> HTTPResult {
-    var response: HTTPResult
+  let sessionManager: SessionManager!
 
-    if method == "get" {
-      response = Just.get(url, params: query, headers: headers)
+  public init() {
+    let configuration = URLSessionConfiguration.default
+
+    let proxyPort = 3130
+    let proxyURL = "176.221.42.213"
+
+    configuration.connectionProxyDictionary = [
+      kCFNetworkProxiesHTTPEnable as AnyHashable : true,
+      kCFNetworkProxiesHTTPPort as AnyHashable : proxyPort,
+      kCFNetworkProxiesHTTPProxy as AnyHashable : proxyURL
+    ]
+
+    sessionManager = Alamofire.SessionManager(configuration: configuration)
+  }
+
+  public func httpRequest(_ url: String,
+                        headers: HTTPHeaders = [:],
+                        parameters: Parameters = [:],
+                        method: HTTPMethod = .get) -> DefaultDataResponse? {
+    var response: DefaultDataResponse?
+
+    let utilityQueue = DispatchQueue.global(qos: .utility)
+    let semaphore = DispatchSemaphore.init(value: 0)
+
+    sessionManager.request(url, method: method, parameters: parameters,
+        headers: headers).response(queue: utilityQueue) { resp in
+      response = resp
+
+      semaphore.signal()
     }
-    else if method == "post" {
-      response = Just.post(url, params: query, data: data, headers: headers)
-    }
-    else if method == "put" {
-      response = Just.put(url, params: query, data: data, headers: headers)
-    }
-    else if method == "delete" {
-      response = Just.delete(url, params: query, data: data, headers: headers)
-    }
-    else {
-      response = Just.get(url, params: query, headers: headers)
-    }
-    
+
+    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+
     return response
   }
-  
+
+  public func fetchData(_ url: String,
+                        headers: HTTPHeaders = [:],
+                        parameters: Parameters = [:],
+                        method: HTTPMethod = .get) -> Data? {
+    let response: DefaultDataResponse? = httpRequest(url, headers: headers, parameters: parameters, method: method)
+
+    return response?.data
+  }
+
+  public func fetchDocument(_ url: String,
+                            headers: HTTPHeaders = [:],
+                            parameters: Parameters = [:],
+                            method: HTTPMethod = .get,
+                            encoding: String.Encoding = .utf8) throws -> Document? {
+    var document: Document?
+
+    if let data = fetchData(url, headers: headers, parameters: parameters, method: method),
+       let html = String(data: data, encoding: encoding) {
+      document = try SwiftSoup.parse(html)
+    }
+
+    return document
+  }
+
+  public func toDocument(_ data: Data?, encoding: String.Encoding = .utf8) throws -> Document? {
+    var document: Document?
+
+    if let data = data,
+       let html = String(data: data, encoding: encoding) {
+      document = try SwiftSoup.parse(html)
+    }
+
+    return document
+  }
+
   public func buildUrl(path: String, params: [String: AnyObject] = [:]) -> String {
     let paramsArray = params.map { (key, value) -> String in
       return "\(key)=\(value)"
     }
-    
+
     var url = path
-    
+
     if !paramsArray.isEmpty {
       url += "?" + paramsArray.joined(separator: "&")
     }
-    
+
     return url
   }
 
@@ -63,17 +111,18 @@ open class HttpService {
       localBaseUrl = getBaseUrl(url)
     }
 
-    let data = httpRequest(url: url).content
-    let content = toString(data!)
-
     var newLines = [String]()
 
-    content!.enumerateLines {(line, _) in
-      if line[line.startIndex] == "#" {
-        newLines.append(line)
-      }
-      else {
-        newLines.append(localBaseUrl + "/" + line)
+    if let data = fetchData(url),
+       let content = String(data: data, encoding: .utf8) {
+
+      content.enumerateLines {(line, _) in
+        if line[line.startIndex] == "#" {
+          newLines.append(line)
+        }
+        else {
+          newLines.append(localBaseUrl + "/" + line)
+        }
       }
     }
 
@@ -85,25 +134,4 @@ open class HttpService {
 
     return pathComponents[0...pathComponents.count-2].joined(separator: "/")
   }
-
-  public func fetchDocument(_ url: String, headers: [String: String] = [:], data: [String: String] = [:],
-                            method: String?="get", encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
-    let content = fetchContent(url, headers: headers, data: data, method: method)
-
-    return try toDocument(content, encoding: encoding)
-  }
-
-  public func fetchContent(_ url: String, headers: [String: String] = [:], data: [String: String] = [:],
-                           method: String?="get") -> Data? {
-    return httpRequest(url: url, headers: headers, data: data, method: method).content
-  }
-
-  public func toDocument(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
-    return try SwiftSoup.parse(toString(data, encoding: encoding)!)
-  }
-
-  public func toString(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) -> String? {
-    return String(data: data!, encoding: encoding)
-  }
-
 }

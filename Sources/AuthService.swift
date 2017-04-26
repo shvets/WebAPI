@@ -1,7 +1,7 @@
 import Foundation
 import Alamofire
 
-open class AuthService: HttpService2 {
+open class AuthService: HttpService {
   var authUrl: String
   var clientId: String
   var clientSecret: String

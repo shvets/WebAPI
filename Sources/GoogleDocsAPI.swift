@@ -100,9 +100,9 @@ open class GoogleDocsAPI: HttpService {
     var data = [Any]()
     var paginationData: Items = [:]
 
-    let response = httpRequest(url: SiteUrl + getCorrectedPath(path), headers: getHeaders())
+    let response = httpRequest(SiteUrl + getCorrectedPath(path), headers: getHeaders())
 
-    let newPath = "\(response.url!.path)?\(response.url!.query!)"
+    let newPath = "\(response!.response!.url!.path)?\(response!.response!.url!.query!)"
 
     let pagePath = newPath + "&page=\(page)"
 
@@ -216,9 +216,9 @@ open class GoogleDocsAPI: HttpService {
   func getMovie(_ id: String) throws -> [String: Any] {
     var data = [String: Any]()
 
-    let response = httpRequest(url: SiteUrl + id, headers: getHeaders())
+    let response = httpRequest(SiteUrl + id, headers: getHeaders())
 
-    let url = response.url!
+    let url = response!.response!.url!
 
     let document = try fetchDocument(url.absoluteString, headers: getHeaders())
 

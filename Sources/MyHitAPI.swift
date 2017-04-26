@@ -2,7 +2,7 @@ import Foundation
 import SwiftyJSON
 import SwiftSoup
 
-open class MyHitAPI: HttpService2 {
+open class MyHitAPI: HttpService {
   public static let SiteUrl = "https://my-hit.org"
   let UserAgent = "My Hit User Agent"
 

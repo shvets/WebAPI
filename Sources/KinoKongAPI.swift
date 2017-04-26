@@ -2,7 +2,7 @@ import Foundation
 import SwiftSoup
 import SwiftyJSON
 
-open class KinoKongAPI: HttpService2 {
+open class KinoKongAPI: HttpService {
   public static let SiteUrl = "http://kinokong.cc"
   let UserAgent = "KinoKong User Agent"
 

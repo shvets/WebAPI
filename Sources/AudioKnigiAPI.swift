@@ -3,9 +3,8 @@ import SwiftyJSON
 import SwiftSoup
 import Unbox
 import Wrap
-import Just
 
-open class AudioKnigiAPI: HttpService2 {
+open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
 
   func getPagePath(path: String, page: Int=1) -> String {

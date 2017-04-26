@@ -11,10 +11,10 @@ open class AudioBooAPI: HttpService {
     return try fetchDocument(url, encoding: .windowsCP1251)
   }
 
-  public func searchDocument(_ url: String, data: [String: String]) throws -> Document? {
+  public func searchDocument(_ url: String, parameters: [String: String]) throws -> Document? {
     let headers = ["X-Requested-With": "XMLHttpRequest"]
 
-    return try fetchDocument(url, headers: headers, data: data, method: "post", encoding: .windowsCP1251)
+    return try fetchDocument(url, headers: headers, parameters: parameters, method: .post, encoding: .windowsCP1251)
   }
 
   func getPagePath(path: String, page: Int=1) -> String {
@@ -153,7 +153,7 @@ open class AudioBooAPI: HttpService {
 
     let url = AudioBooAPI.SiteUrl + "/engine/ajax/search.php"
 
-    let document = try searchDocument(url, data: ["query": query])
+    let document = try searchDocument(url, parameters: ["query": query])
 
     let items = try document!.select("a")
 

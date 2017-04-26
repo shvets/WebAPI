@@ -14,21 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_142"
-               BuildableName = "Just.framework"
-               BlueprintName = "Just"
-               ReferencedContainer = "container:WebAPI.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_149"
+               BlueprintIdentifier = "OBJ_136"
                BuildableName = "Alamofire.framework"
                BlueprintName = "Alamofire"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -42,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_172"
+               BlueprintIdentifier = "OBJ_159"
                BuildableName = "SwiftyJSON.framework"
                BlueprintName = "SwiftyJSON"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -56,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_179"
+               BlueprintIdentifier = "OBJ_166"
                BuildableName = "SwiftSoup.framework"
                BlueprintName = "SwiftSoup"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -70,7 +56,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_242"
+               BlueprintIdentifier = "OBJ_229"
                BuildableName = "Wrap.framework"
                BlueprintName = "Wrap"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -84,7 +70,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_249"
+               BlueprintIdentifier = "OBJ_236"
                BuildableName = "Unbox.framework"
                BlueprintName = "Unbox"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -98,7 +84,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_256"
+               BlueprintIdentifier = "OBJ_243"
                BuildableName = "WebAPI.framework"
                BlueprintName = "WebAPI"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -116,7 +102,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_298"
+               BlueprintIdentifier = "OBJ_281"
                BuildableName = "WebAPITests.xctest"
                BlueprintName = "WebAPITests"
                ReferencedContainer = "container:WebAPI.xcodeproj">
@@ -139,9 +125,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_142"
-            BuildableName = "Just.framework"
-            BlueprintName = "Just"
+            BlueprintIdentifier = "OBJ_136"
+            BuildableName = "Alamofire.framework"
+            BlueprintName = "Alamofire"
             ReferencedContainer = "container:WebAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

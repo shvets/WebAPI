@@ -8,12 +8,6 @@
       "version": "4.4.0"
     },
     {
-      "package": "Just",
-      "reason": null,
-      "repositoryURL": "https://github.com/JustHTTP/Just.git",
-      "version": "0.6.0"
-    },
-    {
       "package": "SwiftSoup",
       "reason": null,
       "repositoryURL": "https://github.com/scinfu/SwiftSoup",
