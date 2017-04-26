@@ -1,7 +1,7 @@
 import Foundation
-import Just
+import Alamofire
 
-open class AuthService: HttpService {
+open class AuthService: HttpService2 {
   var authUrl: String
   var clientId: String
   var clientSecret: String
@@ -29,11 +29,11 @@ open class AuthService: HttpService {
 
     var result = [String: String]()
     
-    let httpResult = authRequest(query: &data, rtype: "device/code", method: "get")
+    let httpResult = authRequest(parameters: &data, rtype: "device/code", method: .get)
     
-    if httpResult.ok {
-      if let content = httpResult.content {
-        result = JsonConverter.toItems(content) as! [String: String]
+    if httpResult!.response!.statusCode == 200 {
+      if let data = httpResult!.data {
+        result = JsonConverter.toItems(data) as! [String: String]
         
         result["activation_url"] = authUrl + "device/usercode"
       }
@@ -45,12 +45,12 @@ open class AuthService: HttpService {
   public func createToken(deviceCode: String) -> [String: String] {
     var data: [String: String] = ["grant_type": grantType, "code": deviceCode]
     
-    let httpResult = authRequest(query: &data)
+    let httpResult = authRequest(parameters: &data)
     
     var result = [String: String]()
     
-    if httpResult.ok {
-      result = JsonConverter.toItems(httpResult.content!) as! [String: String]
+    if httpResult!.response!.statusCode == 200 {
+      result = JsonConverter.toItems(httpResult!.data!) as! [String: String]
     }
     
     return result
@@ -61,25 +61,25 @@ open class AuthService: HttpService {
     
     var result = [String: String]()
     
-    let httpResult = authRequest(query: &data)
+    let httpResult = authRequest(parameters: &data)
     
-    if httpResult.ok {
-      result = addExpires(JsonConverter.toItems(httpResult.content!) as! [String: String])
+    if httpResult!.response!.statusCode == 200 {
+      result = addExpires(JsonConverter.toItems(httpResult!.data!) as! [String: String])
     }
     
     return result
   }
   
-  func authRequest(query: inout [String: String], rtype: String="token", method: String="get") -> HTTPResult {
-    query["client_id"] = clientId
+  func authRequest(parameters: inout [String: String], rtype: String="token", method: HTTPMethod = .get) -> DefaultDataResponse? {
+    parameters["client_id"] = clientId
     
     if rtype == "token" {
-      query["client_secret"] = clientSecret
+      parameters["client_secret"] = clientSecret
     }
     
     let url = authUrl + rtype
     
-    return httpRequest(url: url, query: query, method: method)
+    return httpRequest(url, parameters: parameters, method: method)
   }
   
   func addExpires(_ data: [String: String]) -> [String: String] {

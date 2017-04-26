@@ -1,5 +1,5 @@
 import Foundation
-import Just
+import Alamofire
 
 open class ApiService: AuthService {
   public var config: Config
@@ -36,15 +36,15 @@ open class ApiService: AuthService {
     config.save()
   }
   
-  func apiRequest(baseUrl: String, path: String, method: String?,
-                  headers: [String: String] = [:], data: [String: String]) -> HTTPResult {
+  func apiRequest(baseUrl: String, path: String, method: HTTPMethod?,
+                  headers: [String: String] = [:], parameters: [String: String]) -> DefaultDataResponse? {
     let url = baseUrl + path
     
     var newHeaders = headers
     
     newHeaders["User-agent"] = userAgent
     
-    return httpRequest(url: url, headers: newHeaders, data: data, method: method)
+    return httpRequest(url, headers: newHeaders, parameters: parameters, method: method!)
   }
   
   public func authorization(includeClientSecret: Bool=true) -> (userCode: String, deviceCode: String, activationUrl: String) {
@@ -122,7 +122,7 @@ open class ApiService: AuthService {
     }
   }
   
-  func fullRequest(path: String, method: String? = "get", data: [String: String] = [:],
+  func fullRequest(path: String, method: HTTPMethod = .get, parameters: [String: String] = [:],
                    unauthorized: Bool=false) -> Data? {
     var result: Data?
 
@@ -142,9 +142,9 @@ open class ApiService: AuthService {
 
       accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
-      let response = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, data: data)
+      let response = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, parameters: parameters)
 
-      if (response.statusCode == 401 || response.statusCode == 400) && !unauthorized {
+      if (response!.response!.statusCode == 401 || response!.response!.statusCode == 400) && !unauthorized {
         let refreshToken = config.items["refresh_token"]
 
         let response = updateToken(refreshToken: refreshToken! as! String)
@@ -152,14 +152,14 @@ open class ApiService: AuthService {
         if !response.isEmpty {
           config.save(response)
 
-          result = fullRequest(path: path, method: method, data: data, unauthorized: true)
+          result = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
         }
         else {
           print("error")
         }
       }
       else {
-        result = response.content
+        result = response!.data
       }
     }
 

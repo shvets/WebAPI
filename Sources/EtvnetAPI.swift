@@ -377,7 +377,7 @@ open class EtvnetAPI: ApiService {
   public func addBookmark(id: Int) -> JSON {
     let url = buildUrl(path: "video/bookmarks/items/\(id).json")
     
-    let response = fullRequest(path: url, method: "post")
+    let response = fullRequest(path: url, method: .post)
     
     return JSON(data: response!)
   }
@@ -385,7 +385,7 @@ open class EtvnetAPI: ApiService {
   public func removeBookmark(id: Int) -> JSON {
     let url = buildUrl(path: "video/bookmarks/items/\(id).json")
 
-    let response = fullRequest(path: url, method: "delete")
+    let response = fullRequest(path: url, method: .delete)
     
     return JSON(data: response!)
   }
@@ -430,7 +430,7 @@ open class EtvnetAPI: ApiService {
   public func addFavoriteChannel(id: Int) -> JSON {
     let url = buildUrl(path: "video/live/\(id)/favorite.json")
     
-    let response = fullRequest(path: url, method: "post")
+    let response = fullRequest(path: url, method: .post)
 
     return JSON(data: response!)
   }
@@ -438,7 +438,7 @@ open class EtvnetAPI: ApiService {
   public func removeFavoriteChannel(id: Int) -> JSON {
     let url = buildUrl(path: "video/live/\(id)/favorite.json")
     
-    let response = fullRequest(path: url, method: "delete")
+    let response = fullRequest(path: url, method: .delete)
     
     return JSON(data: response!)
   }
