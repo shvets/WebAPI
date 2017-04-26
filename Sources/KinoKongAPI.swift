@@ -2,7 +2,7 @@ import Foundation
 import SwiftSoup
 import SwiftyJSON
 
-open class KinoKongAPI: HttpService {
+open class KinoKongAPI: HttpService2 {
   public static let SiteUrl = "http://kinokong.cc"
   let UserAgent = "KinoKong User Agent"
 
@@ -10,8 +10,8 @@ open class KinoKongAPI: HttpService {
     return try fetchDocument(url, headers: getHeaders(), encoding: .windowsCP1251)
   }
 
-  public func searchDocument(_ url: String, data: [String: String]) throws -> Document? {
-    return try fetchDocument(url, headers: getHeaders(), data: data, method: "post", encoding: .windowsCP1251)
+  public func searchDocument(_ url: String, parameters: [String: String]) throws -> Document? {
+    return try fetchDocument(url, headers: getHeaders(), parameters: parameters, method: .post, encoding: .windowsCP1251)
   }
 
   public func available() throws -> Bool {
@@ -397,7 +397,7 @@ open class KinoKongAPI: HttpService {
 
     let path = "/index.php?do=search"
 
-    let document = try searchDocument(KinoKongAPI.SiteUrl + path, data: searchData)
+    let document = try searchDocument(KinoKongAPI.SiteUrl + path, parameters: searchData)
 
     var data = [Any]()
     var paginationData: Items = [:]
@@ -452,30 +452,29 @@ open class KinoKongAPI: HttpService {
   public func getSerieInfo(_ playlistUrl: String) throws -> [[String: Any]] {
     var serieInfo: [[String: Any]] = []
 
-    let data = fetchContent(playlistUrl, headers: getHeaders())
+    if let data = fetchData(playlistUrl, headers: getHeaders()),
+       let content = String(data: data, encoding: .windowsCP1251) {
+      let index = content.find("{\"playlist\":")
 
-    let content = toString(data, encoding: .windowsCP1251)!
+      let playlistContent = content[index! ..< content.endIndex]
 
-    let index = content.find("{\"playlist\":")
+      var playlist = JSON(data: playlistContent.data(using: .windowsCP1251)!)["playlist"]
 
-    let playlistContent = content[index! ..< content.endIndex]
-
-    var playlist = JSON(data: playlistContent.data(using: .windowsCP1251)!)["playlist"]
-
-    if playlist != JSON.null && playlist.count > 0 && playlist[0]["playlist"] == JSON.null {
-      serieInfo = [
-        [
-          "comment": "Сезон 1",
-          "playlist": buildPlaylist(playlist)
+      if playlist != JSON.null && playlist.count > 0 && playlist[0]["playlist"] == JSON.null {
+        serieInfo = [
+          [
+            "comment": "Сезон 1",
+            "playlist": buildPlaylist(playlist)
+          ]
         ]
-      ]
-    }
-    else {
-      for (_, item) in playlist {
-        serieInfo.append([
-          "comment": item["comment"].stringValue,
-          "playlist": buildPlaylist(item["playlist"])
-        ])
+      }
+      else {
+        for (_, item) in playlist {
+          serieInfo.append([
+            "comment": item["comment"].stringValue,
+            "playlist": buildPlaylist(item["playlist"])
+          ])
+        }
       }
     }
 

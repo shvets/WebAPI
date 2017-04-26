@@ -2,7 +2,7 @@ import Foundation
 import SwiftyJSON
 import SwiftSoup
 
-open class MyHitAPI: HttpService {
+open class MyHitAPI: HttpService2 {
   public static let SiteUrl = "https://my-hit.org"
   let UserAgent = "My Hit User Agent"
 
@@ -420,7 +420,7 @@ open class MyHitAPI: HttpService {
   public func getSeasons(_ path: String, parentName: String?=nil) -> Items {
     var data = [Any]()
 
-    var result = JSON(data: fetchContent(MyHitAPI.SiteUrl + path + "/playlist.txt")!)
+    var result = JSON(data: fetchData(MyHitAPI.SiteUrl + path + "/playlist.txt")!)
 
     let playlist = result["playlist"]
     
@@ -649,7 +649,7 @@ open class MyHitAPI: HttpService {
   func getSourceUrl(_ url: String) throws -> String {
     var name = ""
 
-    let content = fetchContent(url, headers: getHeaders())
+    let content = fetchData(url, headers: getHeaders())
     let document = try toDocument(content)
 
     let scripts = try document?.select("div[class='row'] div script")
