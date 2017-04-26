@@ -5,17 +5,19 @@ import Alamofire
 open class HttpService {
   let sessionManager: SessionManager!
 
-  public init() {
+  public init(proxy: Bool=false) {
     let configuration = URLSessionConfiguration.default
 
-    let proxyPort = 3130
-    let proxyURL = "176.221.42.213"
+    if proxy {
+      let proxyPort = 3130
+      let proxyURL = "176.221.42.213"
 
-    configuration.connectionProxyDictionary = [
-      kCFNetworkProxiesHTTPEnable as AnyHashable : true,
-      kCFNetworkProxiesHTTPPort as AnyHashable : proxyPort,
-      kCFNetworkProxiesHTTPProxy as AnyHashable : proxyURL
-    ]
+      configuration.connectionProxyDictionary = [
+        kCFNetworkProxiesHTTPEnable as AnyHashable : true,
+        kCFNetworkProxiesHTTPPort as AnyHashable : proxyPort,
+        kCFNetworkProxiesHTTPProxy as AnyHashable : proxyURL
+      ]
+    }
 
     sessionManager = Alamofire.SessionManager(configuration: configuration)
   }
