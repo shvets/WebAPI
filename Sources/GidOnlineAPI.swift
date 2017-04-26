@@ -1,8 +1,9 @@
 import Foundation
 import SwiftyJSON
 import SwiftSoup
+import Alamofire
 
-open class GidOnlineAPI: HttpService {
+open class GidOnlineAPI: HttpService2 {
   public static let SiteUrl = "http://gidonline.club"
   let UserAgent = "Gid Online User Agent"
 
@@ -214,10 +215,6 @@ open class GidOnlineAPI: HttpService {
     return newSeasons
   }
 
-//  public func getEpisodes(_ url: String) throws -> [Any] {
-//    return try getCategory("episode", document: getMovieDocument(url)!)
-//  }
-
   public func getEpisodes(_ url: String, seasonNumber: String, thumb: String?=nil) throws -> [Any] {
     var newEpisodes = [Any]()
 
@@ -273,6 +270,8 @@ open class GidOnlineAPI: HttpService {
   }
 
   func getMovieContent(_ url: String, season: String="", episode: String="") throws -> Data? {
+    var data: Data?
+
     let document = try fetchDocument(url)!
     let gatewayUrl = try getGatewayUrl(document)
 
@@ -290,21 +289,21 @@ open class GidOnlineAPI: HttpService {
         movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
       }
 
-      var response = httpRequest(url: movieUrl, headers: getHeaders(gatewayUrl))
+      if let response = httpRequest(movieUrl, headers: getHeaders(gatewayUrl)) {
+        if response.response!.statusCode == 302 {
+          let newGatewayUrl = response.response!.allHeaderFields["Location"] as! String
 
-      if response.statusCode == 302 {
-        let newGatewayUrl = response.headers["Location"]
+          let response2 = httpRequest(movieUrl, headers: getHeaders(newGatewayUrl))!
 
-        response = httpRequest(url: movieUrl, headers: getHeaders(newGatewayUrl!))
+          data = response2.data
+        }
+        else {
+          data = response.data
+        }
       }
-
-      let content = response.content
-
-      return content
     }
-    else {
-      return nil
-    }
+
+    return data
   }
 
   func getGatewayUrl(_ document: Document) throws -> String? {
@@ -322,15 +321,11 @@ open class GidOnlineAPI: HttpService {
 
       let idPost = try document.select("head meta[id=meta]").attr("content")
 
-      let data = [
+      let parameters: Parameters = [
         "id_post": idPost
       ]
 
-      let response = httpRequest(url: url, data: data, method: "post")
-
-      let content = response.content
-
-      let document2 = try toDocument(content)
+      let document2 = try fetchDocument(url, parameters: parameters, method: .post)
 
       urls = try document2!.select("iframe[class='ifram']").attr("src")
 
@@ -413,16 +408,18 @@ open class GidOnlineAPI: HttpService {
 
     let content = try getMovieContent(newUrl, season: season, episode: episode)
 
-    let data = getSessionData(toString(content!)!)
+    let html = String(data: content!, encoding: .utf8)
 
-    let headers: [String: String] = [
+    let parameters = getSessionData(html!)
+
+    let headers: HTTPHeaders = [
       "X-Requested-With": "XMLHttpRequest",
       "X-Format-Token": "B300"
     ]
 
-    let response2 = httpRequest(url: sessionUrl(), headers: headers, query: data, method: "post")
+    let response2 = httpRequest(sessionUrl(), headers: headers, parameters: parameters, method: .post)
 
-    let data2 = JSON(data: response2.content!)
+    let data2 = JSON(data: response2!.data!)
 
     let manifests = data2["mans"]
 
@@ -522,9 +519,9 @@ open class GidOnlineAPI: HttpService {
 
     var items = [[String]]()
 
-    let response = httpRequest(url: url)
+    let response = httpRequest(url)
 
-    let playList = toString(response.content!)!
+    let playList = String(data: response!.data!, encoding: .utf8)!
 
     var index = 0
 
@@ -564,6 +561,8 @@ open class GidOnlineAPI: HttpService {
   }
 
   public func search(_ query: String, page: Int=1) throws -> [String: Any] {
+    var result: [String: Any] = ["movies": []]
+
     let path = getPagePath(GidOnlineAPI.SiteUrl, page: page) + "/"
 
     var params = [String: String]()
@@ -571,32 +570,33 @@ open class GidOnlineAPI: HttpService {
 
     let fullPath = self.buildUrl(path: path, params: params as [String : AnyObject])
 
-    let response = httpRequest(url: fullPath)
-    let content = response.content
+    if let response = httpRequest(fullPath),
+       let data = response.data,
+       let document = try toDocument(data) {
+      let movies = try getMovies(document, path: fullPath)
 
-    let document = try toDocument(content!)
-
-    let movies = try getMovies(document!, path: fullPath)
-
-    if !movies.isEmpty {
-      return movies
-    }
-    else {
-      let document2 = try fetchDocument(response.url!.path)
-
-      let mediaData = try getMediaData(document2!)
-
-      if mediaData["title"] != nil {
-        return ["movies": [
-          "id": fullPath,
-          "name": mediaData["title"],
-          "thumb": mediaData["thumb"]
-        ]]
+      if !movies.isEmpty {
+        return movies
       }
       else {
-        return ["movies": []]
+        if let response = response.response,
+           let url = response.url,
+           let document2 = try fetchDocument(url.path) {
+
+          let mediaData = try getMediaData(document2)
+
+          if mediaData["title"] != nil {
+            return ["movies": [
+              "id": fullPath,
+              "name": mediaData["title"],
+              "thumb": mediaData["thumb"]
+            ]]
+          }
+        }
       }
     }
+
+    return result
   }
 
   func searchActors(_ document: Document, query: String) throws -> [Any] {
@@ -759,7 +759,7 @@ open class GidOnlineAPI: HttpService {
   public func isSerial(_ path: String) throws -> Bool {
     let content = try getMovieContent(path)
 
-    let text = toString(content)
+    let text = String(data: content!, encoding: .utf8)
 
     let data = getSessionData(text!)
 

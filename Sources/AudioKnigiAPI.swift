@@ -5,7 +5,7 @@ import Unbox
 import Wrap
 import Just
 
-open class AudioKnigiAPI: HttpService {
+open class AudioKnigiAPI: HttpService2 {
   public static let SiteUrl = "https://audioknigi.club"
 
   func getPagePath(path: String, page: Int=1) -> String {
@@ -257,27 +257,25 @@ open class AudioKnigiAPI: HttpService {
       }
     }
 
+    var newTracks = [Any]()
+    //var newTracks = [Track]()
+
     if bookId > 0 {
       let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
 
-      let response = httpRequest(url: newUrl)
-      let content = response.content
+      let response = httpRequest(newUrl)
 
-      let tracks = JSON(data: content!)
+      if let data = response?.data {
+        let tracks = JSON(data: data)
 
-      //var newTracks = [Track]()
-      var newTracks = [Any]()
-
-      for (_, track) in tracks {
-        newTracks.append(["name": track["title"].stringValue + ".mp3", "id": track["mp3"].stringValue])
-        //newTracks.append(Track(id: track["mp3"].stringValue, name: track["title"].stringValue + ".mp3"))
+        for (_, track) in tracks {
+          newTracks.append(["name": track["title"].stringValue + ".mp3", "id": track["mp3"].stringValue])
+          //newTracks.append(Track(id: track["mp3"].stringValue, name: track["title"].stringValue + ".mp3"))
+        }
       }
+    }
 
-      return newTracks
-    }
-    else {
-      return []
-    }
+    return newTracks
   }
 //
 //  public func downloadAudioTracks(_ url: String) throws {

@@ -3,34 +3,77 @@ import SwiftSoup
 import Alamofire
 
 open class HttpService2 {
-  let sessionManager = Alamofire.SessionManager.default
+  let sessionManager: SessionManager!
 
-  public init() {}
+  public init() {
+    let configuration = URLSessionConfiguration.default
 
-  public func httpRequest(url: String, headers: [String: String] = [:], query: [String: String] = [:],
-                          data: [String: String] = [:], method: String? = "get") -> HTTPURLResponse? {
-    var response: HTTPURLResponse?
+    let proxyPort = 3130
+    let proxyURL = "176.221.42.213"
 
-    if method == "get" {
-      Alamofire.request(url).response { r in
-        print(r)
-//        response = r
-      }
+    configuration.connectionProxyDictionary = [
+      kCFNetworkProxiesHTTPEnable as AnyHashable : true,
+      kCFNetworkProxiesHTTPPort as AnyHashable : proxyPort,
+      kCFNetworkProxiesHTTPProxy as AnyHashable : proxyURL
+    ]
+
+    sessionManager = Alamofire.SessionManager(configuration: configuration)
+  }
+
+  public func httpRequest(_ url: String,
+                        headers: HTTPHeaders = [:],
+                        parameters: Parameters = [:],
+                        method: HTTPMethod = .get) -> DefaultDataResponse? {
+    var response: DefaultDataResponse?
+
+    let utilityQueue = DispatchQueue.global(qos: .utility)
+    let semaphore = DispatchSemaphore.init(value: 0)
+
+    sessionManager.request(url, method: method, parameters: parameters,
+        headers: headers).response(queue: utilityQueue) { resp in
+      response = resp
+
+      semaphore.signal()
     }
-//    else if method == "post" {
-//      response = sessionManager.request(url, method: .post).response
-//    }
-//    else if method == "put" {
-//      response = sessionManager.request(url, method: .put).response
-//    }
-//    else if method == "delete" {
-//      response = sessionManager.request(url, method: .delete).response
-//    }
-//    else {
-//      response = sessionManager.request(url, method: .get).response
-//    }
+
+    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 
     return response
+  }
+
+  public func fetchData(_ url: String,
+                        headers: HTTPHeaders = [:],
+                        parameters: Parameters = [:],
+                        method: HTTPMethod = .get) -> Data? {
+    let response: DefaultDataResponse? = httpRequest(url, headers: headers, parameters: parameters, method: method)
+
+    return response?.data
+  }
+
+  public func fetchDocument(_ url: String,
+                            headers: HTTPHeaders = [:],
+                            parameters: Parameters = [:],
+                            method: HTTPMethod = .get,
+                            encoding: String.Encoding = .utf8) throws -> Document? {
+    var document: Document?
+
+    if let data = fetchData(url, headers: headers, parameters: parameters, method: method),
+       let html = String(data: data, encoding: encoding) {
+      document = try SwiftSoup.parse(html)
+    }
+
+    return document
+  }
+
+  public func toDocument(_ data: Data?, encoding: String.Encoding = .utf8) throws -> Document? {
+    var document: Document?
+
+    if let data = data,
+       let html = String(data: data, encoding: encoding) {
+      document = try SwiftSoup.parse(html)
+    }
+
+    return document
   }
 
   public func buildUrl(path: String, params: [String: AnyObject] = [:]) -> String {
@@ -47,68 +90,48 @@ open class HttpService2 {
     return url
   }
 
-//  func getPlayListUrls(_ url: String) throws -> [[String: String]] {
-//    var urls = [[String: String]]()
-//
-//    let playList = try getPlayList(url)
-//
-//    playList.enumerateLines {(line, _) in
-//      if line[line.startIndex] != "#" {
-//        urls.append(["url": line])
-//      }
-//    }
-//
-//    return urls
-//  }
+  func getPlayListUrls(_ url: String) throws -> [[String: String]] {
+    var urls = [[String: String]]()
 
-//  func getPlayList(_ url: String, baseUrl: String="") throws -> String {
-//    var localBaseUrl = baseUrl
-//
-//    if localBaseUrl.isEmpty {
-//      localBaseUrl = getBaseUrl(url)
-//    }
-//
-//    let data = httpRequest(url: url)!.data
-//    let content = toString(data!)
-//
-//    var newLines = [String]()
-//
-//    content!.enumerateLines {(line, _) in
-//      if line[line.startIndex] == "#" {
-//        newLines.append(line)
-//      }
-//      else {
-//        newLines.append(localBaseUrl + "/" + line)
-//      }
-//    }
-//
-//    return newLines.joined(separator: "\n")
-//  }
+    let playList = try getPlayList(url)
+
+    playList.enumerateLines {(line, _) in
+      if line[line.startIndex] != "#" {
+        urls.append(["url": line])
+      }
+    }
+
+    return urls
+  }
+
+  func getPlayList(_ url: String, baseUrl: String="") throws -> String {
+    var localBaseUrl = baseUrl
+
+    if localBaseUrl.isEmpty {
+      localBaseUrl = getBaseUrl(url)
+    }
+
+    var newLines = [String]()
+
+    if let data = fetchData(url),
+       let content = String(data: data, encoding: .utf8) {
+
+      content.enumerateLines {(line, _) in
+        if line[line.startIndex] == "#" {
+          newLines.append(line)
+        }
+        else {
+          newLines.append(localBaseUrl + "/" + line)
+        }
+      }
+    }
+
+    return newLines.joined(separator: "\n")
+  }
 
   func getBaseUrl(_ url: String) -> String {
     var pathComponents = url.components(separatedBy: "/")
 
     return pathComponents[0...pathComponents.count-2].joined(separator: "/")
   }
-
-//  public func fetchDocument(_ url: String, headers: [String: String] = [:], data: [String: String] = [:],
-//                            method: String?="get", encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
-//    let content = fetchContent(url, headers: headers, data: data, method: method)
-//
-//    return try toDocument(content, encoding: encoding)
-//  }
-
-//  public func fetchContent(_ url: String, headers: [String: String] = [:], data: [String: String] = [:],
-//                           method: String?="get") -> Data? {
-//    return httpRequest(url: url, headers: headers, data: data, method: method)
-//  }
-
-//  public func toDocument(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) throws -> Document? {
-//    return try SwiftSoup.parse(toString(data, encoding: encoding)!)
-//  }
-//
-//  public func toString(_ data: Data?, encoding: String.Encoding=String.Encoding.utf8) -> String? {
-//    return String(data: data!, encoding: encoding)
-//  }
-
 }
