@@ -3,11 +3,11 @@ import SwiftyJSON
 import SwiftSoup
 
 open class MyHitAPI: HttpService {
-  public let SiteUrl = "https://my-hit.org"
+  public static let SiteUrl = "https://my-hit.org"
   let UserAgent = "My Hit User Agent"
 
   public func available() throws -> Bool {
-    let document = try fetchDocument(SiteUrl)
+    let document = try fetchDocument(MyHitAPI.SiteUrl)
 
     return try document!.select("div[class=container] div[class=row]").size() > 0
   }
@@ -54,7 +54,7 @@ open class MyHitAPI: HttpService {
 
     let pagePath = getPagePath(path: path, filter: filter, page: page)
 
-    let document = try fetchDocument(SiteUrl + pagePath)
+    let document = try fetchDocument(MyHitAPI.SiteUrl + pagePath)
 
     let items = try document!.select("div[class='" + selector + "'] div[class='row']")
 
@@ -70,7 +70,7 @@ open class MyHitAPI: HttpService {
 
       let url = try link.select("div img").get(0).attr("src")
 
-      let thumb = SiteUrl + url
+      let thumb = MyHitAPI.SiteUrl + url
 
       data.append(["type": type, "id": href, "thumb": thumb, "name": name])
     }
@@ -85,7 +85,7 @@ open class MyHitAPI: HttpService {
 
       let url = try link.select("img").get(0).attr("src")
 
-      let thumb = SiteUrl + url
+      let thumb = MyHitAPI.SiteUrl + url
 
       data.append(["type": "star", "id": href, "thumb": thumb, "name": name])
     }
@@ -110,7 +110,7 @@ open class MyHitAPI: HttpService {
 
     let pagePath = getPagePath(path: path, page: page)
 
-    let document = try fetchDocument(SiteUrl + pagePath)
+    let document = try fetchDocument(MyHitAPI.SiteUrl + pagePath)
 
     let items = try document!.select("div[class='" + selector + "'] div[class='row'] div")
 
@@ -124,7 +124,7 @@ open class MyHitAPI: HttpService {
       let imgBlock = try link2.select("img")
 
       if imgBlock.size() > 0 {
-        let thumb = SiteUrl + (try imgBlock.attr("src"))
+        let thumb = MyHitAPI.SiteUrl + (try imgBlock.attr("src"))
 
         data.append(["type": "soundtrack", "id": href, "name": name, "thumb": thumb])
       }
@@ -142,7 +142,7 @@ open class MyHitAPI: HttpService {
 
     let pagePath = getPagePath(path: path)
 
-    let document = try fetchDocument(SiteUrl + pagePath)
+    let document = try fetchDocument(MyHitAPI.SiteUrl + pagePath)
 
     var allTracks = [[[String: Any]]]()
 
@@ -162,7 +162,7 @@ open class MyHitAPI: HttpService {
           let bitrate = try children.get(3).text()
           let url = try children.get(4).select("a").attr("href")
 
-          let record = ["url": SiteUrl + url, "name": name, "duration": duration, "bitrate": bitrate]
+          let record = ["url": MyHitAPI.SiteUrl + url, "name": name, "duration": duration, "bitrate": bitrate]
 
           allTracks[index].append(record)
         }
@@ -179,7 +179,7 @@ open class MyHitAPI: HttpService {
       if img.size() > 0 {
         index1 = index1 + 1
         let src = try img.get(0).attr("src")
-        let thumb = SiteUrl + src
+        let thumb = MyHitAPI.SiteUrl + src
         let name = try item.select("div a").attr("title")
 
         var composer = ""
@@ -236,7 +236,7 @@ open class MyHitAPI: HttpService {
 
     let pagePath = getPagePath(path: path, page: page)
 
-    let document = try fetchDocument(SiteUrl + pagePath)
+    let document = try fetchDocument(MyHitAPI.SiteUrl + pagePath)
 
     let items = try document!.select("div[class='" + selector + "'] div[class='row'] div")
 
@@ -251,7 +251,7 @@ open class MyHitAPI: HttpService {
 
       if thumb != "" {
         if name != "Актёры и актрисы" && name != "Актеры и актрисы" {
-          data.append(["type": "selection", "id": href, "thumb": SiteUrl + thumb, "name": name])
+          data.append(["type": "selection", "id": href, "thumb": MyHitAPI.SiteUrl + thumb, "name": name])
         }
       }
     }
@@ -279,7 +279,7 @@ open class MyHitAPI: HttpService {
 
     let pagePath = getPagePath(path: "/selection/" + id + "/", page: page)
 
-    let document = try fetchDocument(SiteUrl + pagePath)
+    let document = try fetchDocument(MyHitAPI.SiteUrl + pagePath)
 
     let items = try document!.select("div[class='" + selector + "'] div[class='row']")
 
@@ -296,7 +296,7 @@ open class MyHitAPI: HttpService {
 
       let url = try link.select("div img").get(0).attr("src")
 
-      let thumb = SiteUrl + url
+      let thumb = MyHitAPI.SiteUrl + url
 
       let type = (href.find("/serial") != nil) ? "serie" : "movie"
 
@@ -313,7 +313,7 @@ open class MyHitAPI: HttpService {
   public func getFilters(mode: String="film") throws -> [Any] {
     var data = [Any]()
 
-    let document = try fetchDocument(SiteUrl + "/" + mode + "/")
+    let document = try fetchDocument(MyHitAPI.SiteUrl + "/" + mode + "/")
 
     var currentGroupName: String = ""
 
@@ -420,7 +420,7 @@ open class MyHitAPI: HttpService {
   public func getSeasons(_ path: String, parentName: String?=nil) -> Items {
     var data = [Any]()
 
-    var result = JSON(data: fetchContent(SiteUrl + path + "/playlist.txt")!)
+    var result = JSON(data: fetchContent(MyHitAPI.SiteUrl + path + "/playlist.txt")!)
 
     let playlist = result["playlist"]
     
@@ -430,7 +430,7 @@ open class MyHitAPI: HttpService {
       for (_, episode) in playlist {
         let episodeId = episode["file"].stringValue
         let episodeName = episode["comment"].stringValue
-        let episodeThumb = SiteUrl + episode["poster"].stringValue
+        let episodeThumb = MyHitAPI.SiteUrl + episode["poster"].stringValue
         
         episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
       }
@@ -453,7 +453,7 @@ open class MyHitAPI: HttpService {
 
         let name = season["comment"].stringValue
         let episodes = season["playlist"]
-        let thumb = SiteUrl + season["poster"].stringValue
+        let thumb = MyHitAPI.SiteUrl + season["poster"].stringValue
         
         var episodeData = [Any]()
         
@@ -463,7 +463,7 @@ open class MyHitAPI: HttpService {
           index2 += 1
           let episodeId = episode["file"].stringValue
           let episodeName = episode["comment"].stringValue
-          let episodeThumb = SiteUrl + episode["poster"].stringValue
+          let episodeThumb = MyHitAPI.SiteUrl + episode["poster"].stringValue
           
           episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
         }
@@ -517,7 +517,7 @@ open class MyHitAPI: HttpService {
       url = pathOrUrl
     }
     else {
-      url = SiteUrl + pathOrUrl
+      url = MyHitAPI.SiteUrl + pathOrUrl
     }
 
     let document = try fetchDocument(url)
@@ -631,7 +631,7 @@ open class MyHitAPI: HttpService {
     var sourceUrl: String = ""
 
     if path != "" {
-      sourceUrl = try getSourceUrl(SiteUrl + path)
+      sourceUrl = try getSourceUrl(MyHitAPI.SiteUrl + path)
     }
     else {
       sourceUrl = url
@@ -686,7 +686,7 @@ open class MyHitAPI: HttpService {
   }
 
   func extractPaginationData(_ path: String, selector: String, page: Int) throws -> Items {
-    let document = try fetchDocument(SiteUrl + path)
+    let document = try fetchDocument(MyHitAPI.SiteUrl + path)
 
     var pages = 1
 
