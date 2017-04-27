@@ -12,6 +12,9 @@ open class HttpService {
       let proxyPort = 3130
       let proxyURL = "176.221.42.213"
 
+//      let proxyPort = 3128
+//      let proxyURL = "93.104.210.29"
+
       configuration.connectionProxyDictionary = [
         kCFNetworkProxiesHTTPEnable as AnyHashable : true,
         kCFNetworkProxiesHTTPPort as AnyHashable : proxyPort,

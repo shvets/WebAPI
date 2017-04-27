@@ -148,8 +148,8 @@ open class AudioBooAPI: HttpService {
     return data
   }
 
-  public func search(_ query: String, page: Int=1) throws -> [Any] {
-    var data = [Any]()
+  public func search(_ query: String, page: Int=1) throws -> [[String: String]] {
+    var data = [[String: String]]()
 
     let url = AudioBooAPI.SiteUrl + "/engine/ajax/search.php"
 
