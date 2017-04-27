@@ -104,7 +104,6 @@
 		OBJ_265 /* NameClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* NameClassifier.swift */; };
 		OBJ_266 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* Storage.swift */; };
 		OBJ_267 /* String-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* String-extension.swift */; };
-		OBJ_268 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* Track.swift */; };
 		OBJ_269 /* WatchStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* WatchStatus.swift */; };
 		OBJ_271 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* Alamofire.framework */; };
 		OBJ_272 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* SwiftyJSON.framework */; };
@@ -264,7 +263,6 @@
 		OBJ_25 /* NameClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameClassifier.swift; sourceTree = "<group>"; };
 		OBJ_26 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		OBJ_27 /* String-extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-extension.swift"; sourceTree = "<group>"; };
-		OBJ_28 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		OBJ_29 /* WatchStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchStatus.swift; sourceTree = "<group>"; };
 		OBJ_32 /* AudioBooAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBooAPITests.swift; sourceTree = "<group>"; };
 		OBJ_33 /* AudioKnigiAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKnigiAPITests.swift; sourceTree = "<group>"; };
@@ -605,7 +603,6 @@
 				OBJ_25 /* NameClassifier.swift */,
 				OBJ_26 /* Storage.swift */,
 				OBJ_27 /* String-extension.swift */,
-				OBJ_28 /* Track.swift */,
 				OBJ_29 /* WatchStatus.swift */,
 			);
 			path = Sources;
@@ -905,7 +902,6 @@
 				OBJ_265 /* NameClassifier.swift in Sources */,
 				OBJ_266 /* Storage.swift in Sources */,
 				OBJ_267 /* String-extension.swift in Sources */,
-				OBJ_268 /* Track.swift in Sources */,
 				OBJ_269 /* WatchStatus.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

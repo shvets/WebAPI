@@ -29,13 +29,13 @@ open class AuthService: HttpService {
 
     var result = [String: String]()
     
-    let httpResult = authRequest(parameters: &data, rtype: "device/code", method: .get)
-    
-    if httpResult!.response!.statusCode == 200 {
-      if let data = httpResult!.data {
-        result = JsonConverter.toItems(data) as! [String: String]
-        
-        result["activation_url"] = authUrl + "device/usercode"
+    if let response = authRequest(parameters: &data, rtype: "device/code", method: .get) {
+      if response.result.isSuccess {
+        if let data = response.data {
+          result = JsonConverter.toItems(data) as! [String: String]
+
+          result["activation_url"] = authUrl + "device/usercode"
+        }
       }
     }
     
@@ -44,15 +44,17 @@ open class AuthService: HttpService {
   
   public func createToken(deviceCode: String) -> [String: String] {
     var data: [String: String] = ["grant_type": grantType, "code": deviceCode]
-    
-    let httpResult = authRequest(parameters: &data)
-    
+
     var result = [String: String]()
-    
-    if httpResult!.response!.statusCode == 200 {
-      result = JsonConverter.toItems(httpResult!.data!) as! [String: String]
+
+    if let response = authRequest(parameters: &data) {
+      if response.result.isSuccess {
+        if let data = response.data {
+          result = JsonConverter.toItems(data) as! [String: String]
+        }
+      }
     }
-    
+
     return result
   }
   
@@ -61,16 +63,18 @@ open class AuthService: HttpService {
     
     var result = [String: String]()
     
-    let httpResult = authRequest(parameters: &data)
-    
-    if httpResult!.response!.statusCode == 200 {
-      result = addExpires(JsonConverter.toItems(httpResult!.data!) as! [String: String])
+    if let response = authRequest(parameters: &data) {
+      if response.result.isSuccess {
+        if let data = response.data {
+          result = addExpires(JsonConverter.toItems(data) as! [String: String])
+        }
+      }
     }
     
     return result
   }
   
-  func authRequest(parameters: inout [String: String], rtype: String="token", method: HTTPMethod = .get) -> DefaultDataResponse? {
+  func authRequest(parameters: inout [String: String], rtype: String="token", method: HTTPMethod = .get) -> DataResponse<Data>? {
     parameters["client_id"] = clientId
     
     if rtype == "token" {

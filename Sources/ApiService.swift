@@ -37,7 +37,7 @@ open class ApiService: AuthService {
   }
   
   func apiRequest(baseUrl: String, path: String, method: HTTPMethod?,
-                  headers: [String: String] = [:], parameters: [String: String]) -> DefaultDataResponse? {
+                  headers: [String: String] = [:], parameters: [String: String]) -> DataResponse<Data>? {
     let url = baseUrl + path
     
     var newHeaders = headers

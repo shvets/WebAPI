@@ -25,29 +25,47 @@ open class HttpService {
   public func httpRequest(_ url: String,
                         headers: HTTPHeaders = [:],
                         parameters: Parameters = [:],
-                        method: HTTPMethod = .get) -> DefaultDataResponse? {
-    var response: DefaultDataResponse?
+                        method: HTTPMethod = .get) -> DataResponse<Data>? {
+    var dataResponse: DataResponse<Data>?
 
     let utilityQueue = DispatchQueue.global(qos: .utility)
     let semaphore = DispatchSemaphore.init(value: 0)
 
     sessionManager.request(url, method: method, parameters: parameters,
-        headers: headers).response(queue: utilityQueue) { resp in
-      response = resp
+        headers: headers).validate().responseData(queue: utilityQueue) { response in
+      dataResponse = response
 
       semaphore.signal()
     }
 
     _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 
-    return response
+    return dataResponse
+  }
+
+  public func httpRequest2(_ url: String,
+                          headers: HTTPHeaders = [:],
+                          parameters: Parameters = [:],
+                          method: HTTPMethod = .get,
+                          completion: @escaping (String) -> Void) {
+    sessionManager.request(url, method: method, parameters: parameters,
+        headers: headers).validate().responseData() { response in
+
+//      switch response.result {
+//        case .success(let data):
+//          completion(data)
+//
+//        case .failure(let data, _):
+//          completion(data)
+//      }
+    }
   }
 
   public func fetchData(_ url: String,
                         headers: HTTPHeaders = [:],
                         parameters: Parameters = [:],
                         method: HTTPMethod = .get) -> Data? {
-    let response: DefaultDataResponse? = httpRequest(url, headers: headers, parameters: parameters, method: method)
+    let response: DataResponse<Data>? = httpRequest(url, headers: headers, parameters: parameters, method: method)
 
     return response?.data
   }

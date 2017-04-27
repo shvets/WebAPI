@@ -3,6 +3,7 @@ import SwiftyJSON
 import SwiftSoup
 import Unbox
 import Wrap
+import Alamofire
 
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
@@ -233,7 +234,6 @@ open class AudioKnigiAPI: HttpService {
     return try getBookItems(document!, path: path, page: page)
   }
 
-  //public func getAudioTracks(_ url: String) throws -> [Track] {
   public func getAudioTracks(_ url: String) throws -> [Any] {
     var bookId = 0
 
@@ -257,7 +257,6 @@ open class AudioKnigiAPI: HttpService {
     }
 
     var newTracks = [Any]()
-    //var newTracks = [Track]()
 
     if bookId > 0 {
       let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
@@ -269,48 +268,56 @@ open class AudioKnigiAPI: HttpService {
 
         for (_, track) in tracks {
           newTracks.append(["name": track["title"].stringValue + ".mp3", "id": track["mp3"].stringValue])
-          //newTracks.append(Track(id: track["mp3"].stringValue, name: track["title"].stringValue + ".mp3"))
         }
       }
     }
 
     return newTracks
   }
+
+  public func downloadAudioTracks(_ url: String) throws {
+    let audioTracks = try getAudioTracks(url)
+
+    for track in audioTracks {
+      downloadTrack((track as! [String: String])["id"]!, destination: ".")
+      break
+    }
+  }
+
+  func downloadTrack(_ path: String, destination: String) {
+
+//    let documentsUrl:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
+//    let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.jpg")
 //
-//  public func downloadAudioTracks(_ url: String) throws {
-//    let audioTracks = try getAudioTracks(url)
-//
-//    for track in audioTracks {
-//      print(track.id)
-//
-//      downloadTrack(track.id, destination: ".")
-//      break
-//    }
-//  }
-//
-//  func downloadTrack(_ path: String, destination: String) {
-//
-////    let documentsUrl:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
-////    let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.jpg")
-////
-////    print(destinationFileUrl)
-//     //print(URL(string: path)!.deletingLastPathComponent())
-//
-//    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-//
-//
-////    let semaphore = DispatchSemaphore.init(value: 0)
-////
-////    let r = Just.get(encodedPath) { r in
-////      if r.ok {
-////        FileManager.default.createFile(atPath: "destinationFileUrl.mp4", contents: r.content)
-////      }
-////
-////      semaphore.signal()
-////    }
-////
-////    semaphore.wait(timeout: DispatchTime.distantFuture)
-//  }
+//    print(destinationFileUrl)
+     //print(URL(string: path)!.deletingLastPathComponent())
+
+    let utilityQueue = DispatchQueue.global(qos: .utility)
+
+    let semaphore = DispatchSemaphore.init(value: 0)
+
+    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+
+    let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+      let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+      let fileURL = documentsURL.appendingPathComponent("downloadedFile.mp3")
+
+      return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+    }
+
+    Alamofire.download(encodedPath, to: destination)
+      .downloadProgress(queue: utilityQueue) { progress in
+        print("Download Progress: \(progress.fractionCompleted)")
+      }
+      .responseData(queue: utilityQueue) { response in
+        FileManager.default.createFile(atPath: response.destinationURL!.path, contents: response.result.value)
+
+        semaphore.signal()
+      }
+
+    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+  }
 
   public func getItemsInGroups(_ fileName: String) -> [NameClassifier.ItemsGroup] {
     let data: Data? = Files.readFile(fileName)
