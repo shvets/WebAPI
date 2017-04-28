@@ -50,17 +50,22 @@ open class HttpService {
                           headers: HTTPHeaders = [:],
                           parameters: Parameters = [:],
                           method: HTTPMethod = .get,
-                          completion: @escaping (String) -> Void) {
+                          successHandler: @escaping (Data) -> Void = { data in },
+                          errorHandler: @escaping (Error) -> Void = { data in }) {
     sessionManager.request(url, method: method, parameters: parameters,
         headers: headers).validate().responseData() { response in
 
-//      switch response.result {
-//        case .success(let data):
-//          completion(data)
-//
-//        case .failure(let data, _):
-//          completion(data)
-//      }
+      switch response.result {
+        case .success(let data):
+          DispatchQueue.main.async {
+            successHandler(data)
+          }
+
+        case .failure(let error):
+          DispatchQueue.main.async {
+            errorHandler(error)
+          }
+      }
     }
   }
 
