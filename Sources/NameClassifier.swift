@@ -87,19 +87,21 @@ open class NameClassifier {
     var newGroups: [(key: String, value: [Any])] = []
 
     for groupNames in classifier {
-      let key = groupNames[0] + "-" + groupNames[groupNames.count - 1]
+      if groupNames.count > 0 {
+        let key = groupNames[0] + "-" + groupNames[groupNames.count - 1]
 
-      var value: [Any] = []
+        var value: [Any] = []
 
-      for groupName in groupNames {
-        let group = groups.filter { $0.key == groupName }.first
+        for groupName in groupNames {
+          let group = groups.filter { $0.key == groupName }.first
 
-        for item in group!.value {
-          value.append(item)
+          for item in group!.value {
+            value.append(item)
+          }
         }
-      }
 
-      newGroups.append((key: key, value: value))
+        newGroups.append((key: key, value: value))
+      }
     }
 
     return newGroups
