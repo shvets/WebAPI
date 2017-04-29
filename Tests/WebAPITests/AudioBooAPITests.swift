@@ -80,7 +80,8 @@ class AudioBooAPITests: XCTestCase {
 
     let result = try subject.getAudioTracks(playlistUrls[0] as! String)
 
-    print(result)
+//    print(result)
+    print(JsonConverter.prettified(result))
   }
 
   func testSearch() throws {

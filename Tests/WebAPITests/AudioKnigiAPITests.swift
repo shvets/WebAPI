@@ -145,8 +145,6 @@ class AudioKnigiAPITests: XCTestCase {
   func _testGrouping() throws {
     let data: Data? = Files.readFile("authors.json")
 
-    //let authors = JSON(data: data!)
-    //let items = JsonConverter.convertToArray(authors) as! [[String: String]]
     let items: [NameClassifier.Item] = try unbox(data: data!)
 
     let classifier = NameClassifier()
@@ -168,7 +166,6 @@ class AudioKnigiAPITests: XCTestCase {
   func _testGenerateAuthorsInGroupsList() throws {
     let data: Data? = Files.readFile("authors.json")
 
-    //let items = JsonConverter.convertToArray(authors) as! [[String: String]]
     let items: [NameClassifier.Item] = try unbox(data: data!)
 
     let classifier = NameClassifier()

@@ -26,8 +26,8 @@ open class AudioBooAPI: HttpService {
     }
   }
 
-  func getLetters() throws -> [Any] {
-    var data = [Any]()
+  public func getLetters() throws -> [[String: String]] {
+    var data = [[String: String]]()
 
     let document = try getDocument(AudioBooAPI.SiteUrl)
 
@@ -38,13 +38,13 @@ open class AudioBooAPI: HttpService {
 
       let href = try item.attr("href")
 
-      data.append(["id": href, "name": name])
+      data.append(["id": href, "name": name.uppercased()])
     }
 
     return data
   }
 
-  func getAuthorsByLetter(_ path: String) throws -> [(key: String, value: [Any])] {
+  public func getAuthorsByLetter(_ path: String) throws -> [(key: String, value: [Any])] {
     var groups: [String: [NameClassifier.Item]] = [:]
 
     let document = try getDocument(AudioBooAPI.SiteUrl + path)
@@ -103,13 +103,13 @@ open class AudioBooAPI: HttpService {
       let content = try elements[0].text()
       let rating = try elements[2].select("div[class=rating] ul li[class=current-rating]").text()
 
-      data.append(["type": "book", "id": href, "name": name, "thumb": thumb, "content": content, "rating": rating])
+      data.append(["type": "book", "id": href, "name": name, "thumb": AudioBooAPI.SiteUrl + thumb, "content": content, "rating": rating])
     }
 
     return data
   }
 
-  func getPlaylistUrls(_ url: String) throws -> [Any] {
+  public func getPlaylistUrls(_ url: String) throws -> [Any] {
     var data = [Any]()
 
     let document = try getDocument(url)
@@ -126,22 +126,35 @@ open class AudioBooAPI: HttpService {
   public func getAudioTracks(_ url: String) throws -> [Any] {
     var data = [Any]()
 
-    let document = try getDocument(url)
+    if let document = try fetchDocument(url) {
+      let items = try document.select("script")
 
-    let items = try document!.select("script")
+      for item in items.array() {
+        let text = try item.html()
 
-    for item in items.array() {
-      let text = try item.html()
+        let index1 = text.find("Play('jw6',")
+        let index2 = text.find("{\"start\":0,")
 
-      let index1 = text.find("Play('jw6',")
-      let index2 = text.find("{\"start\":0,")
+        if let index1 = index1, let index2 = index2 {
+          let content = text[text.index(index1, offsetBy: 10) ... text.index(index2, offsetBy: -1)].trim()
 
-      if index1 != nil && index2 != nil {
-        let content = text[text.index(index1!, offsetBy: 10) ... text.index(index2!, offsetBy: -1)].trim()
+          let content2 = content[content.index(content.startIndex, offsetBy: 2) ..< content.index(content.endIndex, offsetBy: -2)]
 
-        let content2 = content[content.index(content.startIndex, offsetBy: 2) ..< content.index(content.endIndex, offsetBy: -2)]
+          let json = try? JSONSerialization.jsonObject(with: content2.data(using: .utf8)!, options: [])
 
-        data.append(JSON(content2))
+          let tracks = (json as! [Any])
+
+          for track in tracks {
+            if let item = track as? [String: Any] {
+              let sources = item["sources"] as! [[String: String]]
+              let name =  item["title"]!
+              let id = "\(AudioBooAPI.ArchiveUrl)\(sources[0]["file"]!)"
+              let thumb = "\(AudioBooAPI.SiteUrl)\(item["image"]!)"
+
+              data.append(["name": name, "id": id, "thumb": thumb])
+            }
+          }
+        }
       }
     }
 
