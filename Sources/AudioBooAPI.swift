@@ -79,7 +79,7 @@ open class AudioBooAPI: HttpService {
 
     var newGroups: [(key: String, value: [NameClassifier.Item])] = []
 
-    for (groupName, group) in groups {
+    for (groupName, group) in groups.sorted(by: { $0.key < $1.key}) {
       newGroups.append((key: groupName, value: group))
     }
 
