@@ -175,7 +175,7 @@ open class AudioBooAPI: HttpService {
 
       let href = try item.attr("href")
 
-      data.append(["id": href, "name": name])
+      data.append(["type": "book", "id": href, "name": name])
     }
 
     return data
