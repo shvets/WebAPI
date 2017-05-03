@@ -298,7 +298,6 @@ open class AudioKnigiAPI: HttpService {
 
     let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
-
     let destination: DownloadRequest.DownloadFileDestination = { _, _ in
       let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
       let fileURL = documentsURL.appendingPathComponent("downloadedFile.mp3")

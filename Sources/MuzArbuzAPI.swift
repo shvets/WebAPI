@@ -5,7 +5,6 @@ open class MuzArbuzAPI: HttpService {
   static let ApiUrl = "\(SiteUrl)/api/v1"
   let UserAgent = "MuzArbuz User Agent"
 
-
   let ValidParameters = ["album", "artists", "collection__id", "parent__id", "genre__in"]
 
   let CyrillicLetters = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С",

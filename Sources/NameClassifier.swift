@@ -87,7 +87,7 @@ open class NameClassifier {
     var newGroups: [(key: String, value: [Any])] = []
 
     for groupNames in classifier {
-      if groupNames.count > 0 {
+      if !groupNames.isEmpty {
         let key = groupNames[0] + "-" + groupNames[groupNames.count - 1]
 
         var value: [Any] = []

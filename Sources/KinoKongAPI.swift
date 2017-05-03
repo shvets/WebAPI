@@ -111,7 +111,7 @@ open class KinoKongAPI: HttpService {
     for item: Element in items.array() {
       let link = try item.select("td a")
 
-      if link.array().count > 0 {
+      if !link.array().isEmpty {
         var href = try link.attr("href")
 
         let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
@@ -357,14 +357,14 @@ open class KinoKongAPI: HttpService {
 
       var genresNode: Elements?
 
-      if genresNode1.array().count > 0 {
+      if !genresNode1.array().isEmpty {
         genresNode = genresNode1
       }
       else {
         genresNode = genresNode2
       }
 
-      if genresNode!.array().count > 0 {
+      if !genresNode!.array().isEmpty {
         data[href] = []
 
         for genre in genresNode! {
@@ -433,7 +433,7 @@ open class KinoKongAPI: HttpService {
 
     let paginationRoot = try document!.select("div[class=basenavi] div[class=navigation]")
 
-    if paginationRoot.array().count > 0 {
+    if !paginationRoot.array().isEmpty {
       let paginationNode = paginationRoot.get(0)
 
       let links = try paginationNode.select("a").array()
@@ -445,7 +445,7 @@ open class KinoKongAPI: HttpService {
       "page": page,
       "pages": pages,
       "has_previous": page > 1,
-      "has_next": page < pages,
+      "has_next": page < pages
     ]
   }
 
@@ -460,7 +460,7 @@ open class KinoKongAPI: HttpService {
 
       var playlist = JSON(data: playlistContent.data(using: .windowsCP1251)!)["playlist"]
 
-      if playlist != JSON.null && playlist.count > 0 && playlist[0]["playlist"] == JSON.null {
+      if playlist != JSON.null && !playlist.isEmpty && playlist[0]["playlist"] == JSON.null {
         serieInfo = [
           [
             "comment": "Сезон 1",
@@ -543,7 +543,6 @@ open class KinoKongAPI: HttpService {
 
     return data
   }
-
 
   func getEpisodeUrl(url: String, season: String, episode: String) -> String {
     var episodeUrl = url

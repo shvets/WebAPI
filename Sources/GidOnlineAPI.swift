@@ -329,7 +329,7 @@ open class GidOnlineAPI: HttpService {
 
       urls = try document2!.select("iframe[class='ifram']").attr("src")
 
-      if urls.trim().characters.count > 0 {
+      if !urls.trim().characters.isEmpty {
         gatewayUrl = urls
       }
     }
@@ -576,7 +576,7 @@ open class GidOnlineAPI: HttpService {
       let movies = try getMovies(document, path: fullPath)
 
       if !movies.isEmpty {
-        return movies
+        result = movies
       }
       else {
         if let response = response.response,
@@ -586,7 +586,7 @@ open class GidOnlineAPI: HttpService {
           let mediaData = try getMediaData(document2)
 
           if mediaData["title"] != nil {
-            return ["movies": [
+            result = ["movies": [
               "id": fullPath,
               "name": mediaData["title"],
               "thumb": mediaData["thumb"]

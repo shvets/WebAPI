@@ -16,9 +16,9 @@ open class HttpService {
 //      let proxyURL = "93.104.210.29"
 
       configuration.connectionProxyDictionary = [
-        kCFNetworkProxiesHTTPEnable as AnyHashable : true,
-        kCFNetworkProxiesHTTPPort as AnyHashable : proxyPort,
-        kCFNetworkProxiesHTTPProxy as AnyHashable : proxyURL
+        kCFNetworkProxiesHTTPEnable as AnyHashable: true,
+        kCFNetworkProxiesHTTPPort as AnyHashable: proxyPort,
+        kCFNetworkProxiesHTTPProxy as AnyHashable: proxyURL
       ]
     }
 
@@ -53,7 +53,7 @@ open class HttpService {
                           successHandler: @escaping (Data) -> Void = { data in },
                           errorHandler: @escaping (Error) -> Void = { data in }) {
     sessionManager.request(url, method: method, parameters: parameters,
-        headers: headers).validate().responseData() { response in
+        headers: headers).validate().responseData { response in
 
       switch response.result {
         case .success(let data):
