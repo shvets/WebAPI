@@ -34,12 +34,16 @@ open class HttpService {
     let utilityQueue = DispatchQueue.global(qos: .utility)
     let semaphore = DispatchSemaphore.init(value: 0)
 
-    sessionManager.request(url, method: method, parameters: parameters,
+    let request = sessionManager.request(url, method: method, parameters: parameters,
         headers: headers).validate().responseData(queue: utilityQueue) { response in
       dataResponse = response
 
+      print("Status: \(response.response!.statusCode)")
+
       semaphore.signal()
     }
+
+    //debugPrint(request)
 
     _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 

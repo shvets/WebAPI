@@ -410,11 +410,13 @@ open class GidOnlineAPI: HttpService {
 
     let html = String(data: content!, encoding: .utf8)
 
+    let frameCommit = getRequestTokens(html!)
+
     let parameters = getSessionData(html!)
 
     let headers: HTTPHeaders = [
+      "X-Frame-Commit": frameCommit,
       "X-Requested-With": "XMLHttpRequest",
-      "X-Format-Token": "B300"
     ]
 
     let response2 = httpRequest(sessionUrl(), headers: headers, parameters: parameters, method: .post)
@@ -423,9 +425,40 @@ open class GidOnlineAPI: HttpService {
 
     let manifests = data2["mans"]
 
-    let manifestUrl = manifests["manifest_m3u8"].rawString()!
+    print(manifests)
 
-    return try getPlayListUrls(manifestUrl).reversed()
+//    let manifestUrl = manifests["manifest_mp4"].rawString()!
+    let manifestMp4Url = JSON(data: try manifests.rawData())["manifest_mp4"].rawString()!
+
+    print(manifestMp4Url)
+
+    return try getMp4Urls(manifestMp4Url).reversed()
+  }
+
+  func getRequestTokens(_ content: String) -> String {
+    var frameCommit = ""
+
+    var frameSection = false
+
+    content.enumerateLines { (line, _) in
+      if line.find("$.ajaxSetup({") != nil {
+        frameSection = true
+      }
+      else if frameSection == true {
+        if line.find("});") != nil {
+          frameSection = false
+        }
+        else if !line.isEmpty {
+          if line.find("'X-Frame-Commit'") != nil {
+            let index1 = line.find("'X-Frame-Commit':")
+
+            frameCommit = line[line.index(index1!, offsetBy: "'X-Frame-Commit':".characters.count+2) ..< line.index(line.endIndex, offsetBy: -1)]
+          }
+        }
+      }
+    }
+
+    return frameCommit
   }
 
   func getSessionData(_ content: String) -> [String: String] {
@@ -511,7 +544,30 @@ open class GidOnlineAPI: HttpService {
       }
     }
 
+    items["ad_attr"] = "0"
+    items["mw_pid"] = "4"
+
     return items
+  }
+
+  func getMp4Urls(_ url: String) throws -> [[String: String]] {
+    var urls = [[String: String]]()
+
+    var items = [[String]]()
+
+    let response = httpRequest(url)
+
+    let list = JSON(data: response!.data!)
+
+    print(list)
+
+    for (bandwidth, url) in list {
+      urls.append(["url" : url.rawString()!.replacingOccurrences(of: "\\/", with: "/"), "bandwidth" : bandwidth])
+    }
+
+    print(urls)
+
+    return urls
   }
 
   override func getPlayListUrls(_ url: String) throws -> [[String: String]] {

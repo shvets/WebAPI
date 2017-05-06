@@ -101,7 +101,7 @@ class GidOnlineAPITests: XCTestCase {
   }
 
   func testGetUrls() throws {
-    let movieUrl = "http://gidonline.club/2017/01/ulichnyj-kot-po-klichke-bob/"
+    let movieUrl = "http://gidonline.club/2017/02/kosmos-mezhdu-nami/"
     //let movieUrl = "http://gidonline.club/2016/12/moana/"
 
     let urls = try subject.getUrls(movieUrl)
