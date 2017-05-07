@@ -427,12 +427,17 @@ open class GidOnlineAPI: HttpService {
 
     print(manifests)
 
-//    let manifestUrl = manifests["manifest_mp4"].rawString()!
     let manifestMp4Url = JSON(data: try manifests.rawData())["manifest_mp4"].rawString()!
 
     print(manifestMp4Url)
 
     return try getMp4Urls(manifestMp4Url).reversed()
+
+//    let manifestUrl = manifests["manifest_m3u8"].rawString()!.replacingOccurrences(of: "\\/", with: "/") + "&man_type=zip1&eskobar=pablo"
+//
+//    print(manifestUrl)
+//
+//    return try getPlayListUrls(manifestUrl).reversed()
   }
 
   func getRequestTokens(_ content: String) -> String {
@@ -547,25 +552,21 @@ open class GidOnlineAPI: HttpService {
     items["ad_attr"] = "0"
     items["mw_pid"] = "4"
 
+    //print(items)
+
     return items
   }
 
   func getMp4Urls(_ url: String) throws -> [[String: String]] {
     var urls = [[String: String]]()
 
-    var items = [[String]]()
-
     let response = httpRequest(url)
 
     let list = JSON(data: response!.data!)
 
-    print(list)
-
     for (bandwidth, url) in list {
       urls.append(["url" : url.rawString()!.replacingOccurrences(of: "\\/", with: "/"), "bandwidth" : bandwidth])
     }
-
-    print(urls)
 
     return urls
   }

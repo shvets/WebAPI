@@ -1,6 +1,7 @@
 import XCTest
 import SwiftyJSON
 import SwiftSoup
+import Alamofire
 
 @testable import WebAPI
 
@@ -107,6 +108,100 @@ class GidOnlineAPITests: XCTestCase {
     let urls = try subject.getUrls(movieUrl)
 
     print(JsonConverter.prettified(urls))
+  }
+
+  func testDownload() throws {
+    let url = "http://185.38.12.50/sec/1494153108/383030302a6e8eab9dd7342cd960e08f8bf79e1bbd4ebd40/ivs/ae/a6/350cc47282a3/360.mp4"
+
+    let utilityQueue = DispatchQueue.global(qos: .utility)
+
+    let semaphore = DispatchSemaphore.init(value: 0)
+
+    let encodedPath = url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+    let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+      let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+      let fileURL = documentsURL.appendingPathComponent("downloadedFile.mp3")
+
+      return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+    }
+
+    let configuration = URLSessionConfiguration.default
+
+    let proxyPort = 3130
+    let proxyURL = "176.221.42.213"
+
+    configuration.connectionProxyDictionary = [
+      kCFNetworkProxiesHTTPEnable as AnyHashable: true,
+      kCFNetworkProxiesHTTPPort as AnyHashable: proxyPort,
+      kCFNetworkProxiesHTTPProxy as AnyHashable: proxyURL
+    ]
+
+    let sessionManager = Alamofire.SessionManager(configuration: configuration)
+
+    sessionManager.download(encodedPath, to: destination)
+      .downloadProgress(queue: utilityQueue) { progress in
+        print("Download Progress: \(progress.fractionCompleted)")
+      }
+      .responseData(queue: utilityQueue) { response in
+        FileManager.default.createFile(atPath: "downloadedFile.mp4", contents: response.result.value)
+
+        semaphore.signal()
+      }
+
+    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+  }
+
+  func testDownload2() throws {
+    let url = "http://streamblast.cc/video/cafa7280ceff74b7/index.m3u8"
+
+    let utilityQueue = DispatchQueue.global(qos: .utility)
+
+    let semaphore = DispatchSemaphore.init(value: 0)
+
+    //let encodedPath = url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+    let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+      let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+      let fileURL = documentsURL.appendingPathComponent("downloadedFile.mp3")
+
+      return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+    }
+
+    let configuration = URLSessionConfiguration.default
+
+    let proxyPort = 3130
+    let proxyURL = "176.221.42.213"
+
+    configuration.connectionProxyDictionary = [
+      kCFNetworkProxiesHTTPEnable as AnyHashable: true,
+      kCFNetworkProxiesHTTPPort as AnyHashable: proxyPort,
+      kCFNetworkProxiesHTTPProxy as AnyHashable: proxyURL
+    ]
+
+    let sessionManager = Alamofire.SessionManager(configuration: configuration)
+
+    let parameters = [
+      "cd": "0",
+      "expired": "1494129784",
+      "frame_commit": "bd2d44bd3b8025d83a028a6b11be7c82",
+      "mw_pid": "4",
+      "signature": "3a0dc9f39d331340cf6fb20e6f0fa0bb",
+      "man_type": "zip1",
+      "eskobar": "pablo"
+    ]
+    sessionManager.download(url, parameters: parameters, to: destination)
+      .downloadProgress(queue: utilityQueue) { progress in
+        print("Download Progress: \(progress.fractionCompleted)")
+      }
+      .responseData(queue: utilityQueue) { response in
+        print(response.response?.statusCode)
+        FileManager.default.createFile(atPath: "downloadedFile.txt", contents: response.result.value)
+
+        semaphore.signal()
+      }
+
+    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
   }
 
   func testGetSerialInfo() throws {
