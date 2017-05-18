@@ -82,6 +82,11 @@ Objective-C to Swift
   
 http://iswift.org/try
 
+    # CocoaPods
+
+http://www.tekramer.com/making-private-cross-platform-swift-frameworks-with-cocoapods/
+https://www.raywenderlich.com/156971/cocoapods-tutorial-swift-getting-started
+http://www.enekoalonso.com/articles/creating-swift-frameworks-for-ios-osx-and-tvos
 
     # Articles
 
@@ -122,12 +127,103 @@ https://icomoon.io/
 https://linearicons.com/free
 http://www.flaticon.com/free-icon
 
-Manually
 
-Drag the tvProgress.xcodeproj file into your project.
-Add the tvProgress framework into Embedded Binaries.
-Near Run button, select Manage scheme.
-Select your app scheme.
-Click on Edit.
-Select Build on the left menu.
-Uncheck Find Implicit Dependencies. This will prevent Xcode from compiling library each time you compile your app.
+    # Install CocoaPods
+
+1. Install latest ruby
+
+```bash
+rvm install ruby
+ruby -v
+gem -v
+```
+
+2. Install cocoapods gem:
+
+```bash
+gem install cocoapods
+```
+
+3. Install CocoaPods (~/.cocoapods)
+
+```bash
+pod setup --verbose
+```
+
+4. Generate Podfile for existing xcode project:
+
+```bash
+pod init
+```
+
+    # Multi-platform Projects
+
+1. Create empty project (in "Other" section): "Demo?."
+
+2. Create targets-frameworks for each platform: "Demo.iOS, "Demo.tvOS", "Demo.macOS".
+
+3. For each target go into "Build Settings", find "Product Name", and change it to "Demo"
+by removing ".iOS", ".tvOS" and ".macOS" suffixes.
+
+
+4. Add this statement to all *.h files:
+
+#import <Foundation/Foundation.h>
+
+5. Create "demo.podspec" file with dependencies declared.
+
+```ruby
+Pod::Spec.new do |s|
+  #...
+  s.ios.deployment_target = "10.0"
+  s.osx.deployment_target = "10.10"
+  s.tvos.deployment_target = "9.0"
+  s.watchos.deployment_target = "2.0"
+
+  #...
+
+  s.dependency 'Alamofire', '4.4'
+  #...
+end
+```
+
+6. Create "Podfile". It will pull dependencies from "demo.podspec" file
+
+```ruby
+target 'demo.iOS' do
+  platform :ios, '10.0'
+
+  use_frameworks! # required for swift projects
+
+  podspec :path => 'demo.podspec'
+end
+
+target 'demo.tvOS' do
+  platform :tvos, '10.10'
+
+  use_frameworks!
+
+  podspec :path => 'demo.podspec'
+end
+```
+
+7. Install pod:
+
+```
+pod install
+```
+
+8. Close demo.xcodeproj and open generated demo.xcworkspace
+
+9. If you have existing files, add them to "demo" folder. Make sure they are added to targets 
+in the File Inspector under Target Membership.
+
+10. Create tag for versioning:
+
+```bash
+git tag 1.0.0
+git push origin 1.0.0
+```
+
+
+
