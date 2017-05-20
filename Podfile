@@ -3,6 +3,8 @@ target 'WebAPI.iOS' do
 
   use_frameworks!
 
+  # Pods for WebAPI
+
   podspec :path => 'WebAPI.podspec'
 
   #pod 'Alamofire', '~> 4.4'
@@ -10,6 +12,12 @@ target 'WebAPI.iOS' do
   #pod 'SwiftSoup', '~> 1.2.6'
   #pod 'Wrap', '~> 2.1.0'
   #pod 'Unbox', '~> 2.4.0'
+
+  target 'WebAPITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
 end
 
 target 'WebAPI.tvOS' do
