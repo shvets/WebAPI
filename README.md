@@ -171,6 +171,11 @@ by removing ".iOS", ".tvOS" and ".macOS" suffixes.
 #import <Foundation/Foundation.h>
 
 5. Create "demo.podspec" file with dependencies declared.
+You can create it with this command:
+
+```bash
+pod spec create ThreeRingControl
+```
 
 ```ruby
 Pod::Spec.new do |s|
@@ -224,6 +229,22 @@ in the File Inspector under Target Membership.
 git tag 1.0.0
 git push origin 1.0.0
 ```
+
+11. In new project add it as dependency:
+
+```ruby
+pod 'demo', :git => 'URL', :tag => '1.0.0'
+```
+
+Run update command:
+
+```bash
+pod update
+```
+
+Links:
+
+https://www.raywenderlich.com/126365/ios-frameworks-tutorial
 
 
 

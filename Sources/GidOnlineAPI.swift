@@ -416,7 +416,7 @@ open class GidOnlineAPI: HttpService {
 
     let headers: HTTPHeaders = [
       "X-Frame-Commit": frameCommit,
-      "X-Requested-With": "XMLHttpRequest",
+      "X-Requested-With": "XMLHttpRequest"
     ]
 
     let response2 = httpRequest(sessionUrl(), headers: headers, parameters: parameters, method: .post)
@@ -565,7 +565,7 @@ open class GidOnlineAPI: HttpService {
     let list = JSON(data: response!.data!)
 
     for (bandwidth, url) in list {
-      urls.append(["url" : url.rawString()!.replacingOccurrences(of: "\\/", with: "/"), "bandwidth" : bandwidth])
+      urls.append(["url": url.rawString()!.replacingOccurrences(of: "\\/", with: "/"), "bandwidth": bandwidth])
     }
 
     return urls
