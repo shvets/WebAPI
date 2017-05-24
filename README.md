@@ -158,7 +158,7 @@ pod init
 
     # Multi-platform Projects
 
-1. Create empty project (in "Other" section): "Demo?."
+1. Create empty project (in "Other" section): "Demo."
 
 2. Create targets-frameworks for each platform: "Demo.iOS, "Demo.tvOS", "Demo.macOS".
 
@@ -170,7 +170,7 @@ by removing ".iOS", ".tvOS" and ".macOS" suffixes.
 
 #import <Foundation/Foundation.h>
 
-5. Create "demo.podspec" file with dependencies declared.
+5. Create "Demo.podspec" file with dependencies declared.
 You can create it with this command:
 
 ```bash
@@ -192,23 +192,31 @@ Pod::Spec.new do |s|
 end
 ```
 
-6. Create "Podfile". It will pull dependencies from "demo.podspec" file
+6. Create "Podfile". It will pull dependencies from "Demo.podspec" file
 
 ```ruby
-target 'demo.iOS' do
+target 'Demo.iOS' do
   platform :ios, '10.0'
 
   use_frameworks! # required for swift projects
 
-  podspec :path => 'demo.podspec'
+  podspec :path => 'Demo.podspec'
 end
 
-target 'demo.tvOS' do
+target 'Demo.tvOS' do
   platform :tvos, '10.10'
 
   use_frameworks!
 
-  podspec :path => 'demo.podspec'
+  podspec :path => 'Demo.podspec'
+end
+
+target 'Demo.macOS' do
+  platform :macos, '10.10'
+
+  use_frameworks!
+
+  podspec :path => 'Demo.podspec'
 end
 ```
 
@@ -218,9 +226,9 @@ end
 pod install
 ```
 
-8. Close demo.xcodeproj and open generated demo.xcworkspace
+8. Close Demo.xcodeproj and open generated Demo.xcworkspace
 
-9. If you have existing files, add them to "demo" folder. Make sure they are added to targets 
+9. If you have existing files, add them to "Demo" folder. Make sure they are added to targets 
 in the File Inspector under Target Membership.
 
 10. Create tag for versioning:
@@ -233,7 +241,11 @@ git push origin 1.0.0
 11. In new project add it as dependency:
 
 ```ruby
-pod 'demo', :git => 'URL', :tag => '1.0.0'
+pod 'Demo', :git => 'URL', :tag => '1.0.0'
+
+# or in order to test locally
+
+pod 'Demo', :path => '../Demo'
 ```
 
 Run update command:
