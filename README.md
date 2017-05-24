@@ -87,6 +87,7 @@ http://iswift.org/try
 http://www.tekramer.com/making-private-cross-platform-swift-frameworks-with-cocoapods/
 https://www.raywenderlich.com/156971/cocoapods-tutorial-swift-getting-started
 http://www.enekoalonso.com/articles/creating-swift-frameworks-for-ios-osx-and-tvos
+https://www.raywenderlich.com/126365/ios-frameworks-tutorial
 
     # Articles
 
@@ -254,9 +255,6 @@ Run update command:
 pod update
 ```
 
-Links:
-
-https://www.raywenderlich.com/126365/ios-frameworks-tutorial
 
 
 
