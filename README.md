@@ -161,7 +161,10 @@ pod init
 
 1. Create empty project (in "Other" section): "Demo."
 
-2. Create targets-frameworks for each platform: "Demo.iOS, "Demo.tvOS", "Demo.macOS".
+2. Create targets-frameworks for each platform: "Demo_iOS, "Demo_tvOS", "Demo_macOS" with tests selected.
+
+For each test-target go to "Build Settings" | "All" and "Combined". Under "Build Options" you should see 
+"Always Embed Swift Standard Libraries" - specify "$(inherited)".
 
 3. For each target go into "Build Settings", find "Product Name", and change it to "Demo"
 by removing ".iOS", ".tvOS" and ".macOS" suffixes.
@@ -196,7 +199,7 @@ end
 6. Create "Podfile". It will pull dependencies from "Demo.podspec" file
 
 ```ruby
-target 'Demo.iOS' do
+target 'Demo_iOS' do
   platform :ios, '10.0'
 
   use_frameworks! # required for swift projects
@@ -204,7 +207,7 @@ target 'Demo.iOS' do
   podspec :path => 'Demo.podspec'
 end
 
-target 'Demo.tvOS' do
+target 'Demo_tvOS' do
   platform :tvos, '10.10'
 
   use_frameworks!
@@ -212,7 +215,7 @@ target 'Demo.tvOS' do
   podspec :path => 'Demo.podspec'
 end
 
-target 'Demo.macOS' do
+target 'Demo_macOS' do
   platform :macos, '10.10'
 
   use_frameworks!
