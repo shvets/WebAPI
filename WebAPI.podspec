@@ -16,11 +16,4 @@ Pod::Spec.new do |s|
 
   s.source = { :git => 'https://github.com/shvets/WebAPI.git', :tag => s.version }
   s.source_files = "Sources/**/*.swift"
-
-  # s.dependency 'Alamofire', '4.4.0'
-  # s.dependency 'AlamofireImage', '~> 3.2.0'
-  # s.dependency 'SwiftyJSON', '3.1.4'
-  # s.dependency 'SwiftSoup', '~> 1.3.2'
-  # s.dependency 'Wrap', '2.1.0'
-  # s.dependency 'Unbox', '~> 2.4.0'
 end
