@@ -88,6 +88,7 @@ http://www.tekramer.com/making-private-cross-platform-swift-frameworks-with-coco
 https://www.raywenderlich.com/156971/cocoapods-tutorial-swift-getting-started
 http://www.enekoalonso.com/articles/creating-swift-frameworks-for-ios-osx-and-tvos
 https://www.raywenderlich.com/126365/ios-frameworks-tutorial
+https://guides.cocoapods.org/making/private-cocoapods.html
 
     # Articles
 
@@ -259,5 +260,23 @@ pod update
 ```
 
 
+
+cd /opt/git
+$ mkdir Specs.git
+$ cd Specs.git
+$ git init --bare
+
+pod repo add yaga-specs git@github:yaga/Specs.git
+pod repo add yaga-specs /Users/alex/Dropbox/Specs.git
+
+
+$ cd ~/.cocoapods/repos/artsy-specs
+$ pod repo lint .
+
+
+git tag 1.0.4
+git push --tags
+
+pod repo push --allow-warnings yaga-specs AudioPlayer.podspec
 
 
