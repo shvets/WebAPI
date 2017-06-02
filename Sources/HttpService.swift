@@ -34,7 +34,7 @@ open class HttpService {
     let utilityQueue = DispatchQueue.global(qos: .utility)
     let semaphore = DispatchSemaphore.init(value: 0)
 
-    let request = sessionManager.request(url, method: method, parameters: parameters,
+    sessionManager.request(url, method: method, parameters: parameters,
         headers: headers).validate().responseData(queue: utilityQueue) { response in
       dataResponse = response
 

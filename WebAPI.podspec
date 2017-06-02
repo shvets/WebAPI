@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name         = "WebAPI"
   s.version      = "1.0.2"
   s.summary      = "Swift client and tests for accessing various APIs around the web"
-  s.description  = "Swift client and tests for accessing various APIs around the web"
+  s.description  = "Swift client and tests for accessing various APIs around the web."
 
   s.homepage     = "https://github.com/shvets/WebAPI"
   s.authors = { "Alexander Shvets" => "alexander.shvets@gmail.com" }
