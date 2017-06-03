@@ -266,12 +266,11 @@ $ mkdir Specs.git
 $ cd Specs.git
 $ git init --bare
 
-pod repo add yaga-specs git@github:yaga/Specs.git
-pod repo add yaga-specs /Users/alex/Dropbox/Specs.git
+pod repo add yaga-specs git@github.com:shvets/Specs.git
 
 
-$ cd ~/.cocoapods/repos/artsy-specs
-$ pod repo lint .
+cd ~/.cocoapods/repos/yaga-specs
+pod repo lint .
 
 
 git tag 1.0.4
