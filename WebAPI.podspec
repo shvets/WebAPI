@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WebAPI"
-  s.version      = "1.0.5"
+  s.version      = "1.0.6"
   s.summary      = "Swift client and tests for accessing various APIs around the web"
   s.description  = "Swift client and tests for accessing various APIs around the web."
 
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = "10.0"
   #s.osx.deployment_target = "10.10"
-  s.tvos.deployment_target = "9.0"
+  s.tvos.deployment_target = "10.0"
   #s.watchos.deployment_target = "2.0"
 
   s.source = { :git => 'https://github.com/shvets/WebAPI.git', :tag => s.version }
