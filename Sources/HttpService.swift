@@ -3,7 +3,7 @@ import SwiftSoup
 import Alamofire
 
 open class HttpService {
-  let sessionManager: SessionManager!
+  let sessionManager: SessionManager?
 
   public init(proxy: Bool=false) {
     let configuration = URLSessionConfiguration.default
@@ -31,21 +31,25 @@ open class HttpService {
                         method: HTTPMethod = .get) -> DataResponse<Data>? {
     var dataResponse: DataResponse<Data>?
 
-    let utilityQueue = DispatchQueue.global(qos: .utility)
-    let semaphore = DispatchSemaphore.init(value: 0)
+    if let sessionManager = sessionManager {
+      let utilityQueue = DispatchQueue.global(qos: .utility)
+      let semaphore = DispatchSemaphore.init(value: 0)
 
-    sessionManager.request(url, method: method, parameters: parameters,
+      sessionManager.request(url, method: method, parameters: parameters,
         headers: headers).validate().responseData(queue: utilityQueue) { response in
-      dataResponse = response
+        dataResponse = response
 
-      print("Status: \(response.response!.statusCode)")
+        if let response = response.response {
+          print("Status: \(response.statusCode)")
+        }
 
-      semaphore.signal()
+        semaphore.signal()
+      }
+
+      //debugPrint(request)
+
+      _ = semaphore.wait(timeout: DispatchTime.distantFuture)
     }
-
-    //debugPrint(request)
-
-    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
 
     return dataResponse
   }
@@ -56,10 +60,11 @@ open class HttpService {
                           method: HTTPMethod = .get,
                           successHandler: @escaping (Data) -> Void = { data in },
                           errorHandler: @escaping (Error) -> Void = { data in }) {
-    sessionManager.request(url, method: method, parameters: parameters,
+    if let sessionManager = sessionManager {
+      sessionManager.request(url, method: method, parameters: parameters,
         headers: headers).validate().responseData { response in
 
-      switch response.result {
+        switch response.result {
         case .success(let data):
           DispatchQueue.main.async {
             successHandler(data)
@@ -69,6 +74,7 @@ open class HttpService {
           DispatchQueue.main.async {
             errorHandler(error)
           }
+        }
       }
     }
   }

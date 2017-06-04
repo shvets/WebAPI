@@ -28,14 +28,14 @@ open class AudioKnigiAPI: HttpService {
   func getLetters(path: String, filter: String) throws -> [Any] {
     var data = [Any]()
 
-    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + path)
+    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + path) {
+      let items = try document.select("ul[id='" + filter + "'] li a")
 
-    let items = try document!.select("ul[id='" + filter + "'] li a")
+      for item in items.array() {
+        let name = try item.text()
 
-    for item in items.array() {
-      let name = try item.text()
-
-      data.append(name)
+        data.append(name)
+      }
     }
 
     return data
@@ -58,9 +58,12 @@ open class AudioKnigiAPI: HttpService {
       pagePath = "\(pagePath)?period=\(period)"
     }
 
-    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
-
-    return try getBookItems(document!, path: encodedPath, page: page)
+    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath) {
+      return try getBookItems(document, path: encodedPath, page: page)
+    }
+    else {
+      return [:]
+    }
   }
 
   func getBookItems(_ document: Document, path: String, page: Int) throws -> [String: Any] {
@@ -96,27 +99,28 @@ open class AudioKnigiAPI: HttpService {
     var paginationData = [String: Any]()
 
     let pagePath = getPagePath(path: path, page: page)
-    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
 
-    let items = try document!.select("td[class=cell-name]")
+    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath) {
+      let items = try document.select("td[class=cell-name]")
 
-    for item: Element in items.array() {
-      let link = try item.select("h4 a")
-      let name = try link.text()
-      let href = try link.attr("href")
-      let thumb = "https://audioknigi.club/templates/skin/aclub/images/avatar_blog_48x48.png"
+      for item: Element in items.array() {
+        let link = try item.select("h4 a")
+        let name = try link.text()
+        let href = try link.attr("href")
+        let thumb = "https://audioknigi.club/templates/skin/aclub/images/avatar_blog_48x48.png"
         //try link.select("img").attr("src")
 
-      let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
+        let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
 
-      let id = href[index ..< href.endIndex] + "/"
-      let filteredId = id.removingPercentEncoding!
+        let id = href[index ..< href.endIndex] + "/"
+        let filteredId = id.removingPercentEncoding!
 
-      data.append(["type": "collection", "id": filteredId, "name": name, "thumb": thumb])
-    }
+        data.append(["type": "collection", "id": filteredId, "name": name, "thumb": thumb])
+      }
 
-    if !items.array().isEmpty {
-      paginationData = try extractPaginationData(document: document!, path: path, page: page)
+      if !items.array().isEmpty {
+        paginationData = try extractPaginationData(document: document, path: path, page: page)
+      }
     }
 
     return ["movies": data, "pagination": paginationData]
@@ -129,26 +133,27 @@ open class AudioKnigiAPI: HttpService {
     let path = "/sections/"
 
     let pagePath = getPagePath(path: path, page: page)
-    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath)
 
-    let items = try document!.select("td[class=cell-name]")
+    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath) {
+      let items = try document.select("td[class=cell-name]")
 
-    for item: Element in items.array() {
-      let link = try item.select("a")
-      let name = try item.select("h4 a").text()
-      let href = try link.attr("href")
+      for item: Element in items.array() {
+        let link = try item.select("a")
+        let name = try item.select("h4 a").text()
+        let href = try link.attr("href")
 
-      let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
+        let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
 
-      let id = href[index ..< href.endIndex]
+        let id = href[index ..< href.endIndex]
 
-      let thumb = try link.select("img").attr("src")
+        let thumb = try link.select("img").attr("src")
 
-      data.append(["type": "genre", "id": id, "name": name, "thumb": thumb])
-    }
+        data.append(["type": "genre", "id": id, "name": name, "thumb": thumb])
+      }
 
-    if !items.array().isEmpty {
-      paginationData = try extractPaginationData(document: document!, path: path, page: page)
+      if !items.array().isEmpty {
+        paginationData = try extractPaginationData(document: document, path: path, page: page)
+      }
     }
 
     return ["movies": data, "pagination": paginationData]
@@ -229,30 +234,33 @@ open class AudioKnigiAPI: HttpService {
 
     let fullPath = buildUrl(path: pagePath, params: params as [String : AnyObject])
 
-    let document = try fetchDocument(AudioKnigiAPI.SiteUrl + fullPath)
-
-    return try getBookItems(document!, path: path, page: page)
+    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + fullPath) {
+      return try getBookItems(document, path: path, page: page)
+    }
+    else {
+      return [:]
+    }
   }
 
   public func getAudioTracks(_ url: String) throws -> [Any] {
     var bookId = 0
 
-    let document = try fetchDocument(url)
+    if let document = try fetchDocument(url) {
+      let scripts = try document.select("script[type='text/javascript']")
 
-    let scripts = try document!.select("script[type='text/javascript']")
+      for script in scripts {
+        let scriptBody =  try script.html()
 
-    for script in scripts {
-      let scriptBody =  try script.html()
+        let index = scriptBody.find("$(document).audioPlayer")
 
-      let index = scriptBody.find("$(document).audioPlayer")
+        if index != nil {
+          let index1 = scriptBody.index(scriptBody.startIndex, offsetBy: "$(document).audioPlayer".characters.count+1)
+          let index2 = scriptBody.find(",")!
 
-      if index != nil {
-        let index1 = scriptBody.index(scriptBody.startIndex, offsetBy: "$(document).audioPlayer".characters.count+1)
-        let index2 = scriptBody.find(",")!
+          bookId = Int(scriptBody[index1..<index2])!
 
-        bookId = Int(scriptBody[index1..<index2])!
-
-        break
+          break
+        }
       }
     }
 

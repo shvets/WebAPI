@@ -53,9 +53,9 @@ open class ApiService: AuthService {
     var deviceCode: String
     
     if checkAccessData("device_code") && checkAccessData("user_code") {
-      activationUrl = config.items["activation_url"]! as! String
-      userCode = config.items["user_code"]! as! String
-      deviceCode = config.items["device_code"]! as! String
+      activationUrl = config.items["activation_url"] as! String
+      userCode = config.items["user_code"] as! String
+      deviceCode = config.items["device_code"] as! String
 
       return (userCode: userCode, deviceCode: deviceCode, activationUrl: activationUrl)
     }
@@ -89,7 +89,7 @@ open class ApiService: AuthService {
     }
     else {
       return (config.items[key] != nil) && (config.items["expires"] != nil) &&
-        config.items["expires"]! as! String >= String(Int(Date().timeIntervalSince1970))
+        config.items["expires"] as! String >= String(Int(Date().timeIntervalSince1970))
     }
   }
   
@@ -100,7 +100,7 @@ open class ApiService: AuthService {
     else if config.items["refresh_token"] != nil {
       let refreshToken = config.items["refresh_token"]
       
-      let response = updateToken(refreshToken: refreshToken! as! String)
+      let response = updateToken(refreshToken: refreshToken as! String)
       
       config.save(response)
       
@@ -109,7 +109,7 @@ open class ApiService: AuthService {
     else if checkAccessData("device_code") {
       let deviceCode = config.items["device_code"]
       
-      var response = createToken(deviceCode: deviceCode! as! String)
+      var response = createToken(deviceCode: deviceCode as! String)
       
       response["device_code"] = deviceCode as? String
       
@@ -140,26 +140,27 @@ open class ApiService: AuthService {
         accessPath = "\(path)?access_token=\(accessToken)"
       }
 
-      accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+      if let accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
+        if let response = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, parameters: parameters),
+           let statusCode = response.response?.statusCode {
+          if (statusCode == 401 || statusCode == 400) && !unauthorized {
+            let refreshToken = config.items["refresh_token"]
 
-      let response = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, parameters: parameters)
+            let response = updateToken(refreshToken: refreshToken as! String)
 
-      if (response!.response!.statusCode == 401 || response!.response!.statusCode == 400) && !unauthorized {
-        let refreshToken = config.items["refresh_token"]
+            if !response.isEmpty {
+              config.save(response)
 
-        let response = updateToken(refreshToken: refreshToken! as! String)
-
-        if !response.isEmpty {
-          config.save(response)
-
-          result = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
+              result = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
+            }
+            else {
+              print("error")
+            }
+          }
+          else {
+            result = response.data
+          }
         }
-        else {
-          print("error")
-        }
-      }
-      else {
-        result = response!.data
       }
     }
 

@@ -37,7 +37,9 @@ open class NameClassifier {
         groups[groupName] = group
       }
 
-      groups[groupName]!.append(try unbox(dictionary: ["id": id, "name": name]))
+      if var subGroup = groups[groupName] {
+        subGroup.append(try unbox(dictionary: ["id": id, "name": name]))
+      }
     }
 
     let sortedGroups = groups.sorted { $0.key < $1.key }
@@ -95,8 +97,10 @@ open class NameClassifier {
         for groupName in groupNames {
           let group = groups.filter { $0.key == groupName }.first
 
-          for item in group!.value {
-            value.append(item)
+          if let group = group {
+            for item in group.value {
+              value.append(item)
+            }
           }
         }
 

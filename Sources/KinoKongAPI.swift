@@ -15,9 +15,12 @@ open class KinoKongAPI: HttpService {
   }
 
   public func available() throws -> Bool {
-    let document = try getDocument(KinoKongAPI.SiteUrl)
-
-    return try document!.select("div[id=container]").size() > 0
+    if let document = try getDocument(KinoKongAPI.SiteUrl) {
+      return try document.select("div[id=container]").size() > 0
+    }
+    else {
+      return false
+    }
   }
 
   func getPagePath(_ path: String, page: Int=1) -> String {
@@ -59,31 +62,31 @@ open class KinoKongAPI: HttpService {
 
     let pagePath = getPagePath(path, page: page)
 
-    let document = try getDocument(KinoKongAPI.SiteUrl + pagePath)
+    if let document = try getDocument(KinoKongAPI.SiteUrl + pagePath) {
+      let items = try document.select("div[class=owl-item]")
 
-    let items = try document!.select("div[class=owl-item]")
+      for item: Element in items.array() {
+        var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
+        let name = try item.select("div[class=main-sliders-title] a").text()
+        let thumb = try KinoKongAPI.SiteUrl +
+          item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
 
-    for item: Element in items.array() {
-      var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
-      let name = try item.select("div[class=main-sliders-title] a").text()
-      let thumb = try KinoKongAPI.SiteUrl +
-        item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
+        let seasonNode = try item.select("div[class=main-sliders-shadow] div[class=main-sliders-season]").text()
 
-      let seasonNode = try item.select("div[class=main-sliders-shadow] div[class=main-sliders-season]").text()
+        if href.find(KinoKongAPI.SiteUrl) != nil {
+          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
 
-      if href.find(KinoKongAPI.SiteUrl) != nil {
-        let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
+          href = href[index ..< href.endIndex]
+        }
 
-        href = href[index ..< href.endIndex]
+        let type = seasonNode.isEmpty ? "movie" : "serie"
+
+        data.append(["id": href, "name": name, "thumb": thumb, "type": type])
       }
 
-      let type = seasonNode.isEmpty ? "movie" : "serie"
-
-      data.append(["id": href, "name": name, "thumb": thumb, "type": type])
-    }
-
-    if items.size() > 0 {
-      paginationData = try extractPaginationData(document, page: page)
+      if items.size() > 0 {
+        paginationData = try extractPaginationData(document, page: page)
+      }
     }
 
     return ["movies": data, "pagination": paginationData]
@@ -104,27 +107,27 @@ open class KinoKongAPI: HttpService {
   func getMoviesByCriteria(_ path: String) throws -> [Any] {
     var data = [Any]()
 
-    let document = try getDocument(KinoKongAPI.SiteUrl + path)
+    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
+      let items = try document.select("div[id=dle-content] div div table tr")
 
-    let items = try document!.select("div[id=dle-content] div div table tr")
+      for item: Element in items.array() {
+        let link = try item.select("td a")
 
-    for item: Element in items.array() {
-      let link = try item.select("td a")
+        if !link.array().isEmpty {
+          var href = try link.attr("href")
 
-      if !link.array().isEmpty {
-        var href = try link.attr("href")
+          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
 
-        let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
+          href = href[index ..< href.endIndex]
 
-        href = href[index ..< href.endIndex]
+          let name = try link.text().trim()
 
-        let name = try link.text().trim()
+          let tds = try item.select("td").array()
 
-        let tds = try item.select("td").array()
+          let rating = try tds[tds.count-1].text()
 
-        let rating = try tds[tds.count-1].text()
-
-        data.append(["id": href, "name": name, "rating": rating, "type": "rating"])
+          data.append(["id": href, "name": name, "rating": rating, "type": "rating"])
+        }
       }
     }
 
@@ -150,25 +153,25 @@ open class KinoKongAPI: HttpService {
   public func getTags() throws -> [Any] {
     var data = [Any]()
 
-    let document = try getDocument(KinoKongAPI.SiteUrl + "/podborka.html")
+    if let document = try getDocument(KinoKongAPI.SiteUrl + "/podborka.html") {
+      let items = try document.select("div[class=podborki-item-block]")
 
-    let items = try document!.select("div[class=podborki-item-block]")
+      for item: Element in items.array() {
+        let link = try item.select("a")
+        let img = try item.select("a span img")
+        let title = try item.select("a span[class=podborki-title]")
+        let href = try link.attr("href")
 
-    for item: Element in items.array() {
-      let link = try item.select("a")
-      let img = try item.select("a span img")
-      let title = try item.select("a span[class=podborki-title]")
-      let href = try link.attr("href")
+        var thumb = try img.attr("src")
 
-      var thumb = try img.attr("src")
+        if thumb.find(KinoKongAPI.SiteUrl) == nil {
+          thumb = KinoKongAPI.SiteUrl + thumb
+        }
 
-      if thumb.find(KinoKongAPI.SiteUrl) == nil {
-        thumb = KinoKongAPI.SiteUrl + thumb
+        let name = try title.text()
+
+        data.append(["id": href, "name": name, "thumb": thumb, "type": "movie"])
       }
-
-      let name = try title.text()
-
-      data.append(["id": href, "name": name, "thumb": thumb, "type": "movie"])
     }
 
     return data
@@ -192,21 +195,21 @@ open class KinoKongAPI: HttpService {
   public func getUrls(_ path: String) throws -> [String] {
     var urls: [String] = []
 
-    let document = try getDocument(KinoKongAPI.SiteUrl + path)
+    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
+      let items = try document.select("script")
 
-    let items = try document!.select("script")
+      for item: Element in items.array() {
+        let text = try item.html()
 
-    for item: Element in items.array() {
-      let text = try item.html()
+        if !text.isEmpty {
+          let index1 = text.find("\"file\":\"")
+          let index2 = text.find("\"};")
 
-      if !text.isEmpty {
-        let index1 = text.find("\"file\":\"")
-        let index2 = text.find("\"};")
+          if let startIndex = index1, let endIndex = index2 {
+            urls = text[text.index(startIndex, offsetBy: 8) ..< endIndex].components(separatedBy: ",")
 
-        if let startIndex = index1, let endIndex = index2 {
-          urls = text[text.index(startIndex, offsetBy: 8) ..< endIndex].components(separatedBy: ",")
-
-          break
+            break
+          }
         }
       }
     }
@@ -217,25 +220,25 @@ open class KinoKongAPI: HttpService {
   public func getSeriePlaylistUrl(_ path: String) throws -> String {
     var url = ""
 
-    let document = try getDocument(KinoKongAPI.SiteUrl + path)
+    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
+      let items = try document.select("script")
 
-    let items = try document!.select("script")
+      for item: Element in items.array() {
+        let text = try item.html()
 
-    for item: Element in items.array() {
-      let text = try item.html()
+        if !text.isEmpty {
+          let index1 = text.find("pl:")
 
-      if !text.isEmpty {
-        let index1 = text.find("pl:")
+          if let startIndex = index1 {
+            let text2 = text[startIndex ..< text.endIndex]
 
-        if let startIndex = index1 {
-          let text2 = text[startIndex ..< text.endIndex]
+            let index2 = text2.find("\",")
 
-          let index2 = text2.find("\",")
+            if let endIndex = index2 {
+              url = text2[text2.index(text2.startIndex, offsetBy:4) ..< endIndex]
 
-          if let endIndex = index2 {
-            url = text2[text2.index(text2.startIndex, offsetBy:4) ..< endIndex]
-
-            break
+              break
+            }
           }
         }
       }
@@ -337,42 +340,42 @@ open class KinoKongAPI: HttpService {
   public func getGroupedGenres() throws -> [String: [Any]] {
     var data = [String: [Any]]()
 
-    let document = try getDocument(KinoKongAPI.SiteUrl)
+    if let document = try getDocument(KinoKongAPI.SiteUrl) {
+      let items = try document.select("div[id=header] div div div ul li")
 
-    let items = try document!.select("div[id=header] div div div ul li")
+      for item: Element in items.array() {
+        let hrefLink = try item.select("a")
+        let genresNode1 = try item.select("span em a")
+        let genresNode2 = try item.select("span a")
 
-    for item: Element in items.array() {
-      let hrefLink = try item.select("a")
-      let genresNode1 = try item.select("span em a")
-      let genresNode2 = try item.select("span a")
+        var href = try hrefLink.attr("href")
 
-      var href = try hrefLink.attr("href")
+        if href == "#" {
+          href = "top"
+        }
+        else {
+          href = href[href.index(href.startIndex, offsetBy: 1) ..< href.index(href.endIndex, offsetBy: -1)]
+        }
 
-      if href == "#" {
-        href = "top"
-      }
-      else {
-        href = href[href.index(href.startIndex, offsetBy: 1) ..< href.index(href.endIndex, offsetBy: -1)]
-      }
+        var genresNode: Elements?
 
-      var genresNode: Elements?
+        if !genresNode1.array().isEmpty {
+          genresNode = genresNode1
+        }
+        else {
+          genresNode = genresNode2
+        }
 
-      if !genresNode1.array().isEmpty {
-        genresNode = genresNode1
-      }
-      else {
-        genresNode = genresNode2
-      }
+        if !genresNode!.array().isEmpty {
+          data[href] = []
 
-      if !genresNode!.array().isEmpty {
-        data[href] = []
+          for genre in genresNode! {
+            let path = try genre.attr("href")
+            let name = try genre.text()
 
-        for genre in genresNode! {
-          let path = try genre.attr("href")
-          let name = try genre.text()
-
-          if !["/recenzii/", "/news/"].contains(path) {
-            data[href]!.append(["id": path, "name": name])
+            if !["/recenzii/", "/news/"].contains(path) {
+              data[href]!.append(["id": path, "name": name])
+            }
           }
         }
       }
@@ -382,6 +385,9 @@ open class KinoKongAPI: HttpService {
   }
 
   public func search(_ query: String, page: Int=1, perPage: Int=15) throws -> [String: Any] {
+    var data = [Any]()
+    var paginationData: Items = [:]
+
     var searchData = [
       "do": "search",
       "subaction": "search",
@@ -397,41 +403,38 @@ open class KinoKongAPI: HttpService {
 
     let path = "/index.php?do=search"
 
-    let document = try searchDocument(KinoKongAPI.SiteUrl + path, parameters: searchData)
+    if let document = try searchDocument(KinoKongAPI.SiteUrl + path, parameters: searchData) {
+      let items = try document.select("div[class=owl-item]")
 
-    var data = [Any]()
-    var paginationData: Items = [:]
+      for item: Element in items.array() {
+        var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
+        let name = try item.select("div[class=main-sliders-title] a").text()
+        let thumb = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
 
-    let items = try document!.select("div[class=owl-item]")
+        let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()
 
-    for item: Element in items.array() {
-      var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
-      let name = try item.select("div[class=main-sliders-title] a").text()
-      let thumb = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
+        if href.find(KinoKongAPI.SiteUrl) != nil {
+          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
 
-      let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()
+          href = href[index ..< href.endIndex]
+        }
 
-      if href.find(KinoKongAPI.SiteUrl) != nil {
-        let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
-
-        href = href[index ..< href.endIndex]
+        let type = seasonNode.isEmpty ? "movie" : "serie"
+        data.append(["id": href, "name": name, "thumb": thumb, "type": type])
       }
 
-      let type = seasonNode.isEmpty ? "movie" : "serie"
-      data.append(["id": href, "name": name, "thumb": thumb, "type": type])
-    }
-
-    if items.size() > 0 {
-      paginationData = try extractPaginationData(document, page: page)
+      if items.size() > 0 {
+        paginationData = try extractPaginationData(document, page: page)
+      }
     }
 
     return ["movies": data, "pagination": paginationData]
   }
 
-  func extractPaginationData(_ document: Document?, page: Int) throws -> [String: Any] {
+  func extractPaginationData(_ document: Document, page: Int) throws -> [String: Any] {
     var pages = 1
 
-    let paginationRoot = try document!.select("div[class=basenavi] div[class=navigation]")
+    let paginationRoot = try document.select("div[class=basenavi] div[class=navigation]")
 
     if !paginationRoot.array().isEmpty {
       let paginationNode = paginationRoot.get(0)
