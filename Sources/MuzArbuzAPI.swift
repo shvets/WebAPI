@@ -1,8 +1,10 @@
 import Foundation
 import SwiftyJSON
 
+public typealias Parameters = [String: Any]
+
 open class MuzArbuzAPI: HttpService {
-  static let SiteUrl = "https://muzarbuz.com"
+  public static let SiteUrl = "https://muzarbuz.com"
   static let ApiUrl = "\(SiteUrl)/api/v1"
   let UserAgent = "MuzArbuz User Agent"
 
@@ -14,98 +16,187 @@ open class MuzArbuzAPI: HttpService {
   let LatinLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
                       "T", "U", "V", "W", "X", "Y", "Z"]
 
-  func getAlbums(_ params: [String: String]=[:]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/album", params: params as [String : AnyObject])
+  public func getAlbums(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
+    return try queryData(params: params, path: "/album", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    print(url)
+      for (_, object) in objects {
+        let id = object["id"].stringValue
+        let name = object["title"].stringValue
+        let thumb = MuzArbuzAPI.SiteUrl + object["thumbnail"].stringValue
 
-    return try apiRequest(url)
+        if object["album"] == JSON.null && object["is_seria"] != JSON.null {
+          data.append(["type": "double_album", "id": id, "parent__id": id, "name": name, "thumb": thumb])
+        }
+        else {
+          data.append(["type": "album", "id": id, "name": name, "thumb": thumb])
+        }
+      }
+
+      return data
+    }
   }
 
-  func getTracks(_ params: [String: String]=[:]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/audio_track", params: params as [String : AnyObject])
+  public func getTracks(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
+    return try queryData(params: params, path: "/audio_track", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      for (_, object) in objects {
+        let name = object["title"].stringValue
+        let file = object["file"].stringValue
+        let thumb = MuzArbuzAPI.SiteUrl + object["album"]["thumbnail"].stringValue
+        var artist = ""
+
+        if object["album"] != JSON.null && object["album"]["artist"] != JSON.null {
+          artist = object["album"]["artist"]["title"].stringValue
+        }
+
+        data.append(["type": "track", "id": MuzArbuzAPI.SiteUrl + file, "name": name, "thumb": thumb, "artist": artist])
+      }
+
+      return data
+    }
   }
 
-  func getArtists(_ params: [String: String]=[:]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/artist", params: params as [String : AnyObject])
+  public func getArtists(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
+    return try queryData(params: params, path: "/artist", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      for (_, object) in objects {
+        let id = object["id"].stringValue
+        let name = object["title"].stringValue
+        let thumb = MuzArbuzAPI.SiteUrl + object["thumbnail"].stringValue
+
+        data.append(["type": "artist", "id": id, "name": name, "thumb": thumb])
+      }
+
+      return data
+    }
   }
 
-  func getArtistAnnotated(_ params: [String: String]=[:]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/artist_annotated", params: params as [String : AnyObject])
+  public func getArtistAnnotated(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
+    return try queryData(params: params, path: "/artist_annotated", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      return data
+    }
   }
 
-  func getCollections(_ params: [String: String]=[:]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/collection", params: params as [String : AnyObject])
+  public func getCollections(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
+    return try queryData(params: params, path: "/collection", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      for (_, object) in objects {
+        let id = object["id"].stringValue
+        let name = object["title"].stringValue
+        let thumb = MuzArbuzAPI.SiteUrl + object["thumbnail"].stringValue
+
+        data.append(["type": "collection", "id": id, "name": name, "thumb": thumb])
+      }
+
+      return data
+    }
   }
 
-  func getGenres(_ params: [String: String]=[:]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/genre", params: params as [String : AnyObject])
+  func getGenres(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
+    return try queryData(params: params, path: "/genre", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      for (_, object) in objects {
+        let id = object["id"].stringValue
+        let name = object["title"].stringValue
+        let thumb = MuzArbuzAPI.SiteUrl + object["thumbnail"].stringValue
+
+        data.append(["type": "genre", "id": id, "name": name, "thumb": thumb])
+      }
+
+      return data
+    }
   }
 
-  func search(query: String) throws -> [String: Any] {
+  public func search(query: String, pageSize: Int=20, page: Int=1) throws -> [String: Any] {
     var params = [String: String]()
     params["q"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
     return [
-      "collection": try searchCollection(params: params),
-      "artist_annotated": try searchArtistAnnotated(params: params),
-      "album": try searchAlbum(params: params),
-      "audio_track": try searchAudioTrack(params: params)
+      "collection": try searchCollection(params: params, pageSize: pageSize, page: page),
+      "artist_annotated": try searchArtistAnnotated(params: params, pageSize: pageSize, page: page),
+      "album": try searchAlbum(params: params, pageSize: pageSize, page: page),
+      "audio_track": try searchAudioTrack(params: params, pageSize: pageSize, page: page)
     ]
   }
 
-  func searchCollection(params: [String: String]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/collection/search/", params: params as [String: AnyObject])
+  func searchCollection(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
+    return try queryData(params: params, path: "/collection/search/", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      return data
+    }
   }
 
-  func searchArtistAnnotated(params: [String: String]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/artist_annotated/search/", params: params as [String: AnyObject])
+  func searchArtistAnnotated(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
+    return try queryData(params: params, path: "/artist_annotated/search/", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      return data
+    }
   }
 
-  func searchAlbum(params: [String: String]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/album/search/", params: params as [String: AnyObject])
+  func searchAlbum(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
+    return try queryData(params: params, path: "/album/search/", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      return data
+    }
   }
 
-  func searchAudioTrack(params: [String: String]) throws -> JSON {
-    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + "/audio_track/search/", params: params as [String: AnyObject])
+  func searchAudioTrack(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
+    return try queryData(params: params, path: "/audio_track/search/", page: page, pageSize: pageSize) { objects in
+      var data = [Any]()
 
-    return try apiRequest(url)
+      return data
+    }
   }
 
-//def filter_request_params(self, params):
-//return dict((key, value) for key, value in params.iteritems() if key in self.VALID_PARAMETERS)
-//
+  private func queryData(params: [String: String], path: String, page: Int, pageSize: Int,
+                         itemsBuilder: (JSON) -> [Any]) throws -> [String: Any] {
+    let offset = (page-1)*pageSize
 
-  func add_pagination_to_response(response: [String: String], page: Int, per_page: Int) {
-  //  pages = float(response['meta']['total_count']) / float(per_page)
-  //
-  //if pages > int(pages):
-  //pages = int(pages) + 1
-  //else:
-  //pages = int(pages)
-  //
-  //response['data'] = {'pagination': {
-  //  'page': page,
-  //  'pages': pages,
-  //  'has_next': page < pages,
-  //  'has_previous': page > 1
-  //}}
+    var newParams = Parameters()
+
+    for (key, value) in params {
+      newParams[key] = value
+    }
+
+    newParams["limit"] = "\(pageSize)"
+    newParams["offset"] = "\(offset)"
+
+    let url = buildUrl(path: MuzArbuzAPI.ApiUrl + path, params: newParams as [String : AnyObject])
+
+    let response = try apiRequest(url)
+
+    if response != JSON.null {
+      let items = itemsBuilder(response["objects"])
+      let paginationData = try buildPaginationData(response: response, page: page, pageSize: pageSize)
+
+      return ["items": items, "pagination": paginationData]
+    }
+    else {
+      return ["items": [], "pagination": []]
+    }
+  }
+
+  func buildPaginationData(response: JSON, page: Int, pageSize: Int) throws -> [String: Any] {
+    let pages = Int(response["meta"]["total_count"].stringValue)! / pageSize
+
+    return [
+      "pagination": [
+        "page": page,
+        "pages": pages,
+        "has_next": page < pages,
+        "has_previous": page > 1
+      ]
+    ]
   }
 
   func apiRequest(_ url: String) throws -> JSON {
