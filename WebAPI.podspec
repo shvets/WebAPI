@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WebAPI"
-  s.version      = "1.0.9"
+  s.version      = "1.0.10"
   s.summary      = "Swift client and tests for accessing various APIs around the web"
   s.description  = "Swift client and tests for accessing various APIs around the web."
 
@@ -22,11 +22,11 @@ Pod::Spec.new do |s|
 
   s.source_files = "Sources/**/*.swift"
 
-  s.dependency 'Alamofire', '~> 4.4.0'
+  s.dependency 'Alamofire', '~> 4.5.0'
   s.dependency 'AlamofireImage', '~> 3.2.0'
   s.dependency 'SwiftyJSON', '~> 3.1.4'
-  s.dependency 'SwiftSoup', '~> 1.3.2'
-  s.dependency 'Wrap', '~> 2.1.0'
+  s.dependency 'SwiftSoup', '~> 1.4.0'
+  s.dependency 'Wrap', '~> 2.1.1'
   s.dependency 'Unbox', '~> 2.4.0'
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }

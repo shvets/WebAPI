@@ -10,10 +10,10 @@ open class MuzArbuzAPI: HttpService {
 
   let ValidParameters = ["album", "artists", "collection__id", "parent__id", "genre__in"]
 
-  let CyrillicLetters = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С",
+  public static let CyrillicLetters = ["А", "Б", "В", "Г", "Д", "Е", "Ё", "Ж", "З", "И", "Й", "К", "Л", "М", "Н", "О", "П", "Р", "С",
                          "Т", "У", "Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ы", "Ь", "Э", "Ю", "Я"]
 
-  let LatinLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
+  public static let LatinLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S",
                       "T", "U", "V", "W", "X", "Y", "Z"]
 
   public func getAlbums(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
@@ -21,16 +21,7 @@ open class MuzArbuzAPI: HttpService {
       var data = [Any]()
 
       for (_, object) in objects {
-        let id = object["id"].stringValue
-        let name = object["title"].stringValue
-        let thumb = MuzArbuzAPI.SiteUrl + object["thumbnail"].stringValue
-
-        if object["album"] == JSON.null && object["is_seria"] != JSON.null {
-          data.append(["type": "double_album", "id": id, "parent__id": id, "name": name, "thumb": thumb])
-        }
-        else {
-          data.append(["type": "album", "id": id, "name": name, "thumb": thumb])
-        }
+        data.append(buildAlbum(object))
       }
 
       return data
@@ -42,16 +33,7 @@ open class MuzArbuzAPI: HttpService {
       var data = [Any]()
 
       for (_, object) in objects {
-        let name = object["title"].stringValue
-        let file = object["file"].stringValue
-        let thumb = MuzArbuzAPI.SiteUrl + object["album"]["thumbnail"].stringValue
-        var artist = ""
-
-        if object["album"] != JSON.null && object["album"]["artist"] != JSON.null {
-          artist = object["album"]["artist"]["title"].stringValue
-        }
-
-        data.append(["type": "track", "id": MuzArbuzAPI.SiteUrl + file, "name": name, "thumb": thumb, "artist": artist])
+        data.append(buildTrack(object))
       }
 
       return data
@@ -63,11 +45,7 @@ open class MuzArbuzAPI: HttpService {
       var data = [Any]()
 
       for (_, object) in objects {
-        let id = object["id"].stringValue
-        let name = object["title"].stringValue
-        let thumb = MuzArbuzAPI.SiteUrl + object["thumbnail"].stringValue
-
-        data.append(["type": "artist", "id": id, "name": name, "thumb": thumb])
+        data.append(buildArtist(object))
       }
 
       return data
@@ -78,6 +56,10 @@ open class MuzArbuzAPI: HttpService {
     return try queryData(params: params, path: "/artist_annotated", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
 
+      for (_, object) in objects {
+        data.append(buildArtist(object))
+      }
+
       return data
     }
   }
@@ -87,18 +69,14 @@ open class MuzArbuzAPI: HttpService {
       var data = [Any]()
 
       for (_, object) in objects {
-        let id = object["id"].stringValue
-        let name = object["title"].stringValue
-        let thumb = MuzArbuzAPI.SiteUrl + object["thumbnail"].stringValue
-
-        data.append(["type": "collection", "id": id, "name": name, "thumb": thumb])
+        data.append(buildCollection(object))
       }
 
       return data
     }
   }
 
-  func getGenres(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
+  public func getGenres(params: [String: String]=[:], pageSize: Int=20, page: Int=1) throws -> [String: Any] {
     return try queryData(params: params, path: "/genre", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
 
@@ -114,7 +92,7 @@ open class MuzArbuzAPI: HttpService {
     }
   }
 
-  public func search(query: String, pageSize: Int=20, page: Int=1) throws -> [String: Any] {
+  public func search(_ query: String, pageSize: Int=20, page: Int=1) throws -> [String: Any] {
     var params = [String: String]()
     params["q"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
@@ -130,6 +108,10 @@ open class MuzArbuzAPI: HttpService {
     return try queryData(params: params, path: "/collection/search/", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
 
+      for (_, object) in objects {
+        data.append(buildCollection(object))
+      }
+
       return data
     }
   }
@@ -137,6 +119,10 @@ open class MuzArbuzAPI: HttpService {
   func searchArtistAnnotated(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
     return try queryData(params: params, path: "/artist_annotated/search/", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
+
+      for (_, object) in objects {
+        data.append(buildArtist(object))
+      }
 
       return data
     }
@@ -146,6 +132,10 @@ open class MuzArbuzAPI: HttpService {
     return try queryData(params: params, path: "/album/search/", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
 
+      for (_, object) in objects {
+        data.append(buildAlbum(object))
+      }
+
       return data
     }
   }
@@ -153,6 +143,10 @@ open class MuzArbuzAPI: HttpService {
   func searchAudioTrack(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
     return try queryData(params: params, path: "/audio_track/search/", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
+
+      for (_, object) in objects {
+        data.append(buildTrack(object))
+      }
 
       return data
     }
@@ -186,7 +180,68 @@ open class MuzArbuzAPI: HttpService {
     }
   }
 
-  func buildPaginationData(response: JSON, page: Int, pageSize: Int) throws -> [String: Any] {
+  private func buildAlbum(_ data: JSON) -> [String: String] {
+    var result: [String: String] = [:]
+
+    result["id"] = data["id"].stringValue
+    result["name"] = data["title"].stringValue
+    result["thumb"] = MuzArbuzAPI.SiteUrl + data["thumbnail"].stringValue
+
+    if data["album"] == JSON.null && data["is_seria"] != JSON.null && data["is_seria"].boolValue == true {
+      result["type"] = "double_album"
+      result["parent__id"] = "id"
+    }
+    else {
+      result["type"] = "album"
+    }
+
+    return result
+  }
+
+  private func buildTrack(_ data: JSON) -> [String: String] {
+    var result: [String: String] = [:]
+
+    let file = data["file"].stringValue
+
+    result["type"] = "track"
+    result["name"] = data["title"].stringValue
+    result["thumb"] = MuzArbuzAPI.SiteUrl + data["thumbnail"].stringValue
+    result["id"] = MuzArbuzAPI.SiteUrl + file
+
+    var artist = ""
+
+    if data["album"] != JSON.null && data["album"]["artist"] != JSON.null {
+      artist = data["album"]["artist"]["title"].stringValue
+    }
+
+    result["artist"] = artist
+
+    return result
+  }
+
+  private func buildArtist(_ data: JSON) -> [String: String] {
+    var result: [String: String] = [:]
+
+    result["type"] = "artist"
+    result["id"] = data["id"].stringValue
+    result["name"] = data["title"].stringValue
+    result["thumb"] = MuzArbuzAPI.SiteUrl + data["thumbnail"].stringValue
+
+    return result
+  }
+
+  private func buildCollection(_ data: JSON) -> [String: String] {
+    var result: [String: String] = [:]
+
+    result["type"] = "collection"
+    result["id"] = data["id"].stringValue
+    result["name"] = data["title"].stringValue
+    result["thumb"] = MuzArbuzAPI.SiteUrl + data["thumbnail"].stringValue
+
+    return result
+  }
+
+  private func buildPaginationData(response: JSON, page: Int, pageSize: Int) throws -> [String: Any] {
     let pages = Int(response["meta"]["total_count"].stringValue)! / pageSize
 
     return [
@@ -199,7 +254,7 @@ open class MuzArbuzAPI: HttpService {
     ]
   }
 
-  func apiRequest(_ url: String) throws -> JSON {
+  private func apiRequest(_ url: String) throws -> JSON {
     var headers: [String: String] = [:]
 
     headers["User-agent"] = UserAgent

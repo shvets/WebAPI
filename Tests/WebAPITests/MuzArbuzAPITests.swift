@@ -75,7 +75,7 @@ class MuzArbuzAPITests: XCTestCase {
   }
 
   func testSearch() throws {
-    let result = try subject.search(query: "макаревич")
+    let result = try subject.search("макаревич")
 
     print(result)
   }
