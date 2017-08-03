@@ -66,6 +66,7 @@ class MuzArbuzAPITests: XCTestCase {
     let result = try subject.getGenres()
 
     print(JsonConverter.prettified(result["items"]))
+    print((result["items"] as! [Any]).count)
   }
 
   func testGetAlbumsByGenre() throws {

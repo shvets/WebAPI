@@ -97,14 +97,14 @@ open class MuzArbuzAPI: HttpService {
     params["q"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
     return [
-      "collection": try searchCollection(params: params, pageSize: pageSize, page: page),
-      "artist_annotated": try searchArtistAnnotated(params: params, pageSize: pageSize, page: page),
-      "album": try searchAlbum(params: params, pageSize: pageSize, page: page),
-      "audio_track": try searchAudioTrack(params: params, pageSize: pageSize, page: page)
+      "collection": try searchCollection(params, pageSize: pageSize, page: page),
+      "artist_annotated": try searchArtistAnnotated(params, pageSize: pageSize, page: page),
+      "album": try searchAlbum(params, pageSize: pageSize, page: page),
+      "audio_track": try searchAudioTrack(params, pageSize: pageSize, page: page)
     ]
   }
 
-  func searchCollection(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
+  public func searchCollection(_ params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
     return try queryData(params: params, path: "/collection/search/", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
 
@@ -116,7 +116,7 @@ open class MuzArbuzAPI: HttpService {
     }
   }
 
-  func searchArtistAnnotated(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
+  public func searchArtistAnnotated(_ params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
     return try queryData(params: params, path: "/artist_annotated/search/", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
 
@@ -128,7 +128,7 @@ open class MuzArbuzAPI: HttpService {
     }
   }
 
-  func searchAlbum(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
+  public func searchAlbum(_ params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
     return try queryData(params: params, path: "/album/search/", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
 
@@ -140,7 +140,7 @@ open class MuzArbuzAPI: HttpService {
     }
   }
 
-  func searchAudioTrack(params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
+  public func searchAudioTrack(_ params: [String: String], pageSize: Int, page: Int) throws -> [String: Any] {
     return try queryData(params: params, path: "/audio_track/search/", page: page, pageSize: pageSize) { objects in
       var data = [Any]()
 
