@@ -29,7 +29,10 @@ https://developer.apple.com/tvos/resources/
 
 https://github.com/neonichu/swiftpm-talk  
 
-http://iswift.org/cookbook  
+http://iswift.org/cookbook
+
+http://martiancraft.com/blog/2017/05/demystifying-ios-provisioning-part1/
+http://martiancraft.com/blog/2017/07/demystifying-provisioning-part2/
 
 ## Package Manager
 
