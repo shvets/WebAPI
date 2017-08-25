@@ -225,9 +225,14 @@ open class EtvnetAPI: ApiService {
   }
   
   public func getHistory(perPage: Int=PER_PAGE, page: Int=1) -> JSON {
+    var params = [String: String]()
+    
+    params["per_page"] = String(perPage)
+    params["page"] = String(page)
+    
     let path = "video/media/history.json"
     
-    let url = buildUrl(path: path)
+    let url = buildUrl(path: path, params: params as [String : AnyObject])
     
     let response = fullRequest(path: url)
     
