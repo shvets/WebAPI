@@ -126,7 +126,9 @@ open class MyHitAPI: HttpService {
       if imgBlock.size() > 0 {
         let thumb = MyHitAPI.SiteUrl + (try imgBlock.attr("src"))
 
-        data.append(["type": "soundtrack", "id": href, "name": name, "thumb": thumb])
+        //if data.index(where: { elem in (elem as! [String: String])["id"] == href }) == nil {
+          data.append(["type": "soundtrack", "id": href, "name": name, "thumb": thumb])
+        //}
       }
     }
 
