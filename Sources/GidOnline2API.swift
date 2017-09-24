@@ -3,7 +3,7 @@ import SwiftyJSON
 import SwiftSoup
 import Alamofire
 
-open class GidOnlineAPI: HttpService {
+open class GidOnline2API: HttpService {
   public static let SiteUrl = "http://gidonline-kino.club"
   let UserAgent = "Gid Online User Agent"
 
