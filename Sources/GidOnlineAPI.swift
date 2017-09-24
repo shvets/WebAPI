@@ -226,7 +226,7 @@ open class GidOnlineAPI: HttpService {
       let index1 = name.index(name.startIndex, offsetBy: 6)
       let index2 = name.endIndex
 
-      let episodeNumber = name[index1..<index2]
+      let episodeNumber = String(name[index1..<index2])
 
       var episode = [String: String]()
 
@@ -457,7 +457,7 @@ open class GidOnlineAPI: HttpService {
           if line.find("'X-Frame-Commit'") != nil {
             let index1 = line.find("'X-Frame-Commit':")
 
-            frameCommit = line[line.index(index1!, offsetBy: "'X-Frame-Commit':".characters.count+2) ..< line.index(line.endIndex, offsetBy: -1)]
+            frameCommit = String(line[line.index(index1!, offsetBy: "'X-Frame-Commit':".characters.count+2) ..< line.index(line.endIndex, offsetBy: -1)])
           }
         }
       }
@@ -481,7 +481,7 @@ open class GidOnlineAPI: HttpService {
         let index11 = line.index(index1!, offsetBy: 1)
         let index21 = line.index(index2!, offsetBy: -2)
 
-        items["runner_go"] = line[index11 ... index21]
+        items["runner_go"] = String(line[index11 ... index21])
       }
 //      else if line.find("var post_method = {") != nil {
 //        dataSection = true
@@ -494,7 +494,7 @@ open class GidOnlineAPI: HttpService {
         let index11 = line.index(index1!, offsetBy: 1)
         let index21 = line.index(index2!, offsetBy: -2)
 
-        mw_key = line[index11 ... index21]
+        mw_key = String(line[index11 ... index21])
       }
       else if dataSection == true {
         if line.find("};") != nil {
@@ -505,7 +505,7 @@ open class GidOnlineAPI: HttpService {
             let index2 = line.find(" = {")
             let index11 = line.index(line.startIndex, offsetBy: 4)
             let index21 = line.index(index2!, offsetBy: -1)
-            random_key = line[index11 ... index21]
+            random_key = String(line[index11 ... index21])
           }
 
           var data = line
@@ -536,13 +536,13 @@ open class GidOnlineAPI: HttpService {
 
           let index1 = text1.find("['")
 
-          let text2 = text1[index1! ..< text1.endIndex]
+          let text2 = String(String(text1[index1! ..< text1.endIndex]))!
 
           let index2 = text2.find("']")
           let index3 = text2.find("= '")
 
-          let key = text2[text2.index(text2.startIndex, offsetBy: 2) ..< index2!]
-          let value = text2[text2.index(index3!, offsetBy: 3) ..< text2.index(text2.endIndex, offsetBy: -2)]
+          let key = String(String(text2[text2.index(text2.startIndex, offsetBy: 2) ..< index2!]))!
+          let value = String(String(text2[text2.index(index3!, offsetBy: 3) ..< text2.index(text2.endIndex, offsetBy: -2)]))!
 
           items[key] = value
         }
@@ -807,7 +807,7 @@ open class GidOnlineAPI: HttpService {
       let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
       let index2 = link.index(index1, offsetBy: capturedGroupIndex.length-1)
 
-      matched = link[index1 ... index2]
+      matched = String(link[index1 ... index2])
     }
 
     return matched

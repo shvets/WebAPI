@@ -323,12 +323,12 @@ open class GoogleDocsAPI: HttpService {
 
     let index1 = path.index(index11!, offsetBy: 6)
 
-    let idPart = path[index1 ..< path.endIndex]
+    let idPart = String(path[index1 ..< path.endIndex])!
 
     let index3 = idPart.startIndex
     let index41 = idPart.find("-")
 
-    return idPart[index3 ..< index41!]
+    return String(idPart[index3 ..< index41!])
   }
 
   func extractName(_ name: String) -> String {

@@ -194,7 +194,7 @@ open class MyHitAPI: HttpService {
           if text.find("Композитор:") != nil {
             let index = text.index(text.startIndex, offsetBy: "Композитор:".characters.count)
 
-            composer = text[index ..< text.endIndex]
+            composer = String(text[index ..< text.endIndex])
           }
         }
 
@@ -268,7 +268,7 @@ open class MyHitAPI: HttpService {
   func getSelectionId(_ path: String) -> String {
     let index = path.index(path.startIndex, offsetBy: 2)
 
-    return path[index ..< path.endIndex]
+    return String(path[index ..< path.endIndex])
   }
 
   public func getSelection(path: String, page: Int=1) throws -> Items {
@@ -535,8 +535,8 @@ open class MyHitAPI: HttpService {
         let index = line.find(":")
 
         if index != nil {
-          let key = line[line.startIndex ... index!]
-          let value = sanitize(line[line.index(after: index!) ..< line.endIndex])
+          let key = String(line[line.startIndex ... index!])!
+          let value = String(sanitize(String(line[line.index(after: index!) ..< line.endIndex])))!
 
           if key == "Продолжительность" {
             data["duration"] = Int(value.replacingOccurrences(of: "мин.", with: "").trim())! * 60 * 1000
@@ -624,7 +624,7 @@ open class MyHitAPI: HttpService {
     let index1 = url.index(index11!, offsetBy: pattern.characters.count)
     let index2 = url.find(".m3u8")
 
-    return url[index1 ... index2!]
+    return String(url[index1 ... index2!])
   }
 
   public func getUrls(path: String="", url: String="") throws -> [String] {
@@ -705,7 +705,7 @@ open class MyHitAPI: HttpService {
       if index11 != nil && index21 != nil {
         let index1 = text.index(index11!, offsetBy: 1)
 
-        let items = Int(text[index1 ..< index21!].trim())
+        let items = Int(String(text[index1 ..< index21!]).trim())
 
         pages = items! / 24
 

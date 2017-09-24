@@ -138,7 +138,7 @@ open class AudioBooAPI: HttpService {
         let index2 = text.find("{\"start\":0,")
 
         if let index1 = index1, let index2 = index2 {
-          let content = text[text.index(index1, offsetBy: 10) ... text.index(index2, offsetBy: -1)].trim()
+          let content = String(text[text.index(index1, offsetBy: 10) ... text.index(index2, offsetBy: -1)]).trim()
 
           let content2 = content[content.index(content.startIndex, offsetBy: 2) ..< content.index(content.endIndex, offsetBy: -2)]
 

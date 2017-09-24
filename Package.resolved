@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire",
+        "state": {
+          "branch": null,
+          "revision": "b8995447518fd57af14c88a47f27434a16f60403",
+          "version": "4.5.1"
+        }
+      },
+      {
+        "package": "SwiftSoup",
+        "repositoryURL": "https://github.com/scinfu/SwiftSoup",
+        "state": {
+          "branch": null,
+          "revision": "5e826168ea65558603e4ee48b074557b39ed3c7b",
+          "version": "1.4.2"
+        }
+      },
+      {
+        "package": "SwiftyJSON",
+        "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
+        "state": {
+          "branch": null,
+          "revision": "dadbfcffd5f51e2b488a26e83f188d96755e5393",
+          "version": "3.1.4"
+        }
+      },
+      {
+        "package": "Unbox",
+        "repositoryURL": "https://github.com/JohnSundell/Unbox.git",
+        "state": {
+          "branch": null,
+          "revision": "17ad6aa1cc2f1efa27a0bbbdb66f79796708aa95",
+          "version": "2.5.0"
+        }
+      },
+      {
+        "package": "Wrap",
+        "repositoryURL": "https://github.com/JohnSundell/Wrap.git",
+        "state": {
+          "branch": null,
+          "revision": "d6b953b1515f38c44625d5dd0a0fbc4a56cdc0be",
+          "version": "2.1.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

@@ -76,7 +76,7 @@ open class KinoKongAPI: HttpService {
         if href.find(KinoKongAPI.SiteUrl) != nil {
           let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
 
-          href = href[index ..< href.endIndex]
+          href = String(href[index ..< href.endIndex])
         }
 
         let type = seasonNode.isEmpty ? "movie" : "serie"
@@ -118,7 +118,7 @@ open class KinoKongAPI: HttpService {
 
           let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
 
-          href = href[index ..< href.endIndex]
+          href = String(href[index ..< href.endIndex])
 
           let name = try link.text().trim()
 
@@ -230,12 +230,12 @@ open class KinoKongAPI: HttpService {
           let index1 = text.find("pl:")
 
           if let startIndex = index1 {
-            let text2 = text[startIndex ..< text.endIndex]
+            let text2 = String(String(text[startIndex ..< text.endIndex]))!
 
             let index2 = text2.find("\",")
 
             if let endIndex = index2 {
-              url = text2[text2.index(text2.startIndex, offsetBy:4) ..< endIndex]
+              url = String(text2[text2.index(text2.startIndex, offsetBy:4) ..< endIndex])
 
               break
             }
@@ -331,7 +331,7 @@ open class KinoKongAPI: HttpService {
       let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
       let index2 = link.index(index1, offsetBy: capturedGroupIndex.length-1)
 
-      matched = link[index1 ... index2]
+      matched = String(link[index1 ... index2])
     }
 
     return matched
@@ -354,7 +354,7 @@ open class KinoKongAPI: HttpService {
           href = "top"
         }
         else {
-          href = href[href.index(href.startIndex, offsetBy: 1) ..< href.index(href.endIndex, offsetBy: -1)]
+          href = String(href[href.index(href.startIndex, offsetBy: 1) ..< href.index(href.endIndex, offsetBy: -1)])
         }
 
         var genresNode: Elements?
@@ -393,7 +393,8 @@ open class KinoKongAPI: HttpService {
       "subaction": "search",
       "search_start": "\(page)",
       "full_search": "1",
-      "story": query.addingPercentEscapes(using: .windowsCP1251)!
+      //todo "story": query.addingPercentEscapes(using: .windowsCP1251)! // todo
+      "story": query
       //urllib.quote(query.decode('utf8').encode('cp1251'))
     ]
 
@@ -416,7 +417,7 @@ open class KinoKongAPI: HttpService {
         if href.find(KinoKongAPI.SiteUrl) != nil {
           let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
 
-          href = href[index ..< href.endIndex]
+          href = String(href[index ..< href.endIndex])
         }
 
         let type = seasonNode.isEmpty ? "movie" : "serie"

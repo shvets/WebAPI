@@ -2,7 +2,7 @@ import Foundation
 import SwiftyJSON
 
 open class EtvnetAPI: ApiService {
-  static let PER_PAGE = 15
+  public static let PER_PAGE = 15
   
   let ApiUrl = "https://secure.etvnet.com/api/v3.0/"
   let UserAgent = "Etvnet User Agent"

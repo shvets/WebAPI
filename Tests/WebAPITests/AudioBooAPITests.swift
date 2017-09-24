@@ -17,7 +17,7 @@ class AudioBooAPITests: XCTestCase {
   func testGetAuthorsByLetters() throws {
     let letters = try subject.getLetters()
 
-    let id = (letters[0] as! [String: String])["id"]!
+    let id = letters[0]["id"]!
 
     let result = try subject.getAuthorsByLetter(id)
 
@@ -28,7 +28,7 @@ class AudioBooAPITests: XCTestCase {
   func testGetBooks() throws {
     let letters = try subject.getLetters()
 
-    let letterId = (letters[0] as! [String: String])["id"]!
+    let letterId = letters[0]["id"]!
 
     let authors = try subject.getAuthorsByLetter(letterId)
 
@@ -42,7 +42,7 @@ class AudioBooAPITests: XCTestCase {
   func testGetPlaylistUrls() throws {
     let letters = try subject.getLetters()
 
-    let letterId = (letters[0] as! [String: String])["id"]!
+    let letterId = letters[0]["id"]!
 
     let authors = try subject.getAuthorsByLetter(letterId)
 
@@ -63,7 +63,7 @@ class AudioBooAPITests: XCTestCase {
   func testGetAudioTracks() throws {
     let letters = try subject.getLetters()
 
-    let letterId = (letters[0] as! [String: String])["id"]!
+    let letterId = letters[0]["id"]!
 
     let authors = try subject.getAuthorsByLetter(letterId)
 

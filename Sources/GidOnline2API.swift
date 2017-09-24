@@ -691,7 +691,7 @@ open class GidOnline2API: HttpService {
           if line.find("'X-Frame-Commit'") != nil {
             let index1 = line.find("'X-Frame-Commit':")
 
-            frameCommit = line[line.index(index1!, offsetBy: "'X-Frame-Commit':".characters.count+2) ..< line.index(line.endIndex, offsetBy: -1)]
+            frameCommit = String(line[line.index(index1!, offsetBy: "'X-Frame-Commit':".characters.count+2) ..< line.index(line.endIndex, offsetBy: -1)])
           }
         }
       }
@@ -715,7 +715,7 @@ open class GidOnline2API: HttpService {
         let index11 = line.index(index1!, offsetBy: 1)
         let index21 = line.index(index2!, offsetBy: -2)
 
-        items["runner_go"] = line[index11 ... index21]
+        items["runner_go"] = String(line[index11 ... index21])
       }
 //      else if line.find("var post_method = {") != nil {
 //        dataSection = true
@@ -728,7 +728,7 @@ open class GidOnline2API: HttpService {
         let index11 = line.index(index1!, offsetBy: 1)
         let index21 = line.index(index2!, offsetBy: -2)
 
-        mw_key = line[index11 ... index21]
+        mw_key = String(line[index11 ... index21])
       }
       else if dataSection == true {
         if line.find("};") != nil {
@@ -739,7 +739,7 @@ open class GidOnline2API: HttpService {
             let index2 = line.find(" = {")
             let index11 = line.index(line.startIndex, offsetBy: 4)
             let index21 = line.index(index2!, offsetBy: -1)
-            random_key = line[index11 ... index21]
+            random_key = String(line[index11 ... index21])
           }
 
           var data = line
@@ -1041,7 +1041,7 @@ open class GidOnline2API: HttpService {
       let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
       let index2 = link.index(index1, offsetBy: capturedGroupIndex.length-1)
 
-      matched = link[index1 ... index2]
+      matched = String(link[index1 ... index2])
     }
 
     return matched

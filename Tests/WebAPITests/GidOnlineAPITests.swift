@@ -7,7 +7,7 @@ import Alamofire
 
 class GidOnlineAPITests: XCTestCase {
   var subject = GidOnlineAPI()
-  var subject2 = GidOnline2API()
+  //var subject2 = GidOnline2API()
 
   var document: Document?
 
@@ -111,14 +111,14 @@ class GidOnlineAPITests: XCTestCase {
     print(JsonConverter.prettified(urls))
   }
 
-  func testGetUrls2() throws {
-    let movieUrl = "http://gidonline-kino.club/2169-princessa-monako.html"
-    //let movieUrl = "http://gidonline.club/2016/12/moana/"
-
-    let urls = try subject2.getUrls2(movieUrl)
-
-    print(JsonConverter.prettified(urls))
-  }
+//  func testGetUrls2() throws {
+//    let movieUrl = "http://gidonline-kino.club/2169-princessa-monako.html"
+//    //let movieUrl = "http://gidonline.club/2016/12/moana/"
+//
+//    let urls = try subject2.getUrls2(movieUrl)
+//
+//    print(JsonConverter.prettified(urls))
+//  }
 
 
   func testDownload() throws {
