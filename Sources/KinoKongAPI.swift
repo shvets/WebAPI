@@ -37,7 +37,7 @@ open class KinoKongAPI: HttpService {
   }
 
   public func getNewMovies(page: Int=1) throws -> [String: Any] {
-    return try getMovies("/films/novinki-kino", page: page)
+    return try getMovies("/films/novinki-kinos", page: page)
   }
 
   public func getAllSeries(page: Int=1) throws -> [String: Any] {
