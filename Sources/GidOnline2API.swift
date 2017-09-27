@@ -389,7 +389,7 @@ open class GidOnline2API: HttpService {
             print("[ " + urls + " ]")
             print(json)
 
-            for (key, value) in json {
+            for (key, _) in json {
               print(key)
               //print(value)
             }
