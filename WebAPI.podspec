@@ -29,5 +29,5 @@ Pod::Spec.new do |s|
   s.dependency 'Wrap', '~> 2.1.1'
   s.dependency 'Unbox', '~> 2.5.0'
 
-  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '3.0' }
+  s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
 end
