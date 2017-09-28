@@ -1,24 +1,14 @@
-import Unbox
+import Foundation
 
 open class NameClassifier {
-  public struct Item: Unboxable {
+  public struct Item: Codable {
     public let id: String
     public let name: String
-
-    public init(unboxer: Unboxer) throws {
-      self.id = try unboxer.unbox(key: "id")
-      self.name = try unboxer.unbox(key: "name")
-    }
   }
 
-  public struct ItemsGroup: Unboxable {
+  public struct ItemsGroup: Codable {
     public let key: String
     public let value: [Item]
-
-    public init(unboxer: Unboxer) throws {
-      self.key = try unboxer.unbox(key: "key")
-      self.value = try unboxer.unbox(key: "value")
-    }
   }
 
   public func classify(items: [Item]) throws -> [(key: String, value: [Any])] {
@@ -37,7 +27,9 @@ open class NameClassifier {
         groups[groupName] = group
       }
 
-      groups[groupName]?.append(try unbox(dictionary: ["id": id, "name": name]))
+      let newItem = NameClassifier.Item(id: id, name: name.isEmpty ? " " : name)
+
+      groups[groupName]?.append(newItem)
     }
 
     let sortedGroups = groups.sorted { $0.key < $1.key }
@@ -51,7 +43,9 @@ open class NameClassifier {
     var items: [ItemsGroup] = []
 
     for item in result {
-      items.append(try unbox(dictionary: ["key": item.key, "value": item.value as! [Item]]))
+      let newGroup = NameClassifier.ItemsGroup(key: item.key, value: item.value as! [Item])
+
+      items.append(newGroup)
     }
 
     return items

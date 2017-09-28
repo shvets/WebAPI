@@ -1,7 +1,5 @@
 import XCTest
 import SwiftyJSON
-import Wrap
-import Unbox
 
 @testable import WebAPI
 

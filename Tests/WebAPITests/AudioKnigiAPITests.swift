@@ -1,7 +1,5 @@
 import XCTest
 import SwiftyJSON
-import Wrap
-import Unbox
 
 @testable import WebAPI
 
@@ -11,37 +9,49 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetAuthorsLetters() throws {
     let result = try subject.getAuthorsLetters()
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testGetPerformersLetters() throws {
     let result = try subject.getPerformersLetters()
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testGetNewBooks() throws {
     let result = try subject.getNewBooks()
 
-    print(JsonConverter.prettified(result))
+//    print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testGetBestBooksByWeek() throws {
     let result = try subject.getBestBooks(period: "7")
 
-    print(JsonConverter.prettified(result))
+//    print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testGetBestBooksByMonth() throws {
     let result = try subject.getBestBooks(period: "30")
 
-    print(JsonConverter.prettified(result))
+    // print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testGetBestBooks() throws {
     let result = try subject.getBestBooks(period: "all")
 
-    print(JsonConverter.prettified(result))
+    // print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testGetAuthorBooks() throws {
@@ -52,7 +62,9 @@ class AudioKnigiAPITests: XCTestCase {
 
     let books = try subject.getBooks(path: id)
 
-    print(JsonConverter.prettified(books))
+    // print(JsonConverter.prettified(books))
+
+    XCTAssert(books.count > 0)
   }
 
   func testGetPerformersBooks() throws {
@@ -63,29 +75,39 @@ class AudioKnigiAPITests: XCTestCase {
 
     let books = try subject.getBooks(path: id)
 
-    print(JsonConverter.prettified(books))
+    XCTAssert(books.count > 0)
+
+    // print(JsonConverter.prettified(books))
   }
 
   func testGetAuthors() throws {
     let result = try subject.getAuthors()
 
-    print(JsonConverter.prettified(result))
+    // print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testGetPerformers() throws {
     let result = try subject.getPerformers()
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testGetGenres() throws {
     let result1 = try subject.getGenres(page: 1)
 
-    print(JsonConverter.prettified(result1))
+    //print(JsonConverter.prettified(result1))
+
+    XCTAssert(result1.count > 0)
 
     let result2 = try subject.getGenres(page: 2)
 
-    print(JsonConverter.prettified(result2))
+    // print(JsonConverter.prettified(result2))
+
+    XCTAssert(result2.count > 0)
   }
 
   func testGetGenre() throws {
@@ -97,7 +119,9 @@ class AudioKnigiAPITests: XCTestCase {
 
     let result = try subject.getGenre(path: id)
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
   func testPagination() throws {
@@ -123,36 +147,40 @@ class AudioKnigiAPITests: XCTestCase {
 
     let result = try subject.getAudioTracks(path)
 
-    print(result)
+    //print(result)
+
+    XCTAssert(result.count > 0)
   }
 
-  func testDownloadAudioTracks() throws {
-    let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
-
-    let result = try subject.downloadAudioTracks(path)
-
-//    print(result)
-  }
+//  func testDownloadAudioTracks() throws {
+//    let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
+//
+//    let result = try subject.downloadAudioTracks(path)
+//
+////    print(result)
+//  }
 
   func testSearch() throws {
     let query = "пратчетт"
 
     let result = try subject.search(query)
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    XCTAssert(result.count > 0)
   }
 
-  func _testGrouping() throws {
+  func testGrouping() throws {
     let data: Data? = Files.readFile("authors.json")
 
-    let items: [NameClassifier.Item] = try unbox(data: data!)
+    let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
 
     let classifier = NameClassifier()
     let classified = try classifier.classify(items: items)
 
-    let array: [Any] = try wrap(classified)
+    //print(classified)
 
-    print(JsonConverter.prettified(array))
+    XCTAssert(classified.count > 0)
   }
 
   func _testGenerateAuthorsList() throws {
@@ -166,31 +194,33 @@ class AudioKnigiAPITests: XCTestCase {
   func _testGenerateAuthorsInGroupsList() throws {
     let data: Data? = Files.readFile("authors.json")
 
-    let items: [NameClassifier.Item] = try unbox(data: data!)
+    let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
 
     let classifier = NameClassifier()
     let classified = try classifier.classify2(items: items)
 
-    let array: [Any] = try wrap(classified)
+    let encoder = JSONEncoder()
+    let data2 = try encoder.encode(classified)
 
-    let prettified = JsonConverter.prettified(array)
+    print(JsonConverter.prettified(data2))
 
-    _ = Files.createFile("authors-in-groups.json", data: prettified.data(using: String.Encoding.utf8))
+    _ = Files.createFile("authors-in-groups.json", data: data2)
   }
 
   func _testGeneratePerformersInGroupsList() throws {
     let data: Data? = Files.readFile("performers.json")
 
-    let items: [NameClassifier.Item] = try unbox(data: data!)
+    let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
 
     let classifier = NameClassifier()
     let classified = try classifier.classify2(items: items)
 
-    let array: [Any] = try wrap(classified)
+    let encoder = JSONEncoder()
+    let data2 = try encoder.encode(classified)
 
-    let prettified = JsonConverter.prettified(array)
+    print(JsonConverter.prettified(data2))
 
-    _ = Files.createFile("performers-in-groups.json", data: prettified.data(using: String.Encoding.utf8))
+    _ = Files.createFile("performers-in-groups.json", data: data2)
   }
 
   private func generateAuthorsList(_ fileName: String) throws {

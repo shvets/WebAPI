@@ -26,8 +26,6 @@ Pod::Spec.new do |s|
   #s.dependency 'AlamofireImage', '~> 3.2.0'
   s.dependency 'SwiftyJSON', '~> 3.1.4'
   s.dependency 'SwiftSoup', '~> 1.5.0'
-  s.dependency 'Wrap', '~> 2.1.1'
-  s.dependency 'Unbox', '~> 2.5.0'
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
 end

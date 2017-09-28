@@ -1,8 +1,6 @@
 import Foundation
 import SwiftyJSON
 import SwiftSoup
-import Unbox
-import Wrap
 import Alamofire
 
 open class AudioKnigiAPI: HttpService {
@@ -298,7 +296,7 @@ open class AudioKnigiAPI: HttpService {
 //    let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.jpg")
 //
 //    print(destinationFileUrl)
-     //print(URL(string: path)!.deletingLastPathComponent())
+    //print(URL(string: path)!.deletingLastPathComponent())
 
     let utilityQueue = DispatchQueue.global(qos: .utility)
 
@@ -329,10 +327,12 @@ open class AudioKnigiAPI: HttpService {
   public func getItemsInGroups(_ fileName: String) -> [NameClassifier.ItemsGroup] {
     let data: Data? = Files.readFile(fileName)
 
+    let decoder = JSONDecoder()
+
     var items: [NameClassifier.ItemsGroup] = []
-    
+
     do {
-      items = try unbox(data: data!)
+      items = try decoder.decode([NameClassifier.ItemsGroup].self, from: data!)
     }
     catch {
     }

@@ -1,7 +1,6 @@
 import Foundation
 import SwiftyJSON
 import SwiftSoup
-import Unbox
 
 open class AudioBooAPI: HttpService {
   public static let SiteUrl = "http://audioboo.ru"
@@ -72,7 +71,7 @@ open class AudioBooAPI: HttpService {
             }
           }
 
-          group.append(try unbox(dictionary: ["id": href, "name": name]))
+          group.append(NameClassifier.Item(id: href, name: name))
 
           groups[groupName] = group
         }
