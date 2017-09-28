@@ -206,7 +206,7 @@ class GidOnlineAPITests: XCTestCase {
         print("Download Progress: \(progress.fractionCompleted)")
       }
       .responseData(queue: utilityQueue) { response in
-        print(response.response?.statusCode)
+        print(response.response?.statusCode as Any)
         FileManager.default.createFile(atPath: "downloadedFile.txt", contents: response.result.value)
 
         semaphore.signal()

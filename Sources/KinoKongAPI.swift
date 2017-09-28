@@ -393,9 +393,7 @@ open class KinoKongAPI: HttpService {
       "subaction": "search",
       "search_start": "\(page)",
       "full_search": "1",
-      //todo "story": query.addingPercentEscapes(using: .windowsCP1251)! // todo
-      "story": query
-      //urllib.quote(query.decode('utf8').encode('cp1251'))
+      "story": query.windowsCyrillicPercentEscapes()
     ]
 
     if page > 1 {
