@@ -17,19 +17,19 @@ open class AuthService: HttpService {
   }
   
   func getActivationCodes(includeClientSecret: Bool = true, includeClientId: Bool = false) -> [String: String] {
-    var data = ["scope": scope]
+    var parameters = ["scope": scope]
     
     if includeClientSecret {
-      data["client_secret"] = clientSecret
+      parameters["client_secret"] = clientSecret
     }
     
     if includeClientId {
-      data["client_id"] = clientId
+      parameters["client_id"] = clientId
     }
 
     var result = [String: String]()
     
-    if let response = authRequest(parameters: &data, rtype: "device/code", method: .get) {
+    if let response = authRequest(parameters: parameters, rtype: "device/code", method: .get) {
       if response.result.isSuccess {
         if let data = response.data {
           result = JsonConverter.toItems(data) as! [String: String]
@@ -43,11 +43,11 @@ open class AuthService: HttpService {
   }
   
   public func createToken(deviceCode: String) -> [String: String] {
-    var data: [String: String] = ["grant_type": grantType, "code": deviceCode]
+    let parameters: [String: String] = ["grant_type": grantType, "code": deviceCode]
 
     var result = [String: String]()
 
-    if let response = authRequest(parameters: &data) {
+    if let response = authRequest(parameters: parameters) {
       if response.result.isSuccess {
         if let data = response.data {
           result = JsonConverter.toItems(data) as! [String: String]
@@ -59,11 +59,11 @@ open class AuthService: HttpService {
   }
   
   func updateToken(refreshToken: String) -> [String: String] {
-    var data = ["grant_type": "refresh_token", "refresh_token": refreshToken]
+    let data = ["grant_type": "refresh_token", "refresh_token": refreshToken]
     
     var result = [String: String]()
     
-    if let response = authRequest(parameters: &data) {
+    if let response = authRequest(parameters: data) {
       if response.result.isSuccess {
         if let data = response.data {
           result = addExpires(JsonConverter.toItems(data) as! [String: String])
@@ -74,16 +74,18 @@ open class AuthService: HttpService {
     return result
   }
   
-  func authRequest(parameters: inout [String: String], rtype: String="token", method: HTTPMethod = .get) -> DataResponse<Data>? {
-    parameters["client_id"] = clientId
+  func authRequest(parameters: [String: String], rtype: String="token", method: HTTPMethod = .get) -> DataResponse<Data>? {
+    var newParameters = parameters.reduce(into: [:], { dict, elem in dict[elem.key] = elem.value })
+
+    newParameters["client_id"] = clientId
     
     if rtype == "token" {
-      parameters["client_secret"] = clientSecret
+      newParameters["client_secret"] = clientSecret
     }
     
     let url = authUrl + rtype
     
-    return httpRequest(url, parameters: parameters, method: method)
+    return httpRequest(url, parameters: newParameters, method: method)
   }
   
   func addExpires(_ data: [String: String]) -> [String: String] {

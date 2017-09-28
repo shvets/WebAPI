@@ -339,10 +339,30 @@ open class MyHitAPI: HttpService {
         let href = try link.attr("href")
         let name = try link.text()
 
-        appendItem(collection: &data, name: currentGroupName, item: ["id": href, "name": name])
+        let currentIndex1 = itemIndex(data, name: currentGroupName)
+
+        if currentIndex1 != nil {
+          let group = (data[currentIndex1!] as! [String: Any])
+
+          var items = (group["items"] as! [Any])
+
+          items.append(["id": href, "name": name])
+
+          let groupName = (group["name"] as! String)
+
+          data[currentIndex1!] = ["name": groupName, "items": items]
+        }
       }
       else if clazz == "dropdown" {
-        resetItems(collection: &data, name: currentGroupName)
+        let currentIndex2 = itemIndex(data, name: currentGroupName)
+
+        if currentIndex2 != nil {
+          let group = (data[currentIndex2!] as! [String: Any])
+
+          let groupName = (group["name"] as! String)
+
+          data[currentIndex2!] = ["name": groupName, "items": []]
+        }
 
         let liItems = try item.select("ul li")
 
@@ -356,7 +376,11 @@ open class MyHitAPI: HttpService {
           currentGroup.append(["id": href, "name": name])
         }
 
-        replaceItems(collection: &data, name: currentGroupName, items: currentGroup)
+        let currentIndex3 = itemIndex(data, name: currentGroupName)
+
+        if currentIndex3 != nil {
+          data[currentIndex3!] = ["name": currentGroupName, "items": currentGroup]
+        }
       }
     }
 
@@ -368,42 +392,6 @@ open class MyHitAPI: HttpService {
       let nm = (item as! [String: Any])["name"]!
 
       return nm as! String == name
-    }
-  }
-
-  func appendItem(collection: inout [Any], name: String, item: [String: Any]) {
-    let currentIndex = itemIndex(collection, name: name)
-
-    if currentIndex != nil {
-      let group = (collection[currentIndex!] as! [String: Any])
-
-      var items = (group["items"] as! [Any])
-
-      items.append(item)
-
-      let name = (group["name"] as! String)
-
-      collection[currentIndex!] = ["name": name, "items": items]
-    }
-  }
-
-  func resetItems(collection: inout [Any], name: String) {
-    let currentIndex = itemIndex(collection, name: name)
-
-    if currentIndex != nil {
-      let group = (collection[currentIndex!] as! [String: Any])
-
-      let name = (group["name"] as! String)
-
-      collection[currentIndex!] = ["name": name, "items": []]
-    }
-  }
-
-  func replaceItems(collection: inout [Any], name: String, items: [Any]) {
-    let currentIndex = itemIndex(collection, name: name)
-
-    if currentIndex != nil {
-      collection[currentIndex!] = ["name": name, "items": items]
     }
   }
 

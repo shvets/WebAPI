@@ -205,12 +205,12 @@ open class GoogleDocsAPI: HttpService {
 //    return ["movies": data]
 //  }
 
-  func updateUrls(data: inout [String: Any], url: String) {
+  func updateUrls(data: [String: Any], url: String) -> [Any] {
     var urls = data["urls"] as! [Any]
 
     urls.append(url)
 
-    data["urls"] = urls
+    return urls
   }
 
   func getMovie(_ id: String) throws -> [String: Any] {
@@ -240,7 +240,7 @@ open class GoogleDocsAPI: HttpService {
 
       let url1 = try data2!.select("iframe").attr("src")
 
-      updateUrls(data: &data, url: url1)
+      data["urls"] = updateUrls(data: data, url: url1)
 
       let components = frameUrl2.components(separatedBy: ".")
 
@@ -254,7 +254,7 @@ open class GoogleDocsAPI: HttpService {
 
           let url2 = try data3!.select("iframe").attr("src")
 
-          updateUrls(data: &data, url: url2)
+          data["urls"] = updateUrls(data: data, url: url2)
         }
         catch {
            // suppress
@@ -268,7 +268,7 @@ open class GoogleDocsAPI: HttpService {
           let url3 = try data4!.select("iframe").attr("src")
 
           if !url3.characters.isEmpty {
-            updateUrls(data: &data, url: url3)
+            data["urls"] = updateUrls(data: data, url: url3)
           }
         }
         catch {
