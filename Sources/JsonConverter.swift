@@ -90,12 +90,4 @@ open class JsonConverter {
     return text!.replacingOccurrences(of: "\\/", with: "/")
   }
 
-//  public static func prettified2(_ encodable: Encodable) -> String {
-//      let encoder = JSONEncoder()
-//      encoder.outputFormatting = .prettyPrinted
-//
-//      let data = try encoder.encode(encodable)
-//
-//      return String(data: data, encoding: .utf8)!
-//  }
 }

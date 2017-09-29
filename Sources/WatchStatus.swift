@@ -1,4 +1,4 @@
-public enum WatchStatus: Int {
+public enum WatchStatus: Int, Codable {
   case new = 0
   case partiallyWatched
   case finished
