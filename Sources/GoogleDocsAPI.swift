@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 import SwiftSoup
 
 open class GoogleDocsAPI: HttpService {
