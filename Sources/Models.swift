@@ -187,7 +187,7 @@ public struct PaginatedBookmarksData: Codable {
   public let pagination: Pagination
 }
 
-public enum MediaData: Codable {
+public enum MediaData {
   case paginatedMedia(PaginatedMediaData)
   case paginatedBookmarks(PaginatedBookmarksData)
   case paginatedChildren(PaginatedChildrenData)
@@ -195,14 +195,9 @@ public enum MediaData: Codable {
   case genres([Genre])
   case liveChannels([LiveChannel])
   case url(UrlType)
-  case none
 }
 
-extension MediaData {
-  public init(from decoder: Decoder) throws {
-    self = .none
-  }
-
+extension MediaData: Encodable {
   public func encode(to encoder: Encoder) throws {}
 }
 
