@@ -1,5 +1,4 @@
 import XCTest
-import SwiftyJSON
 
 @testable import WebAPI
 
@@ -183,7 +182,7 @@ class AudioKnigiAPITests: XCTestCase {
     XCTAssert(classified.count > 0)
   }
 
-  func _testGenerateAuthorsList() throws {
+  func testGenerateAuthorsList() throws {
     try generateAuthorsList("authors.json")
   }
 
@@ -224,11 +223,11 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   private func generateAuthorsList(_ fileName: String) throws {
-    var data = [Any]()
+    var list = [Any]()
 
     var result = try subject.getAuthors()
 
-    data += (result["movies"] as! [Any])
+    list += (result["movies"] as! [Any])
 
     let pagination = result["pagination"] as! [String: Any]
 
@@ -237,23 +236,20 @@ class AudioKnigiAPITests: XCTestCase {
     for page in (2...pages) {
       result = try subject.getAuthors(page: page)
 
-      data += (result["movies"] as! [Any])
+      list += (result["movies"] as! [Any])
     }
 
-    let filteredData = data.map {["id": ($0 as! [String: String])["id"], "name": ($0 as! [String: String])["name"]] }
+    let filteredList = list.map {["id": ($0 as! [String: String])["id"]!, "name": ($0 as! [String: String])["name"]!] }
 
-    let jsonData = JSON(filteredData)
-    let prettified = JsonConverter.prettified(jsonData)
-
-    _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
+    _ = Files.createFile(fileName, data: try Prettifier.asPrettifiedData(filteredList))
   }
 
   private func generatePerformersList(_ fileName: String) throws {
-    var data = [Any]()
+    var list = [Any]()
 
     var result = try subject.getPerformers()
 
-    data += (result["movies"] as! [Any])
+    list += (result["movies"] as! [Any])
 
     let pagination = result["pagination"] as! [String: Any]
 
@@ -262,14 +258,11 @@ class AudioKnigiAPITests: XCTestCase {
     for page in (2...pages) {
       result = try subject.getPerformers(page: page)
 
-      data += (result["movies"] as! [Any])
+      list += (result["movies"] as! [Any])
     }
 
-    let filteredData = data.map {["id": ($0 as! [String: String])["id"], "name": ($0 as! [String: String])["name"]] }
+    let filteredList = list.map {["id": ($0 as! [String: String])["id"]!, "name": ($0 as! [String: String])["name"]!] }
 
-    let jsonData = JSON(filteredData)
-    let prettified = JsonConverter.prettified(jsonData)
-
-    _ = Files.createFile(fileName, data: prettified.data(using: String.Encoding.utf8))
+    _ = Files.createFile(fileName, data: try Prettifier.asPrettifiedData(filteredList))
   }
 }

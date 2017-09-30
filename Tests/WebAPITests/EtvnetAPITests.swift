@@ -23,9 +23,9 @@ class EtvnetAPITests: XCTestCase {
   func testGetChannels() throws {
     let channels = subject.getChannels()
 
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(channels)
-//    })
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(channels)
+    })
 
     XCTAssertNotNil(channels)
     XCTAssert(channels.count > 0)
