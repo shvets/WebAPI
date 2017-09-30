@@ -43,6 +43,18 @@ class EtvnetAPITests: XCTestCase {
     XCTAssert(data.pagination.count > 0)
   }
 
+  func testGetGenre() throws {
+    let data = subject.getArchive(genre: 1, perPage: 56)!
+
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(data)
+    })
+
+    XCTAssertNotNil(data)
+    XCTAssert(data.media.count > 0)
+    XCTAssert(data.pagination.count > 0)
+  }
+
   func testGetNewArrivals() throws {
     let data = subject.getNewArrivals()!
 

@@ -76,6 +76,40 @@ public struct Media: Codable {
     case rating
     case description
   }
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+
+    id = try container.decode(Int.self, forKey: .id)
+    name = try container.decode(String.self, forKey: .name)
+    seriesNum = try container.decode(Int.self, forKey: .seriesNum)
+    onAir = try container.decode(String.self, forKey: .onAir)
+    duration = try container.decode(Int.self, forKey: .duration)
+    country = try container.decode(String.self, forKey: .country)
+    childrenCount = try container.decode(Int.self, forKey: .childrenCount)
+    isHd = try container.decode(Bool.self, forKey: .isHd)
+    files = try container.decode([FileType].self, forKey: .files)
+    channel = try container.decode(Name.self, forKey: .channel)
+    shortName = try container.decode(String.self, forKey: .shortName)
+    shortNameEng = try container.decode(String.self, forKey: .shortNameEng)
+    watchStatus = try container.decode(WatchStatus.self, forKey: .watchStatus)
+    tag = try container.decode(String.self, forKey: .tag)
+
+    // bug in REST API: sometimes returns empty string
+    do {
+      year = try container.decodeIfPresent(Int.self, forKey: .year)!
+    }
+    catch {
+      year = 0
+    }
+
+    mediaType = try container.decode(MediaType.self, forKey: .mediaType)
+    parent = try container.decode(Int.self, forKey: .parent)
+    thumb = try container.decode(String.self, forKey: .thumb)
+    mark = try container.decode(MarkType.self, forKey: .mark)
+    rating = try container.decode(Int.self, forKey: .rating)
+    description = try container.decode(String.self, forKey: .description)
+  }
 }
 
 public struct Show: Codable {
