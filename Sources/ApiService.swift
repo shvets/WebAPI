@@ -123,8 +123,8 @@ open class ApiService: AuthService {
   }
   
   func fullRequest(path: String, method: HTTPMethod = .get, parameters: [String: String] = [:],
-                   unauthorized: Bool=false) -> Data? {
-    var result: Data?
+                   unauthorized: Bool=false) -> DataResponse<Data>? {
+    var response: DataResponse<Data>?
 
     if !checkToken() {
       authorizeCallback()
@@ -141,30 +141,30 @@ open class ApiService: AuthService {
       }
 
       if let accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
-        if let response = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, parameters: parameters),
-           let statusCode = response.response?.statusCode {
+        if let apiResponse = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, parameters: parameters),
+           let statusCode = apiResponse.response?.statusCode {
           if (statusCode == 401 || statusCode == 400) && !unauthorized {
             let refreshToken = config.items["refresh_token"]
 
-            let response = updateToken(refreshToken: refreshToken as! String)
+            let updateResult = updateToken(refreshToken: refreshToken as! String)
 
-            if !response.isEmpty {
-              config.save(response)
+            if !updateResult.isEmpty {
+              config.save(updateResult)
 
-              result = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
+              response = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
             }
             else {
               print("error")
             }
           }
           else {
-            result = response.data
+            response = apiResponse
           }
         }
       }
     }
 
-    return result
+    return response
   }
   
 }

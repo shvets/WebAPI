@@ -72,7 +72,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getArchive(genre: Int? = nil, channelId: Int? = nil, perPage: Int=PER_PAGE, page: Int=1) -> JSON {
@@ -99,7 +99,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getGenres(parentId: String? = nil, today: Bool=false, channelId: String? = nil, format: String? = nil) -> JSON {
@@ -118,7 +118,7 @@ open class EtvnetAPI: ApiService {
     
     // regroup genres
     
-    var result = JSON(data: response!)
+    var result = JSON(data: response!.data!)
     
     var data = result["data"]
     
@@ -194,7 +194,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getNewArrivals(genre: String? = nil, channelId: String? = nil, perPage: Int=PER_PAGE, page: Int=1) -> JSON {
@@ -221,7 +221,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getHistory(perPage: Int=PER_PAGE, page: Int=1) -> JSON {
@@ -236,7 +236,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getLiveChannelUrl(_ channelId: Int, format: String="mp4", mediaProtocol: String="hls",
@@ -314,7 +314,7 @@ open class EtvnetAPI: ApiService {
     
     let url = buildUrl(path: path, params: params as [String : AnyObject])
     let response = fullRequest(path: url)
-    let data = JSON(data: response!)
+    let data = JSON(data: response!.data!)
     
     let itemUrl = data["data"]["url"]
     
@@ -341,7 +341,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getBookmarks(folder: String? = nil, perPage: Int=PER_PAGE, page: Int=1) -> JSON {
@@ -360,7 +360,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: (response != nil) ? response! : Data())
+    return JSON(data: (response != nil) ? response!.data! : Data())
   }
   
   public func getFolders(perPage: Int=PER_PAGE) -> JSON {
@@ -368,7 +368,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getBookmark(id: String) -> JSON {
@@ -376,7 +376,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func addBookmark(id: Int) -> JSON {
@@ -384,7 +384,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url, method: .post)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func removeBookmark(id: Int) -> JSON {
@@ -392,7 +392,7 @@ open class EtvnetAPI: ApiService {
 
     let response = fullRequest(path: url, method: .delete)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getTopicItems(_ id: String="best", perPage: Int=PER_PAGE, page: Int=1) -> JSON {
@@ -404,7 +404,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getLiveChannels(favoriteOnly: Bool=false, offset: String? = nil, category: Int=0) -> JSON {
@@ -429,7 +429,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func addFavoriteChannel(id: Int) -> JSON {
@@ -437,7 +437,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url, method: .post)
 
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
 
   public func removeFavoriteChannel(id: Int) -> JSON {
@@ -445,7 +445,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url, method: .delete)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getLiveSchedule(liveChannelId: String, date: Date = Date()) -> JSON {
@@ -462,7 +462,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    return JSON(data: response!)
+    return JSON(data: response!.data!)
   }
   
   public func getLiveCategories() -> JSON {
@@ -470,7 +470,7 @@ open class EtvnetAPI: ApiService {
     
     let response = fullRequest(path: url)
     
-    var result = JSON(data: response!)
+    var result = JSON(data: response!.data!)
     
     // regroup categories
     
