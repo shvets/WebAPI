@@ -20,93 +20,96 @@ class EtvnetAPITests: XCTestCase {
     }
   }
 
-  func testGetChannels() {
-    let result = subject.getChannels()
+  func testGetChannels() throws {
+    let channels = subject.getChannels()
 
-    //print(result)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(channels)
+//    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssertNotNil(result["data"])
+    XCTAssertNotNil(channels)
+    XCTAssert(channels.count > 0)
   }
 
-  func testGetArchive() {
-    let result = subject.getArchive(channelId: 3)
+  func testGetArchive() throws {
+    let data = subject.getArchive(channelId: 3)!
 
-    //print(result)
-    //print(result["data"]["media"])
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(data)
+    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"]["media"].count > 0)
+    XCTAssertNotNil(data)
+    XCTAssert(data.media.count > 0)
+    XCTAssert(data.pagination.count > 0)
   }
 
-  func testGetGenres() {
-    let result = subject.getGenres()
+  func testGetNewArrivals() throws {
+    let data = subject.getNewArrivals()!
 
-    //print(result)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(data)
+//    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"].count > 0)
+    XCTAssertNotNil(data)
+    XCTAssert(data.media.count > 0)
+    XCTAssert(data.pagination.count > 0)
   }
 
-  func testGetBlockbusters() {
-    let result = subject.getBlockbusters()
+  func testGetBlockbusters() throws {
+    let data = subject.getBlockbusters()!
 
-    print(result)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(data)
+//    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"]["media"].count > 0)
+    XCTAssertNotNil(data)
+    XCTAssert(data.media.count > 0)
+    XCTAssert(data.pagination.count > 0)
   }
 
-  func testSearch() {
+  func testGetGenres() throws {
+    let list = subject.getGenres()
+
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testSearch() throws {
     let query = "news"
-    let result = subject.search(query)
+    let data = subject.search(query)!
 
-//        print(result)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(data)
+//    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"]["media"].count > 0)
+    XCTAssertNotNil(data)
+    XCTAssert(data.media.count > 0)
+    XCTAssert(data.pagination.count > 0)
   }
 
-  func testPagination() {
+  func testPagination() throws {
     let query = "news"
 
-    let result1 = subject.search(query, perPage: 20, page: 1)
+    let result1 = subject.search(query, perPage: 20, page: 1)!
+    let pagination1 = result1.pagination
 
-//        print(result1)
+    XCTAssertEqual(pagination1.hasNext, true)
+    XCTAssertEqual(pagination1.hasPrevious, false)
+    XCTAssertEqual(pagination1.page, 1)
 
-    let pagination1 = result1["data"]["pagination"]
+    let result2 = subject.search(query, perPage: 20, page: 2)!
+    let pagination2 = result2.pagination
 
-//        print(pagination1["has_next"])
-
-    XCTAssertEqual(pagination1["has_next"], true)
-    XCTAssertEqual(pagination1["has_previous"], false)
-    XCTAssertEqual(pagination1["page"], 1)
-
-    let result2 = subject.search(query, perPage: 20, page: 2)
-
-    //    #print(result2)
-
-    let pagination2 = result2["data"]["pagination"]
-
-
-    XCTAssertEqual(pagination2["has_next"], true)
-    XCTAssertEqual(pagination2["has_previous"], true)
-    XCTAssertEqual(pagination2["page"], 2)
+    XCTAssertEqual(pagination2.hasNext, true)
+    XCTAssertEqual(pagination2.hasPrevious, true)
+    XCTAssertEqual(pagination2.page, 2)
   }
 
-  func testGetNewArrivals() {
-    let result = subject.getNewArrivals()
-
-    //print(result)
-
-//        expect(result["status_code"]).to be 200
-//        expect(result["data"].size > 0).to be true
-
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"]["media"].count > 0)
-  }
-
-  func testGetUrl() {
+  func testGetUrl() throws {
     let id = 760894 // 329678
     let  bitrate = "1200"
     let format = "mp4"
@@ -118,7 +121,7 @@ class EtvnetAPITests: XCTestCase {
     //    #print("Play list:\n" + self.service.get_play_list(url_data["url"]))
   }
 
-  func testGetLiveChannelUrl() {
+  func testGetLiveChannelUrl() throws {
     let id = 117
     let  bitrate = "800"
     let format = "mp4"
@@ -130,104 +133,102 @@ class EtvnetAPITests: XCTestCase {
     //    #print("Play list:\n" + self.service.get_play_list(url_data["url"]))
   }
 
-  func testGetMediaObjects() {
-    let result = subject.getArchive(channelId: 3)
+  func testGetMediaObjects() throws {
+    let result = subject.getArchive(channelId: 3)!
 
-    //print(result)
+    var mediaObject: Media? = nil
 
-    var mediaObject: JSON? = nil
+    for item in result.media {
+      let type = item.mediaType
 
-    for (_, item) in result["data"]["media"] {
-      let type = item["type"]
-
-      if type == "MediaObject" {
+      if type == .mediaObject {
         mediaObject = item
         break
       }
     }
 
-    print(mediaObject as Any)
+    print(mediaObject!)
   }
 
-  func testGetContainer() {
-    let result = subject.getArchive(channelId: 5)
+  func testGetContainer() throws {
+    let result = subject.getArchive(channelId: 5)!
 
     print(result)
 
-    var container: JSON? = nil
+    var container: Media? = nil
 
-    for (_, item) in result["data"]["media"] {
-      let type = item["type"]
+    for item in result.media {
+      let type = item.mediaType
 
-      if type == "Container" {
+      if type == .container {
         container = item
         break
       }
     }
 
-    print(container as Any)
+    print(container!)
   }
 
-  func testGetBookmarks() {
-    let result = subject.getBookmarks()
+  func testGetAllBookmarks() throws {
+    let data = subject.getBookmarks()!
 
-    //print(result)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(data)
+//    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"].count > 0)
+    XCTAssertNotNil(data)
+    XCTAssert(data.bookmarks.count > 0)
+    XCTAssert(data.pagination.count > 0)
   }
 
-  func testGetFolders() {
-    let result = subject.getFolders()
+//  func testGetFolders() throws {
+//    let result = subject.getFolders()
+//
+//    //print(result)
+//
+//    XCTAssertEqual(result["status_code"], 200)
+////        XCTAssert(result["data"].count > 0)
+//  }
 
-    //print(result)
+  func testGetBookmark() throws {
+    let bookmarks = subject.getBookmarks()!.bookmarks
 
-    XCTAssertEqual(result["status_code"], 200)
-//        XCTAssert(result["data"].count > 0)
+    let bookmarkDetails = subject.getBookmark(id: bookmarks[0].id)
+
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(bookmarkDetails)
+//    })
+
+    XCTAssertNotNil(bookmarkDetails)
   }
 
-  func testGetBookmark() {
-    let bookmarks = subject.getBookmarks()
-
-    let bookmark = bookmarks["data"]["bookmarks"][0]
-
-    let result = subject.getBookmark(id: bookmark["id"].rawString()!)
-
-    //print(result)
-
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"].count > 0)
-  }
-
-  func testAddBookmark() {
-     let id = 760894
-    
-    let result = subject.addBookmark(id: id)
-    
-    //print(result)
-
-    XCTAssertEqual(result["status"], "Created")
-  }
-  
-  func testRemoveBookmark() {
+  func testAddBookmark() throws {
     let id = 760894
-        
-    let result = subject.removeBookmark(id: id)
-    
-    //print(result)
 
-    XCTAssertEqual(result == JSON.null, true)
+    let result = subject.addBookmark(id: id)
+
+    XCTAssertTrue(result)
   }
-  
-  func testGetTopics() {
+
+  func testRemoveBookmark() throws {
+    let id = 760894
+
+    let result = subject.removeBookmark(id: id)
+
+    XCTAssertTrue(result)
+  }
+
+  func testGetTopicItems() throws {
     for topic in EtvnetAPI.Topics {
-      //print(topic)
-      let result = subject.getTopicItems(topic)
+      let data = subject.getTopicItems(topic)!
 
-      //print(result)
+//      print(try Prettifier.prettify { encoder in
+//        return try encoder.encode(data)
+//      })
 
-      XCTAssertEqual(result["status_code"], 200)
-      XCTAssert(result["data"].count > 0)
+      XCTAssertNotNil(data)
+      XCTAssert(data.media.count > 0)
+      XCTAssert(data.pagination.count > 0)
     }
   }
 
@@ -235,60 +236,103 @@ class EtvnetAPITests: XCTestCase {
     //    puts subject.bfuncrate_to_resolution(1500)
   }
 
-  func testGetAllLiveChannels() {
-    let result = subject.getLiveChannels(category: 0)
+  func testGetAllLiveChannels() throws {
+    let list = subject.getLiveChannels()
 
-    //print(result)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"].count > 0)
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
-  func testGetLiveChannelsByCategory() {
-    let result = subject.getLiveChannels(category: 7)
+  func testGetLiveChannelsByCategory() throws {
+    let list = subject.getLiveChannels(category: 7)
 
-    print(result)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"].count > 0)
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
-  func testGetLiveFavoriteChannels() {
-    let result = subject.getLiveChannels(favoriteOnly: true)
+  func testGetLiveFavoriteChannels() throws {
+    let list = subject.getLiveChannels(favoriteOnly: true)
 
-    print(result)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"].count > 0)
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testAddFavoriteChannel() {
     let id = 46
 
-    let result = subject.addFavoriteChannel(id: id)
+    let _ = subject.addFavoriteChannel(id: id)
 
     //print(result)
 
-    XCTAssertEqual(result == JSON.null, true)
+    //XCTAssertEqual(result == JSON.null, true)
   }
 
   func testRemoveFavoriteChannel() {
     let id = 46
 
-    let result = subject.removeFavoriteChannel(id: id)
+    let _ = subject.removeFavoriteChannel(id: id)
 
     //print(result)
 
-    XCTAssertEqual(result == JSON.null, true)
+    //XCTAssertEqual(result == JSON.null, true)
   }
 
-  func testGetLiveCategories() {
-    let result = subject.getLiveCategories()
+//  func testGetLiveSchedule() throws {
+//    let list = try subject.getLiveSchedule("34")
+//
+////    print(try Prettifier.prettify { encoder in
+////      return try encoder.encode(list)
+////    })
+////
+////    XCTAssertNotNil(list)
+////    XCTAssert(list.count > 0)
+//  }
 
-    print(result)
+  func testGetLiveCategories() throws {
+    let list = subject.getLiveCategories()
 
-    XCTAssertEqual(result["status_code"], 200)
-    XCTAssert(result["data"].count > 0)
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testGetHistory() throws {
+    let data = subject.getHistory()!
+
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(data)
+//    })
+
+    XCTAssertNotNil(data)
+    XCTAssert(data.media.count > 0)
+    XCTAssert(data.pagination.count > 0)
+  }
+
+  func testGetChildren() throws {
+    let data = subject.getChildren(488406)!
+
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(data)
+//    })
+
+    XCTAssertNotNil(data)
+    XCTAssert(data.children.count > 0)
+    XCTAssert(data.pagination.count > 0)
   }
 
 }

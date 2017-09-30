@@ -143,6 +143,11 @@ public struct PaginatedMediaData: Codable {
   public let pagination: Pagination
 }
 
+public struct PaginatedChildrenData: Codable {
+  public let children: [Media]
+  public let pagination: Pagination
+}
+
 public struct PaginatedBookmarksData: Codable {
   public let bookmarks: [Media]
   public let pagination: Pagination
@@ -151,6 +156,7 @@ public struct PaginatedBookmarksData: Codable {
 public enum MediaData: Codable {
   case paginatedMedia(PaginatedMediaData)
   case paginatedBookmarks(PaginatedBookmarksData)
+  case paginatedChildren(PaginatedChildrenData)
   case names([Name])
   case genres([Genre])
   case liveChannels([LiveChannel])
@@ -189,6 +195,7 @@ extension MediaResponse: Codable {
     let statusCode = try container.decodeIfPresent(Int.self, forKey: .statusCode)
 
     let paginatedMedia = try? container.decodeIfPresent(PaginatedMediaData.self, forKey: .data)
+    let paginatedChildren = try? container.decodeIfPresent(PaginatedChildrenData.self, forKey: .data)
     let paginatedBookmarks = try? container.decodeIfPresent(PaginatedBookmarksData.self, forKey: .data)
     let genres = try? container.decodeIfPresent([Genre].self, forKey: .data)
     let names = try? container.decodeIfPresent([Name].self, forKey: .data)
@@ -199,6 +206,9 @@ extension MediaResponse: Codable {
 
     if let value = paginatedMedia {
       data = MediaData.paginatedMedia(value!)
+    }
+    else if let value = paginatedChildren {
+      data = MediaData.paginatedChildren(value!)
     }
     else if let value = paginatedBookmarks {
       data = MediaData.paginatedBookmarks(value!)
