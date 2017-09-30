@@ -187,7 +187,7 @@ public struct PaginatedBookmarksData: Codable {
   public let pagination: Pagination
 }
 
-public enum MediaData {
+public enum MediaData: Encodable {
   case paginatedMedia(PaginatedMediaData)
   case paginatedBookmarks(PaginatedBookmarksData)
   case paginatedChildren(PaginatedChildrenData)
@@ -195,9 +195,7 @@ public enum MediaData {
   case genres([Genre])
   case liveChannels([LiveChannel])
   case url(UrlType)
-}
 
-extension MediaData: Encodable {
   public func encode(to encoder: Encoder) throws {}
 }
 
