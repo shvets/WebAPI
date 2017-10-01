@@ -13,50 +13,84 @@ class KinoKongAPITests: XCTestCase {
   }
 
   func testGetAllMovies() throws {
-    let result = try subject.getAllMovies()
+    let list = try subject.getAllMovies()
 
-    print(JsonConverter.prettified(result))
+    print(list)
+
+//    print(JsonConverter.prettified(list))
+
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testGetNewMovies() throws {
-    let result = try subject.getNewMovies()
+    let list = try subject.getNewMovies()
 
-    print(JsonConverter.prettified(result))
+    print(list)
+
+//    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testGetAllSeries() throws {
-    let result = try subject.getAllSeries()
+    let list = try subject.getAllSeries()
 
-    print(JsonConverter.prettified(result))
-  }
+    print(list)
 
-  func testGetSeasons() throws {
-    let path = "/22422-morskaya-policiya-novyy-orlean-1-3-sezon-26-04-2017.html"
-    let result = try subject.getSeasons(path, serieName: "serieName", thumb: "thumb")
-
-    print(JsonConverter.prettified(result))
+    //    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testGetGroupedGenres() throws {
-    let result = try subject.getGroupedGenres()
+    let list = try subject.getGroupedGenres()
 
-    print(JsonConverter.prettified(result))
+    print(list)
+
+    //    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testGetUrls() throws {
     let path = "/26545-lovushka-dlya-privideniya-2015-smotret-online.html"
 
-    let result = try subject.getUrls(path)
+    let list = try subject.getUrls(path)
 
-    print(JsonConverter.prettified(result))
+    print(list)
+
+    //print(JsonConverter.prettified(result))
+
+    //    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testGetSeriePlaylistUrl() throws {
     let path = "/25213-rodoslovnaya-03-06-2016.html"
 
-    let result = try subject.getSeriePlaylistUrl(path)
+    let list = try subject.getSeriePlaylistUrl(path)
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    print(list)
   }
 
   func testGetMetadata() throws {
@@ -64,17 +98,35 @@ class KinoKongAPITests: XCTestCase {
 
     let urls = try subject.getUrls(path)
 
-    let result = subject.getMetadata(urls[0])
+    let list = subject.getMetadata(urls[0])
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    print(list)
+
+    //    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testSearch() throws {
     let query = "красный"
 
-    let result = try subject.search(query)
+    let list = try subject.search(query)
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    print(list)
+
+    //    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testPaginationInAllMovies() throws {
@@ -111,12 +163,12 @@ class KinoKongAPITests: XCTestCase {
     XCTAssertEqual(pagination1["page"] as! Int, 1)
   }
 
-  func testGeMultipleSeasonsSerieInfo() throws {
+  func testGetMultipleSeasons() throws {
     let path = "/28206-v-obezd-2015-07-06-2016.html"
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
 
-    let list = try subject.getSerieInfo(playlistUrl)
+    let list = try subject.getSeasons(playlistUrl)
 
     print(try Prettifier.prettify { encoder in
       return try encoder.encode(list)
@@ -126,12 +178,12 @@ class KinoKongAPITests: XCTestCase {
     XCTAssert(list.count > 0)
   }
 
-  func testGetSingleSeasonSerieInfo() throws {
+  func testGetSingleSeason() throws {
     let path = "/31759-orvill-06-10-2017.html"
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
 
-    let list = try subject.getSerieInfo(playlistUrl)
+    let list = try subject.getSeasons(playlistUrl)
 
     print(try Prettifier.prettify { encoder in
       return try encoder.encode(list)
@@ -142,23 +194,46 @@ class KinoKongAPITests: XCTestCase {
   }
 
   func testGetMoviesByRating() throws {
-    let result = try subject.getMoviesByRating()
+    let list = try subject.getMoviesByRating()
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    print(list)
+
+    //    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testGetTags() throws {
-    let result = try subject.getTags()
+    let list = try subject.getTags()
 
-    print(JsonConverter.prettified(result))
+    //print(JsonConverter.prettified(result))
+
+    print(list)
+
+    //    print(try Prettifier.prettify { encoder in
+//      return try encoder.encode(list)
+//    })
+//
+//    XCTAssertNotNil(list)
+//    XCTAssert(list.count > 0)
   }
 
   func testGetSoundtracks() throws {
     let path = "/15479-smotret-dedpul-2016-smotet-online.html"
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
-    let result = try subject.getSerieInfo(playlistUrl)
+    let list = try subject.getSeasons(playlistUrl)
 
-    print(JsonConverter.prettified(JSON(result)))
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(list)
+    })
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 }

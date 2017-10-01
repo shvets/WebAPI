@@ -1,23 +1,41 @@
 import Foundation
 import SwiftSoup
-import SwiftyJSON
 
-public struct PlayListEntry: Codable {
+public struct Episode: Codable {
   public let comment: String
   public let file: String
+
+  public var files: [String] = []
+
+  public var name: String {
+    get {
+      return comment.replacingOccurrences(of: "<br>", with: " ")
+    }
+  }
+
+  enum CodingKeys: String, CodingKey {
+    case comment
+    case file
+  }
 }
 
-public struct SerieInfo: Codable {
+public struct Season: Codable {
   public let comment: String
-  public let playlist: [PlayListEntry]
+  public let playlist: [Episode]
+
+  public var name: String {
+    get {
+      return comment.replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+    }
+  }
 }
 
 public struct PlayList: Codable {
-  public let playlist: [SerieInfo]
+  public let playlist: [Season]
 }
 
 public struct SingleSeasonPlayList: Codable {
-  public let playlist: [PlayListEntry]
+  public let playlist: [Episode]
 }
 
 open class KinoKongAPI: HttpService {
@@ -265,50 +283,6 @@ open class KinoKongAPI: HttpService {
     return url
   }
 
-//  func getMovie(_ url: String) {
-//
-//  }
-
-  public func  getUrlsMetadata(_ urls: [String]) {
-//    urls_items = []
-//
-//    for index, url in enumerate(urls) {
-//      let url_item = [
-//        "url": url,
-//        "config": {
-//          "container": 'MP4',
-//          "audio_codec": 'AAC',
-//          "video_codec": 'H264',
-//        }
-//      }]
-//
-//      groups = url.split('.')
-//      text = groups[len(groups)-2]
-//
-//      result = re.search('(\d+)p_(\d+)', text)
-//
-//      if result && len(result.groups()) == 2 {
-//        url_item['config']['width'] = result.group(1)
-//        url_item['config']['video_resolution'] = result.group(1)
-//        url_item['config']['height'] = result.group(2)
-//      }
-//      else {
-//        result = re.search('_(\d+)', text)
-//
-//        if result && len(result.groups()) == 1 {
-//          url_item['config']['width'] = result.group(1)
-//          url_item['config']['video_resolution'] = result.group(1)
-//        }
-//
-//      }
-//
-//      urls_items.append(url_item)
-//
-//    }
-//
-//    return urls_items
-  }
-
   public func getMetadata(_ url: String) -> [String: String] {
     var data = [String: String]()
 
@@ -469,8 +443,8 @@ open class KinoKongAPI: HttpService {
     ]
   }
 
-  public func getSerieInfo(_ playlistUrl: String) throws -> [SerieInfo] {
-    var list: [SerieInfo] = []
+  public func getSeasons(_ playlistUrl: String) throws -> [Season] {
+    var list: [Season] = []
 
     if let data = fetchData(playlistUrl, headers: getHeaders()),
        let content = String(data: data, encoding: .windowsCP1251) {
@@ -484,75 +458,35 @@ open class KinoKongAPI: HttpService {
 
       if let result = try? decoder.decode(PlayList.self, from: localizedData) {
         for item in result.playlist {
-          list.append(SerieInfo(comment: item.comment, playlist: buildPlaylist(item.playlist)))
+          list.append(Season(comment: item.comment, playlist: buildEpisodes(item.playlist)))
         }
       }
       else if let result = try? decoder.decode(SingleSeasonPlayList.self, from: localizedData) {
-        list.append(SerieInfo(comment: "Сезон 1", playlist: buildPlaylist(result.playlist)))
+        list.append(Season(comment: "Сезон 1", playlist: buildEpisodes(result.playlist)))
       }
     }
 
     return list
   }
 
-  func buildPlaylist(_ playlist: [PlayListEntry]) -> [PlayListEntry] {
-    var newPlaylist: [PlayListEntry] = []
+  func buildEpisodes(_ playlist: [Episode]) -> [Episode] {
+    var episodes: [Episode] = []
 
     for item in playlist {
-      let files = item.file.components(separatedBy: ",")
+      let filesStr = item.file.components(separatedBy: ",")
 
-      var newFiles: [String] = []
+      var files: [String] = []
 
-      for file in files {
-        if !file.isEmpty {
-          newFiles.append(file)
+      for item in filesStr {
+        if !item.isEmpty {
+          files.append(item)
         }
       }
 
-      newPlaylist.append(PlayListEntry(comment: item.comment, file: "newFiles"))
+      episodes.append(Episode(comment: item.comment, file: item.file, files: files))
     }
 
-    return newPlaylist
-  }
-
-  public func getSeasons(_ path: String, serieName: String, thumb: String) throws -> [Any] {
-    var data = [Any]()
-
-    print(path)
-
-    let playlistUrl = try getSeriePlaylistUrl(path)
-
-    print(playlistUrl)
-
-    let serieInfo = try getSerieInfo(playlistUrl)
-
-    for (index, item) in serieInfo.enumerated() {
-      let seasonName = (item.comment).replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
-
-      let episodes = getEpisodes(item.playlist, serieName: serieName, season: index+1, thumb: thumb)
-
-      data.append(["type": "season", "id": path, "name": seasonName, "serieName": serieName,
-                   "seasonNumber": index+1, "thumb": thumb, "episodes": episodes])
-    }
-
-    return data
-  }
-
-  func getEpisodes(_ playlist: Any, serieName: String, season: Int, thumb: String) -> [Any] {
-    var data = [Any]()
-
-    let episodes = JSON(playlist)
-
-    for (_, episode) in episodes {
-      let episodeName = episode["comment"].stringValue.replacingOccurrences(of: "<br>", with: "")
-      let path = episode["file"].arrayValue[0].stringValue
-
-      data.append(["type": "episode", "id": path, "season": season,
-                   "name": episodeName, "serieName": serieName,
-                   "thumb": thumb])
-    }
-
-    return data
+    return episodes
   }
 
   func getEpisodeUrl(url: String, season: String, episode: String) -> String {
