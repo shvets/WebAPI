@@ -2,6 +2,24 @@ import Foundation
 import SwiftSoup
 import SwiftyJSON
 
+public struct PlayListEntry: Codable {
+  public let comment: String
+  public let file: String
+}
+
+public struct SerieInfo: Codable {
+  public let comment: String
+  public let playlist: [PlayListEntry]
+}
+
+public struct PlayList: Codable {
+  public let playlist: [SerieInfo]
+}
+
+public struct SingleSeasonPlayList: Codable {
+  public let playlist: [PlayListEntry]
+}
+
 open class KinoKongAPI: HttpService {
   public static let SiteUrl = "http://kinokong.cc"
   let UserAgent = "KinoKong User Agent"
@@ -451,8 +469,8 @@ open class KinoKongAPI: HttpService {
     ]
   }
 
-  public func getSerieInfo(_ playlistUrl: String) throws -> [[String: Any]] {
-    var serieInfo: [[String: Any]] = []
+  public func getSerieInfo(_ playlistUrl: String) throws -> [SerieInfo] {
+    var list: [SerieInfo] = []
 
     if let data = fetchData(playlistUrl, headers: getHeaders()),
        let content = String(data: data, encoding: .windowsCP1251) {
@@ -460,34 +478,28 @@ open class KinoKongAPI: HttpService {
 
       let playlistContent = content[index! ..< content.endIndex]
 
-      var playlist = JSON(data: playlistContent.data(using: .windowsCP1251)!)["playlist"]
+      let localizedData = playlistContent.data(using: .windowsCP1251)!
 
-      if playlist != JSON.null && !playlist.isEmpty && playlist[0]["playlist"] == JSON.null {
-        serieInfo = [
-          [
-            "comment": "Сезон 1",
-            "playlist": buildPlaylist(playlist)
-          ]
-        ]
-      }
-      else {
-        for (_, item) in playlist {
-          serieInfo.append([
-            "comment": item["comment"].stringValue,
-            "playlist": buildPlaylist(item["playlist"])
-          ])
+      let decoder = JSONDecoder()
+
+      if let result = try? decoder.decode(PlayList.self, from: localizedData) {
+        for item in result.playlist {
+          list.append(SerieInfo(comment: item.comment, playlist: buildPlaylist(item.playlist)))
         }
+      }
+      else if let result = try? decoder.decode(SingleSeasonPlayList.self, from: localizedData) {
+        list.append(SerieInfo(comment: "Сезон 1", playlist: buildPlaylist(result.playlist)))
       }
     }
 
-    return serieInfo
+    return list
   }
 
-  func buildPlaylist(_ playlist: JSON) -> [[String: Any]] {
-    var newPlaylist: [[String: Any]] = []
+  func buildPlaylist(_ playlist: [PlayListEntry]) -> [PlayListEntry] {
+    var newPlaylist: [PlayListEntry] = []
 
-    for (_, item) in playlist {
-      let files = item["file"].stringValue.components(separatedBy: ",")
+    for item in playlist {
+      let files = item.file.components(separatedBy: ",")
 
       var newFiles: [String] = []
 
@@ -497,10 +509,7 @@ open class KinoKongAPI: HttpService {
         }
       }
 
-      newPlaylist.append([
-        "comment": item["comment"].stringValue,
-        "file": newFiles
-      ])
+      newPlaylist.append(PlayListEntry(comment: item.comment, file: "newFiles"))
     }
 
     return newPlaylist
@@ -518,9 +527,9 @@ open class KinoKongAPI: HttpService {
     let serieInfo = try getSerieInfo(playlistUrl)
 
     for (index, item) in serieInfo.enumerated() {
-      let seasonName = (item["comment"] as! String).replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
+      let seasonName = (item.comment).replacingOccurrences(of: "<b>", with: "").replacingOccurrences(of: "</b>", with: "")
 
-      let episodes = getEpisodes(item["playlist"]!, serieName: serieName, season: index+1, thumb: thumb)
+      let episodes = getEpisodes(item.playlist, serieName: serieName, season: index+1, thumb: thumb)
 
       data.append(["type": "season", "id": path, "name": seasonName, "serieName": serieName,
                    "seasonNumber": index+1, "thumb": thumb, "episodes": episodes])

@@ -1,5 +1,4 @@
 import XCTest
-import SwiftyJSON
 
 @testable import WebAPI
 
@@ -287,8 +286,6 @@ class EtvnetAPITests: XCTestCase {
     let _ = subject.addFavoriteChannel(id: id)
 
     //print(result)
-
-    //XCTAssertEqual(result == JSON.null, true)
   }
 
   func testRemoveFavoriteChannel() {
@@ -297,8 +294,6 @@ class EtvnetAPITests: XCTestCase {
     let _ = subject.removeFavoriteChannel(id: id)
 
     //print(result)
-
-    //XCTAssertEqual(result == JSON.null, true)
   }
 
 //  func testGetLiveSchedule() throws {

@@ -1,5 +1,4 @@
 import XCTest
-import SwiftyJSON
 
 @testable import WebAPI
 
@@ -51,27 +50,11 @@ class FileStorageTests: XCTestCase {
     }
 
     XCTAssertEqual(subject.exist(), true)
-
-    //let content = FileStorage.readFile(subject.fileName)
-
-//    let result = String(data: content!, encoding: String.Encoding.utf8)
-//    print(JsonConverter.prettified(result))
-
     XCTAssertEqual(subject.items.count, 0)
 
     subject.load()
 
     XCTAssertEqual(subject.items.count, 2)
-
-   // print(subject.items)
-
-//    var newItems: [String: Any] = [:]
-//
-//    for (key, value) in subject.items {
-//      newItems[key] = JSON(value)
-//    }
-//
-//    print(newItems)
 
     try Files.removeFile(subject.fileName)
   }

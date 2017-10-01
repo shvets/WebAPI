@@ -150,61 +150,62 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftSoup::SwiftSoup";
+			remoteGlobalIDString = SwiftSoup::SwiftSoup;
 			remoteInfo = SwiftSoup;
 		};
 		FAECC0EB1F80051800FE1346 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftyJSON::SwiftyJSON";
+			remoteGlobalIDString = SwiftyJSON::SwiftyJSON;
 			remoteInfo = SwiftyJSON;
 		};
 		FAECC0EC1F80051800FE1346 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "Alamofire::Alamofire";
+			remoteGlobalIDString = Alamofire::Alamofire;
 			remoteInfo = Alamofire;
 		};
 		FAECC0ED1F80051800FE1346 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::WebAPI";
+			remoteGlobalIDString = WebAPI::WebAPI;
 			remoteInfo = WebAPI;
 		};
 		FAECC0EE1F80051800FE1346 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftSoup::SwiftSoup";
+			remoteGlobalIDString = SwiftSoup::SwiftSoup;
 			remoteInfo = SwiftSoup;
 		};
 		FAECC0EF1F80051800FE1346 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftyJSON::SwiftyJSON";
+			remoteGlobalIDString = SwiftyJSON::SwiftyJSON;
 			remoteInfo = SwiftyJSON;
 		};
 		FAECC0F01F80051800FE1346 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "Alamofire::Alamofire";
+			remoteGlobalIDString = Alamofire::Alamofire;
 			remoteInfo = Alamofire;
 		};
 		FAECC0F11F80051A00FE1346 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::WebAPITests";
+			remoteGlobalIDString = WebAPI::WebAPITests;
 			remoteInfo = WebAPITests;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DBA1012237286C8D8D441B2 /* test2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = test2.json; sourceTree = "<group>"; };
 		"Alamofire::Alamofire::Product" /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* AudioKnigiAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKnigiAPI.swift; sourceTree = "<group>"; };
 		OBJ_100 /* TextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNode.swift; sourceTree = "<group>"; };
@@ -468,6 +469,7 @@
 				OBJ_51 /* WebAPI.xcworkspace */,
 				OBJ_52 /* Dependencies */,
 				OBJ_133 /* Products */,
+				2DBA1012237286C8D8D441B2 /* test2.json */,
 			);
 			name = "";
 			sourceTree = "<group>";

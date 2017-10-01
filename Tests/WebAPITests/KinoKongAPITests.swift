@@ -111,20 +111,34 @@ class KinoKongAPITests: XCTestCase {
     XCTAssertEqual(pagination1["page"] as! Int, 1)
   }
 
-  func testGetSerieInfo() throws {
-    //let series = try subject.getAllSeries()["movies"]
-
-    //print(series)
-
+  func testGeMultipleSeasonsSerieInfo() throws {
     let path = "/28206-v-obezd-2015-07-06-2016.html"
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
 
-    //print(playlistUrl)
+    let list = try subject.getSerieInfo(playlistUrl)
 
-    let result = try subject.getSerieInfo(playlistUrl)
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(list)
+    })
 
-    print(JsonConverter.prettified(JSON(result)))
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testGetSingleSeasonSerieInfo() throws {
+    let path = "/31759-orvill-06-10-2017.html"
+
+    let playlistUrl = try subject.getSeriePlaylistUrl(path)
+
+    let list = try subject.getSerieInfo(playlistUrl)
+
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(list)
+    })
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testGetMoviesByRating() throws {

@@ -1,5 +1,4 @@
 import XCTest
-import SwiftyJSON
 
 @testable import WebAPI
 
@@ -20,7 +19,6 @@ class AudioBooAPITests: XCTestCase {
     let result = try subject.getAuthorsByLetter(id)
 
     print(result)
-    //print(JsonConverter.prettified(JSON(result)))
   }
 
   func testGetBooks() throws {
