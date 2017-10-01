@@ -1,5 +1,4 @@
 import XCTest
-import SwiftyJSON
 
 @testable import WebAPI
 
@@ -124,9 +123,9 @@ class MyHitAPITests: XCTestCase {
   func testGetUrls() throws {
     let path = "/film/414864/"
 
-    let result = try subject.getUrls(path: path)
+    let list = try subject.getUrls(path: path)
 
-    print(JsonConverter.prettified(JSON(result)))
+    print(list)
   }
 
   func testGetMetadata() throws {
@@ -134,34 +133,34 @@ class MyHitAPITests: XCTestCase {
 
     let urls = try subject.getUrls(path: path)
 
-    print(JsonConverter.prettified(JSON(urls)))
+    print(urls)
 
     let url = urls[0]
 
     let metadata = try subject.getMetadata(url)
 
-    print(JsonConverter.prettified(JSON(metadata)))
+    print(metadata)
   }
 
   func testGetMediaData() throws {
     //let path = "/film/414864/"
     let path = "/serial/1933/"
 
-    let result = try subject.getMediaData(pathOrUrl: path)
+    let list = try subject.getMediaData(pathOrUrl: path)
 
-    print(JsonConverter.prettified(JSON(result)))
+    print(list)
   }
 
   func testGetFilmFilters() throws {
-    let result = try subject.getFilters(mode: "film")
+    let list = try subject.getFilters(mode: "film")
 
-    print(JsonConverter.prettified(JSON(result)))
+    print(list)
   }
 
   func testGetSerieFilters() throws {
-    let result = try subject.getFilters(mode: "serial")
+    let list = try subject.getFilters(mode: "serial")
 
-    print(JsonConverter.prettified(JSON(result)))
+    print(list)
   }
 
 }

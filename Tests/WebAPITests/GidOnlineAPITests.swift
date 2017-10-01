@@ -1,5 +1,4 @@
 import XCTest
-import SwiftyJSON
 import SwiftSoup
 import Alamofire
 
