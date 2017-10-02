@@ -164,7 +164,7 @@ class EtvnetAPITests: XCTestCase {
   func testGetContainer() throws {
     let result = subject.getArchive(channelId: 5)!
 
-    print(result)
+    print(result as Any)
 
     var container: Media? = nil
 
@@ -195,7 +195,7 @@ class EtvnetAPITests: XCTestCase {
 //  func testGetFolders() throws {
 //    let result = subject.getFolders()
 //
-//    //print(result)
+//    //print(result as Any)
 //
 //    XCTAssertEqual(result["status_code"], 200)
 ////        XCTAssert(result["data"].count > 0)
@@ -285,7 +285,7 @@ class EtvnetAPITests: XCTestCase {
 
     let _ = subject.addFavoriteChannel(id: id)
 
-    //print(result)
+    //print(result as Any)
   }
 
   func testRemoveFavoriteChannel() {
@@ -293,7 +293,7 @@ class EtvnetAPITests: XCTestCase {
 
     let _ = subject.removeFavoriteChannel(id: id)
 
-    //print(result)
+    //print(result as Any)
   }
 
 //  func testGetLiveSchedule() throws {

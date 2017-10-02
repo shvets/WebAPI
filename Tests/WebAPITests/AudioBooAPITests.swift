@@ -8,7 +8,7 @@ class AudioBooAPITests: XCTestCase {
   func testGetLetters() throws {
     let result = try subject.getLetters()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetAuthorsByLetters() throws {
@@ -18,7 +18,7 @@ class AudioBooAPITests: XCTestCase {
 
     let result = try subject.getAuthorsByLetter(id)
 
-    print(result)
+    print(result as Any)
   }
 
   func testGetBooks() throws {
@@ -32,7 +32,7 @@ class AudioBooAPITests: XCTestCase {
 
     let result = try subject.getBooks(url)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetPlaylistUrls() throws {
@@ -53,18 +53,23 @@ class AudioBooAPITests: XCTestCase {
 
     let result = try subject.getPlaylistUrls(bookId!)
 
-    print(result)
+    print(result as Any)
   }
 
   func testGetAudioTracks() throws {
-    let letters = try subject.getLetters()
+//    let letters = try subject.getLetters()
+//
+//    let letterId = letters[3]["id"]!
+//
+//    let authors = try subject.getAuthorsByLetter(letterId)
+//
+//    //print(authors)
+//
+//    let url = (authors[4].value as! [NameClassifier.Item])[0].id
+//
+//    print(url)
 
-    let letterId = letters[0]["id"]!
-
-    let authors = try subject.getAuthorsByLetter(letterId)
-
-    let url = (authors[4].value as! [NameClassifier.Item])[0].id
-    //url = 'http://audioboo.ru/geimannil/1009-geyman-nil-koralina.html'
+    let url = "http://audioboo.ru/xfsearch/%C3%E5%E9%E4%E5%F0+%C4%FD%E2%E8%E4/"
 
     let books = try subject.getBooks(url)
 
@@ -72,12 +77,14 @@ class AudioBooAPITests: XCTestCase {
 
     let playlistUrls = try subject.getPlaylistUrls(bookId!)
 
-    print(playlistUrls)
+    let list = try subject.getAudioTracks(playlistUrls[0] as! String)
 
-    let result = try subject.getAudioTracks(playlistUrls[0] as! String)
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(list)
+    })
 
-//    print(result)
-    print(JsonConverter.prettified(result))
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testSearch() throws {
@@ -85,6 +92,6 @@ class AudioBooAPITests: XCTestCase {
 
     let result = try subject.search(query)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 }

@@ -1,9 +1,47 @@
 import Foundation
 import SwiftSoup
 
+public struct BooSource: Codable {
+  public let file: String
+  public let type: String
+  public let height: String
+  public let width: String
+}
+
+public struct BooTrack: Codable {
+  public let title: String
+  public let orig: String
+  public let image: String
+  //public let duration: String
+  public let sources: [BooSource]
+
+  enum CodingKeys: String, CodingKey {
+    case title
+    case orig
+    case image
+    //case duration
+    case sources
+  }
+
+  public var url: String {
+    get {
+      return "\(AudioBooAPI.ArchiveUrl)\(sources[0].file)"
+    }
+  }
+
+//  public var thumb: String {
+//    get {
+//      return "\(AudioBooAPI.SiteUrl)\(image)"
+//    }
+//  }
+}
+
+
 open class AudioBooAPI: HttpService {
   public static let SiteUrl = "http://audioboo.ru"
   public static let ArchiveUrl = "https://archive.org"
+
+  let decoder = JSONDecoder()
 
   public func getDocument(_ url: String) throws -> Document? {
     return try fetchDocument(url, encoding: .windowsCP1251)
@@ -123,8 +161,8 @@ open class AudioBooAPI: HttpService {
     return data
   }
 
-  public func getAudioTracks(_ url: String) throws -> [Any] {
-    var data = [Any]()
+  public func getAudioTracks(_ url: String) throws -> [BooTrack] {
+    var data = [BooTrack]()
 
     if let document = try fetchDocument(url) {
       let items = try document.select("script")
@@ -137,22 +175,11 @@ open class AudioBooAPI: HttpService {
 
         if let index1 = index1, let index2 = index2 {
           let content = String(text[text.index(index1, offsetBy: 10) ... text.index(index2, offsetBy: -1)]).trim()
-
           let content2 = content[content.index(content.startIndex, offsetBy: 2) ..< content.index(content.endIndex, offsetBy: -2)]
+          let content3 = content2.replacingOccurrences(of: ",", with: ", ").replacingOccurrences(of: ":", with: ": ")
 
-          let json = try? JSONSerialization.jsonObject(with: content2.data(using: .utf8)!, options: [])
-
-          let tracks = (json as! [Any])
-
-          for track in tracks {
-            if let item = track as? [String: Any] {
-              let sources = item["sources"] as! [[String: String]]
-              let name =  item["title"]!
-              let id = "\(AudioBooAPI.ArchiveUrl)\(sources[0]["file"]!)"
-              let thumb = "\(AudioBooAPI.SiteUrl)\(item["image"]!)"
-
-              data.append(["name": name, "id": id, "thumb": thumb])
-            }
+          if let result = try? decoder.decode([BooTrack].self, from: content3.data(using: .utf8)!) {
+            data = result
           }
         }
       }

@@ -8,37 +8,37 @@ class MyHitAPITests: XCTestCase {
   func testAvailable() throws {
     let result = try subject.available()
 
-    print(result)
+    print(result as Any)
   }
 
   func testGetAllMovies() throws {
     let result = try subject.getAllMovies()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetAllSeries() throws {
     let result = try subject.getAllSeries()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetPopularMovies() throws {
     let result = try subject.getPopularMovies()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetPopularSeries() throws {
     let result = try subject.getPopularSeries()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetSoundtracks() throws {
     let result = try subject.getSoundtracks()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetAlbums() throws {
@@ -50,13 +50,13 @@ class MyHitAPITests: XCTestCase {
 
     let result = try subject.getAlbums(path)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetSelections() throws {
     let result = try subject.getSelections()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetSelection() throws {
@@ -68,13 +68,13 @@ class MyHitAPITests: XCTestCase {
 
     let result = try subject.getSelection(path: path as! String)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetSeasons() throws {
     let result = subject.getSeasons("\(MyHitAPI.SiteUrl)/2016/03/strazhi-galaktiki/", parentName: "parentName")
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testPaginationInPopularMovies() throws {
@@ -102,7 +102,7 @@ class MyHitAPITests: XCTestCase {
 
     let result = try subject.search(query)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
 
     let pagination = result["pagination"] as! [String: Any]
 
@@ -117,7 +117,7 @@ class MyHitAPITests: XCTestCase {
 
     let result = subject.getSeasons(path)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetUrls() throws {

@@ -324,7 +324,7 @@ open class AudioKnigiAPI: HttpService {
     let audioTracks = try getAudioTracks(url)
 
     for track in audioTracks {
-      downloadTrack((track as! [String: String])["id"]!, destination: ".")
+      downloadTrack(track.url, destination: ".")
       break
     }
   }

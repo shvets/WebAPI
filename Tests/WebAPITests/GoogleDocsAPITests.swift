@@ -8,31 +8,31 @@ class GoogleDocsAPITests: XCTestCase {
   func testGetMovies() throws {
     let result = try subject.getMovies()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetSeries() throws {
     let result = try subject.getSeries()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetLatest() throws {
     let result = try subject.getLatest()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetCategory() throws {
     let result = try subject.getCategory(category: "movies")
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetGenres() throws {
     let result = try subject.getGenres()
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetGenre() throws {
@@ -44,7 +44,7 @@ class GoogleDocsAPITests: XCTestCase {
 
     let result = try subject.getGenre(path: path)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testPaginationInMovies() throws {
@@ -72,7 +72,7 @@ class GoogleDocsAPITests: XCTestCase {
 
     let result = try subject.getMovie(id)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetEpisode() throws {
@@ -80,6 +80,6 @@ class GoogleDocsAPITests: XCTestCase {
 
     let result = try subject.getMovie(id)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 }

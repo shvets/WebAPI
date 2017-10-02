@@ -30,67 +30,67 @@ class GidOnlineAPITests: XCTestCase {
   func testGetGenres() throws {
     let result = try subject.getGenres(document!)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetTopLinks() throws {
     let result = try subject.getTopLinks(document!)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetActors() throws {
     let result = try subject.getActors(document!)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetActorsByLetter() throws {
     let result = try subject.getActors(document!, letter: "А")
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetDirectors() throws {
     let result = try subject.getDirectors(document!)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetDirectorsByLetter() throws {
     let result = try subject.getDirectors(document!, letter: "В")
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetCountries() throws {
     let result = try subject.getCountries(document!)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetYears() throws {
     let result = try subject.getYears(document!)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetSeasons() throws {
     let result = try subject.getSeasons("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki/", parentName: "parentName")
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetEpisodes() throws {
     let result = try subject.getEpisodes("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki", seasonNumber: "1")
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetAllMovies() throws {
     let allMovies = try subject.getAllMovies()
 
-    print(JsonConverter.prettified(allMovies))
+    print(allMovies)
   }
 
   func testGetMoviesByGenre() throws {
@@ -98,7 +98,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.getMovies(document!, path: "/genre/vestern/")
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetUrls() throws {
@@ -107,7 +107,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let urls = try subject.getUrls(movieUrl)
 
-    print(JsonConverter.prettified(urls))
+    print(urls)
   }
 
 //  func testGetUrls2() throws {
@@ -116,7 +116,7 @@ class GidOnlineAPITests: XCTestCase {
 //
 //    let urls = try subject2.getUrls2(movieUrl)
 //
-//    print(JsonConverter.prettified(urls))
+//    print(urls)
 //  }
 
 
@@ -220,7 +220,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.getSerialInfo(url)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testGetMediaData() throws {
@@ -232,7 +232,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.getMediaData(document!)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func skip_testIsSerial() throws {
@@ -240,7 +240,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.isSerial(url)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testSearch() throws {
@@ -248,7 +248,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.search(query)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testSearchActors() throws {
@@ -256,7 +256,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.searchActors(document!, query: query)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testSearchDirectors() throws {
@@ -264,7 +264,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.searchDirectors(document!, query: query)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testSearchCountries() throws {
@@ -272,7 +272,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.searchCountries(document!, query: query)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
   func testSearchYears() throws {
@@ -280,7 +280,7 @@ class GidOnlineAPITests: XCTestCase {
 
     let result = try subject.searchYears(document!, query: query)
 
-    print(JsonConverter.prettified(result))
+    print(result as Any)
   }
 
 }

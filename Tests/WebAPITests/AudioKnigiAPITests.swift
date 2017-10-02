@@ -8,7 +8,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetAuthorsLetters() throws {
     let result = try subject.getAuthorsLetters()
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -16,7 +16,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetPerformersLetters() throws {
     let result = try subject.getPerformersLetters()
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -24,7 +24,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetNewBooks() throws {
     let result = try subject.getNewBooks()
 
-//    print(JsonConverter.prettified(result))
+//    print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -32,7 +32,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetBestBooksByWeek() throws {
     let result = try subject.getBestBooks(period: "7")
 
-//    print(JsonConverter.prettified(result))
+//    print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -40,7 +40,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetBestBooksByMonth() throws {
     let result = try subject.getBestBooks(period: "30")
 
-    // print(JsonConverter.prettified(result))
+    // print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -48,7 +48,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetBestBooks() throws {
     let result = try subject.getBestBooks(period: "all")
 
-    // print(JsonConverter.prettified(result))
+    // print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -61,7 +61,7 @@ class AudioKnigiAPITests: XCTestCase {
 
     let books = try subject.getBooks(path: id)
 
-    // print(JsonConverter.prettified(books))
+    // print(books)
 
     XCTAssert(books.count > 0)
   }
@@ -76,13 +76,13 @@ class AudioKnigiAPITests: XCTestCase {
 
     XCTAssert(books.count > 0)
 
-    // print(JsonConverter.prettified(books))
+    // print(books)
   }
 
   func testGetAuthors() throws {
     let result = try subject.getAuthors()
 
-    // print(JsonConverter.prettified(result))
+    // print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -90,7 +90,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetPerformers() throws {
     let result = try subject.getPerformers()
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -98,13 +98,13 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetGenres() throws {
     let result1 = try subject.getGenres(page: 1)
 
-    //print(JsonConverter.prettified(result1))
+    //print(result1)
 
     XCTAssert(result1.count > 0)
 
     let result2 = try subject.getGenres(page: 2)
 
-    // print(JsonConverter.prettified(result2))
+    // print(result2)
 
     XCTAssert(result2.count > 0)
   }
@@ -118,7 +118,7 @@ class AudioKnigiAPITests: XCTestCase {
 
     let result = try subject.getGenre(path: id)
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -159,7 +159,7 @@ class AudioKnigiAPITests: XCTestCase {
 //
 //    let result = try subject.downloadAudioTracks(path)
 //
-////    print(result)
+////    print(result as Any)
 //  }
 
   func testSearch() throws {
@@ -167,7 +167,7 @@ class AudioKnigiAPITests: XCTestCase {
 
     let result = try subject.search(query)
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     XCTAssert(result.count > 0)
   }
@@ -204,7 +204,7 @@ class AudioKnigiAPITests: XCTestCase {
     let encoder = JSONEncoder()
     let data2 = try encoder.encode(classified)
 
-    print(JsonConverter.prettified(data2))
+    print(data2)
 
     _ = Files.createFile("authors-in-groups.json", data: data2)
   }
@@ -220,7 +220,7 @@ class AudioKnigiAPITests: XCTestCase {
     let encoder = JSONEncoder()
     let data2 = try encoder.encode(classified)
 
-    print(JsonConverter.prettified(data2))
+    print(data2)
 
     _ = Files.createFile("performers-in-groups.json", data: data2)
   }

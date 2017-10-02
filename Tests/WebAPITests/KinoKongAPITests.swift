@@ -16,7 +16,7 @@ class KinoKongAPITests: XCTestCase {
 
     print(list)
 
-//    print(JsonConverter.prettified(list))
+//    print(list)
 
 //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)
@@ -72,7 +72,7 @@ class KinoKongAPITests: XCTestCase {
 
     print(list)
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)
@@ -87,7 +87,7 @@ class KinoKongAPITests: XCTestCase {
 
     let list = try subject.getSeriePlaylistUrl(path)
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     print(list)
   }
@@ -99,7 +99,7 @@ class KinoKongAPITests: XCTestCase {
 
     let list = subject.getMetadata(urls[0])
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     print(list)
 
@@ -116,7 +116,7 @@ class KinoKongAPITests: XCTestCase {
 
     let list = try subject.search(query)
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     print(list)
 
@@ -195,7 +195,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetMoviesByRating() throws {
     let list = try subject.getMoviesByRating()
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     print(list)
 
@@ -210,7 +210,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetTags() throws {
     let list = try subject.getTags()
 
-    //print(JsonConverter.prettified(result))
+    //print(result as Any)
 
     print(list)
 
