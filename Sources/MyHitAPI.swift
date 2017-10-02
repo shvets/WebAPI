@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 import SwiftSoup
 
 open class MyHitAPI: HttpService {
@@ -410,65 +409,65 @@ open class MyHitAPI: HttpService {
   public func getSeasons(_ path: String, parentName: String?=nil) -> Items {
     var data = [Any]()
 
-    var result = JSON(data: fetchData(MyHitAPI.SiteUrl + path + "/playlist.txt")!)
-
-    let playlist = result["playlist"]
-    
-    if playlist != JSON.null && playlist[0]["playlist"].arrayValue.isEmpty {
-      var episodeData = [Any]()
-    
-      for (_, episode) in playlist {
-        let episodeId = episode["file"].stringValue
-        let episodeName = episode["comment"].stringValue
-        let episodeThumb = MyHitAPI.SiteUrl + episode["poster"].stringValue
-        
-        episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
-      }
-
-      var season: [String: Any] = ["type": "season", "name": "Сезон 1", "seasonNumber": 1, "episodes": episodeData]
-
-      if let parentName = parentName {
-        season["parentName"] = parentName
-      }
-
-      season["parentId"] = path
-
-      data.append(season)
-    }
-    else {
-      var index1 = 0
-
-      for (_, season) in playlist {
-        index1 += 1
-
-        let name = season["comment"].stringValue
-        let episodes = season["playlist"]
-        let thumb = MyHitAPI.SiteUrl + season["poster"].stringValue
-        
-        var episodeData = [Any]()
-        
-        var index2 = 0
-
-        for (_, episode) in episodes {
-          index2 += 1
-          let episodeId = episode["file"].stringValue
-          let episodeName = episode["comment"].stringValue
-          let episodeThumb = MyHitAPI.SiteUrl + episode["poster"].stringValue
-          
-          episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
-        }
-
-        var season: [String: Any] = ["type": "season", "name": name, "id": path, "seasonNumber": index1, "thumb": thumb, "episodes": episodeData]
-
-        if let parentName = parentName {
-          season["parentName"] = parentName
-        }
-
-        season["parentId"] = path
-
-        data.append(season)
-      }
-    }
+//    var result = JSON(data: fetchData(MyHitAPI.SiteUrl + path + "/playlist.txt")!)
+//
+//    let playlist = result["playlist"]
+//
+//    if playlist != JSON.null && playlist[0]["playlist"].arrayValue.isEmpty {
+//      var episodeData = [Any]()
+//
+//      for (_, episode) in playlist {
+//        let episodeId = episode["file"].stringValue
+//        let episodeName = episode["comment"].stringValue
+//        let episodeThumb = MyHitAPI.SiteUrl + episode["poster"].stringValue
+//
+//        episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
+//      }
+//
+//      var season: [String: Any] = ["type": "season", "name": "Сезон 1", "seasonNumber": 1, "episodes": episodeData]
+//
+//      if let parentName = parentName {
+//        season["parentName"] = parentName
+//      }
+//
+//      season["parentId"] = path
+//
+//      data.append(season)
+//    }
+//    else {
+//      var index1 = 0
+//
+//      for (_, season) in playlist {
+//        index1 += 1
+//
+//        let name = season["comment"].stringValue
+//        let episodes = season["playlist"]
+//        let thumb = MyHitAPI.SiteUrl + season["poster"].stringValue
+//
+//        var episodeData = [Any]()
+//
+//        var index2 = 0
+//
+//        for (_, episode) in episodes {
+//          index2 += 1
+//          let episodeId = episode["file"].stringValue
+//          let episodeName = episode["comment"].stringValue
+//          let episodeThumb = MyHitAPI.SiteUrl + episode["poster"].stringValue
+//
+//          episodeData.append([ "type": "episode", "id": episodeId, "name": episodeName, "thumb": episodeThumb])
+//        }
+//
+//        var season: [String: Any] = ["type": "season", "name": name, "id": path, "seasonNumber": index1, "thumb": thumb, "episodes": episodeData]
+//
+//        if let parentName = parentName {
+//          season["parentName"] = parentName
+//        }
+//
+//        season["parentId"] = path
+//
+//        data.append(season)
+//      }
+//    }
 
     return ["movies": data]
   }

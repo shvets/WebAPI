@@ -391,12 +391,6 @@ open class EtvnetAPI: ApiService {
 
     let url = buildUrl(path: path, params: params as [String : AnyObject])
 
-//    let response = fullRequest(path: url)
-//
-//    print(JSON(data: response!.data!))
-//
-//    return JSON(data: response!.data!)
-
     if let response = fullRequest(path: url) {
       if let data = response.data {
         if let result = try? decoder.decode(MediaResponse.self, from: data).data {
