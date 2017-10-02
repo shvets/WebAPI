@@ -1,10 +1,51 @@
 import Foundation
-import SwiftyJSON
 import SwiftSoup
 import Alamofire
 
+public struct Track {
+  public let albumName: String
+  public let title: String
+  public let url: String
+  public let time: Int
+}
+
+extension Track: Codable {
+  enum CodingKeys: String, CodingKey {
+    case albumName = "cat"
+    case title
+    case url = "mp3"
+    case time
+  }
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+
+    let albumName = try? container.decodeIfPresent(String.self, forKey: .albumName) ?? ""
+    let title = try container.decodeIfPresent(String.self, forKey: .title)
+    let url = try container.decodeIfPresent(String.self, forKey: .url)
+    let time = try container.decodeIfPresent(String.self, forKey: .time)
+
+    self.init(albumName: albumName ?? "",
+      title: title ?? "",
+      url: url ?? "",
+      time: Int(time ?? "0") ?? 0
+    )
+  }
+
+  public func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: CodingKeys.self)
+
+    try container.encode(albumName, forKey: .albumName)
+    try container.encode(title, forKey: .title)
+    try container.encode(url, forKey: .url)
+    try container.encode(time, forKey: .time)
+  }
+}
+
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
+
+  let decoder = JSONDecoder()
 
   func getPagePath(path: String, page: Int=1) -> String {
     if page == 1 {
@@ -240,7 +281,7 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-  public func getAudioTracks(_ url: String) throws -> [Any] {
+  public func getAudioTracks(_ url: String) throws -> [Track] {
     var bookId = 0
 
     if let document = try fetchDocument(url) {
@@ -262,7 +303,7 @@ open class AudioKnigiAPI: HttpService {
       }
     }
 
-    var newTracks = [Any]()
+    var newTracks = [Track]()
 
     if bookId > 0 {
       let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
@@ -270,10 +311,8 @@ open class AudioKnigiAPI: HttpService {
       let response = httpRequest(newUrl)
 
       if let data = response?.data {
-        let tracks = JSON(data: data)
-
-        for (_, track) in tracks {
-          newTracks.append(["name": track["title"].stringValue + ".mp3", "id": track["mp3"].stringValue])
+        if let result = try? decoder.decode([Track].self, from: data) {
+          newTracks = result
         }
       }
     }

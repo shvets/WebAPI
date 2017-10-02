@@ -144,11 +144,14 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetAudioTracks() throws {
     let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
 
-    let result = try subject.getAudioTracks(path)
+    let list = try subject.getAudioTracks(path)
 
-    //print(result)
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(list)
+    })
 
-    XCTAssert(result.count > 0)
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
 //  func testDownloadAudioTracks() throws {
