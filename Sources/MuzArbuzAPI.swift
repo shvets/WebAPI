@@ -1,5 +1,4 @@
 import Foundation
-import SwiftyJSON
 
 public typealias Parameters = [String: Any]
 
