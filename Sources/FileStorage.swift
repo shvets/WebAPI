@@ -3,6 +3,8 @@ import Foundation
 open class FileStorage: Storage {
   var fileName: String
 
+  let decoder = JSONDecoder()
+
   public init(_ fileName: String) {
     self.fileName = fileName
   }
@@ -22,11 +24,29 @@ open class FileStorage: Storage {
       contents = Data()
     }
 
-    return JsonConverter.toItems(contents!)
+    //return JsonConverter.toItems(contents!)
+
+    var items = [String: String]()
+
+    do {
+      items = try decoder.decode([String: String].self, from: contents!)
+    }
+    catch {
+    }
+
+    return items
   }
 
   override public func saveStorage(_ items: [String: Any]) {
-    let contents: Data = JsonConverter.toData(items)
+    var contents: Data = Data()
+
+    do {
+      let encoder = JSONEncoder()
+
+      contents = try encoder.encode(items)
+    }
+    catch {
+    }
 
     let defaultManager = FileManager.default
 

@@ -7,7 +7,7 @@ open class AuthService: HttpService {
   var clientSecret: String
   var grantType: String
   var scope: String
-  
+
   init(authUrl: String, clientId: String, clientSecret: String, grantType: String, scope: String) {
     self.authUrl = authUrl
     self.clientId = clientId
@@ -32,7 +32,13 @@ open class AuthService: HttpService {
     if let response = authRequest(parameters: parameters, rtype: "device/code", method: .get) {
       if response.result.isSuccess {
         if let data = response.data {
-          result = JsonConverter.toItems(data) as! [String: String]
+          do {
+            let decoder = JSONDecoder()
+
+            result = try decoder.decode([String: String].self, from: data)
+          }
+          catch {
+          }
 
           result["activation_url"] = authUrl + "device/usercode"
         }
@@ -50,7 +56,13 @@ open class AuthService: HttpService {
     if let response = authRequest(parameters: parameters) {
       if response.result.isSuccess {
         if let data = response.data {
-          result = JsonConverter.toItems(data) as! [String: String]
+          do {
+            let decoder = JSONDecoder()
+
+            result = try decoder.decode([String: String].self, from: data)
+          }
+          catch {
+          }
         }
       }
     }
@@ -66,7 +78,13 @@ open class AuthService: HttpService {
     if let response = authRequest(parameters: data) {
       if response.result.isSuccess {
         if let data = response.data {
-          result = addExpires(JsonConverter.toItems(data) as! [String: String])
+          do {
+            let decoder = JSONDecoder()
+
+            result = try decoder.decode([String: String].self, from: data)
+          }
+          catch {
+          }
         }
       }
     }
