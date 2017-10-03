@@ -30,7 +30,7 @@ open class Config {
     do {
       items = try loadStorage()
     }
-    catch let e as Error {
+    catch let e {
       print("Error: \(e)")
     }
   }
@@ -39,7 +39,7 @@ open class Config {
     do {
       try saveStorage(self.items)
     }
-   catch let e as Error {
+   catch let e {
       print("Error: \(e)")
     }
   }

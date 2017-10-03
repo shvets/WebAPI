@@ -64,7 +64,8 @@ open class EtvnetAPI: ApiService {
     }
 
     if let result = result {
-      config.save(result.asDictionary())
+      config.items = result.asDictionary()
+      config.save()
     }
 
     return result

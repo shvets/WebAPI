@@ -65,11 +65,13 @@ open class ApiService: AuthService {
         deviceCode = acResponse.deviceCode!
         activationUrl = acResponse.activationUrl!
 
-        config.save([
+        config.items = [
           "user_code": userCode,
           "device_code": deviceCode,
           "activation_url": activationUrl
-        ])
+        ]
+        
+        config.save()
 
         return (userCode: userCode, deviceCode: deviceCode, activationUrl: activationUrl)
       }
@@ -98,7 +100,8 @@ open class ApiService: AuthService {
       let refreshToken = config.items["refresh_token"]
       
       if let response = updateToken(refreshToken: refreshToken!) {
-        config.save(response.asDictionary())
+        config.items = response.asDictionary()
+        config.save()
 
         return true
       }
@@ -109,7 +112,8 @@ open class ApiService: AuthService {
       if var response = createToken(deviceCode: deviceCode!) {
         response.deviceCode = deviceCode
 
-        config.save(response.asDictionary())
+        config.items = response.asDictionary()
+        config.save()
 
         return false
       }
@@ -143,7 +147,8 @@ open class ApiService: AuthService {
             let refreshToken = config.items["refresh_token"]
 
             if let updateResult = updateToken(refreshToken: refreshToken!) {
-              config.save(updateResult.asDictionary())
+              config.items = updateResult.asDictionary()
+              config.save()
 
               response = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
             }
