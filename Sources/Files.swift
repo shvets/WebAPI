@@ -3,7 +3,7 @@ import Foundation
 open class Files {
   private static let DefaultFileManager = FileManager.default
 
-  open class func exist(path: String) -> Bool {
+  open class func exist(_ path: String) -> Bool {
     return DefaultFileManager.fileExists(atPath: path)
   }
 
