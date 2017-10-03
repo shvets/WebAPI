@@ -44,24 +44,28 @@ open class EtvnetAPI: ApiService {
   }
 
   func tryCreateToken(userCode: String, deviceCode: String,
-                      activationUrl: String) -> [String: String] {
+                      activationUrl: String) -> AuthProperties? {
     print("Register activation code on web site \(activationUrl): \(userCode)")
 
-    var result = [String: String]()
+    var result: AuthProperties?
 
     var done = false
 
     while !done {
-      result = createToken(deviceCode: deviceCode) as! [String: String]
+      result = createToken(deviceCode: deviceCode)
 
-      done = result["access_token"] != nil
+      if let result = result {
+        done = result.accessToken != nil
+      }
 
       if !done {
         sleep(5)
       }
     }
 
-    config.save(result)
+    if let result = result {
+      config.save(result.asDictionary())
+    }
 
     return result
   }

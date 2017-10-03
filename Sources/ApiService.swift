@@ -51,36 +51,33 @@ open class ApiService: AuthService {
     var activationUrl: String
     var userCode: String
     var deviceCode: String
-    
+
     if checkAccessData("device_code") && checkAccessData("user_code") {
-      activationUrl = config.items["activation_url"] as! String
-      userCode = config.items["user_code"] as! String
-      deviceCode = config.items["device_code"] as! String
+      activationUrl = config.items["activation_url"]!
+      userCode = config.items["user_code"]!
+      deviceCode = config.items["device_code"]!
 
       return (userCode: userCode, deviceCode: deviceCode, activationUrl: activationUrl)
     }
     else {
-      let acResponse = getActivationCodes(includeClientSecret: includeClientSecret)
-      
-      if !acResponse.isEmpty {
-        userCode = acResponse["user_code"]!
-        deviceCode = acResponse["device_code"]!
-        activationUrl = acResponse["activation_url"]!
-        
+      if let acResponse = getActivationCodes(includeClientSecret: includeClientSecret) {
+        userCode = acResponse.userCode!
+        deviceCode = acResponse.deviceCode!
+        activationUrl = acResponse.activationUrl!
+
         config.save([
           "user_code": userCode,
           "device_code": deviceCode,
           "activation_url": activationUrl
         ])
-        
+
         return (userCode: userCode, deviceCode: deviceCode, activationUrl: activationUrl)
       }
-      else {
-        print("Error getting activation codes")
-        
-        return (userCode: "", deviceCode: "", activationUrl: "")
-      }
     }
+
+    print("Error getting activation codes")
+
+    return (userCode: "", deviceCode: "", activationUrl: "")
   }
 
   func checkAccessData(_ key: String) -> Bool {
@@ -89,7 +86,7 @@ open class ApiService: AuthService {
     }
     else {
       return (config.items[key] != nil) && (config.items["expires"] != nil) &&
-        config.items["expires"] as! String >= String(Int(Date().timeIntervalSince1970))
+        config.items["expires"]! >= String(Int(Date().timeIntervalSince1970))
     }
   }
   
@@ -100,26 +97,25 @@ open class ApiService: AuthService {
     else if config.items["refresh_token"] != nil {
       let refreshToken = config.items["refresh_token"]
       
-      let response = updateToken(refreshToken: refreshToken as! String)
-      
-      config.save(response)
-      
-      return true
+      if let response = updateToken(refreshToken: refreshToken!) {
+        config.save(response.asDictionary())
+
+        return true
+      }
     }
     else if checkAccessData("device_code") {
       let deviceCode = config.items["device_code"]
       
-      var response = createToken(deviceCode: deviceCode as! String)
-      
-      response["device_code"] = deviceCode as? String
-      
-      config.save(response)
-      
-      return false
+      if var response = createToken(deviceCode: deviceCode!) {
+        response.deviceCode = deviceCode
+
+        config.save(response.asDictionary())
+
+        return false
+      }
     }
-    else {
-      return false
-    }
+
+    return false
   }
   
   func fullRequest(path: String, method: HTTPMethod = .get, parameters: [String: String] = [:],
@@ -146,10 +142,8 @@ open class ApiService: AuthService {
           if (statusCode == 401 || statusCode == 400) && !unauthorized {
             let refreshToken = config.items["refresh_token"]
 
-            let updateResult = updateToken(refreshToken: refreshToken as! String)
-
-            if !updateResult.isEmpty {
-              config.save(updateResult)
+            if let updateResult = updateToken(refreshToken: refreshToken!) {
+              config.save(updateResult.asDictionary())
 
               response = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
             }

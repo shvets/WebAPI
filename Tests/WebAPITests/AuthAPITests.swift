@@ -8,17 +8,17 @@ class AuthAPITests: XCTestCase {
   var subject = EtvnetAPI(config: Config(configName: "etvnet.config"))
   
   func testGetActivationCodes() {
-    let result = subject.getActivationCodes()
+    let result = subject.getActivationCodes()!
     
-    let activationUrl = result["activation_url"]
-    let userCode = result["user_code"]
+    let activationUrl = result.activationUrl!
+    let userCode = result.userCode!
     
-    print("Activation url: \(activationUrl!)")
-    print("Activation code: \(userCode!)")
+    print("Activation url: \(activationUrl)")
+    print("Activation code: \(userCode)")
     
-    XCTAssertNotNil(result["activation_url"]!)
-    XCTAssertNotNil(result["user_code"]!)
-    XCTAssertNotNil(result["device_code"]!)
+    XCTAssertNotNil(result.activationUrl)
+    XCTAssertNotNil(result.userCode)
+    XCTAssertNotNil(result.deviceCode)
   }
   
   func skipped_testCreateToken() {
@@ -29,22 +29,20 @@ class AuthAPITests: XCTestCase {
           userCode: result.userCode,
           deviceCode: result.deviceCode,
           activationUrl: result.activationUrl
-      )
-          
-      XCTAssertNotNil(response["access_token"]!)
-      XCTAssertNotNil(response["refresh_token"]!)
+      )!
+
+      XCTAssertNotNil(response.accessToken)
+      XCTAssertNotNil(response.refreshToken)
     }
   }
   
-  func skippedTestUpdateToken() {
-    let refreshToken = subject.config.items["refresh_token"]! as! String
+  func skipped_testUpdateToken() {
+    let refreshToken = subject.config.items["refresh_token"]!
     
     let response = subject.updateToken(refreshToken: refreshToken)
     
-    subject.config.save(response)
+    subject.config.save(response!.asDictionary())
     
-    //print(response)
-    
-    XCTAssertNotNil(response["access_token"]!)
+    XCTAssertNotNil(response!.accessToken)
   }
 }

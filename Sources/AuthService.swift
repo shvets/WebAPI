@@ -1,6 +1,58 @@
 import Foundation
 import Alamofire
 
+public struct AuthProperties: Codable {
+  public var deviceCode: String?
+  public var activationUrl: String?
+  public var userCode: String?
+  public var accessToken: String?
+  public var refreshToken: String?
+
+  enum CodingKeys: String, CodingKey {
+    case deviceCode = "device_code"
+    case activationUrl = "activation_url"
+    case userCode = "user_code"
+    case accessToken = "access_token"
+    case refreshToken = "refresh_token"
+  }
+
+  public init(deviceCode: String="", activationUrl: String="", userCode: String="",
+              accessToken: String="", refreshToken: String="") {
+    self.deviceCode = deviceCode
+    self.activationUrl = activationUrl
+    self.userCode = userCode
+    self.accessToken = accessToken
+    self.refreshToken = refreshToken
+  }
+
+  public func asDictionary() -> [String: String] {
+    var dict = [String: String]()
+
+    if let deviceCode = deviceCode {
+      dict["device_code"] = deviceCode
+    }
+
+    if let activationUrl = activationUrl {
+      dict["activation_url"] = activationUrl
+    }
+
+    if let userCode = userCode {
+      dict["user_code"] = userCode
+    }
+
+    if let accessToken = accessToken {
+      dict["access_token"] = accessToken
+    }
+
+    if let refreshToken = refreshToken {
+      dict["refresh_token"] = refreshToken
+    }
+
+    return dict
+  }
+}
+
+
 open class AuthService: HttpService {
   var authUrl: String
   var clientId: String
@@ -16,7 +68,7 @@ open class AuthService: HttpService {
     self.scope = scope
   }
   
-  func getActivationCodes(includeClientSecret: Bool = true, includeClientId: Bool = false) -> [String: String] {
+  func getActivationCodes(includeClientSecret: Bool = true, includeClientId: Bool = false) -> AuthProperties? {
     var parameters = ["scope": scope]
     
     if includeClientSecret {
@@ -27,31 +79,32 @@ open class AuthService: HttpService {
       parameters["client_id"] = clientId
     }
 
-    var result = [String: String]()
-    
     if let response = authRequest(parameters: parameters, rtype: "device/code", method: .get) {
       if response.result.isSuccess {
         if let data = response.data {
           do {
             let decoder = JSONDecoder()
 
-            result = try decoder.decode([String: String].self, from: data)
-          }
-          catch {
-          }
+            var result = try decoder.decode(AuthProperties.self, from: data)
 
-          result["activation_url"] = authUrl + "device/usercode"
+            result.activationUrl = authUrl + "device/usercode"
+
+            return result
+          }
+          catch let e {
+            print("Error: \(e)")
+          }
         }
       }
     }
     
-    return result
+    return nil
   }
   
-  public func createToken(deviceCode: String) -> [String: String] {
+  public func createToken(deviceCode: String) -> AuthProperties? {
     let parameters: [String: String] = ["grant_type": grantType, "code": deviceCode]
 
-    var result = [String: String]()
+    var result: AuthProperties?
 
     if let response = authRequest(parameters: parameters) {
       if response.result.isSuccess {
@@ -59,9 +112,10 @@ open class AuthService: HttpService {
           do {
             let decoder = JSONDecoder()
 
-            result = try decoder.decode([String: String].self, from: data)
+            result = try decoder.decode(AuthProperties.self, from: data)
           }
-          catch {
+          catch let e {
+            print("Error: \(e)")
           }
         }
       }
@@ -70,10 +124,10 @@ open class AuthService: HttpService {
     return result
   }
   
-  func updateToken(refreshToken: String) -> [String: String] {
+  func updateToken(refreshToken: String) -> AuthProperties? {
     let data = ["grant_type": "refresh_token", "refresh_token": refreshToken]
     
-    var result = [String: String]()
+    var result: AuthProperties?
     
     if let response = authRequest(parameters: data) {
       if response.result.isSuccess {
@@ -81,9 +135,10 @@ open class AuthService: HttpService {
           do {
             let decoder = JSONDecoder()
 
-            result = try decoder.decode([String: String].self, from: data)
+            result = try decoder.decode(AuthProperties.self, from: data)
           }
-          catch {
+          catch let e {
+            print("Error: \(e)")
           }
         }
       }
