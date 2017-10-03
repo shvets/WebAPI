@@ -53,7 +53,7 @@ open class Config {
       return try decoder.decode([String: String].self, from: data)
     }
     else {
-      print("File does not exist")
+      //print("File does not exist")
 
       return [:]
     }
