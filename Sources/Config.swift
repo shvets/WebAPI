@@ -30,17 +30,17 @@ open class Config {
     do {
       items = try loadStorage()
     }
-    catch {
+    catch let e as Error {
+      print("Error: \(e)")
     }
   }
 
-  public func save(_ items: [String: String]?=nil) {
-    self.items = items!
-
+  public func save() {
     do {
       try saveStorage(self.items)
     }
-    catch {
+   catch let e as Error {
+      print("Error: \(e)")
     }
   }
 

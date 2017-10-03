@@ -418,7 +418,7 @@ open class GidOnlineAPI: HttpService {
       "X-Requested-With": "XMLHttpRequest"
     ]
 
-    let response2 = httpRequest(sessionUrl(), headers: headers, parameters: parameters, method: .post)
+    let _ = httpRequest(sessionUrl(), headers: headers, parameters: parameters, method: .post)
 
 //    let data2 = JSON(data: response2!.data!)
 //

@@ -407,7 +407,7 @@ open class MyHitAPI: HttpService {
   }
 
   public func getSeasons(_ path: String, parentName: String?=nil) -> Items {
-    var data = [Any]()
+    let data = [Any]()
 
 //    var result = JSON(data: fetchData(MyHitAPI.SiteUrl + path + "/playlist.txt")!)
 //
