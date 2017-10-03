@@ -266,7 +266,7 @@ open class KinoKongAPI: HttpService {
           let index1 = text.find("pl:")
 
           if let startIndex = index1 {
-            let text2 = String(String(text[startIndex ..< text.endIndex]))!
+            let text2 = String(String(text[startIndex ..< text.endIndex]))
 
             let index2 = text2.find("\",")
 
@@ -318,7 +318,7 @@ open class KinoKongAPI: HttpService {
     let match = matches.first
 
     if match != nil && index < match!.numberOfRanges {
-      let capturedGroupIndex = match!.rangeAt(index)
+      let capturedGroupIndex = match!.range(at: index)
 
       let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
       let index2 = link.index(index1, offsetBy: capturedGroupIndex.length-1)

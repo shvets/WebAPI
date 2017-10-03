@@ -52,7 +52,7 @@ open class EtvnetAPI: ApiService {
     var done = false
 
     while !done {
-      result = createToken(deviceCode: deviceCode)
+      result = createToken(deviceCode: deviceCode) as! [String: String]
 
       done = result["access_token"] != nil
 

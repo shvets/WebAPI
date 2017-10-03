@@ -56,7 +56,7 @@ https://github.com/Sweebi/tvProgress
 swift package generate-xcodeproj
 swift package init --type=executable
 swift package init --type=library
-swift package fetch
+swift package resolve
 swift build
 swift test -l
 swift test -s <testname>

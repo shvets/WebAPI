@@ -522,8 +522,8 @@ open class MyHitAPI: HttpService {
         let index = line.find(":")
 
         if index != nil {
-          let key = String(line[line.startIndex ... index!])!
-          let value = String(sanitize(String(line[line.index(after: index!) ..< line.endIndex])))!
+          let key = String(line[line.startIndex ... index!])
+          let value = String(sanitize(String(line[line.index(after: index!) ..< line.endIndex])))
 
           if key == "Продолжительность" {
             data["duration"] = Int(value.replacingOccurrences(of: "мин.", with: "").trim())! * 60 * 1000

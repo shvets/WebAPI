@@ -537,13 +537,13 @@ open class GidOnlineAPI: HttpService {
 
           let index1 = text1.find("['")
 
-          let text2 = String(String(text1[index1! ..< text1.endIndex]))!
+          let text2 = String(text1[index1! ..< text1.endIndex])
 
           let index2 = text2.find("']")
           let index3 = text2.find("= '")
 
-          let key = String(String(text2[text2.index(text2.startIndex, offsetBy: 2) ..< index2!]))!
-          let value = String(String(text2[text2.index(index3!, offsetBy: 3) ..< text2.index(text2.endIndex, offsetBy: -2)]))!
+          let key = String(text2[text2.index(text2.startIndex, offsetBy: 2) ..< index2!])
+          let value = String(text2[text2.index(index3!, offsetBy: 3) ..< text2.index(text2.endIndex, offsetBy: -2)])
 
           items[key] = value
         }
@@ -803,7 +803,7 @@ open class GidOnlineAPI: HttpService {
     let match = matches.first
 
     if match != nil && index < match!.numberOfRanges {
-      let capturedGroupIndex = match!.rangeAt(index)
+      let capturedGroupIndex = match!.range(at: index)
 
       let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
       let index2 = link.index(index1, offsetBy: capturedGroupIndex.length-1)

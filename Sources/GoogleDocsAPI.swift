@@ -322,7 +322,7 @@ open class GoogleDocsAPI: HttpService {
 
     let index1 = path.index(index11!, offsetBy: 6)
 
-    let idPart = String(path[index1 ..< path.endIndex])!
+    let idPart = String(path[index1 ..< path.endIndex])
 
     let index3 = idPart.startIndex
     let index41 = idPart.find("-")

@@ -1,9 +1,25 @@
+// swift-tools-version:4.0
+
 import PackageDescription
 
 let package = Package(
   name: "WebAPI",
+  products: [
+    .library(name: "WebAPI", targets: ["WebAPI"]),
+  ],
   dependencies: [
-    .Package(url: "https://github.com/Alamofire/Alamofire", Version(4, 5, 1)),
-    .Package(url: "https://github.com/scinfu/SwiftSoup", Version(1, 5, 1))
-  ]
+    .package(url: "https://github.com/Alamofire/Alamofire", from: "4.5.1"),
+    .package(url: "https://github.com/scinfu/SwiftSoup", from: "1.5.2")
+  ],
+  targets: [
+    .target(
+      name: "WebAPI",
+      dependencies: [
+        "Alamofire",
+        "SwiftSoup"
+      ],
+      path: "Sources"),
+    .testTarget(name: "WebAPITests", dependencies: ["WebAPI"], path: "Tests"),
+  ],
+  swiftLanguageVersions: [4]
 )
