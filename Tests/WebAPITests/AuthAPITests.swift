@@ -40,8 +40,9 @@ class AuthAPITests: XCTestCase {
     let refreshToken = subject.config.items["refresh_token"]!
     
     let response = subject.updateToken(refreshToken: refreshToken)
-    
-    subject.config.save(response!.asDictionary())
+
+    subject.config.items = response!.asDictionary()
+    subject.config.save()
     
     XCTAssertNotNil(response!.accessToken)
   }
