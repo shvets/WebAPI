@@ -3,7 +3,8 @@ import XCTest
 @testable import WebAPI
 
 class EtvnetAPITests: XCTestCase {
-  static var config = Config(configName: "etvnet.config")
+  static var config = PlainConfig("etvnet.config")
+
   var subject = EtvnetAPI(config: config)
 
   override func setUp() {

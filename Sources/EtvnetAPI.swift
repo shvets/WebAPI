@@ -38,7 +38,7 @@ open class EtvnetAPI: ApiService {
 
   let decoder = JSONDecoder()
 
-  public init(config: Config) {
+  public init(config: PlainConfig) {
     super.init(config: config, apiUrl: ApiUrl, userAgent: UserAgent, authUrl: AuthUrl, clientId: ClientId,
       clientSecret: ClientSecret, grantType: GrantType, scope: Scope)
   }

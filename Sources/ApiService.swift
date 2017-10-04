@@ -2,14 +2,14 @@ import Foundation
 import Alamofire
 
 open class ApiService: AuthService {
-  public var config: Config
+  public var config: PlainConfig
 
   public var authorizeCallback: () -> Void = {}
 
   let apiUrl: String
   let userAgent: String
   
-  init(config: Config, apiUrl: String, userAgent: String, authUrl: String, clientId: String,
+  init(config: PlainConfig, apiUrl: String, userAgent: String, authUrl: String, clientId: String,
        clientSecret: String, grantType: String, scope: String) {
     self.config = config
     

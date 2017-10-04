@@ -3,9 +3,9 @@ import XCTest
 @testable import WebAPI
 
 class AuthAPITests: XCTestCase {
-  let config = Config(configName: "etvnet.config")
+  static var config = PlainConfig("etvnet.config")
   
-  var subject = EtvnetAPI(config: Config(configName: "etvnet.config"))
+  var subject = EtvnetAPI(config: config)
   
   func testGetActivationCodes() {
     let result = subject.getActivationCodes()!
@@ -42,6 +42,7 @@ class AuthAPITests: XCTestCase {
     let response = subject.updateToken(refreshToken: refreshToken)
 
     subject.config.items = response!.asDictionary()
+
     subject.config.save()
     
     XCTAssertNotNil(response!.accessToken)

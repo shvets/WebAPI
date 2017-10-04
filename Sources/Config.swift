@@ -1,69 +1,17 @@
-import Foundation
+protocol Config {
+  associatedtype Item
 
-open class Config {
-  var fileName: String
+  var items: [String: Item] { get set }
 
-  public var items: [String: String] = [:]
+  func clear()
 
-  let encoder = JSONEncoder()
-  let decoder = JSONDecoder()
+  func add(key: String, value: Item)
 
-  public init(configName fileName: String) {
-    self.fileName = fileName
-  }
+  func remove(_ key: String) -> Bool
 
-  public func clear() {
-    items.removeAll()
-  }
+  func load()
 
-  public func add(key: String, value: String) {
-    items[key] = value
-  }
+  func save()
 
-  public func remove(_ key: String) -> Bool {
-    return items.removeValue(forKey: key) != nil
-  }
-
-  public func load() {
-    clear()
-
-    do {
-      items = try loadStorage()
-    }
-    catch let e {
-      print("Error: \(e)")
-    }
-  }
-
-  public func save() {
-    do {
-      try saveStorage(self.items)
-    }
-   catch let e {
-      print("Error: \(e)")
-    }
-  }
-
-  public func exist() -> Bool {
-    return Files.exist(fileName)
-  }
-
-  public func loadStorage() throws -> [String: String] {
-    if let data = Files.readFile(fileName) {
-      return try decoder.decode([String: String].self, from: data)
-    }
-    else {
-      //print("File does not exist")
-
-      return [:]
-    }
-  }
-
-  public func saveStorage(_ items: [String: String]) throws {
-    let data = try encoder.encode(items)
-
-    if !Files.createFile(fileName, data: data) {
-      print("Error writing to file")
-    }
-  }
+  func exist() -> Bool
 }
