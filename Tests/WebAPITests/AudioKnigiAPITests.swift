@@ -189,11 +189,11 @@ class AudioKnigiAPITests: XCTestCase {
     try generateAuthorsList("authors.json")
   }
 
-  func _testGeneratePerformersList() throws {
+  func testGeneratePerformersList() throws {
     try generatePerformersList("performers.json")
   }
 
-  func _testGenerateAuthorsInGroupsList() throws {
+  func testGenerateAuthorsInGroupsList() throws {
     let data: Data? = Files.readFile("authors.json")
 
     let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
@@ -202,14 +202,15 @@ class AudioKnigiAPITests: XCTestCase {
     let classified = try classifier.classify2(items: items)
 
     let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
     let data2 = try encoder.encode(classified)
 
-    print(data2)
+    //print(data2)
 
     _ = Files.createFile("authors-in-groups.json", data: data2)
   }
 
-  func _testGeneratePerformersInGroupsList() throws {
+  func testGeneratePerformersInGroupsList() throws {
     let data: Data? = Files.readFile("performers.json")
 
     let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
@@ -218,9 +219,10 @@ class AudioKnigiAPITests: XCTestCase {
     let classified = try classifier.classify2(items: items)
 
     let encoder = JSONEncoder()
+    encoder.outputFormatting = .prettyPrinted
     let data2 = try encoder.encode(classified)
 
-    print(data2)
+    //print(data2)
 
     _ = Files.createFile("performers-in-groups.json", data: data2)
   }
