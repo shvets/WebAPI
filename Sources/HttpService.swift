@@ -26,9 +26,9 @@ open class HttpService {
   }
 
   public func httpRequest(_ url: String,
-                        headers: HTTPHeaders = [:],
-                        parameters: Parameters = [:],
-                        method: HTTPMethod = .get) -> DataResponse<Data>? {
+                          headers: HTTPHeaders = [:],
+                          parameters: Parameters = [:],
+                          method: HTTPMethod = .get) -> DataResponse<Data>? {
     var dataResponse: DataResponse<Data>?
 
     if let sessionManager = sessionManager {
@@ -55,11 +55,11 @@ open class HttpService {
   }
 
   public func httpRequest2(_ url: String,
-                          headers: HTTPHeaders = [:],
-                          parameters: Parameters = [:],
-                          method: HTTPMethod = .get,
-                          successHandler: @escaping (Data) -> Void = { data in },
-                          errorHandler: @escaping (Error) -> Void = { data in }) {
+                           headers: HTTPHeaders = [:],
+                           parameters: Parameters = [:],
+                           method: HTTPMethod = .get,
+                           successHandler: @escaping (Data) -> Void = { data in },
+                           errorHandler: @escaping (Error) -> Void = { data in }) {
     if let sessionManager = sessionManager {
       sessionManager.request(url, method: method, parameters: parameters,
         headers: headers).validate().responseData { response in

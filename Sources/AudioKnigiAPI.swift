@@ -271,7 +271,7 @@ open class AudioKnigiAPI: HttpService {
     var params = [String: String]()
     params["q"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
-    let fullPath = buildUrl(path: pagePath, params: params as [String : AnyObject])
+    let fullPath = buildUrl(path: pagePath, params: params as [String: AnyObject])
 
     if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + fullPath) {
       return try getBookItems(document, path: path, page: page)
