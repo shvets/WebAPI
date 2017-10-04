@@ -364,8 +364,8 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        if let result = try? decoder.decode(MediaResponse.self, from: data).data {
-          if case .url(let value) = result {
+        if let result = try? decoder.decode(MediaResponse.self, from: data) {
+          if case .url(let value) = result.data {
             //let itemUrl = value.url
 
             var urlInfo = [String: String]()

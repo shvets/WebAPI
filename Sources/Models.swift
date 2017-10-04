@@ -195,6 +195,7 @@ public enum MediaData: Encodable {
   case genres([Genre])
   case liveChannels([LiveChannel])
   case url(UrlType)
+  case none
 
   public func encode(to encoder: Encoder) throws {}
 }
@@ -231,26 +232,29 @@ extension MediaResponse: Codable {
 
     var data: MediaData?
 
-    if let value = paginatedMedia {
+    if let value = paginatedMedia, value != nil {
       data = MediaData.paginatedMedia(value!)
     }
-    else if let value = paginatedChildren {
+    else if let value = paginatedChildren, value != nil {
       data = MediaData.paginatedChildren(value!)
     }
-    else if let value = paginatedBookmarks {
+    else if let value = paginatedBookmarks, value != nil {
       data = MediaData.paginatedBookmarks(value!)
     }
-    else if let value = genres {
+    else if let value = genres, value != nil {
       data = MediaData.genres(value!)
     }
-    else if let value = liveChannels {
+    else if let value = liveChannels, value != nil {
       data = MediaData.liveChannels(value!)
     }
-    else if let value = names {
+    else if let value = names, value != nil {
       data = MediaData.names(value!)
     }
-    else if let value = url {
+    else if let value = url, value != nil {
       data = MediaData.url(value!)
+    }
+    else {
+      data = MediaData.none
     }
 
     self.init(errorCode: errorCode ?? "",
