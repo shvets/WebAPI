@@ -154,13 +154,13 @@ class AudioKnigiAPITests: XCTestCase {
     XCTAssert(list.count > 0)
   }
 
-//  func testDownloadAudioTracks() throws {
-//    let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
-//
-//    let result = try subject.downloadAudioTracks(path)
-//
-////    print(result as Any)
-//  }
+  func testDownloadAudioTracks() throws {
+    let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
+
+    let _ = try subject.downloadAudioTracks(path)
+
+//    print(result as Any)
+  }
 
   func testSearch() throws {
     let query = "пратчетт"

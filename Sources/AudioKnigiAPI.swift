@@ -322,20 +322,24 @@ open class AudioKnigiAPI: HttpService {
 
   public func downloadAudioTracks(_ url: String) throws {
     let audioTracks = try getAudioTracks(url)
+    let bookDir = URL(string: url)!.lastPathComponent
 
     for track in audioTracks {
-      downloadTrack(track.url, destination: ".")
+      downloadTrack(track, destination: bookDir)
       break
     }
   }
 
-  func downloadTrack(_ path: String, destination: String) {
+  func downloadTrack(_ track: Track, destination: String) {
 
 //    let documentsUrl:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
 //    let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.jpg")
 //
 //    print(destinationFileUrl)
     //print(URL(string: path)!.deletingLastPathComponent())
+
+    let path = track.url
+    let name = track.title
 
     let utilityQueue = DispatchQueue.global(qos: .utility)
 
@@ -345,7 +349,7 @@ open class AudioKnigiAPI: HttpService {
 
     let destination: DownloadRequest.DownloadFileDestination = { _, _ in
       let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-      let fileURL = documentsURL.appendingPathComponent("downloadedFile.mp3")
+      let fileURL = documentsURL.appendingPathComponent(destination).appendingPathComponent("\(name).mp3")
 
       return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
     }
