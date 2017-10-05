@@ -324,13 +324,20 @@ open class AudioKnigiAPI: HttpService {
     let audioTracks = try getAudioTracks(url)
     let bookDir = URL(string: url)!.lastPathComponent
 
+    var currentAlbum: String?
+
     for track in audioTracks {
-      downloadTrack(track, destination: bookDir)
-      break
+      print(track)
+
+      if !track.albumName.isEmpty {
+        currentAlbum = track.albumName
+      }
+      downloadTrack(track, bookDir: bookDir, currentAlbum: currentAlbum)
+      //break
     }
   }
 
-  func downloadTrack(_ track: Track, destination: String) {
+  func downloadTrack(_ track: Track, bookDir: String, currentAlbum: String?) {
 
 //    let documentsUrl:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
 //    let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.jpg")
@@ -349,14 +356,16 @@ open class AudioKnigiAPI: HttpService {
 
     let destination: DownloadRequest.DownloadFileDestination = { _, _ in
       let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-      let fileURL = documentsURL.appendingPathComponent(destination).appendingPathComponent("\(name).mp3")
+      let fileURL = documentsURL.appendingPathComponent(bookDir)
+        .appendingPathComponent(currentAlbum ?? "")
+          .appendingPathComponent("\(name).mp3")
 
       return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
     }
 
     Alamofire.download(encodedPath, to: destination)
       .downloadProgress(queue: utilityQueue) { progress in
-        print("Download Progress: \(progress.fractionCompleted)")
+        //print("Download Progress: \(progress.fractionCompleted)")
       }
       .responseData(queue: utilityQueue) { response in
         FileManager.default.createFile(atPath: response.destinationURL!.path, contents: response.result.value)
