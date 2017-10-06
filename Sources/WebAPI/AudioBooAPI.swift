@@ -147,8 +147,8 @@ open class AudioBooAPI: HttpService {
     return data
   }
 
-  public func getPlaylistUrls(_ url: String) throws -> [Any] {
-    var data = [Any]()
+  public func getPlaylistUrls(_ url: String) throws -> [String] {
+    var data = [String]()
 
     if let document = try getDocument(url) {
       let items = try document.select("object")

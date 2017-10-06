@@ -6,7 +6,7 @@ let package = Package(
   name: "WebAPI",
   products: [
     .library(name: "WebAPI", targets: ["WebAPI"]),
-    .executable(name: "GrabBook", targets: ["GrabBook"]),
+    .executable(name: "grabbook", targets: ["GrabBook"])
   ],
   dependencies: [
     .package(url: "https://github.com/Alamofire/Alamofire", from: "4.5.1"),
@@ -24,7 +24,7 @@ let package = Package(
       dependencies: [
         "WebAPI"
       ]),
-    .testTarget(name: "WebAPITests", dependencies: ["WebAPI"], path: "Tests"),
+    .testTarget(name: "WebAPITests", dependencies: ["WebAPI"], path: "Tests")
   ],
   swiftLanguageVersions: [4]
 )

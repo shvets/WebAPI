@@ -1,4 +1,4 @@
-TOOL_NAME = GrabBook
+TOOL_NAME = grabbook
 VERSION = 0.1.0
 
 PREFIX = /usr/local
