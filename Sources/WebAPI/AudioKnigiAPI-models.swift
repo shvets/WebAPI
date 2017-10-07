@@ -1,6 +1,16 @@
 import Foundation
 
 extension AudioKnigiAPI {
+  public struct PersonName {
+    public let name: String
+    public let id: String
+
+    public init(name: String, id: String) {
+      self.name = name
+      self.id = id
+    }
+  }
+
   public struct Track: Codable {
     public let albumName: String
     public let title: String
