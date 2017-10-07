@@ -1,6 +1,16 @@
 import Foundation
 
 extension AudioBooAPI {
+  public struct PersonName {
+    public let name: String
+    public let id: String
+
+    public init(name: String, id: String) {
+      self.name = name
+      self.id = id
+    }
+  }
+  
   public struct BooSource: Codable {
     public let file: String
     public let type: String
