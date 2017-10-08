@@ -77,7 +77,7 @@ class AudioBooAPITests: XCTestCase {
 
     let playlistUrls = try subject.getPlaylistUrls(bookId!)
 
-    let list = try subject.getAudioTracks(playlistUrls[0] as! String)
+    let list = try subject.getAudioTracks(playlistUrls[0])
 
     print(try Prettifier.prettify { encoder in
       return try encoder.encode(list)

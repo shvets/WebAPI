@@ -95,10 +95,10 @@ class AudioKnigiAPITests: XCTestCase {
     XCTAssert(result.count > 0)
   }
 
-  func testGetGenres() throws {
+  func testGetAllGenres() throws {
     let result1 = try subject.getGenres(page: 1)
 
-    //print(result1)
+    print(result1)
 
     XCTAssert(result1.count > 0)
 
@@ -114,9 +114,11 @@ class AudioKnigiAPITests: XCTestCase {
 
     let items = genres["movies"] as! [Any]
 
-    let id = (items[0] as! [String: String])["id"]!
+    let id = (items[0] as! [String: Any])["id"] as? String
 
-    let result = try subject.getGenre(path: id)
+    //print(items[0] as? [String: Any])
+
+    let result = try subject.getGenre(path: id!)
 
     //print(result as Any)
 

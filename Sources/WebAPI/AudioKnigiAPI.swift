@@ -111,7 +111,7 @@ open class AudioKnigiAPI: HttpService {
 
         let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
 
-        let id = href[index ..< href.endIndex] + "/"
+        let id = String(href[index ..< href.endIndex]) + "/"
         let filteredId = id.removingPercentEncoding!
 
         data.append(["type": "collection", "id": filteredId, "name": name, "thumb": thumb])
@@ -127,7 +127,7 @@ open class AudioKnigiAPI: HttpService {
 
   public func getGenres(page: Int=1) throws -> [String: Any] {
     var data = [Any]()
-    var paginationData = [String: Any]()
+    var paginationData = Items()
 
     let path = "/sections/"
 
@@ -143,7 +143,7 @@ open class AudioKnigiAPI: HttpService {
 
         let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
 
-        let id = href[index ..< href.endIndex]
+        let id = String(href[index ..< href.endIndex])
 
         let thumb = try link.select("img").attr("src")
 

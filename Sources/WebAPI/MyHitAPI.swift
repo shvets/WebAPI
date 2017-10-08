@@ -544,7 +544,7 @@ open class MyHitAPI: HttpService {
 
       let index = text.index(text.startIndex, offsetBy: "В ролях:".characters.count)
 
-      let artists = text[index ..< text.endIndex].components(separatedBy: ",")
+      let artists = String(text[index ..< text.endIndex].components(separatedBy: ","))
 
       data["artists"] = artists
 
@@ -653,7 +653,7 @@ open class MyHitAPI: HttpService {
 
         if index1 != nil && index2 != nil {
           let index3 = html.index(index1!, offsetBy: 6)
-          let text = html[index3 ..< index2!]
+          let text = String(html[index3 ..< index2!])
 
           if text != "" {
             name = text + ".m3u8"
@@ -662,7 +662,7 @@ open class MyHitAPI: HttpService {
 
         if index1 != nil && index21 != nil {
           let index3 = html.index(index1!, offsetBy: 6)
-          let text = html[index3 ..< index21!]
+          let text = String(html[index3 ..< index21!])
 
           if text != "" {
             name = text + ".m3u8"

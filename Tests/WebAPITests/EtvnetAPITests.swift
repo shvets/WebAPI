@@ -148,7 +148,7 @@ class EtvnetAPITests: XCTestCase {
   func testGetMediaObjects() throws {
     let result = subject.getArchive(channelId: 3)!
 
-    var mediaObject: Media? = nil
+    var mediaObject: EtvnetAPI.Media? = nil
 
     for item in result.media {
       let type = item.mediaType
@@ -167,7 +167,7 @@ class EtvnetAPITests: XCTestCase {
 
     print(result as Any)
 
-    var container: Media? = nil
+    var container: EtvnetAPI.Media? = nil
 
     for item in result.media {
       let type = item.mediaType
