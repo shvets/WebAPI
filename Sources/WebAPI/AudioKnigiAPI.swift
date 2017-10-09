@@ -346,7 +346,8 @@ open class AudioKnigiAPI: HttpService {
     do {
       items = try decoder.decode([NameClassifier.ItemsGroup].self, from: data!)
     }
-    catch {
+    catch let e {
+      print("Error: \(e)")
     }
 
     return items
