@@ -14,17 +14,21 @@ open class PlainConfig: Config {
     }
   }
 
-  var configName: String = ""
+  var fileName: String = ""
 
   let encoder = JSONEncoder()
   let decoder = JSONDecoder()
 
-  public init(_ configName: String) {
-    self.configName = configName
+  public init(_ fileName: String) {
+    self.fileName = fileName
   }
 
   public func clear() {
     items.removeAll()
+  }
+
+  public func exist() -> Bool {
+    return Files.exist(fileName)
   }
 
   public func add(key: String, value: Item) {
@@ -39,7 +43,7 @@ open class PlainConfig: Config {
     clear()
 
     do {
-      if let data = Files.readFile(configName) {
+      if let data = Files.readFile(fileName) {
         items = try decoder.decode([String: Item].self, from: data)
       }
     }
@@ -52,17 +56,13 @@ open class PlainConfig: Config {
     do {
       let data = try encoder.encode(items)
 
-      if !Files.createFile(configName, data: data) {
+      if !Files.createFile(fileName, data: data) {
         print("Error writing to file")
       }
     }
     catch let e {
       print("Error: \(e)")
     }
-  }
-
-  public func exist() -> Bool {
-    return Files.exist(configName)
   }
 
 }

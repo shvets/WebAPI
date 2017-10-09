@@ -544,7 +544,7 @@ open class MyHitAPI: HttpService {
 
       let index = text.index(text.startIndex, offsetBy: "В ролях:".characters.count)
 
-      let artists = String(text[index ..< text.endIndex].components(separatedBy: ","))
+      let artists = text[index ..< text.endIndex].components(separatedBy: ",")
 
       data["artists"] = artists
 
