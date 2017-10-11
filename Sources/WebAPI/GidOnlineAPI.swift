@@ -1,5 +1,6 @@
 import Foundation
 import SwiftSoup
+import SwiftyJSON
 import Alamofire
 
 open class GidOnlineAPI: HttpService {
@@ -274,6 +275,8 @@ open class GidOnlineAPI: HttpService {
     let document = try fetchDocument(url)!
     let gatewayUrl = try getGatewayUrl(document)
 
+    print(gatewayUrl)
+
     if let gatewayUrl = gatewayUrl {
       var movieUrl: String!
 
@@ -409,63 +412,110 @@ open class GidOnlineAPI: HttpService {
 
     let html = String(data: content!, encoding: .utf8)
 
-    let frameCommit = getRequestTokens(html!)
+//    let frameCommit = getRequestTokens(html!)
 
-    let parameters = getSessionData(html!)
+    let parameters = getRequestParams(html!)
+
+    let userToken = parameters["user_token"]!
 
     let headers: HTTPHeaders = [
-      "X-Frame-Commit": frameCommit,
+    "X-Access-Level": userToken,
       "X-Requested-With": "XMLHttpRequest"
     ]
 
-    let _ = httpRequest(sessionUrl(), headers: headers, parameters: parameters, method: .post)
+    let videoToken = parameters["video_token"]!
+    let allManifestsUrl = "http://pandastream.cc/manifests/video/\(videoToken)/all"
 
-//    let data2 = JSON(data: response2!.data!)
-//
+    var params: [String: String] = [:]
+
+    params["mw_key"] = "1ffd4aa558cc51f5a9fc6888e7bc5cb4"
+    params["c90b4ca500a12b91e2b54b2d4a1e4fb7"] = "cc5610c93fa23befc2d244a76500ee6c"
+    params["mw_pid"] = "4"
+    params["p_domain_id"] = parameters["domain_id"]
+    params["ad_attr"] = "0"
+    params["iframe_version"] = "2"
+
+    let response2 = httpRequest(allManifestsUrl, headers: headers, parameters: params, method: .post)
+
+    let data2 = JSON(data: response2!.data!)
+
+    print(data2)
+
 //    let manifests = data2["mans"]
-//
-//    print(manifests)
 //
 //    let manifestMp4Url = JSON(data: try manifests.rawData())["manifest_mp4"].rawString()!
 //
-//    print(manifestMp4Url)
-//
 //    return try getMp4Urls(manifestMp4Url).reversed()
-
-  return []
-
-//    let manifestUrl = manifests["manifest_m3u8"].rawString()!.replacingOccurrences(of: "\\/", with: "/") + "&man_type=zip1&eskobar=pablo"
-//
-//    print(manifestUrl)
-//
-//    return try getPlayListUrls(manifestUrl).reversed()
+    return []
   }
 
-  func getRequestTokens(_ content: String) -> String {
-    var frameCommit = ""
-
-    var frameSection = false
+  func getRequestParams(_ content: String) -> [String: String] {
+    var params: [String: String] = [:]
 
     content.enumerateLines { (line, _) in
-      if line.find("$.ajaxSetup({") != nil {
-        frameSection = true
-      }
-      else if frameSection == true {
-        if line.find("});") != nil {
-          frameSection = false
-        }
-        else if !line.isEmpty {
-          if line.find("'X-Frame-Commit'") != nil {
-            let index1 = line.find("'X-Frame-Commit':")
+      if line.find("video_token:") != nil {
+        let index1 = line.index(line.find("'")!, offsetBy: 1)
+        let index2 = line.index(line.endIndex, offsetBy: -3)
 
-            frameCommit = String(line[line.index(index1!, offsetBy: "'X-Frame-Commit':".characters.count+2) ..< line.index(line.endIndex, offsetBy: -1)])
-          }
-        }
+        let video_token = String(line[index1...index2])
+
+        params["video_token"] = video_token
+      }
+      else if line.find("partner_id:") != nil {
+        let index1 = line.index(line.find(":")!, offsetBy: 2)
+        let index2 = line.index(line.endIndex, offsetBy: -2)
+
+        let partner_id = String(line[index1...index2])
+
+        params["partner_id"] = partner_id
+      }
+      else if line.find("domain_id:") != nil {
+        let index1 = line.index(line.find(":")!, offsetBy: 2)
+        let index2 = line.index(line.endIndex, offsetBy: -2)
+
+        let domain_id = String(line[index1...index2])
+
+        params["domain_id"] = domain_id
+      }
+      else if line.find("user_token:") != nil {
+        let index1 = line.index(line.find("'")!, offsetBy: 1)
+        let index2 = line.index(line.endIndex, offsetBy: -3)
+
+        let user_token = String(line[index1...index2])
+
+        params["user_token"] = user_token
       }
     }
 
-    return frameCommit
+    return params
   }
+
+
+//  func getRequestTokens(_ content: String) -> String {
+//    var frameCommit = ""
+//
+//    var frameSection = false
+//
+//    content.enumerateLines { (line, _) in
+//      if line.find("$.ajaxSetup({") != nil {
+//        frameSection = true
+//      }
+//      else if frameSection == true {
+//        if line.find("});") != nil {
+//          frameSection = false
+//        }
+//        else if !line.isEmpty {
+//          if line.find("'X-Frame-Commit'") != nil {
+//            let index1 = line.find("'X-Frame-Commit':")
+//
+//            frameCommit = String(line[line.index(index1!, offsetBy: "'X-Frame-Commit':".characters.count+2) ..< line.index(line.endIndex, offsetBy: -1)])
+//          }
+//        }
+//      }
+//    }
+//
+//    return frameCommit
+//  }
 
   func getSessionData(_ content: String) -> [String: String] {
     var items = [String: String]()
@@ -558,19 +608,19 @@ open class GidOnlineAPI: HttpService {
     return items
   }
 
-//  func getMp4Urls(_ url: String) throws -> [[String: String]] {
-//    var urls = [[String: String]]()
-//
-//    let response = httpRequest(url)
-//
-//    let list = JSON(data: response!.data!)
-//
-//    for (bandwidth, url) in list {
-//      urls.append(["url": url.rawString()!.replacingOccurrences(of: "\\/", with: "/"), "bandwidth": bandwidth])
-//    }
-//
-//    return urls
-//  }
+  func getMp4Urls(_ url: String) throws -> [[String: String]] {
+    var urls = [[String: String]]()
+
+    let response = httpRequest(url)
+
+    let list = JSON(data: response!.data!)
+
+    for (bandwidth, url) in list {
+      urls.append(["url": url.rawString()!.replacingOccurrences(of: "\\/", with: "/"), "bandwidth": bandwidth])
+    }
+
+    return urls
+  }
 
   override func getPlayListUrls(_ url: String) throws -> [[String: String]] {
     var urls = [[String: String]]()
