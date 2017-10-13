@@ -275,8 +275,6 @@ open class GidOnlineAPI: HttpService {
     let document = try fetchDocument(url)!
     let gatewayUrl = try getGatewayUrl(document)
 
-    print(gatewayUrl)
-
     if let gatewayUrl = gatewayUrl {
       var movieUrl: String!
 
