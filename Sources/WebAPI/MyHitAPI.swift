@@ -31,25 +31,25 @@ open class MyHitAPI: HttpService {
     return newPath
   }
  
-  public func getAllMovies(page: Int=1) throws -> Items {
+  public func getAllMovies(page: Int=1) throws -> ItemsList {
     return try getMovies(path: "/film/", page: page)
   }
 
-  public func getAllSeries(page: Int=1) throws -> Items {
+  public func getAllSeries(page: Int=1) throws -> ItemsList {
     return try getSeries(path: "/serial/", page: page)
   }
 
-  public func getPopularMovies(page: Int=1) throws -> Items {
+  public func getPopularMovies(page: Int=1) throws -> ItemsList {
     return try getMovies(path: "/film/", filter: "3", page: page)
   }
 
-  public func getPopularSeries(page: Int=1) throws -> Items {
+  public func getPopularSeries(page: Int=1) throws -> ItemsList {
     return try getSeries(path: "/serial/", filter: "3", page: page)
   }
 
-  public func getMovies(path: String, type: String="movie", selector: String="film-list", filter: String?=nil, page: Int=1) throws -> Items {
+  public func getMovies(path: String, type: String="movie", selector: String="film-list", filter: String?=nil, page: Int=1) throws -> ItemsList {
     var data = [Any]()
-    var paginationData: Items = [:]
+    var paginationData: ItemsList = [:]
 
     let pagePath = getPagePath(path: path, filter: filter, page: page)
 
@@ -96,13 +96,13 @@ open class MyHitAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-  public func getSeries(path: String, filter: String?=nil, page: Int=1) throws -> Items {
+  public func getSeries(path: String, filter: String?=nil, page: Int=1) throws -> ItemsList {
     return try getMovies(path: path, type: "serie", selector: "serial-list", filter: filter, page: page)
   }
 
-  public func getSoundtracks(page: Int=1) throws -> Items {
+  public func getSoundtracks(page: Int=1) throws -> ItemsList {
     var data = [Any]()
-    var paginationData: Items = [:]
+    var paginationData: ItemsList = [:]
 
     let path = "/soundtrack/"
     let selector = "soundtrack-list"
@@ -138,7 +138,7 @@ open class MyHitAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-  public func getAlbums(_ path: String) throws -> Items {
+  public func getAlbums(_ path: String) throws -> ItemsList {
     var data = [[String: Any]]()
 
     let pagePath = getPagePath(path: path)
@@ -228,9 +228,9 @@ open class MyHitAPI: HttpService {
     return ["movies": albums]
   }
 
-  public func getSelections(page: Int=1) throws -> Items {
+  public func getSelections(page: Int=1) throws -> ItemsList {
     var data = [Any]()
-    var paginationData: Items = [:]
+    var paginationData: ItemsList = [:]
 
     let path = "/selection/"
     let selector = "selection-list"
@@ -270,9 +270,9 @@ open class MyHitAPI: HttpService {
     return String(path[index ..< path.endIndex])
   }
 
-  public func getSelection(path: String, page: Int=1) throws -> Items {
+  public func getSelection(path: String, page: Int=1) throws -> ItemsList {
     var data = [Any]()
-    var paginationData: Items = [:]
+    var paginationData: ItemsList = [:]
 
     let selector = "selection-view"
 
@@ -394,7 +394,7 @@ open class MyHitAPI: HttpService {
     }
   }
 
-  public func search(_ query: String, page: Int=1) throws -> Items {
+  public func search(_ query: String, page: Int=1) throws -> ItemsList {
     let path = "/search/"
 
     var params = [String: String]()
@@ -406,7 +406,7 @@ open class MyHitAPI: HttpService {
     return try getMovies(path: fullPath, page: page)
   }
 
-  public func getSeasons(_ path: String, parentName: String?=nil) -> Items {
+  public func getSeasons(_ path: String, parentName: String?=nil) -> ItemsList {
     let data = [Any]()
 
 //    var result = JSON(data: fetchData(MyHitAPI.SiteUrl + path + "/playlist.txt")!)
@@ -472,7 +472,7 @@ open class MyHitAPI: HttpService {
     return ["movies": data]
   }
 
-  public func getEpisodes(_ path: String, parentName: String, seasonNumber: String, pageSize: Int, page: Int) -> Items {
+  public func getEpisodes(_ path: String, parentName: String, seasonNumber: String, pageSize: Int, page: Int) -> ItemsList {
     var data = [Any]()
 
     let seasons = getSeasons(path)["movies"] as! [Any]
@@ -674,7 +674,7 @@ open class MyHitAPI: HttpService {
     return name
   }
 
-  func extractPaginationData(_ path: String, selector: String, page: Int) throws -> Items {
+  func extractPaginationData(_ path: String, selector: String, page: Int) throws -> ItemsList {
     let document = try fetchDocument(MyHitAPI.SiteUrl + path)
 
     var pages = 1

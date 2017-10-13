@@ -71,3 +71,4 @@ archive
 authors*.json
 performers*.json
 Pod
+Package.resolved

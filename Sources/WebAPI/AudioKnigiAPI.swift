@@ -127,7 +127,7 @@ open class AudioKnigiAPI: HttpService {
 
   public func getGenres(page: Int=1) throws -> [String: Any] {
     var data = [Any]()
-    var paginationData = Items()
+    var paginationData = ItemsList()
 
     let path = "/sections/"
 
@@ -162,7 +162,7 @@ open class AudioKnigiAPI: HttpService {
     return try getBooks(path: path, page: page)
   }
 
-  func extractPaginationData(document: Document, path: String, page: Int) throws -> Items {
+  func extractPaginationData(document: Document, path: String, page: Int) throws -> ItemsList {
     var pages = 1
 
     let paginationRoot = try document.select("div[class='paging']")

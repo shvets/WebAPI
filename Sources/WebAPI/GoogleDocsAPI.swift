@@ -11,25 +11,25 @@ open class GoogleDocsAPI: HttpService {
     return try document!.select("td.topic_content")
   }
 
-  func getMovies(page: Int=1) throws -> Items {
+  func getMovies(page: Int=1) throws -> ItemsList {
     return try getCategory(category: "movies", page: page)
   }
 
-  func getSeries(page: Int=1) throws -> Items {
+  func getSeries(page: Int=1) throws -> ItemsList {
     return try getCategory(category: "tvseries", page: page)
   }
 
-  func getLatestEpisodes(page: Int=1) throws -> Items {
+  func getLatestEpisodes(page: Int=1) throws -> ItemsList {
     return try getCategory(category: "episodes", page: page)
   }
 
-  func getLatest(page: Int=1) throws -> Items {
+  func getLatest(page: Int=1) throws -> ItemsList {
     return try getCategory(category: "", page: page)
   }
 
-  func getCategory(category: String="", page: Int=1) throws -> Items {
+  func getCategory(category: String="", page: Int=1) throws -> ItemsList {
     var data = [Any]()
-    var paginationData: Items = [:]
+    var paginationData: ItemsList = [:]
 
     var pagePath: String = ""
 
@@ -70,7 +70,7 @@ open class GoogleDocsAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-  func getGenres(page: Int=1) throws -> Items {
+  func getGenres(page: Int=1) throws -> ItemsList {
     var data = [Any]()
 
     let document = try fetchDocument(SiteUrl + "/movies/genre.php?showC=27", headers: getHeaders())
@@ -95,9 +95,9 @@ open class GoogleDocsAPI: HttpService {
     return ["movies": data]
   }
 
-  func getGenre(path: String, page: Int=1) throws -> Items {
+  func getGenre(path: String, page: Int=1) throws -> ItemsList {
     var data = [Any]()
-    var paginationData: Items = [:]
+    var paginationData: ItemsList = [:]
 
     let response = httpRequest(SiteUrl + getCorrectedPath(path), headers: getHeaders())
 
@@ -127,7 +127,7 @@ open class GoogleDocsAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-  func getSerie(path: String, page: Int=1) throws -> Items {
+  func getSerie(path: String, page: Int=1) throws -> ItemsList {
     var data = [Any]()
 
     let document = try fetchDocument(SiteUrl + path, headers: getHeaders())
@@ -146,7 +146,7 @@ open class GoogleDocsAPI: HttpService {
     return ["movies": data]
   }
 
-  func getPreviousSeasons(_ path: String) throws -> Items {
+  func getPreviousSeasons(_ path: String) throws -> ItemsList {
     var data = [Any]()
 
     let document = try fetchDocument(SiteUrl + path, headers: getHeaders())
@@ -165,7 +165,7 @@ open class GoogleDocsAPI: HttpService {
     return ["movies": data]
   }
 
-//  func getSeasons(path: String) throws -> Items {
+//  func getSeasons(path: String) throws -> ItemsList {
 //    let data = try self.getPreviousSeasons(path)
 //
 ////    let currentSeason = try getSeason(path)
@@ -181,7 +181,7 @@ open class GoogleDocsAPI: HttpService {
 //    return data
 //  }
 
-//  func getSeason(_ path: String) throws -> Items {
+//  func getSeason(_ path: String) throws -> ItemsList {
 //    var data = [Any]()
 //
 ////    let document = try fetchDocument(SiteUrl + getCorrectedPath(path), headers: getHeaders())
@@ -285,7 +285,7 @@ open class GoogleDocsAPI: HttpService {
     return data
   }
 
-  func extractPaginationData(_ path: String, page: Int) throws -> Items {
+  func extractPaginationData(_ path: String, page: Int) throws -> ItemsList {
     let document = try fetchDocument(SiteUrl + path, headers: getHeaders())
 
     var pages = 1

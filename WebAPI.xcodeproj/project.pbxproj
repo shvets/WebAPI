@@ -1,1619 +1,2488 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
-
-/* Begin PBXAggregateTarget section */
-		"WebAPI::WebAPIPackageTests::ProductTarget" /* WebAPIPackageTests */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = OBJ_330 /* Build configuration list for PBXAggregateTarget "WebAPIPackageTests" */;
-			buildPhases = (
-			);
-			dependencies = (
-				OBJ_333 /* PBXTargetDependency */,
-			);
-			name = WebAPIPackageTests;
-			productName = WebAPIPackageTests;
-		};
-		"WebAPI::grabbook::ProductTarget" /* grabbook */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = OBJ_335 /* Build configuration list for PBXAggregateTarget "grabbook" */;
-			buildPhases = (
-			);
-			dependencies = (
-				OBJ_338 /* PBXTargetDependency */,
-			);
-			name = grabbook;
-			productName = grabbook;
-		};
-/* End PBXAggregateTarget section */
-
-/* Begin PBXBuildFile section */
-		OBJ_143 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
-		OBJ_149 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* Package.swift */; };
-		OBJ_155 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_110 /* Package.swift */; };
-		OBJ_161 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_113 /* Package.swift */; };
-		OBJ_167 /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_36 /* AudioBooAPITests.swift */; };
-		OBJ_168 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_37 /* AudioKnigiAPITests.swift */; };
-		OBJ_169 /* AuthAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_38 /* AuthAPITests.swift */; };
-		OBJ_170 /* EtvnetAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_39 /* EtvnetAPITests.swift */; };
-		OBJ_171 /* GidOnlineAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_40 /* GidOnlineAPITests.swift */; };
-		OBJ_172 /* GoogleDocsAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_41 /* GoogleDocsAPITests.swift */; };
-		OBJ_173 /* HttpServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_42 /* HttpServiceTests.swift */; };
-		OBJ_174 /* KinoKongAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_43 /* KinoKongAPITests.swift */; };
-		OBJ_175 /* MuzArbuzAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_44 /* MuzArbuzAPITests.swift */; };
-		OBJ_176 /* MyHitAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_45 /* MyHitAPITests.swift */; };
-		OBJ_177 /* PlainConfigTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_46 /* PlainConfigTests.swift */; };
-		OBJ_179 /* WebAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "WebAPI::WebAPI::Product" /* WebAPI.framework */; };
-		OBJ_180 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */; };
-		OBJ_181 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftSoup::SwiftSoup::Product" /* SwiftSoup.framework */; };
-		OBJ_182 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Alamofire::Alamofire::Product" /* Alamofire.framework */; };
-		OBJ_196 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_33 /* main.swift */; };
-		OBJ_198 /* WebAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "WebAPI::WebAPI::Product" /* WebAPI.framework */; };
-		OBJ_199 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */; };
-		OBJ_200 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftSoup::SwiftSoup::Product" /* SwiftSoup.framework */; };
-		OBJ_201 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Alamofire::Alamofire::Product" /* Alamofire.framework */; };
-		OBJ_210 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* ApiService.swift */; };
-		OBJ_211 /* AudioBooAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* AudioBooAPI-models.swift */; };
-		OBJ_212 /* AudioBooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* AudioBooAPI.swift */; };
-		OBJ_213 /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* AudioKnigiAPI-models.swift */; };
-		OBJ_214 /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* AudioKnigiAPI.swift */; };
-		OBJ_215 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_14 /* AuthService.swift */; };
-		OBJ_216 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_15 /* Config.swift */; };
-		OBJ_217 /* EtvnetAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_16 /* EtvnetAPI-models.swift */; };
-		OBJ_218 /* EtvnetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_17 /* EtvnetAPI.swift */; };
-		OBJ_219 /* Files.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_18 /* Files.swift */; };
-		OBJ_220 /* GidOnline2API.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_19 /* GidOnline2API.swift */; };
-		OBJ_221 /* GidOnlineAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_20 /* GidOnlineAPI.swift */; };
-		OBJ_222 /* GoogleDocsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_21 /* GoogleDocsAPI.swift */; };
-		OBJ_223 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_22 /* HttpService.swift */; };
-		OBJ_224 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_23 /* Items.swift */; };
-		OBJ_225 /* KinoKongAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_24 /* KinoKongAPI-models.swift */; };
-		OBJ_226 /* KinoKongAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_25 /* KinoKongAPI.swift */; };
-		OBJ_227 /* MuzArbuzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_26 /* MuzArbuzAPI.swift */; };
-		OBJ_228 /* MyHitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_27 /* MyHitAPI.swift */; };
-		OBJ_229 /* NameClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_28 /* NameClassifier.swift */; };
-		OBJ_230 /* PlainConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_29 /* PlainConfig.swift */; };
-		OBJ_231 /* Prettifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_30 /* Prettifier.swift */; };
-		OBJ_232 /* String-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_31 /* String-extension.swift */; };
-		OBJ_234 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */; };
-		OBJ_235 /* SwiftSoup.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "SwiftSoup::SwiftSoup::Product" /* SwiftSoup.framework */; };
-		OBJ_236 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = "Alamofire::Alamofire::Product" /* Alamofire.framework */; };
-		OBJ_244 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_111 /* SwiftyJSON.swift */; };
-		OBJ_250 /* ArrayExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_53 /* ArrayExt.swift */; };
-		OBJ_251 /* Attribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_54 /* Attribute.swift */; };
-		OBJ_252 /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_55 /* Attributes.swift */; };
-		OBJ_253 /* BooleanAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_56 /* BooleanAttribute.swift */; };
-		OBJ_254 /* CharacterExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_57 /* CharacterExt.swift */; };
-		OBJ_255 /* CharacterReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_58 /* CharacterReader.swift */; };
-		OBJ_256 /* Cleaner.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_59 /* Cleaner.swift */; };
-		OBJ_257 /* Collector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_60 /* Collector.swift */; };
-		OBJ_258 /* CombiningEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_61 /* CombiningEvaluator.swift */; };
-		OBJ_259 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_62 /* Comment.swift */; };
-		OBJ_260 /* Connection.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_63 /* Connection.swift */; };
-		OBJ_261 /* DataNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_64 /* DataNode.swift */; };
-		OBJ_262 /* DataUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_65 /* DataUtil.swift */; };
-		OBJ_263 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_66 /* Document.swift */; };
-		OBJ_264 /* DocumentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_67 /* DocumentType.swift */; };
-		OBJ_265 /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_68 /* Element.swift */; };
-		OBJ_266 /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_69 /* Elements.swift */; };
-		OBJ_267 /* Entities.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_70 /* Entities.swift */; };
-		OBJ_268 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_71 /* Evaluator.swift */; };
-		OBJ_269 /* Exception.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_72 /* Exception.swift */; };
-		OBJ_270 /* FormElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_73 /* FormElement.swift */; };
-		OBJ_271 /* HtmlTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_74 /* HtmlTreeBuilder.swift */; };
-		OBJ_272 /* HtmlTreeBuilderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_75 /* HtmlTreeBuilderState.swift */; };
-		OBJ_273 /* HttpStatusException.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_76 /* HttpStatusException.swift */; };
-		OBJ_274 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_77 /* Node.swift */; };
-		OBJ_275 /* NodeTraversor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_78 /* NodeTraversor.swift */; };
-		OBJ_276 /* NodeVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_79 /* NodeVisitor.swift */; };
-		OBJ_277 /* OrderedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_80 /* OrderedDictionary.swift */; };
-		OBJ_278 /* OrderedSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_81 /* OrderedSet.swift */; };
-		OBJ_279 /* ParseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_82 /* ParseError.swift */; };
-		OBJ_280 /* ParseErrorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_83 /* ParseErrorList.swift */; };
-		OBJ_281 /* ParseSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_84 /* ParseSettings.swift */; };
-		OBJ_282 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_85 /* Parser.swift */; };
-		OBJ_283 /* Pattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_86 /* Pattern.swift */; };
-		OBJ_284 /* QueryParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_87 /* QueryParser.swift */; };
-		OBJ_285 /* Selector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_88 /* Selector.swift */; };
-		OBJ_286 /* SerializationException.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_89 /* SerializationException.swift */; };
-		OBJ_287 /* SimpleDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_90 /* SimpleDictionary.swift */; };
-		OBJ_288 /* StreamReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_91 /* StreamReader.swift */; };
-		OBJ_289 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_92 /* String.swift */; };
-		OBJ_290 /* StringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_93 /* StringBuilder.swift */; };
-		OBJ_291 /* StringUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_94 /* StringUtil.swift */; };
-		OBJ_292 /* StructuralEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_95 /* StructuralEvaluator.swift */; };
-		OBJ_293 /* SwiftSoup.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_96 /* SwiftSoup.swift */; };
-		OBJ_294 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_97 /* Tag.swift */; };
-		OBJ_295 /* TextNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_98 /* TextNode.swift */; };
-		OBJ_296 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_99 /* Token.swift */; };
-		OBJ_297 /* TokenQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_100 /* TokenQueue.swift */; };
-		OBJ_298 /* Tokeniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_101 /* Tokeniser.swift */; };
-		OBJ_299 /* TokeniserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_102 /* TokeniserState.swift */; };
-		OBJ_300 /* TreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_103 /* TreeBuilder.swift */; };
-		OBJ_301 /* UnicodeScalar.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_104 /* UnicodeScalar.swift */; };
-		OBJ_302 /* Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_105 /* Validate.swift */; };
-		OBJ_303 /* Whitelist.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_106 /* Whitelist.swift */; };
-		OBJ_304 /* XmlDeclaration.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_107 /* XmlDeclaration.swift */; };
-		OBJ_305 /* XmlTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_108 /* XmlTreeBuilder.swift */; };
-		OBJ_311 /* AFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_114 /* AFError.swift */; };
-		OBJ_312 /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_115 /* Alamofire.swift */; };
-		OBJ_313 /* DispatchQueue+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_116 /* DispatchQueue+Alamofire.swift */; };
-		OBJ_314 /* MultipartFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_117 /* MultipartFormData.swift */; };
-		OBJ_315 /* NetworkReachabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_118 /* NetworkReachabilityManager.swift */; };
-		OBJ_316 /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_119 /* Notifications.swift */; };
-		OBJ_317 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_120 /* ParameterEncoding.swift */; };
-		OBJ_318 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_121 /* Request.swift */; };
-		OBJ_319 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_122 /* Response.swift */; };
-		OBJ_320 /* ResponseSerialization.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_123 /* ResponseSerialization.swift */; };
-		OBJ_321 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_124 /* Result.swift */; };
-		OBJ_322 /* ServerTrustPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_125 /* ServerTrustPolicy.swift */; };
-		OBJ_323 /* SessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_126 /* SessionDelegate.swift */; };
-		OBJ_324 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_127 /* SessionManager.swift */; };
-		OBJ_325 /* TaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_128 /* TaskDelegate.swift */; };
-		OBJ_326 /* Timeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_129 /* Timeline.swift */; };
-		OBJ_327 /* Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_130 /* Validation.swift */; };
-/* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		FACECD3D1F8D994100CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "SwiftyJSON::SwiftyJSON";
-			remoteInfo = SwiftyJSON;
-		};
-		FACECD3E1F8D994100CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "SwiftSoup::SwiftSoup";
-			remoteInfo = SwiftSoup;
-		};
-		FACECD3F1F8D994100CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "Alamofire::Alamofire";
-			remoteInfo = Alamofire;
-		};
-		FACECD401F8D994100CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::WebAPI";
-			remoteInfo = WebAPI;
-		};
-		FACECD411F8D994100CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "SwiftyJSON::SwiftyJSON";
-			remoteInfo = SwiftyJSON;
-		};
-		FACECD421F8D994100CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "SwiftSoup::SwiftSoup";
-			remoteInfo = SwiftSoup;
-		};
-		FACECD431F8D994100CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "Alamofire::Alamofire";
-			remoteInfo = Alamofire;
-		};
-		FACECD441F8D994200CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::WebAPI";
-			remoteInfo = WebAPI;
-		};
-		FACECD451F8D994200CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "SwiftyJSON::SwiftyJSON";
-			remoteInfo = SwiftyJSON;
-		};
-		FACECD461F8D994200CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "SwiftSoup::SwiftSoup";
-			remoteInfo = SwiftSoup;
-		};
-		FACECD471F8D994200CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "Alamofire::Alamofire";
-			remoteInfo = Alamofire;
-		};
-		FACECD481F8D994300CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::WebAPITests";
-			remoteInfo = WebAPITests;
-		};
-		FACECD491F8D994300CAD74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = OBJ_1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::GrabBook";
-			remoteInfo = GrabBook;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXFileReference section */
-		"Alamofire::Alamofire::Product" /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_10 /* AudioBooAPI-models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioBooAPI-models.swift"; sourceTree = "<group>"; };
-		OBJ_100 /* TokenQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenQueue.swift; sourceTree = "<group>"; };
-		OBJ_101 /* Tokeniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tokeniser.swift; sourceTree = "<group>"; };
-		OBJ_102 /* TokeniserState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokeniserState.swift; sourceTree = "<group>"; };
-		OBJ_103 /* TreeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeBuilder.swift; sourceTree = "<group>"; };
-		OBJ_104 /* UnicodeScalar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnicodeScalar.swift; sourceTree = "<group>"; };
-		OBJ_105 /* Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validate.swift; sourceTree = "<group>"; };
-		OBJ_106 /* Whitelist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whitelist.swift; sourceTree = "<group>"; };
-		OBJ_107 /* XmlDeclaration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XmlDeclaration.swift; sourceTree = "<group>"; };
-		OBJ_108 /* XmlTreeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XmlTreeBuilder.swift; sourceTree = "<group>"; };
-		OBJ_11 /* AudioBooAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBooAPI.swift; sourceTree = "<group>"; };
-		OBJ_110 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/.build/checkouts/SwiftyJSON.git-3043514560129222422/Package.swift"; sourceTree = "<group>"; };
-		OBJ_111 /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		OBJ_113 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/.build/checkouts/Alamofire--7888903134044690114/Package.swift"; sourceTree = "<group>"; };
-		OBJ_114 /* AFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AFError.swift; sourceTree = "<group>"; };
-		OBJ_115 /* Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
-		OBJ_116 /* DispatchQueue+Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Alamofire.swift"; sourceTree = "<group>"; };
-		OBJ_117 /* MultipartFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartFormData.swift; sourceTree = "<group>"; };
-		OBJ_118 /* NetworkReachabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityManager.swift; sourceTree = "<group>"; };
-		OBJ_119 /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
-		OBJ_12 /* AudioKnigiAPI-models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioKnigiAPI-models.swift"; sourceTree = "<group>"; };
-		OBJ_120 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
-		OBJ_121 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		OBJ_122 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		OBJ_123 /* ResponseSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseSerialization.swift; sourceTree = "<group>"; };
-		OBJ_124 /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		OBJ_125 /* ServerTrustPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerTrustPolicy.swift; sourceTree = "<group>"; };
-		OBJ_126 /* SessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelegate.swift; sourceTree = "<group>"; };
-		OBJ_127 /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
-		OBJ_128 /* TaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDelegate.swift; sourceTree = "<group>"; };
-		OBJ_129 /* Timeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeline.swift; sourceTree = "<group>"; };
-		OBJ_13 /* AudioKnigiAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKnigiAPI.swift; sourceTree = "<group>"; };
-		OBJ_130 /* Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validation.swift; sourceTree = "<group>"; };
-		OBJ_14 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		OBJ_15 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
-		OBJ_16 /* EtvnetAPI-models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EtvnetAPI-models.swift"; sourceTree = "<group>"; };
-		OBJ_17 /* EtvnetAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtvnetAPI.swift; sourceTree = "<group>"; };
-		OBJ_18 /* Files.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Files.swift; sourceTree = "<group>"; };
-		OBJ_19 /* GidOnline2API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GidOnline2API.swift; sourceTree = "<group>"; };
-		OBJ_20 /* GidOnlineAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GidOnlineAPI.swift; sourceTree = "<group>"; };
-		OBJ_21 /* GoogleDocsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDocsAPI.swift; sourceTree = "<group>"; };
-		OBJ_22 /* HttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpService.swift; sourceTree = "<group>"; };
-		OBJ_23 /* Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
-		OBJ_24 /* KinoKongAPI-models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KinoKongAPI-models.swift"; sourceTree = "<group>"; };
-		OBJ_25 /* KinoKongAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinoKongAPI.swift; sourceTree = "<group>"; };
-		OBJ_26 /* MuzArbuzAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuzArbuzAPI.swift; sourceTree = "<group>"; };
-		OBJ_27 /* MyHitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHitAPI.swift; sourceTree = "<group>"; };
-		OBJ_28 /* NameClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameClassifier.swift; sourceTree = "<group>"; };
-		OBJ_29 /* PlainConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainConfig.swift; sourceTree = "<group>"; };
-		OBJ_30 /* Prettifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prettifier.swift; sourceTree = "<group>"; };
-		OBJ_31 /* String-extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String-extension.swift"; sourceTree = "<group>"; };
-		OBJ_33 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		OBJ_36 /* AudioBooAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBooAPITests.swift; sourceTree = "<group>"; };
-		OBJ_37 /* AudioKnigiAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioKnigiAPITests.swift; sourceTree = "<group>"; };
-		OBJ_38 /* AuthAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPITests.swift; sourceTree = "<group>"; };
-		OBJ_39 /* EtvnetAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EtvnetAPITests.swift; sourceTree = "<group>"; };
-		OBJ_40 /* GidOnlineAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GidOnlineAPITests.swift; sourceTree = "<group>"; };
-		OBJ_41 /* GoogleDocsAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDocsAPITests.swift; sourceTree = "<group>"; };
-		OBJ_42 /* HttpServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpServiceTests.swift; sourceTree = "<group>"; };
-		OBJ_43 /* KinoKongAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinoKongAPITests.swift; sourceTree = "<group>"; };
-		OBJ_44 /* MuzArbuzAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuzArbuzAPITests.swift; sourceTree = "<group>"; };
-		OBJ_45 /* MyHitAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHitAPITests.swift; sourceTree = "<group>"; };
-		OBJ_46 /* PlainConfigTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainConfigTests.swift; sourceTree = "<group>"; };
-		OBJ_47 /* Pods */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pods; sourceTree = SOURCE_ROOT; };
-		OBJ_48 /* WebAPI.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; path = WebAPI.xcworkspace; sourceTree = SOURCE_ROOT; };
-		OBJ_49 /* Formula */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Formula; sourceTree = SOURCE_ROOT; };
-		OBJ_52 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; name = Package.swift; path = "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/.build/checkouts/SwiftSoup-3625286833408143897/Package.swift"; sourceTree = "<group>"; };
-		OBJ_53 /* ArrayExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayExt.swift; sourceTree = "<group>"; };
-		OBJ_54 /* Attribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attribute.swift; sourceTree = "<group>"; };
-		OBJ_55 /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
-		OBJ_56 /* BooleanAttribute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooleanAttribute.swift; sourceTree = "<group>"; };
-		OBJ_57 /* CharacterExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterExt.swift; sourceTree = "<group>"; };
-		OBJ_58 /* CharacterReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterReader.swift; sourceTree = "<group>"; };
-		OBJ_59 /* Cleaner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cleaner.swift; sourceTree = "<group>"; };
-		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
-		OBJ_60 /* Collector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collector.swift; sourceTree = "<group>"; };
-		OBJ_61 /* CombiningEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombiningEvaluator.swift; sourceTree = "<group>"; };
-		OBJ_62 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		OBJ_63 /* Connection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connection.swift; sourceTree = "<group>"; };
-		OBJ_64 /* DataNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataNode.swift; sourceTree = "<group>"; };
-		OBJ_65 /* DataUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtil.swift; sourceTree = "<group>"; };
-		OBJ_66 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		OBJ_67 /* DocumentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentType.swift; sourceTree = "<group>"; };
-		OBJ_68 /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
-		OBJ_69 /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
-		OBJ_70 /* Entities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Entities.swift; sourceTree = "<group>"; };
-		OBJ_71 /* Evaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
-		OBJ_72 /* Exception.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exception.swift; sourceTree = "<group>"; };
-		OBJ_73 /* FormElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormElement.swift; sourceTree = "<group>"; };
-		OBJ_74 /* HtmlTreeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlTreeBuilder.swift; sourceTree = "<group>"; };
-		OBJ_75 /* HtmlTreeBuilderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlTreeBuilderState.swift; sourceTree = "<group>"; };
-		OBJ_76 /* HttpStatusException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpStatusException.swift; sourceTree = "<group>"; };
-		OBJ_77 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		OBJ_78 /* NodeTraversor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTraversor.swift; sourceTree = "<group>"; };
-		OBJ_79 /* NodeVisitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeVisitor.swift; sourceTree = "<group>"; };
-		OBJ_80 /* OrderedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedDictionary.swift; sourceTree = "<group>"; };
-		OBJ_81 /* OrderedSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderedSet.swift; sourceTree = "<group>"; };
-		OBJ_82 /* ParseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseError.swift; sourceTree = "<group>"; };
-		OBJ_83 /* ParseErrorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseErrorList.swift; sourceTree = "<group>"; };
-		OBJ_84 /* ParseSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseSettings.swift; sourceTree = "<group>"; };
-		OBJ_85 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
-		OBJ_86 /* Pattern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pattern.swift; sourceTree = "<group>"; };
-		OBJ_87 /* QueryParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueryParser.swift; sourceTree = "<group>"; };
-		OBJ_88 /* Selector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selector.swift; sourceTree = "<group>"; };
-		OBJ_89 /* SerializationException.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerializationException.swift; sourceTree = "<group>"; };
-		OBJ_9 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
-		OBJ_90 /* SimpleDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleDictionary.swift; sourceTree = "<group>"; };
-		OBJ_91 /* StreamReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamReader.swift; sourceTree = "<group>"; };
-		OBJ_92 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		OBJ_93 /* StringBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringBuilder.swift; sourceTree = "<group>"; };
-		OBJ_94 /* StringUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringUtil.swift; sourceTree = "<group>"; };
-		OBJ_95 /* StructuralEvaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructuralEvaluator.swift; sourceTree = "<group>"; };
-		OBJ_96 /* SwiftSoup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftSoup.swift; sourceTree = "<group>"; };
-		OBJ_97 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
-		OBJ_98 /* TextNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextNode.swift; sourceTree = "<group>"; };
-		OBJ_99 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		"SwiftSoup::SwiftSoup::Product" /* SwiftSoup.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftSoup.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"WebAPI::GrabBook::Product" /* GrabBook */ = {isa = PBXFileReference; lastKnownFileType = text; path = GrabBook; sourceTree = BUILT_PRODUCTS_DIR; };
-		"WebAPI::WebAPI::Product" /* WebAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = WebAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		"WebAPI::WebAPITests::Product" /* WebAPITests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = WebAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-/* End PBXFileReference section */
-
-/* Begin PBXFrameworksBuildPhase section */
-		OBJ_178 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_179 /* WebAPI.framework in Frameworks */,
-				OBJ_180 /* SwiftyJSON.framework in Frameworks */,
-				OBJ_181 /* SwiftSoup.framework in Frameworks */,
-				OBJ_182 /* Alamofire.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_197 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_198 /* WebAPI.framework in Frameworks */,
-				OBJ_199 /* SwiftyJSON.framework in Frameworks */,
-				OBJ_200 /* SwiftSoup.framework in Frameworks */,
-				OBJ_201 /* Alamofire.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_233 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_234 /* SwiftyJSON.framework in Frameworks */,
-				OBJ_235 /* SwiftSoup.framework in Frameworks */,
-				OBJ_236 /* Alamofire.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_245 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_306 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_328 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 0;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXFrameworksBuildPhase section */
-
-/* Begin PBXGroup section */
-		OBJ_109 /* SwiftyJSON 3.1.4 */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_110 /* Package.swift */,
-				OBJ_111 /* SwiftyJSON.swift */,
-			);
-			name = "SwiftyJSON 3.1.4";
-			path = ".build/checkouts/SwiftyJSON.git-3043514560129222422/Source";
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_112 /* Alamofire 4.5.1 */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_113 /* Package.swift */,
-				OBJ_114 /* AFError.swift */,
-				OBJ_115 /* Alamofire.swift */,
-				OBJ_116 /* DispatchQueue+Alamofire.swift */,
-				OBJ_117 /* MultipartFormData.swift */,
-				OBJ_118 /* NetworkReachabilityManager.swift */,
-				OBJ_119 /* Notifications.swift */,
-				OBJ_120 /* ParameterEncoding.swift */,
-				OBJ_121 /* Request.swift */,
-				OBJ_122 /* Response.swift */,
-				OBJ_123 /* ResponseSerialization.swift */,
-				OBJ_124 /* Result.swift */,
-				OBJ_125 /* ServerTrustPolicy.swift */,
-				OBJ_126 /* SessionDelegate.swift */,
-				OBJ_127 /* SessionManager.swift */,
-				OBJ_128 /* TaskDelegate.swift */,
-				OBJ_129 /* Timeline.swift */,
-				OBJ_130 /* Validation.swift */,
-			);
-			name = "Alamofire 4.5.1";
-			path = ".build/checkouts/Alamofire--7888903134044690114/Source";
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_131 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				"WebAPI::WebAPITests::Product" /* WebAPITests.xctest */,
-				"WebAPI::GrabBook::Product" /* GrabBook */,
-				"WebAPI::WebAPI::Product" /* WebAPI.framework */,
-				"SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */,
-				"SwiftSoup::SwiftSoup::Product" /* SwiftSoup.framework */,
-				"Alamofire::Alamofire::Product" /* Alamofire.framework */,
-			);
-			name = Products;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		OBJ_32 /* GrabBook */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_33 /* main.swift */,
-			);
-			name = GrabBook;
-			path = Sources/GrabBook;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_34 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_35 /* WebAPITests */,
-			);
-			path = Tests;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_35 /* WebAPITests */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_36 /* AudioBooAPITests.swift */,
-				OBJ_37 /* AudioKnigiAPITests.swift */,
-				OBJ_38 /* AuthAPITests.swift */,
-				OBJ_39 /* EtvnetAPITests.swift */,
-				OBJ_40 /* GidOnlineAPITests.swift */,
-				OBJ_41 /* GoogleDocsAPITests.swift */,
-				OBJ_42 /* HttpServiceTests.swift */,
-				OBJ_43 /* KinoKongAPITests.swift */,
-				OBJ_44 /* MuzArbuzAPITests.swift */,
-				OBJ_45 /* MyHitAPITests.swift */,
-				OBJ_46 /* PlainConfigTests.swift */,
-			);
-			path = WebAPITests;
-			sourceTree = "<group>";
-		};
-		OBJ_5 /*  */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_6 /* Package.swift */,
-				OBJ_7 /* Sources */,
-				OBJ_34 /* Tests */,
-				OBJ_47 /* Pods */,
-				OBJ_48 /* WebAPI.xcworkspace */,
-				OBJ_49 /* Formula */,
-				OBJ_50 /* Dependencies */,
-				OBJ_131 /* Products */,
-			);
-			name = "";
-			sourceTree = "<group>";
-		};
-		OBJ_50 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_51 /* SwiftSoup 1.5.2 */,
-				OBJ_109 /* SwiftyJSON 3.1.4 */,
-				OBJ_112 /* Alamofire 4.5.1 */,
-			);
-			name = Dependencies;
-			sourceTree = "<group>";
-		};
-		OBJ_51 /* SwiftSoup 1.5.2 */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_52 /* Package.swift */,
-				OBJ_53 /* ArrayExt.swift */,
-				OBJ_54 /* Attribute.swift */,
-				OBJ_55 /* Attributes.swift */,
-				OBJ_56 /* BooleanAttribute.swift */,
-				OBJ_57 /* CharacterExt.swift */,
-				OBJ_58 /* CharacterReader.swift */,
-				OBJ_59 /* Cleaner.swift */,
-				OBJ_60 /* Collector.swift */,
-				OBJ_61 /* CombiningEvaluator.swift */,
-				OBJ_62 /* Comment.swift */,
-				OBJ_63 /* Connection.swift */,
-				OBJ_64 /* DataNode.swift */,
-				OBJ_65 /* DataUtil.swift */,
-				OBJ_66 /* Document.swift */,
-				OBJ_67 /* DocumentType.swift */,
-				OBJ_68 /* Element.swift */,
-				OBJ_69 /* Elements.swift */,
-				OBJ_70 /* Entities.swift */,
-				OBJ_71 /* Evaluator.swift */,
-				OBJ_72 /* Exception.swift */,
-				OBJ_73 /* FormElement.swift */,
-				OBJ_74 /* HtmlTreeBuilder.swift */,
-				OBJ_75 /* HtmlTreeBuilderState.swift */,
-				OBJ_76 /* HttpStatusException.swift */,
-				OBJ_77 /* Node.swift */,
-				OBJ_78 /* NodeTraversor.swift */,
-				OBJ_79 /* NodeVisitor.swift */,
-				OBJ_80 /* OrderedDictionary.swift */,
-				OBJ_81 /* OrderedSet.swift */,
-				OBJ_82 /* ParseError.swift */,
-				OBJ_83 /* ParseErrorList.swift */,
-				OBJ_84 /* ParseSettings.swift */,
-				OBJ_85 /* Parser.swift */,
-				OBJ_86 /* Pattern.swift */,
-				OBJ_87 /* QueryParser.swift */,
-				OBJ_88 /* Selector.swift */,
-				OBJ_89 /* SerializationException.swift */,
-				OBJ_90 /* SimpleDictionary.swift */,
-				OBJ_91 /* StreamReader.swift */,
-				OBJ_92 /* String.swift */,
-				OBJ_93 /* StringBuilder.swift */,
-				OBJ_94 /* StringUtil.swift */,
-				OBJ_95 /* StructuralEvaluator.swift */,
-				OBJ_96 /* SwiftSoup.swift */,
-				OBJ_97 /* Tag.swift */,
-				OBJ_98 /* TextNode.swift */,
-				OBJ_99 /* Token.swift */,
-				OBJ_100 /* TokenQueue.swift */,
-				OBJ_101 /* Tokeniser.swift */,
-				OBJ_102 /* TokeniserState.swift */,
-				OBJ_103 /* TreeBuilder.swift */,
-				OBJ_104 /* UnicodeScalar.swift */,
-				OBJ_105 /* Validate.swift */,
-				OBJ_106 /* Whitelist.swift */,
-				OBJ_107 /* XmlDeclaration.swift */,
-				OBJ_108 /* XmlTreeBuilder.swift */,
-			);
-			name = "SwiftSoup 1.5.2";
-			path = ".build/checkouts/SwiftSoup-3625286833408143897/Sources";
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_7 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_8 /* WebAPI */,
-				OBJ_32 /* GrabBook */,
-			);
-			name = Sources;
-			sourceTree = SOURCE_ROOT;
-		};
-		OBJ_8 /* WebAPI */ = {
-			isa = PBXGroup;
-			children = (
-				OBJ_9 /* ApiService.swift */,
-				OBJ_10 /* AudioBooAPI-models.swift */,
-				OBJ_11 /* AudioBooAPI.swift */,
-				OBJ_12 /* AudioKnigiAPI-models.swift */,
-				OBJ_13 /* AudioKnigiAPI.swift */,
-				OBJ_14 /* AuthService.swift */,
-				OBJ_15 /* Config.swift */,
-				OBJ_16 /* EtvnetAPI-models.swift */,
-				OBJ_17 /* EtvnetAPI.swift */,
-				OBJ_18 /* Files.swift */,
-				OBJ_19 /* GidOnline2API.swift */,
-				OBJ_20 /* GidOnlineAPI.swift */,
-				OBJ_21 /* GoogleDocsAPI.swift */,
-				OBJ_22 /* HttpService.swift */,
-				OBJ_23 /* Items.swift */,
-				OBJ_24 /* KinoKongAPI-models.swift */,
-				OBJ_25 /* KinoKongAPI.swift */,
-				OBJ_26 /* MuzArbuzAPI.swift */,
-				OBJ_27 /* MyHitAPI.swift */,
-				OBJ_28 /* NameClassifier.swift */,
-				OBJ_29 /* PlainConfig.swift */,
-				OBJ_30 /* Prettifier.swift */,
-				OBJ_31 /* String-extension.swift */,
-			);
-			name = WebAPI;
-			path = Sources/WebAPI;
-			sourceTree = SOURCE_ROOT;
-		};
-/* End PBXGroup section */
-
-/* Begin PBXNativeTarget section */
-		"Alamofire::Alamofire" /* Alamofire */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_307 /* Build configuration list for PBXNativeTarget "Alamofire" */;
-			buildPhases = (
-				OBJ_310 /* Sources */,
-				OBJ_328 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Alamofire;
-			productName = Alamofire;
-			productReference = "Alamofire::Alamofire::Product" /* Alamofire.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		"Alamofire::SwiftPMPackageDescription" /* AlamofirePackageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_157 /* Build configuration list for PBXNativeTarget "AlamofirePackageDescription" */;
-			buildPhases = (
-				OBJ_160 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = AlamofirePackageDescription;
-			productName = AlamofirePackageDescription;
-			productType = "com.apple.product-type.framework";
-		};
-		"SwiftSoup::SwiftPMPackageDescription" /* SwiftSoupPackageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_145 /* Build configuration list for PBXNativeTarget "SwiftSoupPackageDescription" */;
-			buildPhases = (
-				OBJ_148 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SwiftSoupPackageDescription;
-			productName = SwiftSoupPackageDescription;
-			productType = "com.apple.product-type.framework";
-		};
-		"SwiftSoup::SwiftSoup" /* SwiftSoup */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_246 /* Build configuration list for PBXNativeTarget "SwiftSoup" */;
-			buildPhases = (
-				OBJ_249 /* Sources */,
-				OBJ_306 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SwiftSoup;
-			productName = SwiftSoup;
-			productReference = "SwiftSoup::SwiftSoup::Product" /* SwiftSoup.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		"SwiftyJSON::SwiftPMPackageDescription" /* SwiftyJSONPackageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_151 /* Build configuration list for PBXNativeTarget "SwiftyJSONPackageDescription" */;
-			buildPhases = (
-				OBJ_154 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SwiftyJSONPackageDescription;
-			productName = SwiftyJSONPackageDescription;
-			productType = "com.apple.product-type.framework";
-		};
-		"SwiftyJSON::SwiftyJSON" /* SwiftyJSON */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_240 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */;
-			buildPhases = (
-				OBJ_243 /* Sources */,
-				OBJ_245 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SwiftyJSON;
-			productName = SwiftyJSON;
-			productReference = "SwiftyJSON::SwiftyJSON::Product" /* SwiftyJSON.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		"WebAPI::GrabBook" /* GrabBook */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_192 /* Build configuration list for PBXNativeTarget "GrabBook" */;
-			buildPhases = (
-				OBJ_195 /* Sources */,
-				OBJ_197 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				OBJ_202 /* PBXTargetDependency */,
-				OBJ_203 /* PBXTargetDependency */,
-				OBJ_204 /* PBXTargetDependency */,
-				OBJ_205 /* PBXTargetDependency */,
-			);
-			name = GrabBook;
-			productName = GrabBook;
-			productReference = "WebAPI::GrabBook::Product" /* GrabBook */;
-			productType = "com.apple.product-type.tool";
-		};
-		"WebAPI::SwiftPMPackageDescription" /* WebAPIPackageDescription */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_139 /* Build configuration list for PBXNativeTarget "WebAPIPackageDescription" */;
-			buildPhases = (
-				OBJ_142 /* Sources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = WebAPIPackageDescription;
-			productName = WebAPIPackageDescription;
-			productType = "com.apple.product-type.framework";
-		};
-		"WebAPI::WebAPI" /* WebAPI */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_206 /* Build configuration list for PBXNativeTarget "WebAPI" */;
-			buildPhases = (
-				OBJ_209 /* Sources */,
-				OBJ_233 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				OBJ_237 /* PBXTargetDependency */,
-				OBJ_238 /* PBXTargetDependency */,
-				OBJ_239 /* PBXTargetDependency */,
-			);
-			name = WebAPI;
-			productName = WebAPI;
-			productReference = "WebAPI::WebAPI::Product" /* WebAPI.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		"WebAPI::WebAPITests" /* WebAPITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_163 /* Build configuration list for PBXNativeTarget "WebAPITests" */;
-			buildPhases = (
-				OBJ_166 /* Sources */,
-				OBJ_178 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				OBJ_183 /* PBXTargetDependency */,
-				OBJ_185 /* PBXTargetDependency */,
-				OBJ_187 /* PBXTargetDependency */,
-				OBJ_189 /* PBXTargetDependency */,
-			);
-			name = WebAPITests;
-			productName = WebAPITests;
-			productReference = "WebAPI::WebAPITests::Product" /* WebAPITests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-/* End PBXNativeTarget section */
-
-/* Begin PBXProject section */
-		OBJ_1 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastUpgradeCheck = 9999;
-			};
-			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "WebAPI" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-			);
-			mainGroup = OBJ_5 /*  */;
-			productRefGroup = OBJ_131 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				"WebAPI::SwiftPMPackageDescription" /* WebAPIPackageDescription */,
-				"SwiftSoup::SwiftPMPackageDescription" /* SwiftSoupPackageDescription */,
-				"SwiftyJSON::SwiftPMPackageDescription" /* SwiftyJSONPackageDescription */,
-				"Alamofire::SwiftPMPackageDescription" /* AlamofirePackageDescription */,
-				"WebAPI::WebAPITests" /* WebAPITests */,
-				"WebAPI::GrabBook" /* GrabBook */,
-				"WebAPI::WebAPI" /* WebAPI */,
-				"SwiftyJSON::SwiftyJSON" /* SwiftyJSON */,
-				"SwiftSoup::SwiftSoup" /* SwiftSoup */,
-				"Alamofire::Alamofire" /* Alamofire */,
-				"WebAPI::WebAPIPackageTests::ProductTarget" /* WebAPIPackageTests */,
-				"WebAPI::grabbook::ProductTarget" /* grabbook */,
-			);
-		};
-/* End PBXProject section */
-
-/* Begin PBXSourcesBuildPhase section */
-		OBJ_142 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_143 /* Package.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_148 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_149 /* Package.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_154 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_155 /* Package.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_160 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_161 /* Package.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_166 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_167 /* AudioBooAPITests.swift in Sources */,
-				OBJ_168 /* AudioKnigiAPITests.swift in Sources */,
-				OBJ_169 /* AuthAPITests.swift in Sources */,
-				OBJ_170 /* EtvnetAPITests.swift in Sources */,
-				OBJ_171 /* GidOnlineAPITests.swift in Sources */,
-				OBJ_172 /* GoogleDocsAPITests.swift in Sources */,
-				OBJ_173 /* HttpServiceTests.swift in Sources */,
-				OBJ_174 /* KinoKongAPITests.swift in Sources */,
-				OBJ_175 /* MuzArbuzAPITests.swift in Sources */,
-				OBJ_176 /* MyHitAPITests.swift in Sources */,
-				OBJ_177 /* PlainConfigTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_195 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_196 /* main.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_209 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_210 /* ApiService.swift in Sources */,
-				OBJ_211 /* AudioBooAPI-models.swift in Sources */,
-				OBJ_212 /* AudioBooAPI.swift in Sources */,
-				OBJ_213 /* AudioKnigiAPI-models.swift in Sources */,
-				OBJ_214 /* AudioKnigiAPI.swift in Sources */,
-				OBJ_215 /* AuthService.swift in Sources */,
-				OBJ_216 /* Config.swift in Sources */,
-				OBJ_217 /* EtvnetAPI-models.swift in Sources */,
-				OBJ_218 /* EtvnetAPI.swift in Sources */,
-				OBJ_219 /* Files.swift in Sources */,
-				OBJ_220 /* GidOnline2API.swift in Sources */,
-				OBJ_221 /* GidOnlineAPI.swift in Sources */,
-				OBJ_222 /* GoogleDocsAPI.swift in Sources */,
-				OBJ_223 /* HttpService.swift in Sources */,
-				OBJ_224 /* Items.swift in Sources */,
-				OBJ_225 /* KinoKongAPI-models.swift in Sources */,
-				OBJ_226 /* KinoKongAPI.swift in Sources */,
-				OBJ_227 /* MuzArbuzAPI.swift in Sources */,
-				OBJ_228 /* MyHitAPI.swift in Sources */,
-				OBJ_229 /* NameClassifier.swift in Sources */,
-				OBJ_230 /* PlainConfig.swift in Sources */,
-				OBJ_231 /* Prettifier.swift in Sources */,
-				OBJ_232 /* String-extension.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_243 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_244 /* SwiftyJSON.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_249 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_250 /* ArrayExt.swift in Sources */,
-				OBJ_251 /* Attribute.swift in Sources */,
-				OBJ_252 /* Attributes.swift in Sources */,
-				OBJ_253 /* BooleanAttribute.swift in Sources */,
-				OBJ_254 /* CharacterExt.swift in Sources */,
-				OBJ_255 /* CharacterReader.swift in Sources */,
-				OBJ_256 /* Cleaner.swift in Sources */,
-				OBJ_257 /* Collector.swift in Sources */,
-				OBJ_258 /* CombiningEvaluator.swift in Sources */,
-				OBJ_259 /* Comment.swift in Sources */,
-				OBJ_260 /* Connection.swift in Sources */,
-				OBJ_261 /* DataNode.swift in Sources */,
-				OBJ_262 /* DataUtil.swift in Sources */,
-				OBJ_263 /* Document.swift in Sources */,
-				OBJ_264 /* DocumentType.swift in Sources */,
-				OBJ_265 /* Element.swift in Sources */,
-				OBJ_266 /* Elements.swift in Sources */,
-				OBJ_267 /* Entities.swift in Sources */,
-				OBJ_268 /* Evaluator.swift in Sources */,
-				OBJ_269 /* Exception.swift in Sources */,
-				OBJ_270 /* FormElement.swift in Sources */,
-				OBJ_271 /* HtmlTreeBuilder.swift in Sources */,
-				OBJ_272 /* HtmlTreeBuilderState.swift in Sources */,
-				OBJ_273 /* HttpStatusException.swift in Sources */,
-				OBJ_274 /* Node.swift in Sources */,
-				OBJ_275 /* NodeTraversor.swift in Sources */,
-				OBJ_276 /* NodeVisitor.swift in Sources */,
-				OBJ_277 /* OrderedDictionary.swift in Sources */,
-				OBJ_278 /* OrderedSet.swift in Sources */,
-				OBJ_279 /* ParseError.swift in Sources */,
-				OBJ_280 /* ParseErrorList.swift in Sources */,
-				OBJ_281 /* ParseSettings.swift in Sources */,
-				OBJ_282 /* Parser.swift in Sources */,
-				OBJ_283 /* Pattern.swift in Sources */,
-				OBJ_284 /* QueryParser.swift in Sources */,
-				OBJ_285 /* Selector.swift in Sources */,
-				OBJ_286 /* SerializationException.swift in Sources */,
-				OBJ_287 /* SimpleDictionary.swift in Sources */,
-				OBJ_288 /* StreamReader.swift in Sources */,
-				OBJ_289 /* String.swift in Sources */,
-				OBJ_290 /* StringBuilder.swift in Sources */,
-				OBJ_291 /* StringUtil.swift in Sources */,
-				OBJ_292 /* StructuralEvaluator.swift in Sources */,
-				OBJ_293 /* SwiftSoup.swift in Sources */,
-				OBJ_294 /* Tag.swift in Sources */,
-				OBJ_295 /* TextNode.swift in Sources */,
-				OBJ_296 /* Token.swift in Sources */,
-				OBJ_297 /* TokenQueue.swift in Sources */,
-				OBJ_298 /* Tokeniser.swift in Sources */,
-				OBJ_299 /* TokeniserState.swift in Sources */,
-				OBJ_300 /* TreeBuilder.swift in Sources */,
-				OBJ_301 /* UnicodeScalar.swift in Sources */,
-				OBJ_302 /* Validate.swift in Sources */,
-				OBJ_303 /* Whitelist.swift in Sources */,
-				OBJ_304 /* XmlDeclaration.swift in Sources */,
-				OBJ_305 /* XmlTreeBuilder.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		OBJ_310 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 0;
-			files = (
-				OBJ_311 /* AFError.swift in Sources */,
-				OBJ_312 /* Alamofire.swift in Sources */,
-				OBJ_313 /* DispatchQueue+Alamofire.swift in Sources */,
-				OBJ_314 /* MultipartFormData.swift in Sources */,
-				OBJ_315 /* NetworkReachabilityManager.swift in Sources */,
-				OBJ_316 /* Notifications.swift in Sources */,
-				OBJ_317 /* ParameterEncoding.swift in Sources */,
-				OBJ_318 /* Request.swift in Sources */,
-				OBJ_319 /* Response.swift in Sources */,
-				OBJ_320 /* ResponseSerialization.swift in Sources */,
-				OBJ_321 /* Result.swift in Sources */,
-				OBJ_322 /* ServerTrustPolicy.swift in Sources */,
-				OBJ_323 /* SessionDelegate.swift in Sources */,
-				OBJ_324 /* SessionManager.swift in Sources */,
-				OBJ_325 /* TaskDelegate.swift in Sources */,
-				OBJ_326 /* Timeline.swift in Sources */,
-				OBJ_327 /* Validation.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		OBJ_183 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "WebAPI::WebAPI" /* WebAPI */;
-			targetProxy = FACECD401F8D994100CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_185 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "SwiftyJSON::SwiftyJSON" /* SwiftyJSON */;
-			targetProxy = FACECD411F8D994100CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_187 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "SwiftSoup::SwiftSoup" /* SwiftSoup */;
-			targetProxy = FACECD421F8D994100CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_189 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "Alamofire::Alamofire" /* Alamofire */;
-			targetProxy = FACECD431F8D994100CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_202 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "WebAPI::WebAPI" /* WebAPI */;
-			targetProxy = FACECD441F8D994200CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_203 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "SwiftyJSON::SwiftyJSON" /* SwiftyJSON */;
-			targetProxy = FACECD451F8D994200CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_204 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "SwiftSoup::SwiftSoup" /* SwiftSoup */;
-			targetProxy = FACECD461F8D994200CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_205 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "Alamofire::Alamofire" /* Alamofire */;
-			targetProxy = FACECD471F8D994200CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_237 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "SwiftyJSON::SwiftyJSON" /* SwiftyJSON */;
-			targetProxy = FACECD3D1F8D994100CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_238 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "SwiftSoup::SwiftSoup" /* SwiftSoup */;
-			targetProxy = FACECD3E1F8D994100CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_239 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "Alamofire::Alamofire" /* Alamofire */;
-			targetProxy = FACECD3F1F8D994100CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_333 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "WebAPI::WebAPITests" /* WebAPITests */;
-			targetProxy = FACECD481F8D994300CAD74A /* PBXContainerItemProxy */;
-		};
-		OBJ_338 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = "WebAPI::GrabBook" /* GrabBook */;
-			targetProxy = FACECD491F8D994300CAD74A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin XCBuildConfiguration section */
-		OBJ_140 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		OBJ_141 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		OBJ_146 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Debug;
-		};
-		OBJ_147 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 4 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 4.0;
-			};
-			name = Release;
-		};
-		OBJ_152 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 3 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		OBJ_153 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 3 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		OBJ_158 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 3 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		OBJ_159 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				LD = /usr/bin/true;
-				OTHER_SWIFT_FLAGS = "-swift-version 3 -I /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3 -target x86_64-apple-macosx10.10 -sdk /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		OBJ_164 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/WebAPITests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = WebAPITests;
-			};
-			name = Debug;
-		};
-		OBJ_165 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/WebAPITests_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = WebAPITests;
-			};
-			name = Release;
-		};
-		OBJ_193 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/GrabBook_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = GrabBook;
-			};
-			name = Debug;
-		};
-		OBJ_194 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/GrabBook_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
-				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = GrabBook;
-			};
-			name = Release;
-		};
-		OBJ_207 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/WebAPI_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = WebAPI;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = WebAPI;
-			};
-			name = Debug;
-		};
-		OBJ_208 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/WebAPI_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = WebAPI;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = WebAPI;
-			};
-			name = Release;
-		};
-		OBJ_241 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/SwiftyJSON_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = SwiftyJSON;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGET_NAME = SwiftyJSON;
-			};
-			name = Debug;
-		};
-		OBJ_242 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/SwiftyJSON_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = SwiftyJSON;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGET_NAME = SwiftyJSON;
-			};
-			name = Release;
-		};
-		OBJ_247 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/SwiftSoup_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = SwiftSoup;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = SwiftSoup;
-			};
-			name = Debug;
-		};
-		OBJ_248 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/SwiftSoup_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = SwiftSoup;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGET_NAME = SwiftSoup;
-			};
-			name = Release;
-		};
-		OBJ_3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				ENABLE_NS_ASSERTIONS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_SWIFT_FLAGS = "-DXcode";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				USE_HEADERMAP = NO;
-			};
-			name = Debug;
-		};
-		OBJ_308 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/Alamofire_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = Alamofire;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGET_NAME = Alamofire;
-			};
-			name = Debug;
-		};
-		OBJ_309 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ENABLE_TESTABILITY = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
-				);
-				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = WebAPI.xcodeproj/Alamofire_Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
-				OTHER_LDFLAGS = "$(inherited)";
-				OTHER_SWIFT_FLAGS = "$(inherited)";
-				PRODUCT_BUNDLE_IDENTIFIER = Alamofire;
-				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-				TARGET_NAME = Alamofire;
-			};
-			name = Release;
-		};
-		OBJ_331 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		OBJ_332 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Release;
-		};
-		OBJ_336 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Debug;
-		};
-		OBJ_337 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-			};
-			name = Release;
-		};
-		OBJ_4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_ARC = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_OPTIMIZATION_LEVEL = s;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_SWIFT_FLAGS = "-DXcode";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SUPPORTED_PLATFORMS = "macosx iphoneos iphonesimulator appletvos appletvsimulator watchos watchsimulator";
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = SWIFT_PACKAGE;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				USE_HEADERMAP = NO;
-			};
-			name = Release;
-		};
-/* End XCBuildConfiguration section */
-
-/* Begin XCConfigurationList section */
-		OBJ_139 /* Build configuration list for PBXNativeTarget "WebAPIPackageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_140 /* Debug */,
-				OBJ_141 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_145 /* Build configuration list for PBXNativeTarget "SwiftSoupPackageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_146 /* Debug */,
-				OBJ_147 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_151 /* Build configuration list for PBXNativeTarget "SwiftyJSONPackageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_152 /* Debug */,
-				OBJ_153 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_157 /* Build configuration list for PBXNativeTarget "AlamofirePackageDescription" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_158 /* Debug */,
-				OBJ_159 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_163 /* Build configuration list for PBXNativeTarget "WebAPITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_164 /* Debug */,
-				OBJ_165 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_192 /* Build configuration list for PBXNativeTarget "GrabBook" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_193 /* Debug */,
-				OBJ_194 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_2 /* Build configuration list for PBXProject "WebAPI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_3 /* Debug */,
-				OBJ_4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_206 /* Build configuration list for PBXNativeTarget "WebAPI" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_207 /* Debug */,
-				OBJ_208 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_240 /* Build configuration list for PBXNativeTarget "SwiftyJSON" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_241 /* Debug */,
-				OBJ_242 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_246 /* Build configuration list for PBXNativeTarget "SwiftSoup" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_247 /* Debug */,
-				OBJ_248 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_307 /* Build configuration list for PBXNativeTarget "Alamofire" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_308 /* Debug */,
-				OBJ_309 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_330 /* Build configuration list for PBXAggregateTarget "WebAPIPackageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_331 /* Debug */,
-				OBJ_332 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-		OBJ_335 /* Build configuration list for PBXAggregateTarget "grabbook" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				OBJ_336 /* Debug */,
-				OBJ_337 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Debug;
-		};
-/* End XCConfigurationList section */
-	};
-	rootObject = OBJ_1 /* Project object */;
+   archiveVersion = "1";
+   objectVersion = "46";
+   objects = {
+      "Alamofire::Alamofire" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_307";
+         buildPhases = (
+            "OBJ_310",
+            "OBJ_328",
+         );
+         dependencies = (
+         );
+         name = "Alamofire";
+         productName = "Alamofire";
+         productReference = "Alamofire::Alamofire::Product";
+         productType = "com.apple.product-type.framework";
+      };
+      "Alamofire::Alamofire::Product" = {
+         isa = "PBXFileReference";
+         path = "Alamofire.framework";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "Alamofire::SwiftPMPackageDescription" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_157";
+         buildPhases = (
+            "OBJ_160",
+         );
+         dependencies = (
+         );
+         name = "AlamofirePackageDescription";
+         productName = "AlamofirePackageDescription";
+         productType = "com.apple.product-type.framework";
+      };
+      "OBJ_1" = {
+         isa = "PBXProject";
+         attributes = {
+            LastUpgradeCheck = "9999";
+         };
+         buildConfigurationList = "OBJ_2";
+         compatibilityVersion = "Xcode 3.2";
+         developmentRegion = "English";
+         hasScannedForEncodings = "0";
+         knownRegions = (
+            "en",
+         );
+         mainGroup = "OBJ_5";
+         productRefGroup = "OBJ_131";
+         projectDirPath = ".";
+         targets = (
+            "WebAPI::SwiftPMPackageDescription",
+            "SwiftSoup::SwiftPMPackageDescription",
+            "SwiftyJSON::SwiftPMPackageDescription",
+            "Alamofire::SwiftPMPackageDescription",
+            "WebAPI::WebAPITests",
+            "WebAPI::GrabBook",
+            "WebAPI::WebAPI",
+            "SwiftyJSON::SwiftyJSON",
+            "SwiftSoup::SwiftSoup",
+            "Alamofire::Alamofire",
+            "WebAPI::WebAPIPackageTests::ProductTarget",
+            "WebAPI::grabbook::ProductTarget",
+         );
+      };
+      "OBJ_10" = {
+         isa = "PBXFileReference";
+         path = "AudioBooAPI-models.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_100" = {
+         isa = "PBXFileReference";
+         path = "TokenQueue.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_101" = {
+         isa = "PBXFileReference";
+         path = "Tokeniser.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_102" = {
+         isa = "PBXFileReference";
+         path = "TokeniserState.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_103" = {
+         isa = "PBXFileReference";
+         path = "TreeBuilder.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_104" = {
+         isa = "PBXFileReference";
+         path = "UnicodeScalar.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_105" = {
+         isa = "PBXFileReference";
+         path = "Validate.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_106" = {
+         isa = "PBXFileReference";
+         path = "Whitelist.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_107" = {
+         isa = "PBXFileReference";
+         path = "XmlDeclaration.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_108" = {
+         isa = "PBXFileReference";
+         path = "XmlTreeBuilder.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_109" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_110",
+            "OBJ_111",
+         );
+         name = "SwiftyJSON 3.1.4";
+         path = ".build/checkouts/SwiftyJSON.git-3043514560129222422/Source";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_11" = {
+         isa = "PBXFileReference";
+         path = "AudioBooAPI.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_110" = {
+         isa = "PBXFileReference";
+         explicitFileType = "sourcecode.swift";
+         name = "Package.swift";
+         path = "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/.build/checkouts/SwiftyJSON.git-3043514560129222422/Package.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_111" = {
+         isa = "PBXFileReference";
+         path = "SwiftyJSON.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_112" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_113",
+            "OBJ_114",
+            "OBJ_115",
+            "OBJ_116",
+            "OBJ_117",
+            "OBJ_118",
+            "OBJ_119",
+            "OBJ_120",
+            "OBJ_121",
+            "OBJ_122",
+            "OBJ_123",
+            "OBJ_124",
+            "OBJ_125",
+            "OBJ_126",
+            "OBJ_127",
+            "OBJ_128",
+            "OBJ_129",
+            "OBJ_130",
+         );
+         name = "Alamofire 4.5.1";
+         path = ".build/checkouts/Alamofire--7888903134044690114/Source";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_113" = {
+         isa = "PBXFileReference";
+         explicitFileType = "sourcecode.swift";
+         name = "Package.swift";
+         path = "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/.build/checkouts/Alamofire--7888903134044690114/Package.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_114" = {
+         isa = "PBXFileReference";
+         path = "AFError.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_115" = {
+         isa = "PBXFileReference";
+         path = "Alamofire.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_116" = {
+         isa = "PBXFileReference";
+         path = "DispatchQueue+Alamofire.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_117" = {
+         isa = "PBXFileReference";
+         path = "MultipartFormData.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_118" = {
+         isa = "PBXFileReference";
+         path = "NetworkReachabilityManager.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_119" = {
+         isa = "PBXFileReference";
+         path = "Notifications.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_12" = {
+         isa = "PBXFileReference";
+         path = "AudioKnigiAPI-models.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_120" = {
+         isa = "PBXFileReference";
+         path = "ParameterEncoding.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_121" = {
+         isa = "PBXFileReference";
+         path = "Request.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_122" = {
+         isa = "PBXFileReference";
+         path = "Response.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_123" = {
+         isa = "PBXFileReference";
+         path = "ResponseSerialization.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_124" = {
+         isa = "PBXFileReference";
+         path = "Result.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_125" = {
+         isa = "PBXFileReference";
+         path = "ServerTrustPolicy.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_126" = {
+         isa = "PBXFileReference";
+         path = "SessionDelegate.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_127" = {
+         isa = "PBXFileReference";
+         path = "SessionManager.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_128" = {
+         isa = "PBXFileReference";
+         path = "TaskDelegate.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_129" = {
+         isa = "PBXFileReference";
+         path = "Timeline.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_13" = {
+         isa = "PBXFileReference";
+         path = "AudioKnigiAPI.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_130" = {
+         isa = "PBXFileReference";
+         path = "Validation.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_131" = {
+         isa = "PBXGroup";
+         children = (
+            "WebAPI::WebAPITests::Product",
+            "WebAPI::GrabBook::Product",
+            "WebAPI::WebAPI::Product",
+            "SwiftyJSON::SwiftyJSON::Product",
+            "SwiftSoup::SwiftSoup::Product",
+            "Alamofire::Alamofire::Product",
+         );
+         name = "Products";
+         path = "";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "OBJ_139" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_140",
+            "OBJ_141",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_14" = {
+         isa = "PBXFileReference";
+         path = "AuthService.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_140" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "4",
+               "-I",
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk",
+            );
+            SWIFT_VERSION = "4.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_141" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "4",
+               "-I",
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk",
+            );
+            SWIFT_VERSION = "4.0";
+         };
+         name = "Release";
+      };
+      "OBJ_142" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_143",
+         );
+      };
+      "OBJ_143" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_6";
+      };
+      "OBJ_145" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_146",
+            "OBJ_147",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_146" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "4",
+               "-I",
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk",
+            );
+            SWIFT_VERSION = "4.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_147" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "4",
+               "-I",
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/4",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk",
+            );
+            SWIFT_VERSION = "4.0";
+         };
+         name = "Release";
+      };
+      "OBJ_148" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_149",
+         );
+      };
+      "OBJ_149" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_52";
+      };
+      "OBJ_15" = {
+         isa = "PBXFileReference";
+         path = "Config.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_151" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_152",
+            "OBJ_153",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_152" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "3",
+               "-I",
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk",
+            );
+            SWIFT_VERSION = "3.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_153" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "3",
+               "-I",
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk",
+            );
+            SWIFT_VERSION = "3.0";
+         };
+         name = "Release";
+      };
+      "OBJ_154" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_155",
+         );
+      };
+      "OBJ_155" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_110";
+      };
+      "OBJ_157" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_158",
+            "OBJ_159",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_158" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "3",
+               "-I",
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk",
+            );
+            SWIFT_VERSION = "3.0";
+         };
+         name = "Debug";
+      };
+      "OBJ_159" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            LD = "/usr/bin/true";
+            OTHER_SWIFT_FLAGS = (
+               "-swift-version",
+               "3",
+               "-I",
+               "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/pm/3",
+               "-target",
+               "x86_64-apple-macosx10.10",
+               "-sdk",
+               "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk",
+            );
+            SWIFT_VERSION = "3.0";
+         };
+         name = "Release";
+      };
+      "OBJ_16" = {
+         isa = "PBXFileReference";
+         path = "EtvnetAPI-models.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_160" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_161",
+         );
+      };
+      "OBJ_161" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_113";
+      };
+      "OBJ_163" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_164",
+            "OBJ_165",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_164" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            EMBEDDED_CONTENT_CONTAINS_SWIFT = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/WebAPITests_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "@loader_path/../Frameworks",
+               "@loader_path/Frameworks",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            SWIFT_VERSION = "4.0";
+            TARGET_NAME = "WebAPITests";
+         };
+         name = "Debug";
+      };
+      "OBJ_165" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            EMBEDDED_CONTENT_CONTAINS_SWIFT = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/WebAPITests_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "@loader_path/../Frameworks",
+               "@loader_path/Frameworks",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            SWIFT_VERSION = "4.0";
+            TARGET_NAME = "WebAPITests";
+         };
+         name = "Release";
+      };
+      "OBJ_166" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_167",
+            "OBJ_168",
+            "OBJ_169",
+            "OBJ_170",
+            "OBJ_171",
+            "OBJ_172",
+            "OBJ_173",
+            "OBJ_174",
+            "OBJ_175",
+            "OBJ_176",
+            "OBJ_177",
+         );
+      };
+      "OBJ_167" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_36";
+      };
+      "OBJ_168" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_37";
+      };
+      "OBJ_169" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_38";
+      };
+      "OBJ_17" = {
+         isa = "PBXFileReference";
+         path = "EtvnetAPI.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_170" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_39";
+      };
+      "OBJ_171" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_40";
+      };
+      "OBJ_172" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_41";
+      };
+      "OBJ_173" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_42";
+      };
+      "OBJ_174" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_43";
+      };
+      "OBJ_175" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_44";
+      };
+      "OBJ_176" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_45";
+      };
+      "OBJ_177" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_46";
+      };
+      "OBJ_178" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+            "OBJ_179",
+            "OBJ_180",
+            "OBJ_181",
+            "OBJ_182",
+         );
+      };
+      "OBJ_179" = {
+         isa = "PBXBuildFile";
+         fileRef = "WebAPI::WebAPI::Product";
+      };
+      "OBJ_18" = {
+         isa = "PBXFileReference";
+         path = "Files.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_180" = {
+         isa = "PBXBuildFile";
+         fileRef = "SwiftyJSON::SwiftyJSON::Product";
+      };
+      "OBJ_181" = {
+         isa = "PBXBuildFile";
+         fileRef = "SwiftSoup::SwiftSoup::Product";
+      };
+      "OBJ_182" = {
+         isa = "PBXBuildFile";
+         fileRef = "Alamofire::Alamofire::Product";
+      };
+      "OBJ_183" = {
+         isa = "PBXTargetDependency";
+         target = "WebAPI::WebAPI";
+      };
+      "OBJ_185" = {
+         isa = "PBXTargetDependency";
+         target = "SwiftyJSON::SwiftyJSON";
+      };
+      "OBJ_187" = {
+         isa = "PBXTargetDependency";
+         target = "SwiftSoup::SwiftSoup";
+      };
+      "OBJ_189" = {
+         isa = "PBXTargetDependency";
+         target = "Alamofire::Alamofire";
+      };
+      "OBJ_19" = {
+         isa = "PBXFileReference";
+         path = "GidOnline2API.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_192" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_193",
+            "OBJ_194",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_193" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/GrabBook_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+               "@executable_path",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            SWIFT_FORCE_DYNAMIC_LINK_STDLIB = "YES";
+            SWIFT_FORCE_STATIC_LINK_STDLIB = "NO";
+            SWIFT_VERSION = "4.0";
+            TARGET_NAME = "GrabBook";
+         };
+         name = "Debug";
+      };
+      "OBJ_194" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/GrabBook_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+               "@executable_path",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            SWIFT_FORCE_DYNAMIC_LINK_STDLIB = "YES";
+            SWIFT_FORCE_STATIC_LINK_STDLIB = "NO";
+            SWIFT_VERSION = "4.0";
+            TARGET_NAME = "GrabBook";
+         };
+         name = "Release";
+      };
+      "OBJ_195" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_196",
+         );
+      };
+      "OBJ_196" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_33";
+      };
+      "OBJ_197" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+            "OBJ_198",
+            "OBJ_199",
+            "OBJ_200",
+            "OBJ_201",
+         );
+      };
+      "OBJ_198" = {
+         isa = "PBXBuildFile";
+         fileRef = "WebAPI::WebAPI::Product";
+      };
+      "OBJ_199" = {
+         isa = "PBXBuildFile";
+         fileRef = "SwiftyJSON::SwiftyJSON::Product";
+      };
+      "OBJ_2" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_3",
+            "OBJ_4",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_20" = {
+         isa = "PBXFileReference";
+         path = "GidOnlineAPI.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_200" = {
+         isa = "PBXBuildFile";
+         fileRef = "SwiftSoup::SwiftSoup::Product";
+      };
+      "OBJ_201" = {
+         isa = "PBXBuildFile";
+         fileRef = "Alamofire::Alamofire::Product";
+      };
+      "OBJ_202" = {
+         isa = "PBXTargetDependency";
+         target = "WebAPI::WebAPI";
+      };
+      "OBJ_203" = {
+         isa = "PBXTargetDependency";
+         target = "SwiftyJSON::SwiftyJSON";
+      };
+      "OBJ_204" = {
+         isa = "PBXTargetDependency";
+         target = "SwiftSoup::SwiftSoup";
+      };
+      "OBJ_205" = {
+         isa = "PBXTargetDependency";
+         target = "Alamofire::Alamofire";
+      };
+      "OBJ_206" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_207",
+            "OBJ_208",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_207" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/WebAPI_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "WebAPI";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_VERSION = "4.0";
+            TARGET_NAME = "WebAPI";
+         };
+         name = "Debug";
+      };
+      "OBJ_208" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/WebAPI_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "WebAPI";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_VERSION = "4.0";
+            TARGET_NAME = "WebAPI";
+         };
+         name = "Release";
+      };
+      "OBJ_209" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_210",
+            "OBJ_211",
+            "OBJ_212",
+            "OBJ_213",
+            "OBJ_214",
+            "OBJ_215",
+            "OBJ_216",
+            "OBJ_217",
+            "OBJ_218",
+            "OBJ_219",
+            "OBJ_220",
+            "OBJ_221",
+            "OBJ_222",
+            "OBJ_223",
+            "OBJ_224",
+            "OBJ_225",
+            "OBJ_226",
+            "OBJ_227",
+            "OBJ_228",
+            "OBJ_229",
+            "OBJ_230",
+            "OBJ_231",
+            "OBJ_232",
+         );
+      };
+      "OBJ_21" = {
+         isa = "PBXFileReference";
+         path = "GoogleDocsAPI.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_210" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_9";
+      };
+      "OBJ_211" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_10";
+      };
+      "OBJ_212" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_11";
+      };
+      "OBJ_213" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_12";
+      };
+      "OBJ_214" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_13";
+      };
+      "OBJ_215" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_14";
+      };
+      "OBJ_216" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_15";
+      };
+      "OBJ_217" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_16";
+      };
+      "OBJ_218" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_17";
+      };
+      "OBJ_219" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_18";
+      };
+      "OBJ_22" = {
+         isa = "PBXFileReference";
+         path = "HttpService.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_220" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_19";
+      };
+      "OBJ_221" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_20";
+      };
+      "OBJ_222" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_21";
+      };
+      "OBJ_223" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_22";
+      };
+      "OBJ_224" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_23";
+      };
+      "OBJ_225" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_24";
+      };
+      "OBJ_226" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_25";
+      };
+      "OBJ_227" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_26";
+      };
+      "OBJ_228" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_27";
+      };
+      "OBJ_229" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_28";
+      };
+      "OBJ_23" = {
+         isa = "PBXFileReference";
+         path = "ItemsList.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_230" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_29";
+      };
+      "OBJ_231" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_30";
+      };
+      "OBJ_232" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_31";
+      };
+      "OBJ_233" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+            "OBJ_234",
+            "OBJ_235",
+            "OBJ_236",
+         );
+      };
+      "OBJ_234" = {
+         isa = "PBXBuildFile";
+         fileRef = "SwiftyJSON::SwiftyJSON::Product";
+      };
+      "OBJ_235" = {
+         isa = "PBXBuildFile";
+         fileRef = "SwiftSoup::SwiftSoup::Product";
+      };
+      "OBJ_236" = {
+         isa = "PBXBuildFile";
+         fileRef = "Alamofire::Alamofire::Product";
+      };
+      "OBJ_237" = {
+         isa = "PBXTargetDependency";
+         target = "SwiftyJSON::SwiftyJSON";
+      };
+      "OBJ_238" = {
+         isa = "PBXTargetDependency";
+         target = "SwiftSoup::SwiftSoup";
+      };
+      "OBJ_239" = {
+         isa = "PBXTargetDependency";
+         target = "Alamofire::Alamofire";
+      };
+      "OBJ_24" = {
+         isa = "PBXFileReference";
+         path = "KinoKongAPI-models.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_240" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_241",
+            "OBJ_242",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_241" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/SwiftyJSON_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "SwiftyJSON";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_VERSION = "3.0";
+            TARGET_NAME = "SwiftyJSON";
+         };
+         name = "Debug";
+      };
+      "OBJ_242" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/SwiftyJSON_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "SwiftyJSON";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_VERSION = "3.0";
+            TARGET_NAME = "SwiftyJSON";
+         };
+         name = "Release";
+      };
+      "OBJ_243" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_244",
+         );
+      };
+      "OBJ_244" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_111";
+      };
+      "OBJ_245" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+         );
+      };
+      "OBJ_246" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_247",
+            "OBJ_248",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_247" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/SwiftSoup_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "SwiftSoup";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_VERSION = "4.0";
+            TARGET_NAME = "SwiftSoup";
+         };
+         name = "Debug";
+      };
+      "OBJ_248" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/SwiftSoup_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "SwiftSoup";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_VERSION = "4.0";
+            TARGET_NAME = "SwiftSoup";
+         };
+         name = "Release";
+      };
+      "OBJ_249" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_250",
+            "OBJ_251",
+            "OBJ_252",
+            "OBJ_253",
+            "OBJ_254",
+            "OBJ_255",
+            "OBJ_256",
+            "OBJ_257",
+            "OBJ_258",
+            "OBJ_259",
+            "OBJ_260",
+            "OBJ_261",
+            "OBJ_262",
+            "OBJ_263",
+            "OBJ_264",
+            "OBJ_265",
+            "OBJ_266",
+            "OBJ_267",
+            "OBJ_268",
+            "OBJ_269",
+            "OBJ_270",
+            "OBJ_271",
+            "OBJ_272",
+            "OBJ_273",
+            "OBJ_274",
+            "OBJ_275",
+            "OBJ_276",
+            "OBJ_277",
+            "OBJ_278",
+            "OBJ_279",
+            "OBJ_280",
+            "OBJ_281",
+            "OBJ_282",
+            "OBJ_283",
+            "OBJ_284",
+            "OBJ_285",
+            "OBJ_286",
+            "OBJ_287",
+            "OBJ_288",
+            "OBJ_289",
+            "OBJ_290",
+            "OBJ_291",
+            "OBJ_292",
+            "OBJ_293",
+            "OBJ_294",
+            "OBJ_295",
+            "OBJ_296",
+            "OBJ_297",
+            "OBJ_298",
+            "OBJ_299",
+            "OBJ_300",
+            "OBJ_301",
+            "OBJ_302",
+            "OBJ_303",
+            "OBJ_304",
+            "OBJ_305",
+         );
+      };
+      "OBJ_25" = {
+         isa = "PBXFileReference";
+         path = "KinoKongAPI.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_250" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_53";
+      };
+      "OBJ_251" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_54";
+      };
+      "OBJ_252" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_55";
+      };
+      "OBJ_253" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_56";
+      };
+      "OBJ_254" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_57";
+      };
+      "OBJ_255" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_58";
+      };
+      "OBJ_256" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_59";
+      };
+      "OBJ_257" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_60";
+      };
+      "OBJ_258" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_61";
+      };
+      "OBJ_259" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_62";
+      };
+      "OBJ_26" = {
+         isa = "PBXFileReference";
+         path = "MuzArbuzAPI.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_260" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_63";
+      };
+      "OBJ_261" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_64";
+      };
+      "OBJ_262" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_65";
+      };
+      "OBJ_263" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_66";
+      };
+      "OBJ_264" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_67";
+      };
+      "OBJ_265" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_68";
+      };
+      "OBJ_266" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_69";
+      };
+      "OBJ_267" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_70";
+      };
+      "OBJ_268" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_71";
+      };
+      "OBJ_269" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_72";
+      };
+      "OBJ_27" = {
+         isa = "PBXFileReference";
+         path = "MyHitAPI.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_270" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_73";
+      };
+      "OBJ_271" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_74";
+      };
+      "OBJ_272" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_75";
+      };
+      "OBJ_273" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_76";
+      };
+      "OBJ_274" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_77";
+      };
+      "OBJ_275" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_78";
+      };
+      "OBJ_276" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_79";
+      };
+      "OBJ_277" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_80";
+      };
+      "OBJ_278" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_81";
+      };
+      "OBJ_279" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_82";
+      };
+      "OBJ_28" = {
+         isa = "PBXFileReference";
+         path = "NameClassifier.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_280" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_83";
+      };
+      "OBJ_281" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_84";
+      };
+      "OBJ_282" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_85";
+      };
+      "OBJ_283" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_86";
+      };
+      "OBJ_284" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_87";
+      };
+      "OBJ_285" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_88";
+      };
+      "OBJ_286" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_89";
+      };
+      "OBJ_287" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_90";
+      };
+      "OBJ_288" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_91";
+      };
+      "OBJ_289" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_92";
+      };
+      "OBJ_29" = {
+         isa = "PBXFileReference";
+         path = "PlainConfig.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_290" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_93";
+      };
+      "OBJ_291" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_94";
+      };
+      "OBJ_292" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_95";
+      };
+      "OBJ_293" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_96";
+      };
+      "OBJ_294" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_97";
+      };
+      "OBJ_295" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_98";
+      };
+      "OBJ_296" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_99";
+      };
+      "OBJ_297" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_100";
+      };
+      "OBJ_298" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_101";
+      };
+      "OBJ_299" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_102";
+      };
+      "OBJ_3" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CLANG_ENABLE_OBJC_ARC = "YES";
+            COMBINE_HIDPI_IMAGES = "YES";
+            COPY_PHASE_STRIP = "NO";
+            DEBUG_INFORMATION_FORMAT = "dwarf";
+            DYLIB_INSTALL_NAME_BASE = "@rpath";
+            ENABLE_NS_ASSERTIONS = "YES";
+            GCC_OPTIMIZATION_LEVEL = "0";
+            MACOSX_DEPLOYMENT_TARGET = "10.10";
+            ONLY_ACTIVE_ARCH = "YES";
+            OTHER_SWIFT_FLAGS = (
+               "-DXcode",
+            );
+            PRODUCT_NAME = "$(TARGET_NAME)";
+            SDKROOT = "macosx";
+            SUPPORTED_PLATFORMS = (
+               "macosx",
+               "iphoneos",
+               "iphonesimulator",
+               "appletvos",
+               "appletvsimulator",
+               "watchos",
+               "watchsimulator",
+            );
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = "SWIFT_PACKAGE";
+            SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            USE_HEADERMAP = "NO";
+         };
+         name = "Debug";
+      };
+      "OBJ_30" = {
+         isa = "PBXFileReference";
+         path = "Prettifier.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_300" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_103";
+      };
+      "OBJ_301" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_104";
+      };
+      "OBJ_302" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_105";
+      };
+      "OBJ_303" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_106";
+      };
+      "OBJ_304" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_107";
+      };
+      "OBJ_305" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_108";
+      };
+      "OBJ_306" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+         );
+      };
+      "OBJ_307" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_308",
+            "OBJ_309",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_308" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/Alamofire_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "Alamofire";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_VERSION = "3.0";
+            TARGET_NAME = "Alamofire";
+         };
+         name = "Debug";
+      };
+      "OBJ_309" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            ENABLE_TESTABILITY = "YES";
+            FRAMEWORK_SEARCH_PATHS = (
+               "$(inherited)",
+               "$(PLATFORM_DIR)/Developer/Library/Frameworks",
+            );
+            HEADER_SEARCH_PATHS = (
+               "$(inherited)",
+            );
+            INFOPLIST_FILE = "WebAPI.xcodeproj/Alamofire_Info.plist";
+            LD_RUNPATH_SEARCH_PATHS = (
+               "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx",
+            );
+            OTHER_LDFLAGS = (
+               "$(inherited)",
+            );
+            OTHER_SWIFT_FLAGS = (
+               "$(inherited)",
+            );
+            PRODUCT_BUNDLE_IDENTIFIER = "Alamofire";
+            PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
+            PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+            SKIP_INSTALL = "YES";
+            SWIFT_VERSION = "3.0";
+            TARGET_NAME = "Alamofire";
+         };
+         name = "Release";
+      };
+      "OBJ_31" = {
+         isa = "PBXFileReference";
+         path = "String-extension.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_310" = {
+         isa = "PBXSourcesBuildPhase";
+         files = (
+            "OBJ_311",
+            "OBJ_312",
+            "OBJ_313",
+            "OBJ_314",
+            "OBJ_315",
+            "OBJ_316",
+            "OBJ_317",
+            "OBJ_318",
+            "OBJ_319",
+            "OBJ_320",
+            "OBJ_321",
+            "OBJ_322",
+            "OBJ_323",
+            "OBJ_324",
+            "OBJ_325",
+            "OBJ_326",
+            "OBJ_327",
+         );
+      };
+      "OBJ_311" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_114";
+      };
+      "OBJ_312" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_115";
+      };
+      "OBJ_313" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_116";
+      };
+      "OBJ_314" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_117";
+      };
+      "OBJ_315" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_118";
+      };
+      "OBJ_316" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_119";
+      };
+      "OBJ_317" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_120";
+      };
+      "OBJ_318" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_121";
+      };
+      "OBJ_319" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_122";
+      };
+      "OBJ_32" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_33",
+         );
+         name = "GrabBook";
+         path = "Sources/GrabBook";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_320" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_123";
+      };
+      "OBJ_321" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_124";
+      };
+      "OBJ_322" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_125";
+      };
+      "OBJ_323" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_126";
+      };
+      "OBJ_324" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_127";
+      };
+      "OBJ_325" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_128";
+      };
+      "OBJ_326" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_129";
+      };
+      "OBJ_327" = {
+         isa = "PBXBuildFile";
+         fileRef = "OBJ_130";
+      };
+      "OBJ_328" = {
+         isa = "PBXFrameworksBuildPhase";
+         files = (
+         );
+      };
+      "OBJ_33" = {
+         isa = "PBXFileReference";
+         path = "main.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_330" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_331",
+            "OBJ_332",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_331" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+         };
+         name = "Debug";
+      };
+      "OBJ_332" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+         };
+         name = "Release";
+      };
+      "OBJ_333" = {
+         isa = "PBXTargetDependency";
+         target = "WebAPI::WebAPITests";
+      };
+      "OBJ_335" = {
+         isa = "XCConfigurationList";
+         buildConfigurations = (
+            "OBJ_336",
+            "OBJ_337",
+         );
+         defaultConfigurationIsVisible = "0";
+         defaultConfigurationName = "Debug";
+      };
+      "OBJ_336" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+         };
+         name = "Debug";
+      };
+      "OBJ_337" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+         };
+         name = "Release";
+      };
+      "OBJ_338" = {
+         isa = "PBXTargetDependency";
+         target = "WebAPI::GrabBook";
+      };
+      "OBJ_34" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_35",
+         );
+         name = "Tests";
+         path = "Tests";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_35" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_36",
+            "OBJ_37",
+            "OBJ_38",
+            "OBJ_39",
+            "OBJ_40",
+            "OBJ_41",
+            "OBJ_42",
+            "OBJ_43",
+            "OBJ_44",
+            "OBJ_45",
+            "OBJ_46",
+         );
+         name = "WebAPITests";
+         path = "WebAPITests";
+         sourceTree = "<group>";
+      };
+      "OBJ_36" = {
+         isa = "PBXFileReference";
+         path = "AudioBooAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_37" = {
+         isa = "PBXFileReference";
+         path = "AudioKnigiAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_38" = {
+         isa = "PBXFileReference";
+         path = "AuthAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_39" = {
+         isa = "PBXFileReference";
+         path = "EtvnetAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_4" = {
+         isa = "XCBuildConfiguration";
+         buildSettings = {
+            CLANG_ENABLE_OBJC_ARC = "YES";
+            COMBINE_HIDPI_IMAGES = "YES";
+            COPY_PHASE_STRIP = "YES";
+            DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+            DYLIB_INSTALL_NAME_BASE = "@rpath";
+            GCC_OPTIMIZATION_LEVEL = "s";
+            MACOSX_DEPLOYMENT_TARGET = "10.10";
+            OTHER_SWIFT_FLAGS = (
+               "-DXcode",
+            );
+            PRODUCT_NAME = "$(TARGET_NAME)";
+            SDKROOT = "macosx";
+            SUPPORTED_PLATFORMS = (
+               "macosx",
+               "iphoneos",
+               "iphonesimulator",
+               "appletvos",
+               "appletvsimulator",
+               "watchos",
+               "watchsimulator",
+            );
+            SWIFT_ACTIVE_COMPILATION_CONDITIONS = "SWIFT_PACKAGE";
+            SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+            USE_HEADERMAP = "NO";
+         };
+         name = "Release";
+      };
+      "OBJ_40" = {
+         isa = "PBXFileReference";
+         path = "GidOnlineAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_41" = {
+         isa = "PBXFileReference";
+         path = "GoogleDocsAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_42" = {
+         isa = "PBXFileReference";
+         path = "HttpServiceTests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_43" = {
+         isa = "PBXFileReference";
+         path = "KinoKongAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_44" = {
+         isa = "PBXFileReference";
+         path = "MuzArbuzAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_45" = {
+         isa = "PBXFileReference";
+         path = "MyHitAPITests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_46" = {
+         isa = "PBXFileReference";
+         path = "PlainConfigTests.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_47" = {
+         isa = "PBXFileReference";
+         path = "Pods";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_48" = {
+         isa = "PBXFileReference";
+         path = "WebAPI.xcworkspace";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_49" = {
+         isa = "PBXFileReference";
+         path = "Formula";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_5" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_6",
+            "OBJ_7",
+            "OBJ_34",
+            "OBJ_47",
+            "OBJ_48",
+            "OBJ_49",
+            "OBJ_50",
+            "OBJ_131",
+         );
+         path = "";
+         sourceTree = "<group>";
+      };
+      "OBJ_50" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_51",
+            "OBJ_109",
+            "OBJ_112",
+         );
+         name = "Dependencies";
+         path = "";
+         sourceTree = "<group>";
+      };
+      "OBJ_51" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_52",
+            "OBJ_53",
+            "OBJ_54",
+            "OBJ_55",
+            "OBJ_56",
+            "OBJ_57",
+            "OBJ_58",
+            "OBJ_59",
+            "OBJ_60",
+            "OBJ_61",
+            "OBJ_62",
+            "OBJ_63",
+            "OBJ_64",
+            "OBJ_65",
+            "OBJ_66",
+            "OBJ_67",
+            "OBJ_68",
+            "OBJ_69",
+            "OBJ_70",
+            "OBJ_71",
+            "OBJ_72",
+            "OBJ_73",
+            "OBJ_74",
+            "OBJ_75",
+            "OBJ_76",
+            "OBJ_77",
+            "OBJ_78",
+            "OBJ_79",
+            "OBJ_80",
+            "OBJ_81",
+            "OBJ_82",
+            "OBJ_83",
+            "OBJ_84",
+            "OBJ_85",
+            "OBJ_86",
+            "OBJ_87",
+            "OBJ_88",
+            "OBJ_89",
+            "OBJ_90",
+            "OBJ_91",
+            "OBJ_92",
+            "OBJ_93",
+            "OBJ_94",
+            "OBJ_95",
+            "OBJ_96",
+            "OBJ_97",
+            "OBJ_98",
+            "OBJ_99",
+            "OBJ_100",
+            "OBJ_101",
+            "OBJ_102",
+            "OBJ_103",
+            "OBJ_104",
+            "OBJ_105",
+            "OBJ_106",
+            "OBJ_107",
+            "OBJ_108",
+         );
+         name = "SwiftSoup 1.5.4";
+         path = ".build/checkouts/SwiftSoup-3625286833408143897/Sources";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_52" = {
+         isa = "PBXFileReference";
+         explicitFileType = "sourcecode.swift";
+         name = "Package.swift";
+         path = "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/.build/checkouts/SwiftSoup-3625286833408143897/Package.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_53" = {
+         isa = "PBXFileReference";
+         path = "ArrayExt.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_54" = {
+         isa = "PBXFileReference";
+         path = "Attribute.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_55" = {
+         isa = "PBXFileReference";
+         path = "Attributes.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_56" = {
+         isa = "PBXFileReference";
+         path = "BooleanAttribute.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_57" = {
+         isa = "PBXFileReference";
+         path = "CharacterExt.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_58" = {
+         isa = "PBXFileReference";
+         path = "CharacterReader.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_59" = {
+         isa = "PBXFileReference";
+         path = "Cleaner.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_6" = {
+         isa = "PBXFileReference";
+         explicitFileType = "sourcecode.swift";
+         path = "Package.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_60" = {
+         isa = "PBXFileReference";
+         path = "Collector.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_61" = {
+         isa = "PBXFileReference";
+         path = "CombiningEvaluator.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_62" = {
+         isa = "PBXFileReference";
+         path = "Comment.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_63" = {
+         isa = "PBXFileReference";
+         path = "Connection.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_64" = {
+         isa = "PBXFileReference";
+         path = "DataNode.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_65" = {
+         isa = "PBXFileReference";
+         path = "DataUtil.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_66" = {
+         isa = "PBXFileReference";
+         path = "Document.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_67" = {
+         isa = "PBXFileReference";
+         path = "DocumentType.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_68" = {
+         isa = "PBXFileReference";
+         path = "Element.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_69" = {
+         isa = "PBXFileReference";
+         path = "Elements.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_7" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_8",
+            "OBJ_32",
+         );
+         name = "Sources";
+         path = "";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_70" = {
+         isa = "PBXFileReference";
+         path = "Entities.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_71" = {
+         isa = "PBXFileReference";
+         path = "Evaluator.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_72" = {
+         isa = "PBXFileReference";
+         path = "Exception.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_73" = {
+         isa = "PBXFileReference";
+         path = "FormElement.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_74" = {
+         isa = "PBXFileReference";
+         path = "HtmlTreeBuilder.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_75" = {
+         isa = "PBXFileReference";
+         path = "HtmlTreeBuilderState.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_76" = {
+         isa = "PBXFileReference";
+         path = "HttpStatusException.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_77" = {
+         isa = "PBXFileReference";
+         path = "Node.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_78" = {
+         isa = "PBXFileReference";
+         path = "NodeTraversor.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_79" = {
+         isa = "PBXFileReference";
+         path = "NodeVisitor.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_8" = {
+         isa = "PBXGroup";
+         children = (
+            "OBJ_9",
+            "OBJ_10",
+            "OBJ_11",
+            "OBJ_12",
+            "OBJ_13",
+            "OBJ_14",
+            "OBJ_15",
+            "OBJ_16",
+            "OBJ_17",
+            "OBJ_18",
+            "OBJ_19",
+            "OBJ_20",
+            "OBJ_21",
+            "OBJ_22",
+            "OBJ_23",
+            "OBJ_24",
+            "OBJ_25",
+            "OBJ_26",
+            "OBJ_27",
+            "OBJ_28",
+            "OBJ_29",
+            "OBJ_30",
+            "OBJ_31",
+         );
+         name = "WebAPI";
+         path = "Sources/WebAPI";
+         sourceTree = "SOURCE_ROOT";
+      };
+      "OBJ_80" = {
+         isa = "PBXFileReference";
+         path = "OrderedDictionary.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_81" = {
+         isa = "PBXFileReference";
+         path = "OrderedSet.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_82" = {
+         isa = "PBXFileReference";
+         path = "ParseError.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_83" = {
+         isa = "PBXFileReference";
+         path = "ParseErrorList.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_84" = {
+         isa = "PBXFileReference";
+         path = "ParseSettings.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_85" = {
+         isa = "PBXFileReference";
+         path = "Parser.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_86" = {
+         isa = "PBXFileReference";
+         path = "Pattern.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_87" = {
+         isa = "PBXFileReference";
+         path = "QueryParser.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_88" = {
+         isa = "PBXFileReference";
+         path = "Selector.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_89" = {
+         isa = "PBXFileReference";
+         path = "SerializationException.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_9" = {
+         isa = "PBXFileReference";
+         path = "ApiService.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_90" = {
+         isa = "PBXFileReference";
+         path = "SimpleDictionary.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_91" = {
+         isa = "PBXFileReference";
+         path = "StreamReader.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_92" = {
+         isa = "PBXFileReference";
+         path = "String.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_93" = {
+         isa = "PBXFileReference";
+         path = "StringBuilder.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_94" = {
+         isa = "PBXFileReference";
+         path = "StringUtil.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_95" = {
+         isa = "PBXFileReference";
+         path = "StructuralEvaluator.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_96" = {
+         isa = "PBXFileReference";
+         path = "SwiftSoup.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_97" = {
+         isa = "PBXFileReference";
+         path = "Tag.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_98" = {
+         isa = "PBXFileReference";
+         path = "TextNode.swift";
+         sourceTree = "<group>";
+      };
+      "OBJ_99" = {
+         isa = "PBXFileReference";
+         path = "Token.swift";
+         sourceTree = "<group>";
+      };
+      "SwiftSoup::SwiftPMPackageDescription" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_145";
+         buildPhases = (
+            "OBJ_148",
+         );
+         dependencies = (
+         );
+         name = "SwiftSoupPackageDescription";
+         productName = "SwiftSoupPackageDescription";
+         productType = "com.apple.product-type.framework";
+      };
+      "SwiftSoup::SwiftSoup" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_246";
+         buildPhases = (
+            "OBJ_249",
+            "OBJ_306",
+         );
+         dependencies = (
+         );
+         name = "SwiftSoup";
+         productName = "SwiftSoup";
+         productReference = "SwiftSoup::SwiftSoup::Product";
+         productType = "com.apple.product-type.framework";
+      };
+      "SwiftSoup::SwiftSoup::Product" = {
+         isa = "PBXFileReference";
+         path = "SwiftSoup.framework";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "SwiftyJSON::SwiftPMPackageDescription" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_151";
+         buildPhases = (
+            "OBJ_154",
+         );
+         dependencies = (
+         );
+         name = "SwiftyJSONPackageDescription";
+         productName = "SwiftyJSONPackageDescription";
+         productType = "com.apple.product-type.framework";
+      };
+      "SwiftyJSON::SwiftyJSON" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_240";
+         buildPhases = (
+            "OBJ_243",
+            "OBJ_245",
+         );
+         dependencies = (
+         );
+         name = "SwiftyJSON";
+         productName = "SwiftyJSON";
+         productReference = "SwiftyJSON::SwiftyJSON::Product";
+         productType = "com.apple.product-type.framework";
+      };
+      "SwiftyJSON::SwiftyJSON::Product" = {
+         isa = "PBXFileReference";
+         path = "SwiftyJSON.framework";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "WebAPI::GrabBook" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_192";
+         buildPhases = (
+            "OBJ_195",
+            "OBJ_197",
+         );
+         dependencies = (
+            "OBJ_202",
+            "OBJ_203",
+            "OBJ_204",
+            "OBJ_205",
+         );
+         name = "GrabBook";
+         productName = "GrabBook";
+         productReference = "WebAPI::GrabBook::Product";
+         productType = "com.apple.product-type.tool";
+      };
+      "WebAPI::GrabBook::Product" = {
+         isa = "PBXFileReference";
+         path = "GrabBook";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "WebAPI::SwiftPMPackageDescription" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_139";
+         buildPhases = (
+            "OBJ_142",
+         );
+         dependencies = (
+         );
+         name = "WebAPIPackageDescription";
+         productName = "WebAPIPackageDescription";
+         productType = "com.apple.product-type.framework";
+      };
+      "WebAPI::WebAPI" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_206";
+         buildPhases = (
+            "OBJ_209",
+            "OBJ_233",
+         );
+         dependencies = (
+            "OBJ_237",
+            "OBJ_238",
+            "OBJ_239",
+         );
+         name = "WebAPI";
+         productName = "WebAPI";
+         productReference = "WebAPI::WebAPI::Product";
+         productType = "com.apple.product-type.framework";
+      };
+      "WebAPI::WebAPI::Product" = {
+         isa = "PBXFileReference";
+         path = "WebAPI.framework";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "WebAPI::WebAPIPackageTests::ProductTarget" = {
+         isa = "PBXAggregateTarget";
+         buildConfigurationList = "OBJ_330";
+         buildPhases = (
+         );
+         dependencies = (
+            "OBJ_333",
+         );
+         name = "WebAPIPackageTests";
+         productName = "WebAPIPackageTests";
+      };
+      "WebAPI::WebAPITests" = {
+         isa = "PBXNativeTarget";
+         buildConfigurationList = "OBJ_163";
+         buildPhases = (
+            "OBJ_166",
+            "OBJ_178",
+         );
+         dependencies = (
+            "OBJ_183",
+            "OBJ_185",
+            "OBJ_187",
+            "OBJ_189",
+         );
+         name = "WebAPITests";
+         productName = "WebAPITests";
+         productReference = "WebAPI::WebAPITests::Product";
+         productType = "com.apple.product-type.bundle.unit-test";
+      };
+      "WebAPI::WebAPITests::Product" = {
+         isa = "PBXFileReference";
+         path = "WebAPITests.xctest";
+         sourceTree = "BUILT_PRODUCTS_DIR";
+      };
+      "WebAPI::grabbook::ProductTarget" = {
+         isa = "PBXAggregateTarget";
+         buildConfigurationList = "OBJ_335";
+         buildPhases = (
+         );
+         dependencies = (
+            "OBJ_338",
+         );
+         name = "grabbook";
+         productName = "grabbook";
+      };
+   };
+   rootObject = "OBJ_1";
 }

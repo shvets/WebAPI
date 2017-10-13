@@ -57,7 +57,7 @@ open class KinoKongAPI: HttpService {
 
   public func getMovies(_ path: String, page: Int=1) throws -> [String: Any] {
     var data = [Any]()
-    var paginationData: Items = [:]
+    var paginationData: ItemsList = [:]
 
     let pagePath = getPagePath(path, page: page)
 
@@ -341,7 +341,7 @@ open class KinoKongAPI: HttpService {
 
   public func search(_ query: String, page: Int=1, perPage: Int=15) throws -> [String: Any] {
     var data = [Any]()
-    var paginationData: Items = [:]
+    var paginationData: ItemsList = [:]
 
     var searchData = [
       "do": "search",

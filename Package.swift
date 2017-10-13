@@ -11,7 +11,7 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/Alamofire/Alamofire", from: "4.5.1"),
     .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "3.1.4"),
-    .package(url: "https://github.com/scinfu/SwiftSoup", from: "1.5.2")
+    .package(url: "https://github.com/scinfu/SwiftSoup", from: "1.5.4")
   ],
   targets: [
     .target(
