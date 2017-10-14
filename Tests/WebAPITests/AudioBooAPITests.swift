@@ -69,13 +69,15 @@ class AudioBooAPITests: XCTestCase {
 //
 //    print(url)
 
-    let url = "http://audioboo.ru/xfsearch/%C3%E5%E9%E4%E5%F0+%C4%FD%E2%E8%E4/"
+    //let url = "http://audioboo.ru/xfsearch/%C3%E5%E9%E4%E5%F0+%C4%FD%E2%E8%E4/"
 
-    let books = try subject.getBooks(url)
+//    let books = try subject.getBooks(url)
+//
+//    let bookId = (books[0] as! [String: String])["id"]
 
-    let bookId = (books[0] as! [String: String])["id"]
+    let url = "http://audioboo.ru/proza/21725-pelevin-viktor-iphuck-10.html"
 
-    let playlistUrls = try subject.getPlaylistUrls(bookId!)
+    let playlistUrls = try subject.getPlaylistUrls(url)
 
     let list = try subject.getAudioTracks(playlistUrls[0])
 

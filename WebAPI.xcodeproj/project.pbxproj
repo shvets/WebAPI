@@ -32,6 +32,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2DBA1F90B575C6BCFE97BDE9 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1D849871F4D6F73798F3 /* DownloadManager.swift */; };
 		OBJ_143 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_6 /* Package.swift */; };
 		OBJ_149 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_52 /* Package.swift */; };
 		OBJ_155 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_110 /* Package.swift */; };
@@ -163,96 +164,97 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::WebAPI";
+			remoteGlobalIDString = WebAPI::WebAPI;
 			remoteInfo = WebAPI;
 		};
 		FAC7ABDA1F91A23700AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftyJSON::SwiftyJSON";
+			remoteGlobalIDString = SwiftyJSON::SwiftyJSON;
 			remoteInfo = SwiftyJSON;
 		};
 		FAC7ABDB1F91A23700AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftSoup::SwiftSoup";
+			remoteGlobalIDString = SwiftSoup::SwiftSoup;
 			remoteInfo = SwiftSoup;
 		};
 		FAC7ABDC1F91A23700AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "Alamofire::Alamofire";
+			remoteGlobalIDString = Alamofire::Alamofire;
 			remoteInfo = Alamofire;
 		};
 		FAC7ABDD1F91A23700AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftyJSON::SwiftyJSON";
+			remoteGlobalIDString = SwiftyJSON::SwiftyJSON;
 			remoteInfo = SwiftyJSON;
 		};
 		FAC7ABDE1F91A23700AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftSoup::SwiftSoup";
+			remoteGlobalIDString = SwiftSoup::SwiftSoup;
 			remoteInfo = SwiftSoup;
 		};
 		FAC7ABDF1F91A23700AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "Alamofire::Alamofire";
+			remoteGlobalIDString = Alamofire::Alamofire;
 			remoteInfo = Alamofire;
 		};
 		FAC7ABE01F91A23800AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::WebAPI";
+			remoteGlobalIDString = WebAPI::WebAPI;
 			remoteInfo = WebAPI;
 		};
 		FAC7ABE11F91A23800AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftyJSON::SwiftyJSON";
+			remoteGlobalIDString = SwiftyJSON::SwiftyJSON;
 			remoteInfo = SwiftyJSON;
 		};
 		FAC7ABE21F91A23800AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "SwiftSoup::SwiftSoup";
+			remoteGlobalIDString = SwiftSoup::SwiftSoup;
 			remoteInfo = SwiftSoup;
 		};
 		FAC7ABE31F91A23800AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "Alamofire::Alamofire";
+			remoteGlobalIDString = Alamofire::Alamofire;
 			remoteInfo = Alamofire;
 		};
 		FAC7ABE41F91A23800AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::WebAPITests";
+			remoteGlobalIDString = WebAPI::WebAPITests;
 			remoteInfo = WebAPITests;
 		};
 		FAC7ABE51F91A23800AF21C5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = "WebAPI::GrabBook";
+			remoteGlobalIDString = WebAPI::GrabBook;
 			remoteInfo = GrabBook;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2DBA1D849871F4D6F73798F3 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadManager.swift; path = Sources/WebAPI/DownloadManager.swift; sourceTree = "<group>"; };
 		"Alamofire::Alamofire::Product" /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_10 /* AudioBooAPI-models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AudioBooAPI-models.swift"; sourceTree = "<group>"; };
 		OBJ_100 /* TokenQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenQueue.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 				OBJ_49 /* Formula */,
 				OBJ_50 /* Dependencies */,
 				OBJ_131 /* Products */,
+				2DBA1D849871F4D6F73798F3 /* DownloadManager.swift */,
 			);
 			name = "";
 			sourceTree = "<group>";
@@ -856,6 +859,7 @@
 			buildActionMask = 0;
 			files = (
 				OBJ_143 /* Package.swift in Sources */,
+				2DBA1F90B575C6BCFE97BDE9 /* DownloadManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

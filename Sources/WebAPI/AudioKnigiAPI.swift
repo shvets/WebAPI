@@ -1,6 +1,5 @@
 import Foundation
 import SwiftSoup
-import Alamofire
 
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
@@ -278,73 +277,6 @@ open class AudioKnigiAPI: HttpService {
     }
 
     return newTracks
-  }
-
-  public func downloadAudioTracks(_ url: String) throws {
-    let audioTracks = try getAudioTracks(url)
-    let bookDir = URL(string: url)!.lastPathComponent
-
-    var currentAlbum: String?
-
-    for track in audioTracks {
-      print(track)
-
-      if !track.albumName.isEmpty {
-        currentAlbum = track.albumName
-      }
-
-      downloadTrack(track, bookDir: bookDir, currentAlbum: currentAlbum)
-    }
-  }
-
-  func downloadTrack(_ track: Track, bookDir: String, currentAlbum: String?) {
-//    let documentsUrl:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
-//    let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.jpg")
-//
-//    print(destinationFileUrl)
-    //print(URL(string: path)!.deletingLastPathComponent())
-
-    let path = track.url
-    let name = track.title
-
-    let utilityQueue = DispatchQueue.global(qos: .utility)
-
-    let semaphore = DispatchSemaphore.init(value: 0)
-
-    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-
-    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-
-    let fileURL = documentsURL.appendingPathComponent(bookDir)
-      .appendingPathComponent(currentAlbum ?? "")
-      .appendingPathComponent("\(name).mp3")
-
-    if Files.exist(fileURL.path) {
-      print("\(fileURL.path) --- exist")
-
-      return
-    }
-
-    let destination: DownloadRequest.DownloadFileDestination = { _, _ in
-      return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
-    }
-
-    Alamofire.download(encodedPath, to: destination)
-      .downloadProgress(queue: utilityQueue) { progress in
-        //print("Download Progress: \(progress.fractionCompleted)")
-      }
-      .responseData(queue: utilityQueue) { response in
-        if let url = response.destinationURL {
-          FileManager.default.createFile(atPath: url.path, contents: response.result.value)
-        }
-        else {
-          print("Cannot download \(fileURL.path)")
-        }
-
-        semaphore.signal()
-      }
-
-    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
   }
 
   public func getItemsInGroups(_ fileName: String) -> [NameClassifier.ItemsGroup] {

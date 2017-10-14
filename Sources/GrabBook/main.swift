@@ -1,45 +1,35 @@
 import Foundation
-
 import WebAPI
 
 class GrabBook {
+  let downloadManager = DownloadManager()
 
   func parseCommandLine() -> Bool {
     return CommandLine.argc > 1
   }
 
-  func grab() throws {
-    let client = AudioKnigiAPI()
-
-    let path = CommandLine.arguments[1]
-
-    try client.downloadAudioTracks(path)
+  func grabAudioKnigi(_ url: String) throws {
+    try downloadManager.download(clientType: .audioKnigi, url: url)
   }
 
-  func grab2() throws {
-    let client = AudioBooAPI()
-
-    let path = CommandLine.arguments[1]
-
-    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-
-    print(path)
-
-    let playlistUrls = try client.getPlaylistUrls(encodedPath)
-
-    print(playlistUrls)
-
-    let _ = try client.getAudioTracks(playlistUrls[0])
+  func grabAudioBoo(_ url: String) throws {
+    try downloadManager.download(clientType: .audioBoo, url: url)
   }
-
 }
-
-//let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
 
 let grabber = GrabBook()
 
 if grabber.parseCommandLine() {
-  try grabber.grab()
+  if CommandLine.arguments[1] == "--boo" {
+    let url = CommandLine.arguments[2]
+
+    try grabber.grabAudioBoo(url)
+  }
+  else {
+    let url = CommandLine.arguments[1]
+
+    try grabber.grabAudioKnigi(url)
+  }
 }
 else {
   print("No arguments are passed.")
