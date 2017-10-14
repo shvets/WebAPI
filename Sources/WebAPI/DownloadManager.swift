@@ -69,7 +69,7 @@ open class DownloadManager {
 
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
-        let fileURL = documentsURL.appendingPathComponent(bookDir).appendingPathComponent("\(name).mp3")
+        let fileURL = documentsURL.appendingPathComponent(bookDir).appendingPathComponent("\(name)")
 
         downloadTrack(from: encodedPath, to: fileURL)
       }
