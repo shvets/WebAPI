@@ -292,14 +292,13 @@ open class AudioKnigiAPI: HttpService {
       if !track.albumName.isEmpty {
         currentAlbum = track.albumName
       }
+
       downloadTrack(track, bookDir: bookDir, currentAlbum: currentAlbum)
-      //break
     }
   }
 
   func downloadTrack(_ track: Track, bookDir: String, currentAlbum: String?) {
-
-//    let documentsUrl:URL =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
+//    let documentsUrl:URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
 //    let destinationFileUrl = documentsUrl.appendingPathComponent("downloadedFile.jpg")
 //
 //    print(destinationFileUrl)
@@ -314,12 +313,19 @@ open class AudioKnigiAPI: HttpService {
 
     let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
-    let destination: DownloadRequest.DownloadFileDestination = { _, _ in
-      let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-      let fileURL = documentsURL.appendingPathComponent(bookDir)
-        .appendingPathComponent(currentAlbum ?? "")
-          .appendingPathComponent("\(name).mp3")
+    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
+    let fileURL = documentsURL.appendingPathComponent(bookDir)
+      .appendingPathComponent(currentAlbum ?? "")
+      .appendingPathComponent("\(name).mp3")
+
+    if Files.exist(fileURL.path) {
+      print("\(fileURL.path) --- exist")
+
+      return
+    }
+
+    let destination: DownloadRequest.DownloadFileDestination = { _, _ in
       return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
     }
 
@@ -328,7 +334,12 @@ open class AudioKnigiAPI: HttpService {
         //print("Download Progress: \(progress.fractionCompleted)")
       }
       .responseData(queue: utilityQueue) { response in
-        FileManager.default.createFile(atPath: response.destinationURL!.path, contents: response.result.value)
+        if let url = response.destinationURL {
+          FileManager.default.createFile(atPath: url.path, contents: response.result.value)
+        }
+        else {
+          print("Cannot download \(fileURL.path)")
+        }
 
         semaphore.signal()
       }
