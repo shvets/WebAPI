@@ -21,9 +21,9 @@ class AuthAPITests: XCTestCase {
     XCTAssertNotNil(result.deviceCode)
   }
   
-  func skipped_testCreateToken() {
+  func testCreateToken() {
     let result = subject.authorization()
-  
+
     if result.userCode != "" {
       let response = subject.tryCreateToken(
           userCode: result.userCode,
@@ -36,7 +36,7 @@ class AuthAPITests: XCTestCase {
     }
   }
   
-  func skipped_testUpdateToken() {
+  func testUpdateToken() {
     let refreshToken = subject.config.items["refresh_token"]!
     
     let response = subject.updateToken(refreshToken: refreshToken)

@@ -109,9 +109,7 @@ open class ApiService: AuthService {
     else if checkAccessData("device_code") {
       let deviceCode = config.items["device_code"]
       
-      if var response = createToken(deviceCode: deviceCode!) {
-        response.deviceCode = deviceCode
-
+      if let response = createToken(deviceCode: deviceCode!) {
         config.items = response.asDictionary()
         config.save()
 

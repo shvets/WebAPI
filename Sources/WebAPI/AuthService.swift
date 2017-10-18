@@ -1,44 +1,52 @@
 import Foundation
 import Alamofire
 
-public struct AuthProperties: Codable {
+public struct ActivationCodesProperties: Codable {
   public var deviceCode: String?
-  public var activationUrl: String?
   public var userCode: String?
-  public var accessToken: String?
-  public var refreshToken: String?
+  public var activationUrl: String?
 
   enum CodingKeys: String, CodingKey {
     case deviceCode = "device_code"
-    case activationUrl = "activation_url"
     case userCode = "user_code"
-    case accessToken = "access_token"
-    case refreshToken = "refresh_token"
   }
 
-  public init(deviceCode: String="", activationUrl: String="", userCode: String="",
-              accessToken: String="", refreshToken: String="") {
-    self.deviceCode = deviceCode
-    self.activationUrl = activationUrl
-    self.userCode = userCode
-    self.accessToken = accessToken
-    self.refreshToken = refreshToken
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+
+    deviceCode = try container.decodeIfPresent(String.self, forKey: .deviceCode)
+    userCode = try container.decodeIfPresent(String.self, forKey: .userCode)
+    activationUrl = "device/usercode"
+  }
+}
+
+public struct AuthProperties: Codable {
+  public var accessToken: String?
+  public var refreshToken: String?
+  public var expiresIn: Int?
+
+  private var expires: Int?
+
+  enum CodingKeys: String, CodingKey {
+    case accessToken = "access_token"
+    case refreshToken = "refresh_token"
+    case expiresIn = "expires_in"
+  }
+
+  public init(from decoder: Decoder) throws {
+    let container = try decoder.container(keyedBy: CodingKeys.self)
+
+    accessToken = try container.decodeIfPresent(String.self, forKey: .accessToken)
+    refreshToken = try container.decodeIfPresent(String.self, forKey: .refreshToken)
+    expiresIn = try container.decodeIfPresent(Int.self, forKey: .expiresIn)
+
+    if let expiresIn = expiresIn {
+      expires = Int(Date().timeIntervalSince1970) + expiresIn
+    }
   }
 
   public func asDictionary() -> [String: String] {
     var dict = [String: String]()
-
-    if let deviceCode = deviceCode {
-      dict["device_code"] = deviceCode
-    }
-
-    if let activationUrl = activationUrl {
-      dict["activation_url"] = activationUrl
-    }
-
-    if let userCode = userCode {
-      dict["user_code"] = userCode
-    }
 
     if let accessToken = accessToken {
       dict["access_token"] = accessToken
@@ -48,10 +56,13 @@ public struct AuthProperties: Codable {
       dict["refresh_token"] = refreshToken
     }
 
+    if let expires = expires{
+      dict["expires"] = String(expires)
+    }
+
     return dict
   }
 }
-
 
 open class AuthService: HttpService {
   var authUrl: String
@@ -68,7 +79,7 @@ open class AuthService: HttpService {
     self.scope = scope
   }
   
-  func getActivationCodes(includeClientSecret: Bool = true, includeClientId: Bool = false) -> AuthProperties? {
+  func getActivationCodes(includeClientSecret: Bool = true, includeClientId: Bool = false) -> ActivationCodesProperties? {
     var parameters = ["scope": scope]
     
     if includeClientSecret {
@@ -85,7 +96,7 @@ open class AuthService: HttpService {
           do {
             let decoder = JSONDecoder()
 
-            var result = try decoder.decode(AuthProperties.self, from: data)
+            var result = try decoder.decode(ActivationCodesProperties.self, from: data)
 
             result.activationUrl = authUrl + "device/usercode"
 
@@ -159,16 +170,6 @@ open class AuthService: HttpService {
     let url = authUrl + rtype
     
     return httpRequest(url, parameters: newParameters, method: method)
-  }
-  
-  func addExpires(_ data: [String: String]) -> [String: String] {
-    var newData = data
-    
-    if let expiresIn = newData["expires_in"] {
-      newData["expires"] = String(Int(Date().timeIntervalSince1970) + Int(expiresIn)!)
-    }
-    
-    return newData
   }
   
 }
