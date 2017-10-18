@@ -70,9 +70,21 @@ class EtvnetAPITests: XCTestCase {
   func testGetBlockbusters() throws {
     let data = subject.getBlockbusters()!
 
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(data)
-//    })
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(data)
+    })
+
+    XCTAssertNotNil(data)
+    XCTAssert(data.media.count > 0)
+    XCTAssert(data.pagination.count > 0)
+  }
+
+  func testGetCoolMovies() throws {
+    let data = subject.getCoolMovies()!
+
+    print(try Prettifier.prettify { encoder in
+      return try encoder.encode(data)
+    })
 
     XCTAssertNotNil(data)
     XCTAssert(data.media.count > 0)
