@@ -80,7 +80,7 @@ class EtvnetAPITests: XCTestCase {
   }
 
   func testGetCoolMovies() throws {
-    let data = subject.getCoolMovies()!
+    let data = subject.getCoolMovies(perPage: 15, page: 4)!
 
     print(try Prettifier.prettify { encoder in
       return try encoder.encode(data)

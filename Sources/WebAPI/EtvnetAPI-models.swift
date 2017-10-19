@@ -132,7 +132,14 @@ extension EtvnetAPI {
       country = try container.decode(String.self, forKey: .country)
       childrenCount = try container.decode(Int.self, forKey: .childrenCount)
       isHd = try container.decode(Bool.self, forKey: .isHd)
-      files = try container.decode([FileType].self, forKey: .files)
+
+      do {
+        files = (try container.decodeIfPresent([FileType].self, forKey: .files))!
+      }
+      catch {
+        files = []
+      }
+
       channel = try container.decode(Name.self, forKey: .channel)
       shortName = try container.decode(String.self, forKey: .shortName)
       shortNameEng = try container.decode(String.self, forKey: .shortNameEng)
