@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.dependency 'Alamofire', '~> 4.5.1'
   #s.dependency 'AlamofireImage', '~> 3.2.0'
   s.dependency 'SwiftyJSON', '~> 3.1.4'
-  s.dependency 'SwiftSoup', '~> 1.5.4'
+  s.dependency 'SwiftSoup', '~> 1.5.5'
   s.dependency 'Files', '~> 1.9.0'
   s.dependency 'ConfigFile', '~> 1.0.0'
 
