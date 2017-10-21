@@ -42,6 +42,20 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Files::Files"
+               BuildableName = "Files.framework"
+               BlueprintName = "Files"
+               ReferencedContainer = "container:WebAPI.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
                BlueprintIdentifier = "SwiftyJSON::SwiftyJSON"
                BuildableName = "SwiftyJSON.framework"
                BlueprintName = "SwiftyJSON"

@@ -1,5 +1,6 @@
 import Foundation
 import Alamofire
+import Files
 
 open class DownloadManager {
   public enum ClienType {
@@ -84,7 +85,7 @@ open class DownloadManager {
 
     let semaphore = DispatchSemaphore.init(value: 0)
 
-    if Files.exist(to.path) {
+    if File.exists(atPath: to.path) {
       print("\(to.path) --- exist")
 
       return

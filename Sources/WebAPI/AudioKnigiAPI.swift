@@ -1,5 +1,6 @@
 import Foundation
 import SwiftSoup
+import Files
 
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
@@ -280,14 +281,19 @@ open class AudioKnigiAPI: HttpService {
   }
 
   public func getItemsInGroups(_ fileName: String) -> [NameClassifier.ItemsGroup] {
-    let data: Data? = Files.readFile(fileName)
-
-    let decoder = JSONDecoder()
-
     var items: [NameClassifier.ItemsGroup] = []
 
     do {
-      items = try decoder.decode([NameClassifier.ItemsGroup].self, from: data!)
+      let data: Data? = try File(path: fileName).read()
+
+      let decoder = JSONDecoder()
+
+      do {
+        items = try decoder.decode([NameClassifier.ItemsGroup].self, from: data!)
+      }
+      catch let e {
+        print("Error: \(e)")
+      }
     }
     catch let e {
       print("Error: \(e)")

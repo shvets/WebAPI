@@ -1,4 +1,5 @@
 import XCTest
+import Files
 
 @testable import WebAPI
 
@@ -167,7 +168,7 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   func testGrouping() throws {
-    let data: Data? = Files.readFile("authors.json")
+    let data: Data? = try File(path: "authors.json").read()
 
     let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
 
@@ -188,7 +189,7 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   func testGenerateAuthorsInGroupsList() throws {
-    let data: Data? = Files.readFile("authors.json")
+    let data: Data? = try File(path: "authors.json").read()
 
     let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
 
@@ -201,11 +202,11 @@ class AudioKnigiAPITests: XCTestCase {
 
     //print(data2)
 
-    _ = Files.createFile("authors-in-groups.json", data: data2)
+    try FileSystem().createFile(at: "authors-in-groups.json", contents: data2)
   }
 
   func testGeneratePerformersInGroupsList() throws {
-    let data: Data? = Files.readFile("performers.json")
+    let data: Data? = try File(path: "performers.json").read()
 
     let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
 
@@ -218,7 +219,7 @@ class AudioKnigiAPITests: XCTestCase {
 
     //print(data2)
 
-    _ = Files.createFile("performers-in-groups.json", data: data2)
+    try FileSystem().createFile(at: "performers-in-groups.json", contents: data2)
   }
 
   private func generateAuthorsList(_ fileName: String) throws {
@@ -240,7 +241,7 @@ class AudioKnigiAPITests: XCTestCase {
 
     let filteredList = list.map {["id": ($0 as! [String: String])["id"]!, "name": ($0 as! [String: String])["name"]!] }
 
-    _ = Files.createFile(fileName, data: try Prettifier.asPrettifiedData(filteredList))
+    try FileSystem().createFile(at: fileName, contents: try Prettifier.asPrettifiedData(filteredList))
   }
 
   private func generatePerformersList(_ fileName: String) throws {
@@ -262,6 +263,6 @@ class AudioKnigiAPITests: XCTestCase {
 
     let filteredList = list.map {["id": ($0 as! [String: String])["id"]!, "name": ($0 as! [String: String])["name"]!] }
 
-    _ = Files.createFile(fileName, data: try Prettifier.asPrettifiedData(filteredList))
+    try FileSystem().createFile(at: fileName, contents: try Prettifier.asPrettifiedData(filteredList))
   }
 }

@@ -1,4 +1,5 @@
 import Foundation
+import Files
 
 open class PlainConfig: Config {
   public typealias Item = String
@@ -28,7 +29,7 @@ open class PlainConfig: Config {
   }
 
   public func exist() -> Bool {
-    return Files.exist(fileName)
+    return File.exists(atPath: fileName)
   }
 
   public func add(key: String, value: Item) {
@@ -43,9 +44,9 @@ open class PlainConfig: Config {
     clear()
 
     do {
-      if let data = Files.readFile(fileName) {
-        items = try decoder.decode([String: Item].self, from: data)
-      }
+      let data = try File(path: fileName).read()
+
+      items = try decoder.decode([String: Item].self, from: data)
     }
     catch let e {
       print("Error: \(e)")
@@ -56,9 +57,7 @@ open class PlainConfig: Config {
     do {
       let data = try encoder.encode(items)
 
-      if !Files.createFile(fileName, data: data) {
-        print("Error writing to file")
-      }
+      try FileSystem().createFile(at: fileName, contents: data)
     }
     catch let e {
       print("Error: \(e)")

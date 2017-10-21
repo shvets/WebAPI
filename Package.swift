@@ -11,7 +11,8 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/Alamofire/Alamofire", from: "4.5.1"),
     .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "3.1.4"),
-    .package(url: "https://github.com/scinfu/SwiftSoup", from: "1.5.4")
+    .package(url: "https://github.com/scinfu/SwiftSoup", from: "1.5.4"),
+    .package(url: "https://github.com/JohnSundell/Files", from: "1.9.0")
   ],
   targets: [
     .target(
@@ -19,14 +20,19 @@ let package = Package(
       dependencies: [
         "Alamofire",
         "SwiftSoup",
-        "SwiftyJSON"
+        "SwiftyJSON",
+        "Files"
       ]),
     .target(
       name: "GrabBook",
       dependencies: [
         "WebAPI"
       ]),
-    .testTarget(name: "WebAPITests", dependencies: ["WebAPI"], path: "Tests")
+    .testTarget(
+      name: "WebAPITests",
+      dependencies: ["WebAPI"],
+      path: "Tests"
+    )
   ],
   swiftLanguageVersions: [4]
 )
