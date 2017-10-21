@@ -1,4 +1,5 @@
 import Foundation
+import ConfigFile
 
 open class EtvnetAPI: ApiService {
   public static let PER_PAGE = 15
@@ -38,7 +39,7 @@ open class EtvnetAPI: ApiService {
 
   let decoder = JSONDecoder()
 
-  public init(config: PlainConfig) {
+  public init(config: StringConfigFile) {
     super.init(config: config, apiUrl: ApiUrl, userAgent: UserAgent, authUrl: AuthUrl, clientId: ClientId,
       clientSecret: ClientSecret, grantType: GrantType, scope: Scope)
   }
@@ -65,7 +66,7 @@ open class EtvnetAPI: ApiService {
 
     if let result = result {
       config.items = result.asDictionary()
-      config.save()
+      saveConfig()
     }
 
     return result

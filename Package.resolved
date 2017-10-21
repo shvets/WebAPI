@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "ConfigFile",
+        "repositoryURL": "https://github.com/shvets/ConfigFile",
+        "state": {
+          "branch": null,
+          "revision": "884017353345a0001e1c3de3e4e4705af64e1c26",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "Files",
         "repositoryURL": "https://github.com/JohnSundell/Files",
         "state": {

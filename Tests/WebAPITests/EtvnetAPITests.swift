@@ -1,9 +1,10 @@
 import XCTest
+import ConfigFile
 
 @testable import WebAPI
 
 class EtvnetAPITests: XCTestCase {
-  static var config = PlainConfig("etvnet.config")
+  static var config = StringConfigFile("etvnet.config")
 
   var subject = EtvnetAPI(config: config)
 

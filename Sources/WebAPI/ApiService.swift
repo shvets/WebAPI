@@ -1,25 +1,26 @@
 import Foundation
 import Alamofire
+import ConfigFile
 
 open class ApiService: AuthService {
-  public var config: PlainConfig
+  public var config: StringConfigFile
 
   public var authorizeCallback: () -> Void = {}
 
   let apiUrl: String
   let userAgent: String
   
-  init(config: PlainConfig, apiUrl: String, userAgent: String, authUrl: String, clientId: String,
+  init(config: StringConfigFile, apiUrl: String, userAgent: String, authUrl: String, clientId: String,
        clientSecret: String, grantType: String, scope: String) {
     self.config = config
-    
-    self.config.load()
     
     self.apiUrl = apiUrl
     self.userAgent = userAgent
     
     super.init(authUrl: authUrl, clientId: clientId, clientSecret: clientSecret,
                grantType: grantType, scope: scope)
+
+    self.loadConfig()
   }
 
   public func authorize(authorizeCallback: @escaping () -> Void) {
@@ -32,10 +33,28 @@ open class ApiService: AuthService {
     _ = config.remove("device_code")
     _ = config.remove("user_code")
     _ = config.remove("activation_url")
-    
-    config.save()
+
+    saveConfig()
   }
-  
+
+  func loadConfig() {
+    do {
+      try config.load()
+    }
+    catch let error {
+      print("Error loading configuration: \(error)")
+    }
+  }
+
+  func saveConfig() {
+    do {
+      try config.save()
+    }
+    catch let error {
+      print("Error saving configuration: \(error)")
+    }
+  }
+
   func apiRequest(baseUrl: String, path: String, method: HTTPMethod?,
                   headers: [String: String] = [:], parameters: [String: String]) -> DataResponse<Data>? {
     let url = baseUrl + path
@@ -70,8 +89,8 @@ open class ApiService: AuthService {
           "device_code": deviceCode,
           "activation_url": activationUrl
         ]
-        
-        config.save()
+
+        saveConfig()
 
         return (userCode: userCode, deviceCode: deviceCode, activationUrl: activationUrl)
       }
@@ -101,7 +120,7 @@ open class ApiService: AuthService {
       
       if let response = updateToken(refreshToken: refreshToken!) {
         config.items = response.asDictionary()
-        config.save()
+        saveConfig()
 
         return true
       }
@@ -111,7 +130,7 @@ open class ApiService: AuthService {
       
       if let response = createToken(deviceCode: deviceCode!) {
         config.items = response.asDictionary()
-        config.save()
+        saveConfig()
 
         return false
       }
@@ -146,7 +165,7 @@ open class ApiService: AuthService {
 
             if let updateResult = updateToken(refreshToken: refreshToken!) {
               config.items = updateResult.asDictionary()
-              config.save()
+              saveConfig()
 
               response = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
             }
