@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WebAPI"
-  s.version      = "1.0.10"
+  s.version      = "1.0.11"
   s.summary      = "Swift client and tests for accessing various APIs around the web"
   s.description  = "Swift client and tests for accessing various APIs around the web."
 
