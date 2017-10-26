@@ -17,15 +17,6 @@ open class AudioBooAPI: HttpService {
     return try fetchDocument(url, headers: headers, parameters: parameters, method: .post, encoding: .windowsCP1251)
   }
 
-  func getPagePath(path: String, page: Int=1) -> String {
-    if page == 1 {
-      return path
-    }
-    else {
-      return "\(path)page\(page)/"
-    }
-  }
-
   public func getLetters() throws -> [[String: String]] {
     var data = [[String: String]]()
 
@@ -88,10 +79,12 @@ open class AudioBooAPI: HttpService {
     return NameClassifier().mergeSmallGroups(newGroups)
   }
 
-  public func getBooks(_ url: String) throws -> [Any] {
+  public func getBooks(_ url: String, page: Int=1) throws -> [Any] {
     var data = [Any]()
 
-    if let document = try getDocument(url) {
+    let pagePath = page == 1 ? "" : "page/\(page)/"
+
+    if let document = try getDocument(url + pagePath) {
       let items = try document.select("div[class=biography-main]")
 
       for item: Element in items.array() {
