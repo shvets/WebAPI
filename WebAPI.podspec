@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "WebAPI"
-  s.version      = "1.0.11"
+  s.version      = "1.0.12"
   s.summary      = "Swift client and tests for accessing various APIs around the web"
   s.description  = "Swift client and tests for accessing various APIs around the web."
 
@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.dependency 'SwiftyJSON', '~> 3.1.4'
   s.dependency 'SwiftSoup', '~> 1.5.5'
   s.dependency 'Files', '~> 1.9.0'
-  s.dependency 'ConfigFile', '~> 1.0.0'
+  s.dependency 'ConfigFile', '~> 1.0.1'
 
   s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4' }
 end

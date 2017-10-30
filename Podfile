@@ -4,7 +4,7 @@ source 'https://github.com/shvets/Specs.git'
 use_frameworks!
 
 def project_dependencies
-  pod 'ConfigFile', path: '../ConfigFile'
+  #pod 'ConfigFile', path: '../ConfigFile'
 end
 
 target 'WebAPI_iOS' do
