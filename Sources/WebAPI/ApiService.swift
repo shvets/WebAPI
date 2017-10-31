@@ -54,17 +54,6 @@ open class ApiService: AuthService {
       print("Error saving configuration: \(error)")
     }
   }
-
-  func apiRequest(baseUrl: String, path: String, method: HTTPMethod?,
-                  headers: [String: String] = [:], parameters: [String: String]) -> DataResponse<Data>? {
-    let url = baseUrl + path
-    
-    var newHeaders = headers
-    
-    newHeaders["User-agent"] = userAgent
-    
-    return httpRequest(url, headers: newHeaders, parameters: parameters, method: method!)
-  }
   
   public func authorization(includeClientSecret: Bool=true) -> (userCode: String, deviceCode: String, activationUrl: String) {
     var activationUrl: String
@@ -138,7 +127,7 @@ open class ApiService: AuthService {
 
     return false
   }
-  
+
   func fullRequest(path: String, method: HTTPMethod = .get, parameters: [String: String] = [:],
                    unauthorized: Bool=false) -> DataResponse<Data>? {
     var response: DataResponse<Data>?
@@ -158,7 +147,9 @@ open class ApiService: AuthService {
       }
 
       if let accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
-        if let apiResponse = apiRequest(baseUrl: apiUrl, path: accessPath, method: method, parameters: parameters),
+        let headers = ["User-agent": userAgent]
+
+        if let apiResponse = httpRequest(apiUrl + accessPath, headers: headers, parameters: parameters, method: method),
            let statusCode = apiResponse.response?.statusCode {
           if (statusCode == 401 || statusCode == 400) && !unauthorized {
             let refreshToken = config.items["refresh_token"]
@@ -182,5 +173,5 @@ open class ApiService: AuthService {
 
     return response
   }
-  
+
 }

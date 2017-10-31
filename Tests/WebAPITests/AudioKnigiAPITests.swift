@@ -9,9 +9,23 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetAuthorsLetters() throws {
     let result = try subject.getAuthorsLetters()
 
-    //print(result as Any)
+    print(result as Any)
 
     XCTAssert(result.count > 0)
+  }
+
+  func testGetAuthorsLetters2() throws {
+    let semaphore = DispatchSemaphore.init(value: 0)
+
+    try subject.getAuthorsLetters2 { (result: [Any]) in
+      print(result)
+
+      XCTAssert(result.count > 0)
+
+      semaphore.signal()
+    }
+
+    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
   }
 
   func testGetPerformersLetters() throws {

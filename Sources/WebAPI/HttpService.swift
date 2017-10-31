@@ -58,23 +58,21 @@ open class HttpService {
                            headers: HTTPHeaders = [:],
                            parameters: Parameters = [:],
                            method: HTTPMethod = .get,
-                           successHandler: @escaping (Data) -> Void = { data in },
-                           errorHandler: @escaping (Error) -> Void = { data in }) {
+                           success: @escaping (Data) -> Void = { data in },
+                           error: @escaping (Error) -> Void = { data in }) {
     if let sessionManager = sessionManager {
+      let utilityQueue = DispatchQueue.global(qos: .utility)
+
       sessionManager.request(url, method: method, parameters: parameters,
-        headers: headers).validate().responseData { response in
+        headers: headers).validate().responseData(queue: utilityQueue) { response in
 
         switch response.result {
-        case .success(let data):
-          DispatchQueue.main.async {
-            successHandler(data)
-          }
+          case .success(let data):
+            success(data)
 
-        case .failure(let error):
-          DispatchQueue.main.async {
-            errorHandler(error)
+          case .failure(let e):
+            error(e)
           }
-        }
       }
     }
   }

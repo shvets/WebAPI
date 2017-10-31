@@ -24,20 +24,42 @@ open class AudioKnigiAPI: HttpService {
     return try getLetters(path: "/performers/", filter: "performer-prefix-filter")
   }
 
-  func getLetters(path: String, filter: String) throws -> [Any] {
-    var data = [Any]()
+  public func getAuthorsLetters2(error: @escaping (Error) -> Void = { data in },
+                                 success: @escaping ([Any]) throws -> Void = { data in }) throws {
+    func onServiceCall(data: Data) {
+      do {
+        let result = try buildLetters(data, filter: "author-prefix-filter")
 
-    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + path) {
-      let items = try document.select("ul[id='" + filter + "'] li a")
-
-      for item in items.array() {
-        let name = try item.text()
-
-        data.append(name)
+        try success(result)
+      }
+      catch let e {
+        error(e)
       }
     }
 
-    return data
+    httpRequest2(AudioKnigiAPI.SiteUrl + "/authors/", success: onServiceCall, error: error)
+  }
+
+  func getLetters(path: String, filter: String) throws -> [Any] {
+    let data = httpRequest(AudioKnigiAPI.SiteUrl + path)?.data
+
+    return try buildLetters(data!, filter: filter)
+  }
+
+  func buildLetters(_ data: Data, filter: String) throws -> [Any] {
+    var result = [Any]()
+
+    let document = try toDocument(data)
+
+    let items = try document!.select("ul[id='" + filter + "'] li a")
+
+    for item in items.array() {
+      let name = try item.text()
+
+      result.append(name)
+    }
+
+    return result
   }
 
   public func getNewBooks(page: Int=1) throws -> [String: Any] {
