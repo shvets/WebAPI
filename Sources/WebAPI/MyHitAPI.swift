@@ -191,7 +191,7 @@ open class MyHitAPI: HttpService {
           let text = try li.html()
 
           if text.find("Композитор:") != nil {
-            let index = text.index(text.startIndex, offsetBy: "Композитор:".characters.count)
+            let index = text.index(text.startIndex, offsetBy: "Композитор:".count)
 
             composer = String(text[index ..< text.endIndex])
           }
@@ -542,7 +542,7 @@ open class MyHitAPI: HttpService {
 
       let text = try infoNode.get(1).html()
 
-      let index = text.index(text.startIndex, offsetBy: "В ролях:".characters.count)
+      let index = text.index(text.startIndex, offsetBy: "В ролях:".count)
 
       let artists = text[index ..< text.endIndex].components(separatedBy: ",")
 
@@ -608,7 +608,7 @@ open class MyHitAPI: HttpService {
       index11 = url.find(pattern)
     }
 
-    let index1 = url.index(index11!, offsetBy: pattern.characters.count)
+    let index1 = url.index(index11!, offsetBy: pattern.count)
     let index2 = url.find(".m3u8")
 
     return String(url[index1 ... index2!])

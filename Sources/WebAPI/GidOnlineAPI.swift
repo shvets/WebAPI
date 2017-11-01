@@ -329,7 +329,7 @@ open class GidOnlineAPI: HttpService {
 
       urls = try document2!.select("iframe[class='ifram']").attr("src")
 
-      if !urls.trim().characters.isEmpty {
+      if !urls.trim().isEmpty {
         gatewayUrl = urls
       }
     }
@@ -639,7 +639,7 @@ open class GidOnlineAPI: HttpService {
           do {
             let regex = try NSRegularExpression(pattern: pattern)
 
-            let matches = regex.matches(in: line, options: [], range: NSRange(location: 0, length: line.characters.count))
+            let matches = regex.matches(in: line, options: [], range: NSRange(location: 0, length: line.count))
 
             let width = self.getMatched(line, matches: matches, index: 1)
             let height = self.getMatched(line, matches: matches, index: 2)
@@ -835,7 +835,7 @@ open class GidOnlineAPI: HttpService {
 
     let regex = try NSRegularExpression(pattern: rePattern)
 
-    let matches = regex.matches(in: link, options: [], range: NSRange(location: 0, length: link.characters.count))
+    let matches = regex.matches(in: link, options: [], range: NSRange(location: 0, length: link.count))
 
     if let matched = getMatched(link, matches: matches, index: 2) {
       return Int(matched)!
@@ -938,7 +938,7 @@ open class GidOnlineAPI: HttpService {
 
       let path = currentItem["id"] as! String
 
-      let index1 = path.index(path.startIndex, offsetBy: GidOnlineAPI.SiteUrl.characters.count, limitedBy: path.endIndex)
+      let index1 = path.index(path.startIndex, offsetBy: GidOnlineAPI.SiteUrl.count, limitedBy: path.endIndex)
       let index2 = path.index(before: path.endIndex)
 
       if index1 != nil {

@@ -131,7 +131,7 @@ open class AudioKnigiAPI: HttpService {
         let thumb = "https://audioknigi.club/templates/skin/aclub/images/avatar_blog_48x48.png"
         //try link.select("img").attr("src")
 
-        let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
+        let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.count)
 
         let id = String(href[index ..< href.endIndex]) + "/"
         let filteredId = id.removingPercentEncoding!
@@ -163,7 +163,7 @@ open class AudioKnigiAPI: HttpService {
         let name = try item.select("h4 a").text()
         let href = try link.attr("href")
 
-        let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.characters.count)
+        let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.count)
 
         let id = String(href[index ..< href.endIndex])
 
@@ -205,7 +205,7 @@ open class AudioKnigiAPI: HttpService {
           let index1 = link.find("page")
           let index2 = link.find("?")
 
-          let index3 = link.index(index1!, offsetBy: "page".characters.count)
+          let index3 = link.index(index1!, offsetBy: "page".count)
           var index4: String.Index?
 
           if index2 == nil {
@@ -275,7 +275,7 @@ open class AudioKnigiAPI: HttpService {
         let index = scriptBody.find("$(document).audioPlayer")
 
         if index != nil {
-          let index1 = scriptBody.index(scriptBody.startIndex, offsetBy: "$(document).audioPlayer".characters.count+1)
+          let index1 = scriptBody.index(scriptBody.startIndex, offsetBy: "$(document).audioPlayer".count+1)
           let index2 = scriptBody.find(",")!
 
           bookId = Int(scriptBody[index1..<index2])!

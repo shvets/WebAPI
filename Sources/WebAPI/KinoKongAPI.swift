@@ -73,7 +73,7 @@ open class KinoKongAPI: HttpService {
         let seasonNode = try item.select("div[class=main-sliders-shadow] div[class=main-sliders-season]").text()
 
         if href.find(KinoKongAPI.SiteUrl) != nil {
-          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
+          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.count)
 
           href = String(href[index ..< href.endIndex])
         }
@@ -115,7 +115,7 @@ open class KinoKongAPI: HttpService {
         if !link.array().isEmpty {
           var href = try link.attr("href")
 
-          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
+          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.count)
 
           href = String(href[index ..< href.endIndex])
 
@@ -258,7 +258,7 @@ open class KinoKongAPI: HttpService {
     do {
       let regex = try NSRegularExpression(pattern: pattern)
 
-      let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.characters.count))
+      let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
 
       if let width = getMatched(text, matches: matches, index: 1) {
         data["width"] = width
@@ -368,7 +368,7 @@ open class KinoKongAPI: HttpService {
         let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()
 
         if href.find(KinoKongAPI.SiteUrl) != nil {
-          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.characters.count)
+          let index = href.index(href.startIndex, offsetBy: KinoKongAPI.SiteUrl.count)
 
           href = String(href[index ..< href.endIndex])
         }

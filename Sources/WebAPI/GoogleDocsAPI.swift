@@ -245,7 +245,7 @@ open class GoogleDocsAPI: HttpService {
 
       let frameUrl2WithoutExt = components[0...components.count-2].joined(separator: ".")
 
-      if !frameUrl2WithoutExt.characters.isEmpty {
+      if !frameUrl2WithoutExt.isEmpty {
         let secondUrlPart2 = frameUrl2WithoutExt + "2.php"
 
         do {
@@ -266,7 +266,7 @@ open class GoogleDocsAPI: HttpService {
 
           let url3 = try data4!.select("iframe").attr("src")
 
-          if !url3.characters.isEmpty {
+          if !url3.isEmpty {
             data["urls"] = updateUrls(data: data, url: url3)
           }
         }

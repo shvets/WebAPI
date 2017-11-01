@@ -139,7 +139,7 @@ open class ApiService: AuthService {
     if let accessToken = config.items["access_token"] {
       var accessPath: String
 
-      if path.characters.index(of: "?") != nil {
+      if path.index(of: "?") != nil {
         accessPath = "\(path)&access_token=\(accessToken)"
       }
       else {
