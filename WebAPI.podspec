@@ -23,6 +23,7 @@ Pod::Spec.new do |s|
   s.source_files = "Sources/**/*.swift"
 
   s.dependency 'Alamofire', '~> 4.5.1'
+  s.dependency 'RxSwift', '~> 4.0.0'
   #s.dependency 'AlamofireImage', '~> 3.2.0'
   s.dependency 'SwiftyJSON', '~> 3.1.4'
   s.dependency 'SwiftSoup', '~> 1.5.5'

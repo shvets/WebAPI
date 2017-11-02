@@ -6,12 +6,29 @@ import Files
 class AudioKnigiAPITests: XCTestCase {
   var subject = AudioKnigiAPI()
 
+//  func testGetAuthorsLetters() throws {
+//    let result = try subject.getAuthorsLetters()
+//
+//    print(result as Any)
+//
+//    XCTAssert(result.count > 0)
+//  }
+
   func testGetAuthorsLetters() throws {
-    let result = try subject.getAuthorsLetters()
+    let exp = expectation(description: "Gets authors letters")
 
-    print(result as Any)
+    try _ = subject.getAuthorsLetters().subscribe(onNext: { result in
+      print(result as Any)
 
-    XCTAssert(result.count > 0)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetAuthorsLetters2() throws {
@@ -45,6 +62,20 @@ class AudioKnigiAPITests: XCTestCase {
 //    print(result as Any)
 
     XCTAssert(result.count > 0)
+  }
+
+  func testGetNewBooks2() throws {
+    let exp = expectation(description: "Gets new books")
+
+    _ = subject.getNewBooks2().subscribe(onNext: { result in
+      print(result as Any)
+
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetBestBooksByWeek() throws {

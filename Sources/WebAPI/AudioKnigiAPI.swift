@@ -1,6 +1,8 @@
 import Foundation
 import SwiftSoup
 import Files
+import Alamofire
+import RxSwift
 
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
@@ -16,9 +18,9 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-  public func getAuthorsLetters() throws -> [Any] {
-    return try getLetters(path: "/authors/", filter: "author-prefix-filter")
-  }
+//  public func getAuthorsLetters() throws -> [Any] {
+//    return try getLetters(path: "/authors/", filter: "author-prefix-filter")
+//  }
 
   public func getPerformersLetters() throws -> [Any] {
     return try getLetters(path: "/performers/", filter: "performer-prefix-filter")
@@ -38,6 +40,14 @@ open class AudioKnigiAPI: HttpService {
     }
 
     httpRequest2(AudioKnigiAPI.SiteUrl + "/authors/", success: onServiceCall, error: error)
+  }
+
+  public func getAuthorsLetters() throws -> Observable<[Any]> {
+    let url = AudioKnigiAPI.SiteUrl + "/authors/"
+
+    return Alamofire.request(url).rx.responseData().map { [weak self] data in
+      return (try self?.buildLetters(data, filter: "author-prefix-filter"))!
+    }
   }
 
   func getLetters(path: String, filter: String) throws -> [Any] {
@@ -66,6 +76,10 @@ open class AudioKnigiAPI: HttpService {
     return try getBooks(path: "/index/", page: page)
   }
 
+  public func getNewBooks2(page: Int=1) -> Observable<[String: Any]> {
+    return getBooks2(path: "/index/", page: page)
+  }
+
   public func getBestBooks(period: String, page: Int=1) throws -> [String: Any] {
     return try getBooks(path: "/index/views/", period: period, page: page)
   }
@@ -83,6 +97,26 @@ open class AudioKnigiAPI: HttpService {
       return try getBookItems(document, path: encodedPath, page: page)
     }
     else {
+      return [:]
+    }
+  }
+
+  public func getBooks2(path: String, period: String="", page: Int=1) -> Observable<[String: Any]> {
+    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+    var pagePath = getPagePath(path: encodedPath, page: page)
+
+    if !period.isEmpty {
+      pagePath = "\(pagePath)?period=\(period)"
+    }
+
+    let url = AudioKnigiAPI.SiteUrl + pagePath
+
+    return Alamofire.request(url).rx.responseData().map { data in
+      if let document = try self.toDocument(data) {
+        return try self.getBookItems(document, path: encodedPath, page: page)
+      }
+
       return [:]
     }
   }
