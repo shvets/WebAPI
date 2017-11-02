@@ -15,17 +15,20 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   func testGetAuthorsLetters2() throws {
-    let semaphore = DispatchSemaphore.init(value: 0)
+    let exp = expectation(description: "Gets authors letters")
+    //let semaphore = DispatchSemaphore.init(value: 0)
 
     try subject.getAuthorsLetters2 { (result: [Any]) in
       print(result)
 
       XCTAssert(result.count > 0)
 
-      semaphore.signal()
+      //semaphore.signal()
+      exp.fulfill()
     }
 
-    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetPerformersLetters() throws {
