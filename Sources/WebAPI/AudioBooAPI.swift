@@ -1,5 +1,7 @@
 import Foundation
 import SwiftSoup
+import Alamofire
+import RxSwift
 
 open class AudioBooAPI: HttpService {
   public static let SiteUrl = "http://audioboo.ru"
@@ -17,22 +19,30 @@ open class AudioBooAPI: HttpService {
     return try fetchDocument(url, headers: headers, parameters: parameters, method: .post, encoding: .windowsCP1251)
   }
 
-  public func getLetters() throws -> [[String: String]] {
-    var data = [[String: String]]()
+  public func getLetters() -> Observable<[[String: String]]> {
+    let url = AudioBooAPI.SiteUrl
 
-    if let document = try getDocument(AudioBooAPI.SiteUrl) {
-      let items = try document.select("div[class=content] div div a[class=alfavit]")
+    return Alamofire.request(url).rx.responseData().map { data in
+      if let html = String(data: data, encoding: .windowsCP1251) {
+        var data = [[String: String]]()
+        
+        let document = try SwiftSoup.parse(html)
 
-      for item in items.array() {
-        let name = try item.text()
+        let items = try document.select("div[class=content] div div a[class=alfavit]")
 
-        let href = try item.attr("href")
+        for item in items.array() {
+          let name = try item.text()
 
-        data.append(["id": href, "name": name.uppercased()])
+          let href = try item.attr("href")
+
+          data.append(["id": href, "name": name.uppercased()])
+        }
+
+        return data
       }
-    }
 
-    return data
+      return []
+    }
   }
 
   public func getAuthorsByLetter(_ path: String) throws -> [(key: String, value: [Any])] {
