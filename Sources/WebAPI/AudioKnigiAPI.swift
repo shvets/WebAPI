@@ -18,30 +18,6 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-//  public func getAuthorsLetters() throws -> [Any] {
-//    return try getLetters(path: "/authors/", filter: "author-prefix-filter")
-//  }
-
-  public func getPerformersLetters() throws -> [Any] {
-    return try getLetters(path: "/performers/", filter: "performer-prefix-filter")
-  }
-
-  public func getAuthorsLetters2(error: @escaping (Error) -> Void = { data in },
-                                 success: @escaping ([Any]) throws -> Void = { data in }) throws {
-    func onServiceCall(data: Data) {
-      do {
-        let result = try buildLetters(data, filter: "author-prefix-filter")
-
-        try success(result)
-      }
-      catch let e {
-        error(e)
-      }
-    }
-
-    httpRequest2(AudioKnigiAPI.SiteUrl + "/authors/", success: onServiceCall, error: error)
-  }
-
   public func getAuthorsLetters() -> Observable<[Any]> {
     let url = AudioKnigiAPI.SiteUrl + "/authors/"
 
@@ -50,10 +26,12 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-  func getLetters(path: String, filter: String) throws -> [Any] {
-    let data = httpRequest(AudioKnigiAPI.SiteUrl + path)?.data
+  func getLetters(path: String, filter: String) throws -> Observable<[Any]> {
+    let url = AudioKnigiAPI.SiteUrl + path
 
-    return try buildLetters(data!, filter: filter)
+    return Alamofire.request(url).rx.responseData().map { [weak self] data in
+      return try self!.buildLetters(data, filter: filter)
+    }
   }
 
   func buildLetters(_ data: Data, filter: String) throws -> [Any] {
@@ -120,44 +98,50 @@ open class AudioKnigiAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-  public func getAuthors(page: Int=1) throws -> [String: Any] {
-    return try getCollection(path: "/authors/", page: page)
+  public func getAuthors(page: Int=1) -> Observable<[String: Any]> {
+    return getCollection(path: "/authors/", page: page)
   }
 
-  public func getPerformers(page: Int=1) throws -> [String: Any] {
-    return try getCollection(path: "/performers/", page: page)
+  public func getPerformers(page: Int=1) -> Observable<[String: Any]> {
+    return getCollection(path: "/performers/", page: page)
   }
 
-  func getCollection(path: String, page: Int=1) throws -> [String: Any] {
-    var data = [Any]()
+  func getCollection(path: String, page: Int=1) -> Observable<[String: Any]> {
+    var collection = [Any]()
     var paginationData = [String: Any]()
 
     let pagePath = getPagePath(path: path, page: page)
 
-    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath) {
-      let items = try document.select("td[class=cell-name]")
+    let url = AudioKnigiAPI.SiteUrl + pagePath
 
-      for item: Element in items.array() {
-        let link = try item.select("h4 a")
-        let name = try link.text()
-        let href = try link.attr("href")
-        let thumb = "https://audioknigi.club/templates/skin/aclub/images/avatar_blog_48x48.png"
-        //try link.select("img").attr("src")
+    return Alamofire.request(url).rx.responseData().map { data in
+      if let document = try self.toDocument(data) {
+        let items = try document.select("td[class=cell-name]")
 
-        let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.count)
+        for item: Element in items.array() {
+          let link = try item.select("h4 a")
+          let name = try link.text()
+          let href = try link.attr("href")
+          let thumb = "https://audioknigi.club/templates/skin/aclub/images/avatar_blog_48x48.png"
+          //try link.select("img").attr("src")
 
-        let id = String(href[index ..< href.endIndex]) + "/"
-        let filteredId = id.removingPercentEncoding!
+          let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.count)
 
-        data.append(["type": "collection", "id": filteredId, "name": name, "thumb": thumb])
+          let id = String(href[index ..< href.endIndex]) + "/"
+          let filteredId = id.removingPercentEncoding!
+
+          collection.append(["type": "collection", "id": filteredId, "name": name, "thumb": thumb])
+        }
+
+        if !items.array().isEmpty {
+          paginationData = try self.extractPaginationData(document: document, path: path, page: page)
+        }
+
+        return ["movies": collection, "pagination": paginationData]
       }
 
-      if !items.array().isEmpty {
-        paginationData = try extractPaginationData(document: document, path: path, page: page)
-      }
+      return [:]
     }
-
-    return ["movies": data, "pagination": paginationData]
   }
 
   public func getGenres(page: Int=1) -> Observable<[String: Any]> {
