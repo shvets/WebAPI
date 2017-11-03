@@ -21,7 +21,19 @@ open class DownloadManager {
   public func downloadAudioKnigiTracks(_ url: String) throws {
     let client = AudioKnigiAPI()
 
-    let audioTracks = try client.getAudioTracks(url)
+    var audioTracks = [AudioKnigiAPI.Track]()
+    
+    let semaphore = DispatchSemaphore.init(value: 0)
+
+    _ = client.getAudioTracks(url).subscribe(
+      onNext: { result in
+        audioTracks = result
+
+        semaphore.signal()
+    })
+
+    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+
     let bookDir = URL(string: url)!.lastPathComponent
 
     var currentAlbum: String?

@@ -42,7 +42,7 @@ open class AudioKnigiAPI: HttpService {
     httpRequest2(AudioKnigiAPI.SiteUrl + "/authors/", success: onServiceCall, error: error)
   }
 
-  public func getAuthorsLetters() throws -> Observable<[Any]> {
+  public func getAuthorsLetters() -> Observable<[Any]> {
     let url = AudioKnigiAPI.SiteUrl + "/authors/"
 
     return Alamofire.request(url).rx.responseData().map { [weak self] data in
@@ -72,36 +72,15 @@ open class AudioKnigiAPI: HttpService {
     return result
   }
 
-  public func getNewBooks(page: Int=1) throws -> [String: Any] {
-    return try getBooks(path: "/index/", page: page)
+  public func getNewBooks(page: Int=1) -> Observable<[String: Any]> {
+    return getBooks(path: "/index/", page: page)
   }
 
-  public func getNewBooks2(page: Int=1) -> Observable<[String: Any]> {
-    return getBooks2(path: "/index/", page: page)
+  public func getBestBooks(period: String, page: Int=1) -> Observable<[String: Any]> {
+    return getBooks(path: "/index/views/", period: period, page: page)
   }
 
-  public func getBestBooks(period: String, page: Int=1) throws -> [String: Any] {
-    return try getBooks(path: "/index/views/", period: period, page: page)
-  }
-
-  public func getBooks(path: String, period: String="", page: Int=1) throws -> [String: Any] {
-    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-
-    var pagePath = getPagePath(path: encodedPath, page: page)
-
-    if !period.isEmpty {
-      pagePath = "\(pagePath)?period=\(period)"
-    }
-
-    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath) {
-      return try getBookItems(document, path: encodedPath, page: page)
-    }
-    else {
-      return [:]
-    }
-  }
-
-  public func getBooks2(path: String, period: String="", page: Int=1) -> Observable<[String: Any]> {
+  public func getBooks(path: String, period: String="", page: Int=1) -> Observable<[String: Any]> {
     let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
 
     var pagePath = getPagePath(path: encodedPath, page: page)
@@ -181,41 +160,47 @@ open class AudioKnigiAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-  public func getGenres(page: Int=1) throws -> [String: Any] {
-    var data = [Any]()
-    var paginationData = ItemsList()
-
+  public func getGenres(page: Int=1) -> Observable<[String: Any]> {
     let path = "/sections/"
 
     let pagePath = getPagePath(path: path, page: page)
 
-    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + pagePath) {
-      let items = try document.select("td[class=cell-name]")
+    let url = AudioKnigiAPI.SiteUrl + pagePath
 
-      for item: Element in items.array() {
-        let link = try item.select("a")
-        let name = try item.select("h4 a").text()
-        let href = try link.attr("href")
+    return Alamofire.request(url).rx.responseData().map { data in
+      if let document = try self.toDocument(data) {
+        var data = [Any]()
+        var paginationData = ItemsList()
 
-        let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.count)
+        let items = try document.select("td[class=cell-name]")
 
-        let id = String(href[index ..< href.endIndex])
+        for item: Element in items.array() {
+          let link = try item.select("a")
+          let name = try item.select("h4 a").text()
+          let href = try link.attr("href")
 
-        let thumb = try link.select("img").attr("src")
+          let index = href.index(href.startIndex, offsetBy: AudioKnigiAPI.SiteUrl.count)
 
-        data.append(["type": "genre", "id": id, "name": name, "thumb": thumb])
+          let id = String(href[index ..< href.endIndex])
+
+          let thumb = try link.select("img").attr("src")
+
+          data.append(["type": "genre", "id": id, "name": name, "thumb": thumb])
+        }
+
+        if !items.array().isEmpty {
+          paginationData = try self.extractPaginationData(document: document, path: path, page: page)
+        }
+
+        return ["movies": data, "pagination": paginationData]
       }
 
-      if !items.array().isEmpty {
-        paginationData = try extractPaginationData(document: document, path: path, page: page)
-      }
+      return [:]
     }
-
-    return ["movies": data, "pagination": paginationData]
   }
 
-  func getGenre(path: String, page: Int=1) throws -> [String: Any] {
-    return try getBooks(path: path, page: page)
+  func getGenre(path: String, page: Int=1) -> Observable<[String: Any]> {
+    return getBooks(path: path, page: page)
   }
 
   func extractPaginationData(document: Document, path: String, page: Int) throws -> ItemsList {
@@ -279,7 +264,7 @@ open class AudioKnigiAPI: HttpService {
     ]
   }
 
-  public func search(_ query: String, page: Int=1) throws -> [String: Any] {
+  public func search(_ query: String, page: Int=1) -> Observable<[String: Any]> {
     let path = "/search/books/"
 
     let pagePath = getPagePath(path: path, page: page)
@@ -289,51 +274,58 @@ open class AudioKnigiAPI: HttpService {
 
     let fullPath = buildUrl(path: pagePath, params: params as [String: AnyObject])
 
-    if let document = try fetchDocument(AudioKnigiAPI.SiteUrl + fullPath) {
-      return try getBookItems(document, path: path, page: page)
-    }
-    else {
+    let url = AudioKnigiAPI.SiteUrl + fullPath
+
+    return Alamofire.request(url).rx.responseData().map { data in
+      if let document = try self.toDocument(data) {
+        return try self.getBookItems(document, path: path, page: page)
+      }
+
       return [:]
     }
   }
 
-  public func getAudioTracks(_ url: String) throws -> [Track] {
+  public func getAudioTracks(_ url: String) -> Observable<[Track]> {
     var bookId = 0
 
-    if let document = try fetchDocument(url) {
-      let scripts = try document.select("script[type='text/javascript']")
+    return Alamofire.request(url).rx.responseData().map { data in
+      if let document = try self.toDocument(data) {
+        let scripts = try document.select("script[type='text/javascript']")
 
-      for script in scripts {
-        let scriptBody =  try script.html()
+        for script in scripts {
+          let scriptBody =  try script.html()
 
-        let index = scriptBody.find("$(document).audioPlayer")
+          let index = scriptBody.find("$(document).audioPlayer")
 
-        if index != nil {
-          let index1 = scriptBody.index(scriptBody.startIndex, offsetBy: "$(document).audioPlayer".count+1)
-          let index2 = scriptBody.find(",")!
+          if index != nil {
+            let index1 = scriptBody.index(scriptBody.startIndex, offsetBy: "$(document).audioPlayer".count+1)
+            let index2 = scriptBody.find(",")!
 
-          bookId = Int(scriptBody[index1..<index2])!
+            bookId = Int(scriptBody[index1..<index2])!
 
-          break
+            break
+          }
         }
-      }
-    }
 
-    var newTracks = [Track]()
+        var newTracks = [Track]()
 
-    if bookId > 0 {
-      let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
+        if bookId > 0 {
+          let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
 
-      let response = httpRequest(newUrl)
+          let response = self.httpRequest(newUrl)
 
-      if let data = response?.data {
-        if let result = try? decoder.decode([Track].self, from: data) {
-          newTracks = result
+          if let data = response?.data {
+            if let result = try? self.decoder.decode([Track].self, from: data) {
+              newTracks = result
+            }
+          }
         }
-      }
-    }
 
-    return newTracks
+        return newTracks
+      }
+
+      return []
+    }
   }
 
   public func getItemsInGroups(_ fileName: String) -> [NameClassifier.ItemsGroup] {
