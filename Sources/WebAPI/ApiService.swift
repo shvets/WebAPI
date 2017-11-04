@@ -198,7 +198,7 @@ open class ApiService: AuthService {
         accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
         let headers = ["User-agent": userAgent]
 
-        return Alamofire.request(apiUrl + accessPath).rx.responseData()
+        return httpRequestRx(apiUrl + accessPath)
         
 //        if let apiResponse = httpRequest(apiUrl + accessPath, headers: headers, parameters: parameters, method: method),
 //          let statusCode = apiResponse.response?.statusCode {

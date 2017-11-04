@@ -22,7 +22,7 @@ open class AudioBooAPI: HttpService {
   public func getLetters() -> Observable<[[String: String]]> {
     let url = AudioBooAPI.SiteUrl
 
-    return Alamofire.request(url).rx.responseData().map { data in
+    return httpRequestRx(url).map { data in
       if let html = String(data: data, encoding: .windowsCP1251) {
         var data = [[String: String]]()
         

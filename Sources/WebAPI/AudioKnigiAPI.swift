@@ -21,7 +21,7 @@ open class AudioKnigiAPI: HttpService {
   public func getAuthorsLetters() -> Observable<[Any]> {
     let url = AudioKnigiAPI.SiteUrl + "/authors/"
 
-    return Alamofire.request(url).rx.responseData().map { [weak self] data in
+    return httpRequestRx(url).map { [weak self] data in
       return (try self?.buildLetters(data, filter: "author-prefix-filter"))!
     }
   }
@@ -29,7 +29,7 @@ open class AudioKnigiAPI: HttpService {
   func getLetters(path: String, filter: String) throws -> Observable<[Any]> {
     let url = AudioKnigiAPI.SiteUrl + path
 
-    return Alamofire.request(url).rx.responseData().map { [weak self] data in
+    return httpRequestRx(url).map { [weak self] data in
       return try self!.buildLetters(data, filter: filter)
     }
   }
@@ -69,7 +69,7 @@ open class AudioKnigiAPI: HttpService {
 
     let url = AudioKnigiAPI.SiteUrl + pagePath
 
-    return Alamofire.request(url).rx.responseData().map { data in
+    return httpRequestRx(url).map { data in
       if let document = try self.toDocument(data) {
         return try self.getBookItems(document, path: encodedPath, page: page)
       }
@@ -114,7 +114,7 @@ open class AudioKnigiAPI: HttpService {
 
     let url = AudioKnigiAPI.SiteUrl + pagePath
 
-    return Alamofire.request(url).rx.responseData().map { data in
+    return httpRequestRx(url).map { data in
       if let document = try self.toDocument(data) {
         let items = try document.select("td[class=cell-name]")
 
@@ -151,7 +151,7 @@ open class AudioKnigiAPI: HttpService {
 
     let url = AudioKnigiAPI.SiteUrl + pagePath
 
-    return Alamofire.request(url).rx.responseData().map { data in
+    return httpRequestRx(url).map { data in
       if let document = try self.toDocument(data) {
         var data = [Any]()
         var paginationData = ItemsList()
@@ -260,7 +260,7 @@ open class AudioKnigiAPI: HttpService {
 
     let url = AudioKnigiAPI.SiteUrl + fullPath
 
-    return Alamofire.request(url).rx.responseData().map { data in
+    return httpRequestRx(url).map { data in
       if let document = try self.toDocument(data) {
         return try self.getBookItems(document, path: path, page: page)
       }
@@ -272,7 +272,7 @@ open class AudioKnigiAPI: HttpService {
   public func getAudioTracks(_ url: String) -> Observable<[Track]> {
     var bookId = 0
 
-    return Alamofire.request(url).rx.responseData().map { data in
+    return httpRequestRx(url).map { data in
       if let document = try self.toDocument(data) {
         let scripts = try document.select("script[type='text/javascript']")
 
