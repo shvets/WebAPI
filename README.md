@@ -2,6 +2,9 @@
 Swift client and tests for accessing various APIs around the web
 
     # Documentation
+https://www.thedroidsonroids.com/blog/ios/rxswift-by-examples-1-the-basics/
+https://github.com/ReactiveX/RxSwift/blob/master/Documentation/GettingStarted.md
+https://gist.github.com/staltz/868e7e9bc2a7b8c1f754
 
 ## Language and Guidelines
 
