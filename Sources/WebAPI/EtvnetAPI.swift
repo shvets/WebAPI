@@ -1,5 +1,6 @@
 import Foundation
 import ConfigFile
+import RxSwift
 
 open class EtvnetAPI: ApiService {
   public static let PER_PAGE = 15
@@ -125,6 +126,39 @@ open class EtvnetAPI: ApiService {
     return nil
   }
 
+  public func getArchive2(genre: Int? = nil, channelId: Int? = nil, perPage: Int=PER_PAGE, page: Int=1) -> Observable<WebAPI.EtvnetAPI.PaginatedMediaData?> {
+    var path: String
+
+    if channelId != nil && genre != nil {
+      path = "video/media/channel/\(channelId!)/archive/\(genre!).json"
+    }
+    else if genre != nil {
+      path = "video/media/archive/\(genre!).json"
+    }
+    else if channelId != nil {
+      path = "video/media/channel/\(channelId!)/archive.json"
+    }
+    else {
+      path = "video/media/archive.json"
+    }
+
+    var params = [String: String]()
+    params["per_page"] = String(perPage)
+    params["page"] = String(page)
+
+    let url = buildUrl(path: path, params: params as [String : AnyObject])
+
+    return fullRequestRx(path: url).map { data in
+      if let result = try? self.decoder.decode(MediaResponse.self, from: data).data {
+        if case .paginatedMedia(let value) = result {
+          return value
+        }
+      }
+      
+      return nil
+    }
+  }
+
   public func getGenres(parentId: String? = nil, today: Bool=false, channelId: String? = nil, format: String? = nil) -> [Genre] {
     let path = "video/genres.json"
     let todayString: String? = today ? "yes" : nil
@@ -194,6 +228,14 @@ open class EtvnetAPI: ApiService {
     let genre = getGenre(genres, name: "Блокбастеры")
 
     return getArchive(genre: genre, perPage: perPage, page: page)
+  }
+
+  public func getBlockbusters2(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
+    let genres = getGenres()
+
+    let genre = getGenre(genres, name: "Блокбастеры")
+
+    return getArchive2(genre: genre, perPage: perPage, page: page)
   }
 
   public func getCoolMovies(perPage: Int=PER_PAGE, page: Int=1) -> PaginatedMediaData? {

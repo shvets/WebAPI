@@ -1,6 +1,7 @@
 import Foundation
 import Alamofire
 import ConfigFile
+import RxSwift
 
 open class ApiService: AuthService {
   public var config: StringConfigFile
@@ -172,6 +173,56 @@ open class ApiService: AuthService {
     }
 
     return response
+  }
+
+  func fullRequestRx(path: String, method: HTTPMethod = .get, parameters: [String: String] = [:],
+                   unauthorized: Bool=false) -> Observable<Data> {
+//    var response: DataResponse<Data>?
+    
+    if !checkToken() {
+      authorizeCallback()
+    }
+    
+    //if
+      let accessToken = config.items["access_token"]!
+      var accessPath: String
+      
+      if path.index(of: "?") != nil {
+        accessPath = "\(path)&access_token=\(accessToken)"
+      }
+      else {
+        accessPath = "\(path)?access_token=\(accessToken)"
+      }
+      
+      //if
+        accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+        let headers = ["User-agent": userAgent]
+
+        return Alamofire.request(apiUrl + accessPath).rx.responseData()
+        
+//        if let apiResponse = httpRequest(apiUrl + accessPath, headers: headers, parameters: parameters, method: method),
+//          let statusCode = apiResponse.response?.statusCode {
+//          if (statusCode == 401 || statusCode == 400) && !unauthorized {
+//            let refreshToken = config.items["refresh_token"]
+//
+//            if let updateResult = updateToken(refreshToken: refreshToken!) {
+//              config.items = updateResult.asDictionary()
+//              saveConfig()
+//
+//              response = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
+//            }
+//            else {
+//              print("error")
+//            }
+//          }
+//          else {
+//            response = apiResponse
+//          }
+//        }
+//      }
+//    }
+    
+//    return response
   }
 
 }
