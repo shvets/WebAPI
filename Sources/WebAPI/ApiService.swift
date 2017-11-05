@@ -177,14 +177,11 @@ open class ApiService: AuthService {
 
   func fullRequestRx(path: String, method: HTTPMethod = .get, parameters: [String: String] = [:],
                    unauthorized: Bool=false) -> Observable<Data> {
-//    var response: DataResponse<Data>?
-    
     if !checkToken() {
       authorizeCallback()
     }
     
-    //if
-      let accessToken = config.items["access_token"]!
+    if let accessToken = config.items["access_token"] {
       var accessPath: String
       
       if path.index(of: "?") != nil {
@@ -194,35 +191,96 @@ open class ApiService: AuthService {
         accessPath = "\(path)?access_token=\(accessToken)"
       }
       
-      //if
-        accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+      if let accessPath = accessPath.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed) {
         let headers = ["User-agent": userAgent]
 
-        return httpRequestRx(apiUrl + accessPath)
-        
-//        if let apiResponse = httpRequest(apiUrl + accessPath, headers: headers, parameters: parameters, method: method),
-//          let statusCode = apiResponse.response?.statusCode {
-//          if (statusCode == 401 || statusCode == 400) && !unauthorized {
-//            let refreshToken = config.items["refresh_token"]
-//
-//            if let updateResult = updateToken(refreshToken: refreshToken!) {
-//              config.items = updateResult.asDictionary()
-//              saveConfig()
-//
-//              response = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
-//            }
-//            else {
-//              print("error")
-//            }
-//          }
-//          else {
-//            response = apiResponse
-//          }
-//        }
-//      }
-//    }
-    
-//    return response
+        return httpRequestRx(apiUrl + accessPath, headers: headers, parameters: parameters, method: method)
+      }
+    }
+
+    return Observable.just(Data())
+  }
+
+  public override func httpRequestRx(_ url: String,
+                            headers: HTTPHeaders = [:],
+                            parameters: Parameters = [:],
+                            method: HTTPMethod = .get) -> Observable<Data> {
+     return Observable.create { observer in
+      if let sessionManager = self.sessionManager {
+        let oauthHandler = OAuth2Handler(
+           clientID: self.clientId,
+           baseURLString: self.AuthUrl,
+           accessToken: self.config.items["access_token"]!,
+           refreshToken: self.config.items["refresh_token"]!
+        )
+
+        sessionManager.adapter = oauthHandler
+        sessionManager.retrier = oauthHandler
+
+        let utilityQueue = DispatchQueue.global(qos: .utility)
+
+        let request = sessionManager.request(url, method: method, parameters: parameters,
+                        headers: headers).validate().responseData(queue: utilityQueue) { response in
+        switch response.result {
+          case .success(let value):
+            observer.onNext(value)
+            observer.onCompleted()
+
+          case .failure(let error):
+            observer.onError(error)
+          }
+        }
+
+        return Disposables.create(with: request.cancel)
+      }
+
+      return Disposables.create()
+    }
+  }
+
+  public func httpRequestRx0(_ url: String,
+                            headers: HTTPHeaders = [:],
+                            parameters: Parameters = [:],
+                            method: HTTPMethod = .get) -> Observable<Data> {
+    return Observable.create { observer in
+      if let sessionManager = self.sessionManager {
+        let utilityQueue = DispatchQueue.global(qos: .utility)
+
+        let request = sessionManager.request(url, method: method, parameters: parameters,
+                        headers: headers).validate().responseData(queue: utilityQueue) { response in
+
+        if let statusCode = response.response?.statusCode {
+          if (statusCode == 401 || statusCode == 400) { //  && !unauthorized
+            let refreshToken = self.config.items["refresh_token"]
+            
+            if let updateResult = self.updateToken(refreshToken: refreshToken!) {
+              self.config.items = updateResult.asDictionary()
+              self.saveConfig()
+              
+              //response = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
+            }
+            else {
+              print("error")
+            }
+          }
+          else {
+            switch response.result {
+              case .success(let value):
+                observer.onNext(value)
+                observer.onCompleted()
+
+              case .failure(let error):
+                observer.onError(error)
+              }
+            }
+          }
+        }
+
+        return Disposables.create(with: request.cancel)
+      }
+
+      return Disposables.create()
+    }
   }
 
 }

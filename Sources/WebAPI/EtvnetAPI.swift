@@ -230,13 +230,13 @@ open class EtvnetAPI: ApiService {
     return getArchive(genre: genre, perPage: perPage, page: page)
   }
 
-  public func getBlockbusters2(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
-    let genres = getGenres()
-
-    let genre = getGenre(genres, name: "Блокбастеры")
-
-    return getArchive2(genre: genre, perPage: perPage, page: page)
-  }
+//  public func getBlockbusters(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
+//    let genres = getGenres()
+//
+//    let genre = getGenre(genres, name: "Блокбастеры")
+//
+//    return getArchive2(genre: genre, perPage: perPage, page: page)
+//  }
 
   public func getCoolMovies(perPage: Int=PER_PAGE, page: Int=1) -> PaginatedMediaData? {
     return getArchive(channelId: 158, perPage: perPage, page: page)

@@ -92,6 +92,7 @@
 		FAA124D61FA39AD900CA1DE2 /* GoogleDocsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124C01FA39AD900CA1DE2 /* GoogleDocsAPI.swift */; };
 		FAA124D71FA39AD900CA1DE2 /* GidOnlineAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124C11FA39AD900CA1DE2 /* GidOnlineAPI.swift */; };
 		FAA124D81FA39AD900CA1DE2 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124C21FA39AD900CA1DE2 /* DownloadManager.swift */; };
+		FAAA76461FAE8D58001FD188 /* OAuth2Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAA76451FAE8D58001FD188 /* OAuth2Handler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,7 @@
 		FAA124C01FA39AD900CA1DE2 /* GoogleDocsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleDocsAPI.swift; path = WebAPI/GoogleDocsAPI.swift; sourceTree = "<group>"; };
 		FAA124C11FA39AD900CA1DE2 /* GidOnlineAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GidOnlineAPI.swift; path = WebAPI/GidOnlineAPI.swift; sourceTree = "<group>"; };
 		FAA124C21FA39AD900CA1DE2 /* DownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DownloadManager.swift; path = WebAPI/DownloadManager.swift; sourceTree = "<group>"; };
+		FAAA76451FAE8D58001FD188 /* OAuth2Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OAuth2Handler.swift; path = WebAPI/OAuth2Handler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -377,6 +379,7 @@
 				FAA124BC1FA39AD800CA1DE2 /* NameClassifier.swift */,
 				FAA124B31FA39AD700CA1DE2 /* Prettifier.swift */,
 				FAA124B51FA39AD700CA1DE2 /* String-extension.swift */,
+				FAAA76451FAE8D58001FD188 /* OAuth2Handler.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -948,6 +951,7 @@
 				FAA124C71FA39AD900CA1DE2 /* MuzArbuzAPI.swift in Sources */,
 				FAA124D31FA39AD900CA1DE2 /* AudioBooAPI-models.swift in Sources */,
 				FAA124C41FA39AD900CA1DE2 /* AudioKnigiAPI-models.swift in Sources */,
+				FAAA76461FAE8D58001FD188 /* OAuth2Handler.swift in Sources */,
 				FAA124D71FA39AD900CA1DE2 /* GidOnlineAPI.swift in Sources */,
 				FAA124D41FA39AD900CA1DE2 /* EtvnetAPI-models.swift in Sources */,
 				FAA124CC1FA39AD900CA1DE2 /* ApiService.swift in Sources */,
