@@ -6,54 +6,112 @@ class AudioBooAPITests: XCTestCase {
   var subject = AudioBooAPI()
 
   func testGetLetters() throws {
-    let result = try subject.getLetters()
+    let result = subject.getLetters()
 
-    print(result as Any)
+    //print(result as Any)
   }
 
   func testGetAuthorsByLetters() throws {
-    let letters = try subject.getLetters()
+    let exp = expectation(description: "Gets new books")
 
-    let id = letters[0]["id"]!
+    _ = subject.getLetters().subscribe(onNext: { letters in
+      //print(letters as Any)
 
-    let result = try subject.getAuthorsByLetter(id)
+      XCTAssert(letters.count > 0)
 
-    print(result as Any)
+      let id = letters[0]["id"]!
+
+      do {
+        let result = try self.subject.getAuthorsByLetter(id)
+
+        //print(result as Any)
+
+        XCTAssert(result.count > 0)
+      }
+      catch let e {
+        XCTFail(e.localizedDescription)
+      }
+
+      exp.fulfill()
+    },
+    onError: { error in
+      print("Received error:", error)
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetBooks() throws {
-    let letters = try subject.getLetters()
+    let exp = expectation(description: "Gets new books")
 
-    let letterId = letters[0]["id"]!
+    _ = subject.getLetters().subscribe(onNext: { letters in
+      //print(letters as Any)
 
-    let authors = try subject.getAuthorsByLetter(letterId)
+      XCTAssert(letters.count > 0)
 
-    let url = (authors[0].value as! [NameClassifier.Item])[0].id
+      do {
+        let letterId = letters[0]["id"]!
 
-    let result = try subject.getBooks(url)
+        let authors = try self.subject.getAuthorsByLetter(letterId)
 
-    print(result as Any)
+        let url = (authors[0].value as! [NameClassifier.Item])[0].id
+
+        let result = try self.subject.getBooks(url)
+
+        //print(result as Any)
+
+        XCTAssert(result.count > 0)
+      }
+      catch let e {
+        XCTFail(e.localizedDescription)
+      }
+
+      exp.fulfill()
+    },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetPlaylistUrls() throws {
-    let letters = try subject.getLetters()
+    let exp = expectation(description: "Gets new books")
 
-    let letterId = letters[0]["id"]!
+    _ = subject.getLetters().subscribe(onNext: { letters in
+      //print(letters as Any)
 
-    let authors = try subject.getAuthorsByLetter(letterId)
+      XCTAssert(letters.count > 0)
 
-    let url = (authors[4].value as! [NameClassifier.Item])[0].id
-    //url = 'http://audioboo.ru/geimannil/1009-geyman-nil-koralina.html'
+      do {
+        let letterId = letters[0]["id"]!
 
-    let books = try subject.getBooks(url)
+        let authors = try self.subject.getAuthorsByLetter(letterId)
 
-    //print(books)
+        let url = (authors[4].value as! [NameClassifier.Item])[0].id
+        //url = 'http://audioboo.ru/geimannil/1009-geyman-nil-koralina.html'
 
-    let bookId = (books[0] as! [String: String])["id"]
+        let books = try self.subject.getBooks(url)
 
-    let result = try subject.getPlaylistUrls(bookId!)
+        //print(books)
 
-    print(result as Any)
+        let bookId = (books[0] as! [String: String])["id"]
+
+        let result = try self.subject.getPlaylistUrls(bookId!)
+
+        //print(result as Any)
+      }
+      catch let e {
+        XCTFail(e.localizedDescription)
+      }
+
+      exp.fulfill()
+    },
+    onError: { error in
+      print("Received error:", error)
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetAudioTracks() throws {
