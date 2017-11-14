@@ -201,42 +201,42 @@ open class ApiService: AuthService {
     return Observable.just(Data())
   }
 
-  public override func httpRequestRx(_ url: String,
-                            headers: HTTPHeaders = [:],
-                            parameters: Parameters = [:],
-                            method: HTTPMethod = .get) -> Observable<Data> {
-     return Observable.create { observer in
-      if let sessionManager = self.sessionManager {
-        let oauthHandler = OAuth2Handler(
-           clientID: self.clientId,
-           baseURLString: self.AuthUrl,
-           accessToken: self.config.items["access_token"]!,
-           refreshToken: self.config.items["refresh_token"]!
-        )
-
-        sessionManager.adapter = oauthHandler
-        sessionManager.retrier = oauthHandler
-
-        let utilityQueue = DispatchQueue.global(qos: .utility)
-
-        let request = sessionManager.request(url, method: method, parameters: parameters,
-                        headers: headers).validate().responseData(queue: utilityQueue) { response in
-        switch response.result {
-          case .success(let value):
-            observer.onNext(value)
-            observer.onCompleted()
-
-          case .failure(let error):
-            observer.onError(error)
-          }
-        }
-
-        return Disposables.create(with: request.cancel)
-      }
-
-      return Disposables.create()
-    }
-  }
+//  public override func httpRequestRx(_ url: String,
+//                            headers: HTTPHeaders = [:],
+//                            parameters: Parameters = [:],
+//                            method: HTTPMethod = .get) -> Observable<Data> {
+//     return Observable.create { observer in
+//      if let sessionManager = self.sessionManager {
+//        let oauthHandler = OAuth2Handler(
+//           clientID: self.clientId,
+//           baseURLString: self.AuthUrl,
+//           accessToken: self.config.items["access_token"]!,
+//           refreshToken: self.config.items["refresh_token"]!
+//        )
+//
+//        sessionManager.adapter = oauthHandler
+//        sessionManager.retrier = oauthHandler
+//
+//        let utilityQueue = DispatchQueue.global(qos: .utility)
+//
+//        let request = sessionManager.request(url, method: method, parameters: parameters,
+//                        headers: headers).validate().responseData(queue: utilityQueue) { response in
+//        switch response.result {
+//          case .success(let value):
+//            observer.onNext(value)
+//            observer.onCompleted()
+//
+//          case .failure(let error):
+//            observer.onError(error)
+//          }
+//        }
+//
+//        return Disposables.create(with: request.cancel)
+//      }
+//
+//      return Disposables.create()
+//    }
+//  }
 
   public func httpRequestRx0(_ url: String,
                             headers: HTTPHeaders = [:],

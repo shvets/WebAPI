@@ -31,15 +31,15 @@ class OAuth2Handler: RequestAdapter, RequestRetrier {
   
   // MARK: - RequestAdapter
   
-//  func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
-//    if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix(baseURLString) {
-//      var urlRequest = urlRequest
-//      urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
-//      return urlRequest
-//    }
-//    
-//    return urlRequest
-//  }
+  func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+    if let urlString = urlRequest.url?.absoluteString, urlString.hasPrefix(baseURLString) {
+      var urlRequest = urlRequest
+      urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+      return urlRequest
+    }
+    
+    return urlRequest
+  }
   
   // MARK: - RequestRetrier
   
