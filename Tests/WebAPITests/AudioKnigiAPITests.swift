@@ -17,57 +17,32 @@ class AudioKnigiAPITests: XCTestCase {
   func testGetAuthorsLetters() throws {
     let exp = expectation(description: "Gets authors letters")
 
-    try _ = subject.getAuthorsLetters().subscribe(onNext: { result in
+    _ = subject.getAuthorsLetters().subscribe(onNext: { result in
       print(result as Any)
 
       XCTAssert(result.count > 0)
 
       exp.fulfill()
     },
-      onError: { error in
-        print("Received error:", error)
-      })
+    onError: { error in
+      print("Received error:", error)
+    })
 
     waitForExpectations(timeout: 10, handler: nil)
   }
 
-  func testGetAuthorsLetters2() throws {
-    let exp = expectation(description: "Gets authors letters")
-    //let semaphore = DispatchSemaphore.init(value: 0)
-
-    try subject.getAuthorsLetters2 { (result: [Any]) in
-      print(result)
-
-      XCTAssert(result.count > 0)
-
-      //semaphore.signal()
-      exp.fulfill()
-    }
-
-    //_ = semaphore.wait(timeout: DispatchTime.distantFuture)
-    waitForExpectations(timeout: 10, handler: nil)
-  }
-
-  func testGetPerformersLetters() throws {
-    let result = try subject.getPerformersLetters()
-
-    //print(result as Any)
-
-    XCTAssert(result.count > 0)
-  }
+//  func testGetPerformersLetters() throws {
+//    let result = try subject.getPerformersLetters()
+//
+//    //print(result as Any)
+//
+//    XCTAssert(result.count > 0)
+//  }
 
   func testGetNewBooks() throws {
-    let result = try subject.getNewBooks()
-
-//    print(result as Any)
-
-    XCTAssert(result.count > 0)
-  }
-
-  func testGetNewBooks2() throws {
     let exp = expectation(description: "Gets new books")
 
-    _ = subject.getNewBooks2().subscribe(onNext: { result in
+    _ = subject.getNewBooks().subscribe(onNext: { result in
       print(result as Any)
 
       XCTAssert(result.count > 0)
@@ -79,140 +54,223 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   func testGetBestBooksByWeek() throws {
-    let result = try subject.getBestBooks(period: "7")
+    let exp = expectation(description: "Gets best books by week")
 
-//    print(result as Any)
+    _ = subject.getBestBooks(period: "7").subscribe(onNext: { result in
+      //print(result as Any)
 
-    XCTAssert(result.count > 0)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetBestBooksByMonth() throws {
-    let result = try subject.getBestBooks(period: "30")
+    let exp = expectation(description: "Gets best books by month")
 
-    // print(result as Any)
+    _ = subject.getBestBooks(period: "30").subscribe(onNext: { result in
+      //print(result as Any)
 
-    XCTAssert(result.count > 0)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetBestBooks() throws {
-    let result = try subject.getBestBooks(period: "all")
+    let exp = expectation(description: "Gets best books")
 
-    // print(result as Any)
+    _ = subject.getBestBooks(period: "all").subscribe(onNext: { result in
+      //print(result as Any)
 
-    XCTAssert(result.count > 0)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetAuthorBooks() throws {
-    let result = try subject.getAuthors()
-    let items = result["movies"] as! [Any]
+    let exp = expectation(description: "Gets author books")
 
-    let id = (items[0] as! [String: String])["id"]!
+    _ = subject.getAuthors().subscribe(onNext: { result in
+      let items = result["movies"] as! [Any]
 
-    let books = try subject.getBooks(path: id)
+      let id = (items[0] as! [String: String])["id"]!
 
-    // print(books)
+      _ = self.subject.getBooks(path: id).subscribe(onNext: { books in
+        // print(books)
 
-    XCTAssert(books.count > 0)
+        XCTAssert(books.count > 0)
+      })
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetPerformersBooks() throws {
-    let result = try subject.getPerformers()
-    let items = result["movies"] as! [Any]
+    let exp = expectation(description: "Gets performers books")
 
-    let id = (items[0] as! [String: String])["id"]!
+    _ = subject.getPerformers().subscribe(onNext: { result in
+      let items = result["movies"] as! [Any]
 
-    let books = try subject.getBooks(path: id)
+      let id = (items[0] as! [String: String])["id"]!
 
-    XCTAssert(books.count > 0)
+      _ = self.subject.getBooks(path: id).subscribe(onNext: { books in
+        XCTAssert(books.count > 0)
 
-    // print(books)
+        // print(books)
+      })
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetAuthors() throws {
-    let result = try subject.getAuthors()
+    let exp = expectation(description: "Gets authors")
 
-    // print(result as Any)
+    _ = subject.getAuthors().subscribe(onNext: { result in
+      // print(result as Any)
 
-    XCTAssert(result.count > 0)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetPerformers() throws {
-    let result = try subject.getPerformers()
+    let exp = expectation(description: "Gets performers")
 
-    //print(result as Any)
+    _ = subject.getPerformers().subscribe(onNext: { result in
+      // print(result as Any)
 
-    XCTAssert(result.count > 0)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetAllGenres() throws {
-    let result1 = try subject.getGenres(page: 1)
+    let exp = expectation(description: "Gets all genres")
 
-    print(result1)
+    _ = subject.getGenres(page: 1).subscribe(onNext: { result in
+      print(result)
 
-    XCTAssert(result1.count > 0)
+      XCTAssert(result.count > 0)
 
-    let result2 = try subject.getGenres(page: 2)
+      exp.fulfill()
+    })
 
-    // print(result2)
+    _ = subject.getGenres(page: 2).subscribe(onNext: { result in
+      print(result)
 
-    XCTAssert(result2.count > 0)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetGenre() throws {
-    let genres = try subject.getGenres(page: 1)
+    let exp = expectation(description: "Gets all genres")
 
-    let items = genres["movies"] as! [Any]
+    _ = subject.getGenres(page: 1).subscribe(onNext: { result in
+      let items = result["movies"] as! [Any]
 
-    let id = (items[0] as! [String: Any])["id"] as? String
+      let id = (items[0] as! [String: Any])["id"] as? String
 
-    //print(items[0] as? [String: Any])
+      //print(items[0] as? [String: Any])
 
-    let result = try subject.getGenre(path: id!)
+      _ = self.subject.getGenre(path: id!).subscribe(onNext: { result in
+        //print(result as Any)
 
-    //print(result as Any)
+        XCTAssert(result.count > 0)
 
-    XCTAssert(result.count > 0)
+        exp.fulfill()
+      })
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testPagination() throws {
-    let result1 = try subject.getNewBooks(page: 1)
+    let exp = expectation(description: "Gets pagination")
 
-    let pagination1 = result1["pagination"] as! [String: Any]
+    _ = subject.getNewBooks(page: 1).subscribe(onNext: { result in
+      let pagination1 = result["pagination"] as! [String: Any]
 
-    XCTAssertEqual(pagination1["has_next"] as! Bool, true)
-    XCTAssertEqual(pagination1["has_previous"] as! Bool, false)
-    XCTAssertEqual(pagination1["page"] as! Int, 1)
+      XCTAssertEqual(pagination1["has_next"] as! Bool, true)
+      XCTAssertEqual(pagination1["has_previous"] as! Bool, false)
+      XCTAssertEqual(pagination1["page"] as! Int, 1)
 
-    let result2 = try subject.getNewBooks(page: 2)
+      exp.fulfill()
+    })
 
-    let pagination2 = result2["pagination"] as! [String: Any]
+    _ = subject.getNewBooks(page: 2).subscribe(onNext: { result in
+      let pagination2 = result["pagination"] as! [String: Any]
 
-    XCTAssertEqual(pagination2["has_next"] as! Bool, true)
-    XCTAssertEqual(pagination2["has_previous"] as! Bool, true)
-    XCTAssertEqual(pagination2["page"] as! Int, 2)
+      XCTAssertEqual(pagination2["has_next"] as! Bool, true)
+      XCTAssertEqual(pagination2["has_previous"] as! Bool, true)
+      XCTAssertEqual(pagination2["page"] as! Int, 2)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetAudioTracks() throws {
     let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
 
-    let list = try subject.getAudioTracks(path)
+    let exp = expectation(description: "Gets audio tracks")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(list)
+    _ = subject.getAudioTracks(path).subscribe(onNext: { result in
+      do {
+        print(try Prettifier.prettify { encoder in
+          return try encoder.encode(result)
+        })
+      }
+      catch {
+
+      }
+
+      XCTAssertNotNil(result)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
     })
-
-    XCTAssertNotNil(list)
-    XCTAssert(list.count > 0)
   }
 
   func testSearch() throws {
     let query = "пратчетт"
 
-    let result = try subject.search(query)
+    let exp = expectation(description: "Search")
 
-    //print(result as Any)
+    _ = subject.search(query).subscribe(onNext: { result in
+      //print(result as Any)
 
-    XCTAssert(result.count > 0)
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGrouping() throws {
@@ -273,41 +331,66 @@ class AudioKnigiAPITests: XCTestCase {
   private func generateAuthorsList(_ fileName: String) throws {
     var list = [Any]()
 
-    var result = try subject.getAuthors()
+    let semaphore1 = DispatchSemaphore.init(value: 0)
 
-    list += (result["movies"] as! [Any])
-
-    let pagination = result["pagination"] as! [String: Any]
-
-    let pages = pagination["pages"] as! Int
-
-    for page in (2...pages) {
-      result = try subject.getAuthors(page: page)
-
+    _ = subject.getAuthors().subscribe(onNext: { result in
       list += (result["movies"] as! [Any])
-    }
+
+      let pagination = result["pagination"] as! [String: Any]
+
+      let semaphore2 = DispatchSemaphore.init(value: 0)
+
+      let pages = pagination["pages"] as! Int
+
+      for page in (2...pages) {
+        _ = self.subject.getAuthors(page: page).subscribe(onNext: { result in
+          list += (result["movies"] as! [Any])
+
+          semaphore2.signal()
+        })
+
+        _ = semaphore2.wait(timeout: DispatchTime.distantFuture)
+      }
+
+      semaphore1.signal()
+    })
+
+    _ = semaphore1.wait(timeout: DispatchTime.distantFuture)
 
     let filteredList = list.map {["id": ($0 as! [String: String])["id"]!, "name": ($0 as! [String: String])["name"]!] }
 
     try FileSystem().createFile(at: fileName, contents: try Prettifier.asPrettifiedData(filteredList))
   }
 
+
   private func generatePerformersList(_ fileName: String) throws {
     var list = [Any]()
 
-    var result = try subject.getPerformers()
+    let semaphore1 = DispatchSemaphore.init(value: 0)
 
-    list += (result["movies"] as! [Any])
-
-    let pagination = result["pagination"] as! [String: Any]
-
-    let pages = pagination["pages"] as! Int
-
-    for page in (2...pages) {
-      result = try subject.getPerformers(page: page)
-
+    _ = subject.getPerformers().subscribe(onNext: { result in
       list += (result["movies"] as! [Any])
-    }
+
+      let pagination = result["pagination"] as! [String: Any]
+
+      let semaphore2 = DispatchSemaphore.init(value: 0)
+
+      let pages = pagination["pages"] as! Int
+
+      for page in (2...pages) {
+        _ = self.subject.getPerformers(page: page).subscribe(onNext: { result in
+          list += (result["movies"] as! [Any])
+
+          semaphore2.signal()
+        })
+
+        _ = semaphore2.wait(timeout: DispatchTime.distantFuture)
+      }
+
+      semaphore1.signal()
+    })
+
+    _ = semaphore1.wait(timeout: DispatchTime.distantFuture)
 
     let filteredList = list.map {["id": ($0 as! [String: String])["id"]!, "name": ($0 as! [String: String])["name"]!] }
 

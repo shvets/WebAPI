@@ -8,7 +8,7 @@ class AudioBooAPITests: XCTestCase {
   func testGetLetters() throws {
     let result = subject.getLetters()
 
-    //print(result as Any)
+    print(result as Any)
   }
 
   func testGetAuthorsByLetters() throws {
@@ -99,7 +99,7 @@ class AudioBooAPITests: XCTestCase {
 
         let result = try self.subject.getPlaylistUrls(bookId!)
 
-        //print(result as Any)
+        print(result as Any)
       }
       catch let e {
         XCTFail(e.localizedDescription)
