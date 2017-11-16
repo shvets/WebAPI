@@ -1,4 +1,5 @@
 import Alamofire
+import Foundation
 
 class OAuth2Handler: RequestAdapter, RequestRetrier {
   private typealias RefreshCompletion = (_ succeeded: Bool, _ accessToken: String?, _ refreshToken: String?) -> Void
