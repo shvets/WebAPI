@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0F9F1CD4816DD5FEA0298655 /* Pods_WebAPI_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91613095040FEED6BA78DAAB /* Pods_WebAPI_iOS.framework */; };
 		108C5C0B62A21CCC0B7632C7 /* Pods_WebAPI_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D751DC708DA55F3F3643E77A /* Pods_WebAPI_tvOSTests.framework */; };
-		2DBA11BE55DB1CDB8FCAD84B /* GidOnline2APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */; };
 		6710BA3335C264E108DA6F3B /* Pods_WebAPI_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FA3DA2A7974E36C1F4D43C /* Pods_WebAPI_iOSTests.framework */; };
 		8036985D69BC2EAB0A2CBF1A /* Pods_WebAPI_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D4AE52BBDEC62DB761A9F /* Pods_WebAPI_macOS.framework */; };
 		BC14EA24C192D9976EA00644 /* Pods_WebAPI_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 136EDDFE65DA271E12AE284A /* Pods_WebAPI_tvOS.framework */; };
@@ -89,6 +88,9 @@
 		FA858BC11FBA90AF00A54968 /* KinoKongAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B971FBA90A000A54968 /* KinoKongAPITests.swift */; };
 		FA858BC21FBA90AF00A54968 /* MuzArbuzAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B9A1FBA90A000A54968 /* MuzArbuzAPITests.swift */; };
 		FA858BC31FBA90AF00A54968 /* MyHitAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B9B1FBA90A000A54968 /* MyHitAPITests.swift */; };
+		FA858BCE1FBD311A00A54968 /* GidOnline2APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */; };
+		FA858BCF1FBD311B00A54968 /* GidOnline2APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */; };
+		FA858BD01FBD311D00A54968 /* GidOnline2APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */; };
 		FAA124601FA3985000CA1DE2 /* WebAPI_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA124561FA3985000CA1DE2 /* WebAPI_iOS.framework */; };
 		FAA124651FA3985000CA1DE2 /* WebAPI_iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124641FA3985000CA1DE2 /* WebAPI_iOSTests.swift */; };
 		FAA124671FA3985000CA1DE2 /* WebAPI_iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA124591FA3985000CA1DE2 /* WebAPI_iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -794,6 +796,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire-macOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ConfigFile-macOS/ConfigFile.framework",
 				"${BUILT_PRODUCTS_DIR}/Files-macOS/Files.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-macOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup-macOS/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-macOS/SwiftyJSON.framework",
 			);
@@ -802,6 +805,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ConfigFile.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Files.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -871,6 +875,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ConfigFile-iOS/ConfigFile.framework",
 				"${BUILT_PRODUCTS_DIR}/Files-iOS/Files.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup-iOS/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-iOS/SwiftyJSON.framework",
 			);
@@ -879,6 +884,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ConfigFile.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Files.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -966,6 +972,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/ConfigFile-tvOS/ConfigFile.framework",
 				"${BUILT_PRODUCTS_DIR}/Files-tvOS/Files.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-tvOS/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup-tvOS/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON-tvOS/SwiftyJSON.framework",
 			);
@@ -974,6 +981,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ConfigFile.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Files.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
@@ -1013,7 +1021,6 @@
 				FAA124D11FA39AD900CA1DE2 /* AuthService.swift in Sources */,
 				FAA124C61FA39AD900CA1DE2 /* KinoKongAPI-models.swift in Sources */,
 				FAA124C31FA39AD900CA1DE2 /* HttpService.swift in Sources */,
-				2DBA11BE55DB1CDB8FCAD84B /* GidOnline2APITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1024,6 +1031,7 @@
 				FA858BAF1FBA90A800A54968 /* MyHitAPITests.swift in Sources */,
 				FA858BAE1FBA90A800A54968 /* MuzArbuzAPITests.swift in Sources */,
 				FA858BA81FBA90A800A54968 /* AuthAPITests.swift in Sources */,
+				FA858BCE1FBD311A00A54968 /* GidOnline2APITests.swift in Sources */,
 				FA858BA61FBA90A800A54968 /* AudioBooAPITests.swift in Sources */,
 				FA858BAA1FBA90A800A54968 /* GidOnlineAPITests.swift in Sources */,
 				FAA124651FA3985000CA1DE2 /* WebAPI_iOSTests.swift in Sources */,
@@ -1071,6 +1079,7 @@
 				FA858BB91FBA90AA00A54968 /* MyHitAPITests.swift in Sources */,
 				FA858BB81FBA90AA00A54968 /* MuzArbuzAPITests.swift in Sources */,
 				FA858BB21FBA90AA00A54968 /* AuthAPITests.swift in Sources */,
+				FA858BCF1FBD311B00A54968 /* GidOnline2APITests.swift in Sources */,
 				FA858BB01FBA90AA00A54968 /* AudioBooAPITests.swift in Sources */,
 				FA858BB41FBA90AA00A54968 /* GidOnlineAPITests.swift in Sources */,
 				FAA124811FA3986700CA1DE2 /* WebAPI_tvOSTests.swift in Sources */,
@@ -1118,6 +1127,7 @@
 				FA858BC31FBA90AF00A54968 /* MyHitAPITests.swift in Sources */,
 				FA858BC21FBA90AF00A54968 /* MuzArbuzAPITests.swift in Sources */,
 				FA858BBC1FBA90AF00A54968 /* AuthAPITests.swift in Sources */,
+				FA858BD01FBD311D00A54968 /* GidOnline2APITests.swift in Sources */,
 				FA858BBA1FBA90AF00A54968 /* AudioBooAPITests.swift in Sources */,
 				FA858BBE1FBA90AF00A54968 /* GidOnlineAPITests.swift in Sources */,
 				FAA1249D1FA3987D00CA1DE2 /* WebAPI_macOSTests.swift in Sources */,

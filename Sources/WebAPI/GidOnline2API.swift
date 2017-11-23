@@ -21,7 +21,7 @@ open class GidOnline2API: HttpService {
   }
 
   public func available() throws -> Bool {
-    let document = try fetchDocument(GidOnlineAPI.SiteUrl)
+    let document = try fetchDocument(GidOnline2API.SiteUrl)
 
     return try document!.select("div[id=main] div[id=posts] a[class=mainlink]").size() > 0
   }
@@ -43,7 +43,7 @@ open class GidOnline2API: HttpService {
   }
 
   public func getAllMovies(page: Int=1) throws -> [String: Any] {
-    let document = try fetchDocument(getPagePath(GidOnlineAPI.SiteUrl, page: page))
+    let document = try fetchDocument(getPagePath(GidOnline2API.SiteUrl, page: page))
 
     return try getMovies(document!)
   }
@@ -120,7 +120,7 @@ open class GidOnline2API: HttpService {
     for link: Element in links.array() {
       let path = try link.attr("href")
       let name = try link.text()
-      let thumb = GidOnlineAPI.SiteUrl + (try link.select("img").attr("src"))
+      let thumb = GidOnline2API.SiteUrl + (try link.select("img").attr("src"))
 
       data.append(["type": "movie", "id": path, "name": name, "thumb": thumb])
     }
@@ -269,6 +269,43 @@ open class GidOnline2API: HttpService {
     return try toDocument(content)
   }
 
+//  func getMovieContent(_ url: String, season: String="", episode: String="") throws -> Data? {
+//    var data: Data?
+//
+//    let document = try fetchDocument(url)!
+//    let gatewayUrl = try getGatewayUrl(document)
+//
+//    if let gatewayUrl = gatewayUrl {
+//      var movieUrl: String!
+//
+//      if !season.isEmpty {
+//        movieUrl = "\(gatewayUrl)?season=\(season)&episode=\(episode)"
+//      }
+//      else {
+//        movieUrl = gatewayUrl
+//      }
+//
+//      if movieUrl.contains("//www.youtube.com") {
+//        movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
+//      }
+//
+//      if let response = httpRequest(movieUrl, headers: getHeaders(gatewayUrl)) {
+//        if response.response!.statusCode == 302 {
+//          let newGatewayUrl = response.response!.allHeaderFields["Location"] as! String
+//
+//          let response2 = httpRequest(movieUrl, headers: getHeaders(newGatewayUrl))!
+//
+//          data = response2.data
+//        }
+//        else {
+//          data = response.data
+//        }
+//      }
+//    }
+//
+//    return data
+//  }
+
   func getMovieContent(_ url: String, season: String="", episode: String="") throws -> Data? {
     var data: Data?
 
@@ -289,46 +326,15 @@ open class GidOnline2API: HttpService {
         movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
       }
 
-      if let response = httpRequest(movieUrl, headers: getHeaders(gatewayUrl)) {
+      print(movieUrl)
+
+      if let response = httpRequest(movieUrl, headers: getHeaders(url)) {
+        print(response.response!.statusCode)
+
         if response.response!.statusCode == 302 {
+          print("2")
           let newGatewayUrl = response.response!.allHeaderFields["Location"] as! String
-
-          let response2 = httpRequest(movieUrl, headers: getHeaders(newGatewayUrl))!
-
-          data = response2.data
-        }
-        else {
-          data = response.data
-        }
-      }
-    }
-
-    return data
-  }
-
-  func getMovieContent2(_ url: String, season: String="", episode: String="") throws -> Data? {
-    var data: Data?
-
-    let document = try fetchDocument(url)!
-    let gatewayUrl = try getGatewayUrl2(document)
-
-    if let gatewayUrl = gatewayUrl {
-      var movieUrl: String!
-
-      if !season.isEmpty {
-        movieUrl = "\(gatewayUrl)?season=\(season)&episode=\(episode)"
-      }
-      else {
-        movieUrl = gatewayUrl
-      }
-
-      if movieUrl.contains("//www.youtube.com") {
-        movieUrl = movieUrl.replacingOccurrences(of: "//", with: "http://")
-      }
-
-      if let response = httpRequest(movieUrl, headers: getHeaders(gatewayUrl)) {
-        if response.response!.statusCode == 302 {
-          let newGatewayUrl = response.response!.allHeaderFields["Location"] as! String
+          print(newGatewayUrl)
 
           let response2 = httpRequest(movieUrl, headers: getHeaders(newGatewayUrl))!
 
@@ -345,7 +351,7 @@ open class GidOnline2API: HttpService {
 
           //print(url2)
 
-          if let response3 = httpRequest(url2, headers: getHeaders(gatewayUrl)) {
+          if let response3 = httpRequest(url2, headers: getHeaders(url)) {
             data = response3.data!
           }
         }
@@ -361,8 +367,9 @@ open class GidOnline2API: HttpService {
     var dataSection = false
 
     content.enumerateLines { (line, _) in
-      if line.find("HD.Player({") != nil {
+      if line.find("new VideoBalancer({") != nil {
         dataSection = true
+        print("alex")
       }
       else if dataSection == true {
         if line.find("};") != nil {
@@ -378,81 +385,56 @@ open class GidOnline2API: HttpService {
             let index21 = line.index(index2!, offsetBy: -1)
             var urls = line[index11 ... index21]
 
-//            urls = urls.replacingOccurrences(of: "\n", with: "")
-//            urls = urls.replacingOccurrences(of: "\\", with: "")
-//            urls = urls.replacingOccurrences(of: ",", with: ", ")
-//            urls = urls.replacingOccurrences(of: "url:", with: "'url':")
-//            urls = urls.replacingOccurrences(of: "type:", with: "'type':")
-
             let json = JSON(urls)
 
-            print("[ " + urls + " ]")
-            print(json)
+            //print("[ " + urls + " ]")
+            //print(json)
 
             for (key, _) in json {
-              print(key)
+              //print(key)
               //print(value)
             }
 
-            items.append("http://cdn14.hdgo.cc/video/181541/1/b8e1767c3a706273ca729550103e3dc5.mp4")
-            items.append("http://cdn14.hdgo.cc/video/181541/2/b8e1767c3a706273ca729550103e3dc5.mp4")
-            items.append("http://cdn14.hdgo.cc/video/181541/3/b8e1767c3a706273ca729550103e3dc5.mp4")
-            items.append("http://cdn14.hdgo.cc/video/181541/4/b8e1767c3a706273ca729550103e3dc5.mp4")
-
           }
-//
-//          var data = line
-//
-//          data = data.replacingOccurrences(of: "'", with: "")
-//          data = data.replacingOccurrences(of: ",", with: "")
-//
-//          let components = data.components(separatedBy: ":")
-//
-//          if components.count > 1 {
-//            let key = components[0].trim()
-//            let value = components[1].trim()
-//
-//            items[key] = value
-//          }
         }
       }
     }
 
     return items
   }
+//
+//  func getGatewayUrl(_ document: Document) throws -> String? {
+//    var gatewayUrl: String?
+//
+//    let frameBlock = try document.select("div[class=tray]").array()[0]
+//
+//    var urls = try frameBlock.select("iframe[class=ifram]").attr("src")
+//
+//    if !urls.isEmpty {
+//      gatewayUrl = urls
+//    }
+//    else {
+//      let url = "\(GidOnline2API.SiteUrl)/trailer.php"
+//
+//      let idPost = try document.select("head meta[id=meta]").attr("content")
+//
+//      let parameters: Parameters = [
+//        "id_post": idPost
+//      ]
+//
+//      let document2 = try fetchDocument(url, parameters: parameters, method: .post)
+//
+//      urls = try document2!.select("iframe[class='ifram']").attr("src")
+//
+//      if !urls.trim().isEmpty {
+//        gatewayUrl = urls
+//      }
+//    }
+//
+//    return gatewayUrl
+//  }
 
   func getGatewayUrl(_ document: Document) throws -> String? {
-    var gatewayUrl: String?
-
-    let frameBlock = try document.select("div[class=tray]").array()[0]
-
-    var urls = try frameBlock.select("iframe[class=ifram]").attr("src")
-
-    if !urls.isEmpty {
-      gatewayUrl = urls
-    }
-    else {
-      let url = "\(GidOnlineAPI.SiteUrl)/trailer.php"
-
-      let idPost = try document.select("head meta[id=meta]").attr("content")
-
-      let parameters: Parameters = [
-        "id_post": idPost
-      ]
-
-      let document2 = try fetchDocument(url, parameters: parameters, method: .post)
-
-      urls = try document2!.select("iframe[class='ifram']").attr("src")
-
-      if !urls.trim().isEmpty {
-        gatewayUrl = urls
-      }
-    }
-
-    return gatewayUrl
-  }
-
-  func getGatewayUrl2(_ document: Document) throws -> String? {
     var gatewayUrl: String?
 
     let frameBlock = try document.select("div[class=tray]").array()[0]
@@ -465,13 +447,13 @@ open class GidOnline2API: HttpService {
       urls.append(try item.attr("src"))
     }
 
-    print(urls)
+    //print(urls)
 
     if !urls.isEmpty {
-      gatewayUrl = urls[1]
+      gatewayUrl = urls[0]
     }
     else {
-      let url = "\(GidOnlineAPI.SiteUrl)/trailer.php"
+      let url = "\(GidOnline2API.SiteUrl)/trailer.php"
 
       let idPost = try document.select("head meta[id=meta]").attr("content")
 
@@ -506,7 +488,7 @@ open class GidOnline2API: HttpService {
     for item: Element in items.array() {
       let href = try item.attr("href")
       let name = try item.select("span").text()
-      let thumb = GidOnlineAPI.SiteUrl + (try item.select("img").attr("src"))
+      let thumb = GidOnline2API.SiteUrl + (try item.select("img").attr("src"))
 
       data.append(["id": href, "name": name, "thumb": thumb ])
     }
@@ -559,50 +541,50 @@ open class GidOnline2API: HttpService {
     ]
   }
 
-  public func getUrls2(_ url: String, season: String = "", episode: String="") throws -> [[String: String]] {
-    var newUrl = url
-
-    if url.find(GidOnlineAPI.SiteUrl) != nil && url.find("http://") == nil {
-      newUrl = GidOnlineAPI.SiteUrl + url
-    }
-
-    var baseUrls: [String] = []
-
-    if let data = try getMovieContent2(newUrl, season: season, episode: episode) {
-      baseUrls = getJsonData(String(data: data, encoding: .utf8)!)
-
-      //print(items)
-    }
-
-    var urls: [[String: String]] = []
-
-    for (index, url) in baseUrls.enumerated() {
-      // 360, 480, 720, 1080
-      urls.append(["url": url, "bandwidth": String(describing: index+1)])
-    }
-
-    var headers: [String: String] = [:]
-
-    headers["Host"] = "cdn10.hdgo.cc"
-    headers["Range"] = "bytes=0-"
-    headers["Referer"] = "http://ru.d99q88vn.ru/video/XCwA9HElTOvpj7pXNYrSnWTv7ChXmYqO/2139/"
-    headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
-
-    print(urls[0]["url"]!)
-
-    let response = httpRequest(urls[0]["url"]!, headers: headers)!
-
-    if response.response!.statusCode == 302 {
-      let newGatewayUrl = response.response!.allHeaderFields["Location"] as! String
-
-      print("3")
-
-      print(newGatewayUrl)
-
-//      let response2 = httpRequest(movieUrl, headers: getHeaders(newGatewayUrl))!
+//  public func getUrls(_ url: String, season: String = "", episode: String="") throws -> [[String: String]] {
+//    var newUrl = url
 //
-//      data = response2.data
-    }
+//    if url.find(GidOnline2API.SiteUrl) != nil && url.find("http://") == nil {
+//      newUrl = GidOnline2API.SiteUrl + url
+//    }
+//
+//    var baseUrls: [String] = []
+//
+//    if let data = try getMovieContent(newUrl, season: season, episode: episode) {
+//      baseUrls = getJsonData(String(data: data, encoding: .utf8)!)
+//
+//      print(baseUrls)
+//    }
+//
+//    var urls: [[String: String]] = []
+
+//    for (index, url) in baseUrls.enumerated() {
+//      // 360, 480, 720, 1080
+//      urls.append(["url": url, "bandwidth": String(describing: index+1)])
+//    }
+
+//    var headers: [String: String] = [:]
+//
+//    headers["Host"] = "cdn10.hdgo.cc"
+//    headers["Range"] = "bytes=0-"
+//    headers["Referer"] = "http://ru.d99q88vn.ru/video/XCwA9HElTOvpj7pXNYrSnWTv7ChXmYqO/2139/"
+//    headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36"
+//
+//    print(urls[0]["url"]!)
+//
+//    let response = httpRequest(urls[0]["url"]!, headers: headers)!
+//
+//    if response.response!.statusCode == 302 {
+//      let newGatewayUrl = response.response!.allHeaderFields["Location"] as! String
+//
+//      print("3")
+//
+//      print(newGatewayUrl)
+//
+////      let response2 = httpRequest(movieUrl, headers: getHeaders(newGatewayUrl))!
+////
+////      data = response2.data
+//    }
 
 
 //    let html = String(data: content!, encoding: .utf8)
@@ -630,48 +612,54 @@ open class GidOnline2API: HttpService {
 //
 //    return try getMp4Urls(manifestMp4Url).reversed()
 
-    return urls
-  }
+//    return urls
+//  }
 
   public func getUrls(_ url: String, season: String = "", episode: String="") throws -> [[String: String]] {
     var newUrl = url
 
-    if url.find(GidOnlineAPI.SiteUrl) != nil && url.find("http://") == nil {
-      newUrl = GidOnlineAPI.SiteUrl + url
+    if url.find(GidOnline2API.SiteUrl) != nil && url.find("http://") == nil {
+      newUrl = GidOnline2API.SiteUrl + url
     }
 
-    let content = try getMovieContent(newUrl, season: season, episode: episode)
+    var baseUrls: [String] = []
 
-    let html = String(data: content!, encoding: .utf8)
+    if let data = try getMovieContent(newUrl, season: season, episode: episode) {
+      print(String(data: data, encoding: .utf8)!)
 
-    let frameCommit = getRequestTokens(html!)
+      baseUrls = getJsonData(String(data: data, encoding: .utf8)!)
 
-    let parameters = getSessionData(html!)
+      print(baseUrls)
+    }
 
-    let headers: HTTPHeaders = [
-      "X-Frame-Commit": frameCommit,
-      "X-Requested-With": "XMLHttpRequest"
-    ]
+    var urls: [[String: String]] = []
 
-    let response2 = httpRequest(sessionUrl(), headers: headers, parameters: parameters, method: .post)
-
-    let data2 = JSON(data: response2!.data!)
-
-    let manifests = data2["mans"]
-
-    print(manifests)
-
-    let manifestMp4Url = JSON(data: try manifests.rawData())["manifest_mp4"].rawString()!
-
-    print(manifestMp4Url)
-
-    return try getMp4Urls(manifestMp4Url).reversed()
-
-//    let manifestUrl = manifests["manifest_m3u8"].rawString()!.replacingOccurrences(of: "\\/", with: "/") + "&man_type=zip1&eskobar=pablo"
+//    let html = String(data: content!, encoding: .utf8)
 //
-//    print(manifestUrl)
+//    let frameCommit = getRequestTokens(html!)
 //
-//    return try getPlayListUrls(manifestUrl).reversed()
+//    let parameters = getSessionData(html!)
+//
+//    let headers: HTTPHeaders = [
+//      "X-Frame-Commit": frameCommit,
+//      "X-Requested-With": "XMLHttpRequest"
+//    ]
+//
+//    let response2 = httpRequest(sessionUrl(), headers: headers, parameters: parameters, method: .post)
+//
+//    let data2 = JSON(data: response2!.data!)
+//
+//    let manifests = data2["mans"]
+//
+//    print(manifests)
+//
+//    let manifestMp4Url = JSON(data: try manifests.rawData())["manifest_mp4"].rawString()!
+//
+//    print(manifestMp4Url)
+//
+//    return try getMp4Urls(manifestMp4Url).reversed()
+
+    return urls
   }
 
   func getRequestTokens(_ content: String) -> String {
@@ -854,7 +842,7 @@ open class GidOnline2API: HttpService {
   public func search(_ query: String, page: Int=1) throws -> [String: Any] {
     var result: [String: Any] = ["movies": []]
 
-    let path = getPagePath(GidOnlineAPI.SiteUrl, page: page) + "/"
+    let path = getPagePath(GidOnline2API.SiteUrl, page: page) + "/"
 
     var params = [String: String]()
     params["s"] = query.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
@@ -930,7 +918,7 @@ open class GidOnline2API: HttpService {
 
       let thumb = try block.select("div img[class=t-img]").attr("src")
 
-      data["thumb"] = GidOnlineAPI.SiteUrl + thumb
+      data["thumb"] = GidOnline2API.SiteUrl + thumb
 
       let items1 = try block.select("div div[class=t-row] div[class='r-1'] div[class='rl-2']")
       let items2 = try block.select("div div[class=t-row] div[class='r-2'] div[class='rl-2']")
@@ -1003,14 +991,14 @@ open class GidOnline2API: HttpService {
 
     if !path.isEmpty {
       if searchMode {
-        pattern = GidOnlineAPI.SiteUrl + "/page/"
+        pattern = GidOnline2API.SiteUrl + "/page/"
       }
       else {
-        pattern = GidOnlineAPI.SiteUrl + path + "page/"
+        pattern = GidOnline2API.SiteUrl + path + "page/"
       }
     }
     else {
-      pattern = GidOnlineAPI.SiteUrl + "/page/"
+      pattern = GidOnline2API.SiteUrl + "/page/"
     }
 
     pattern = pattern!.replacingOccurrences(of: "/", with: "\\/")
@@ -1123,7 +1111,7 @@ open class GidOnline2API: HttpService {
 
       let path = currentItem["id"] as! String
 
-      let index1 = path.index(path.startIndex, offsetBy: GidOnlineAPI.SiteUrl.count, limitedBy: path.endIndex)
+      let index1 = path.index(path.startIndex, offsetBy: GidOnline2API.SiteUrl.count, limitedBy: path.endIndex)
       let index2 = path.index(before: path.endIndex)
 
       if index1 != nil {
@@ -1153,6 +1141,8 @@ open class GidOnline2API: HttpService {
     return [
       "User-Agent": UserAgent,
       "Referer": referer
+//      "Upgrade-Insecure-Requests": "1",
+////      "Host": "moonwalk.cc"
     ]
   }
 

@@ -126,7 +126,7 @@ open class EtvnetAPI: ApiService {
     return nil
   }
 
-  public func getArchive2(genre: Int? = nil, channelId: Int? = nil, perPage: Int=PER_PAGE, page: Int=1) -> Observable<WebAPI.EtvnetAPI.PaginatedMediaData?> {
+  public func getArchive2(genre: Int? = nil, channelId: Int? = nil, perPage: Int=PER_PAGE, page: Int=1) -> Observable<EtvnetAPI.PaginatedMediaData?> {
     var path: String
 
     if channelId != nil && genre != nil {
