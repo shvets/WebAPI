@@ -435,7 +435,7 @@ open class GidOnlineAPI: HttpService {
 
     let response2 = httpRequest(allManifestsUrl, headers: headers, parameters: params, method: .post)
 
-    let data2 = JSON(data: response2!.data!)
+    let data2 = try JSON(data: response2!.data!)
 
     print(data2)
 
@@ -611,7 +611,7 @@ open class GidOnlineAPI: HttpService {
 
     let response = httpRequest(url)
 
-    let list = JSON(data: response!.data!)
+    let list = try JSON(data: response!.data!)
 
     for (bandwidth, url) in list {
       urls.append(["url": url.rawString()!.replacingOccurrences(of: "\\/", with: "/"), "bandwidth": bandwidth])

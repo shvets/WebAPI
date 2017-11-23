@@ -1,27 +1,27 @@
 PODS:
   - Alamofire (4.5.1)
-  - ConfigFile (1.0.1):
-    - Files (~> 1.9.0)
-  - Files (1.9.0)
+  - ConfigFile (1.1.0):
+    - Files (~> 2.0.0)
+  - Files (2.0.1)
   - RxSwift (4.0.0)
-  - SwiftSoup (1.5.5)
-  - SwiftyJSON (3.1.4)
+  - SwiftSoup (1.5.8)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - Alamofire (~> 4.5.1)
-  - ConfigFile (~> 1.0.1)
-  - Files (~> 1.9.0)
+  - ConfigFile (~> 1.1.0)
+  - Files (~> 2.0.1)
   - RxSwift (~> 4.0.0)
-  - SwiftSoup (~> 1.5.5)
-  - SwiftyJSON (~> 3.1.4)
+  - SwiftSoup (~> 1.5.8)
+  - SwiftyJSON (~> 4.0.0)
 
 SPEC CHECKSUMS:
   Alamofire: 2d95912bf4c34f164fdfc335872e8c312acaea4a
-  ConfigFile: ab3b69ebe202c384a6f35695b480bfc3bdbd251c
-  Files: e5c828e13b7728fa88a6c0e30f42f0ffb536e333
+  ConfigFile: 80f510c5f83db891b3cfd69ed897366c829494ae
+  Files: 2a80d8a2fafef38a7a590ef24634a829157e7305
   RxSwift: fd680d75283beb5e2559486f3c0ff852f0d35334
-  SwiftSoup: 6a31eb02551c9c523eea14aef9d9e70f1466ff99
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  SwiftSoup: 86a1f5ad07b7e3d14ab1a9324a58c75ae2215e79
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
 PODFILE CHECKSUM: 0e48dc82b3f806f62c06a92b90aa5e26f4791a8f
 

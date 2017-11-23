@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/shvets/ConfigFile",
         "state": {
           "branch": null,
-          "revision": "884017353345a0001e1c3de3e4e4705af64e1c26",
-          "version": "1.0.0"
+          "revision": "70e4c78b4f6ac8c69205115734c9c2aee27faf3a",
+          "version": "1.1.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/JohnSundell/Files",
         "state": {
           "branch": null,
-          "revision": "c2b337cd9cbe91622830e7e0f8ca76845ba81ca6",
-          "version": "1.12.0"
+          "revision": "6171f9e9d8619678da22355560f3dbed6368058d",
+          "version": "2.0.1"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/scinfu/SwiftSoup",
         "state": {
           "branch": null,
-          "revision": "4254988ee54dde110d0465b64adc60e4fe59d818",
-          "version": "1.5.5"
+          "revision": "cebd4851bcc8a0d0fedebdafca820303073280a9",
+          "version": "1.5.9"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/SwiftyJSON/SwiftyJSON.git",
         "state": {
           "branch": null,
-          "revision": "dadbfcffd5f51e2b488a26e83f188d96755e5393",
-          "version": "3.1.4"
+          "revision": "de309166a48a9dfc51d5bc4c55c0664d981de311",
+          "version": "4.0.0"
         }
       }
     ]
