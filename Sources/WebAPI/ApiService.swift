@@ -175,8 +175,7 @@ open class ApiService: AuthService {
     return response
   }
 
-  func fullRequestRx(path: String, method: HTTPMethod = .get, parameters: [String: String] = [:],
-                   unauthorized: Bool=false) -> Observable<Data> {
+  func fullRequestRx(path: String, method: HTTPMethod = .get, parameters: [String: String] = [:]) -> Observable<Data> {
     if !checkToken() {
       authorizeCallback()
     }
@@ -201,47 +200,28 @@ open class ApiService: AuthService {
     return Observable.just(Data())
   }
 
-//  public override func httpRequestRx(_ url: String,
+//  public override func httpRequestRx0(_ url: String,
 //                            headers: HTTPHeaders = [:],
 //                            parameters: Parameters = [:],
 //                            method: HTTPMethod = .get) -> Observable<Data> {
-//     return Observable.create { observer in
-//      if let sessionManager = self.sessionManager {
-//        let oauthHandler = OAuth2Handler(
-//           clientID: self.clientId,
-//           baseURLString: self.AuthUrl,
-//           accessToken: self.config.items["access_token"]!,
-//           refreshToken: self.config.items["refresh_token"]!
-//        )
 //
-//        sessionManager.adapter = oauthHandler
-//        sessionManager.retrier = oauthHandler
-//
-//        let utilityQueue = DispatchQueue.global(qos: .utility)
-//
-//        let request = sessionManager.request(url, method: method, parameters: parameters,
-//                        headers: headers).validate().responseData(queue: utilityQueue) { response in
-//        switch response.result {
-//          case .success(let value):
-//            observer.onNext(value)
-//            observer.onCompleted()
-//
-//          case .failure(let error):
-//            observer.onError(error)
-//          }
-//        }
-//
-//        return Disposables.create(with: request.cancel)
+//    if let sessionManager = self.sessionManager {
+//      if let retrier = sessionManager.retrier, !(retrier is OAuth2Handler) {
+//         sessionManager.retrier = OAuth2Handler(self)
 //      }
-//
-//      return Disposables.create()
+//      else {
+//         sessionManager.retrier = OAuth2Handler(self)
+//      }
 //    }
+//
+//    return super.httpRequestRx(url, headers: headers, parameters: parameters, method: method)
 //  }
 
-  public func httpRequestRx0(_ url: String,
+  public func httpRequestRx(_ url: String,
                             headers: HTTPHeaders = [:],
                             parameters: Parameters = [:],
-                            method: HTTPMethod = .get) -> Observable<Data> {
+                            method: HTTPMethod = .get,
+                            unauthorized: Bool=false) -> Observable<Data> {
     return Observable.create { observer in
       if let sessionManager = self.sessionManager {
         let utilityQueue = DispatchQueue.global(qos: .utility)
@@ -250,14 +230,14 @@ open class ApiService: AuthService {
                         headers: headers).validate().responseData(queue: utilityQueue) { response in
 
         if let statusCode = response.response?.statusCode {
-          if (statusCode == 401 || statusCode == 400) { //  && !unauthorized
+          if (statusCode == 401 || statusCode == 400) && !unauthorized {
             let refreshToken = self.config.items["refresh_token"]
-            
+
             if let updateResult = self.updateToken(refreshToken: refreshToken!) {
               self.config.items = updateResult.asDictionary()
               self.saveConfig()
-              
-              //response = fullRequest(path: path, method: method, parameters: parameters, unauthorized: true)
+
+              _ = self.httpRequestRx(url, headers: headers, parameters: parameters, method: method, unauthorized: true)
             }
             else {
               print("error")

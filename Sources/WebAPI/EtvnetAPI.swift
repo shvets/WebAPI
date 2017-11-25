@@ -91,7 +91,7 @@ open class EtvnetAPI: ApiService {
     return []
   }
 
-  public func getArchive(genre: Int? = nil, channelId: Int? = nil, perPage: Int=PER_PAGE, page: Int=1) -> PaginatedMediaData? {
+  public func getArchive0(genre: Int? = nil, channelId: Int? = nil, perPage: Int=PER_PAGE, page: Int=1) -> PaginatedMediaData? {
     var path: String
 
     if channelId != nil && genre != nil {
@@ -126,7 +126,7 @@ open class EtvnetAPI: ApiService {
     return nil
   }
 
-  public func getArchive2(genre: Int? = nil, channelId: Int? = nil, perPage: Int=PER_PAGE, page: Int=1) -> Observable<EtvnetAPI.PaginatedMediaData?> {
+  public func getArchive(genre: Int? = nil, channelId: Int? = nil, perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
     var path: String
 
     if channelId != nil && genre != nil {
@@ -222,7 +222,7 @@ open class EtvnetAPI: ApiService {
     return found
   }
 
-  public func getBlockbusters(perPage: Int=PER_PAGE, page: Int=1) -> PaginatedMediaData? {
+  public func getBlockbusters(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
     let genres = getGenres()
 
     let genre = getGenre(genres, name: "Блокбастеры")
@@ -238,7 +238,7 @@ open class EtvnetAPI: ApiService {
 //    return getArchive2(genre: genre, perPage: perPage, page: page)
 //  }
 
-  public func getCoolMovies(perPage: Int=PER_PAGE, page: Int=1) -> PaginatedMediaData? {
+  public func getCoolMovies(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
     return getArchive(channelId: 158, perPage: perPage, page: page)
   }
 

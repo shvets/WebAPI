@@ -12,11 +12,11 @@ class EtvnetAPITests: XCTestCase {
     super.setUp()
     // Put setup code here. This method is called before the invocation of each test method in the class.
 
-    if !subject.checkToken() {
-      let result = subject.authorization()
+    subject.authorize {
+      let result = self.subject.authorization()
 
       if result.userCode != "" {
-        _ = subject.tryCreateToken(userCode: result.userCode, deviceCode: result.deviceCode, activationUrl: result.activationUrl)
+        _ = self.subject.tryCreateToken(userCode: result.userCode, deviceCode: result.deviceCode, activationUrl: result.activationUrl)
       }
     }
   }
@@ -33,27 +33,43 @@ class EtvnetAPITests: XCTestCase {
   }
 
   func testGetArchive() throws {
-    let data = subject.getArchive(channelId: 3)!
+    let exp = expectation(description: "Gets archive")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(data)
-    })
+    _ = subject.getArchive(channelId: 3).subscribe(
+      onNext: { result in
+        print(result as Any)
 
-    XCTAssertNotNil(data)
-    XCTAssert(data.media.count > 0)
-    XCTAssert(data.pagination.count > 0)
+        XCTAssertNotNil(result)
+        XCTAssert(result!.media.count > 0)
+        XCTAssert(result!.pagination.count > 0)
+
+        exp.fulfill()
+      },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetGenre() throws {
-    let data = subject.getArchive(genre: 1, perPage: 56)!
+    let exp = expectation(description: "Gets genre")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(data)
-    })
+    _ = subject.getArchive(genre: 1).subscribe(
+      onNext: { result in
+        print(result as Any)
 
-    XCTAssertNotNil(data)
-    XCTAssert(data.media.count > 0)
-    XCTAssert(data.pagination.count > 0)
+        XCTAssertNotNil(result)
+        XCTAssert(result!.media.count > 0)
+        XCTAssert(result!.pagination.count > 0)
+
+        exp.fulfill()
+      },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetNewArrivals() throws {
@@ -69,27 +85,43 @@ class EtvnetAPITests: XCTestCase {
   }
 
   func testGetBlockbusters() throws {
-    let data = subject.getBlockbusters()!
+    let exp = expectation(description: "Gets blockbusters")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(data)
-    })
+    _ = subject.getBlockbusters().subscribe(
+      onNext: { result in
+        print(result as Any)
 
-    XCTAssertNotNil(data)
-    XCTAssert(data.media.count > 0)
-    XCTAssert(data.pagination.count > 0)
+        XCTAssertNotNil(result)
+        XCTAssert(result!.media.count > 0)
+        XCTAssert(result!.pagination.count > 0)
+
+        exp.fulfill()
+      },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetCoolMovies() throws {
-    let data = subject.getCoolMovies(perPage: 15, page: 4)!
+    let exp = expectation(description: "Gets cool movies")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(data)
-    })
+    _ = subject.getCoolMovies(perPage: 15, page: 4).subscribe(
+      onNext: { result in
+        print(result as Any)
 
-    XCTAssertNotNil(data)
-    XCTAssert(data.media.count > 0)
-    XCTAssert(data.pagination.count > 0)
+        XCTAssertNotNil(result)
+        XCTAssert(result!.media.count > 0)
+        XCTAssert(result!.pagination.count > 0)
+
+        exp.fulfill()
+      },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetGenres() throws {
@@ -159,39 +191,57 @@ class EtvnetAPITests: XCTestCase {
   }
 
   func testGetMediaObjects() throws {
-    let result = subject.getArchive(channelId: 3)!
+    let exp = expectation(description: "Gets media objects")
 
-    var mediaObject: EtvnetAPI.Media? = nil
+    _ = subject.getArchive(channelId: 3).subscribe(
+      onNext: { result in
+        var mediaObject: EtvnetAPI.Media? = nil
 
-    for item in result.media {
-      let type = item.mediaType
+        for item in result!.media {
+          let type = item.mediaType
 
-      if type == .mediaObject {
-        mediaObject = item
-        break
-      }
-    }
+          if type == .mediaObject {
+            mediaObject = item
+            break
+          }
+        }
 
-    print(mediaObject!)
+        print(mediaObject!)
+
+        exp.fulfill()
+      },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetContainer() throws {
-    let result = subject.getArchive(channelId: 5)!
+    let exp = expectation(description: "Gets container")
 
-    print(result as Any)
+    _ = subject.getArchive(channelId: 5).subscribe(
+      onNext: { result in
+        var container: EtvnetAPI.Media? = nil
 
-    var container: EtvnetAPI.Media? = nil
+        for item in result!.media {
+          let type = item.mediaType
 
-    for item in result.media {
-      let type = item.mediaType
+          if type == .container {
+            container = item
+            break
+          }
+        }
 
-      if type == .container {
-        container = item
-        break
-      }
-    }
+        print(container!)
 
-    print(container!)
+        exp.fulfill()
+      },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetAllBookmarks() throws {
