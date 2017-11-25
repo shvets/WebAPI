@@ -411,21 +411,23 @@ open class KinoKongAPI: HttpService {
 
     if let data = fetchData(playlistUrl, headers: getHeaders()),
        let content = String(data: data, encoding: .windowsCP1251) {
-      let index = content.find("{\"playlist\":")
-
-      let playlistContent = content[index! ..< content.endIndex]
-
-      let localizedData = playlistContent.data(using: .windowsCP1251)!
-
-      let decoder = JSONDecoder()
-
-      if let result = try? decoder.decode(PlayList.self, from: localizedData) {
-        for item in result.playlist {
-          list.append(Season(comment: item.comment, playlist: buildEpisodes(item.playlist)))
+      if !content.isEmpty {
+        let index = content.find("{\"playlist\":")
+        
+        let playlistContent = content[index! ..< content.endIndex]
+        
+        let localizedData = playlistContent.data(using: .windowsCP1251)!
+        
+        let decoder = JSONDecoder()
+        
+        if let result = try? decoder.decode(PlayList.self, from: localizedData) {
+            for item in result.playlist {
+                list.append(Season(comment: item.comment, playlist: buildEpisodes(item.playlist)))
+            }
         }
-      }
-      else if let result = try? decoder.decode(SingleSeasonPlayList.self, from: localizedData) {
-        list.append(Season(comment: "Сезон 1", playlist: buildEpisodes(result.playlist)))
+        else if let result = try? decoder.decode(SingleSeasonPlayList.self, from: localizedData) {
+            list.append(Season(comment: "Сезон 1", playlist: buildEpisodes(result.playlist)))
+        }
       }
     }
 
