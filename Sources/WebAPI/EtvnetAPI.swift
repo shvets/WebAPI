@@ -196,7 +196,7 @@ open class EtvnetAPI: ApiService {
 
             regrouped.append(genres[12])
             // regrouped.append(genres[13])
-            regrouped.append(genres[14])
+            regrouped.append(genres[13])
             // regrouped.append(genres[15])
 
             return regrouped
@@ -222,13 +222,13 @@ open class EtvnetAPI: ApiService {
     return found
   }
 
-  public func getBlockbusters(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
-    let genres = getGenres()
-
-    let genre = getGenre(genres, name: "Блокбастеры")
-
-    return getArchive(genre: genre, perPage: perPage, page: page)
-  }
+//  public func getBlockbusters(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
+////    let genres = getGenres()
+////
+////    let genre = getGenre(genres, name: "Блокбастеры")
+//
+//    return getArchive(genre: 217, perPage: perPage, page: page)
+//  }
 
 //  public func getBlockbusters(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
 //    let genres = getGenres()
@@ -238,9 +238,9 @@ open class EtvnetAPI: ApiService {
 //    return getArchive2(genre: genre, perPage: perPage, page: page)
 //  }
 
-  public func getCoolMovies(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
-    return getArchive(channelId: 158, perPage: perPage, page: page)
-  }
+//  public func getCoolMovies(perPage: Int=PER_PAGE, page: Int=1) -> Observable<PaginatedMediaData?> {
+//    return getArchive(channelId: 158, perPage: perPage, page: page)
+//  }
 
   public func search(_ query: String, perPage: Int=PER_PAGE, page: Int=1, dir: String? = nil) -> PaginatedMediaData? {
     var newDir = dir
