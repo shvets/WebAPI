@@ -130,12 +130,6 @@ http://stackoverflow.com/questions/31735228/how-to-make-a-simple-collection-view
 https://www.youtube.com/watch?v=XmLdEcq-QNI&feature=youtu.be&a
 https://www.themoviedb.org/documentation/api
 
-
-https://icomoon.io/
-https://linearicons.com/free
-http://www.flaticon.com/free-icon
-https://icons8.com/icon/free-pack/book/ios
-https://openclipart.org
 https://www.bignerdranch.com/blog/10-tips-for-mastering-the-focus-engine-on-tvos/
 
 https://stackblitz.com/
