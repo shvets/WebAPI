@@ -84,45 +84,45 @@ class EtvnetAPITests: XCTestCase {
     XCTAssert(data.pagination.count > 0)
   }
 
-  func testGetBlockbusters() throws {
-    let exp = expectation(description: "Gets blockbusters")
-
-    _ = subject.getBlockbusters().subscribe(
-      onNext: { result in
-        print(result as Any)
-
-        XCTAssertNotNil(result)
-        XCTAssert(result!.media.count > 0)
-        XCTAssert(result!.pagination.count > 0)
-
-        exp.fulfill()
-      },
-      onError: { error in
-        print("Received error:", error)
-      })
-
-    waitForExpectations(timeout: 10, handler: nil)
-  }
-
-  func testGetCoolMovies() throws {
-    let exp = expectation(description: "Gets cool movies")
-
-    _ = subject.getCoolMovies(perPage: 15, page: 4).subscribe(
-      onNext: { result in
-        print(result as Any)
-
-        XCTAssertNotNil(result)
-        XCTAssert(result!.media.count > 0)
-        XCTAssert(result!.pagination.count > 0)
-
-        exp.fulfill()
-      },
-      onError: { error in
-        print("Received error:", error)
-      })
-
-    waitForExpectations(timeout: 10, handler: nil)
-  }
+//  func testGetBlockbusters() throws {
+//    let exp = expectation(description: "Gets blockbusters")
+//
+//    _ = subject.getBlockbusters().subscribe(
+//      onNext: { result in
+//        print(result as Any)
+//
+//        XCTAssertNotNil(result)
+//        XCTAssert(result!.media.count > 0)
+//        XCTAssert(result!.pagination.count > 0)
+//
+//        exp.fulfill()
+//      },
+//      onError: { error in
+//        print("Received error:", error)
+//      })
+//
+//    waitForExpectations(timeout: 10, handler: nil)
+//  }
+//
+//  func testGetCoolMovies() throws {
+//    let exp = expectation(description: "Gets cool movies")
+//
+//    _ = subject.getCoolMovies(perPage: 15, page: 4).subscribe(
+//      onNext: { result in
+//        print(result as Any)
+//
+//        XCTAssertNotNil(result)
+//        XCTAssert(result!.media.count > 0)
+//        XCTAssert(result!.pagination.count > 0)
+//
+//        exp.fulfill()
+//      },
+//      onError: { error in
+//        print("Received error:", error)
+//      })
+//
+//    waitForExpectations(timeout: 10, handler: nil)
+//  }
 
   func testGetGenres() throws {
     let list = subject.getGenres()
