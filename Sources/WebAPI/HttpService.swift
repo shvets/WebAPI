@@ -81,13 +81,24 @@ open class HttpService {
       return Disposables.create()
     }
   }
-  
+
+  public func fetchDataResponse(_ url: String,
+                        headers: HTTPHeaders = [:],
+                        parameters: Parameters = [:],
+                        method: HTTPMethod = .get) -> DataResponse<Data>? {
+    let response: DataResponse<Data>? = httpRequest(url, headers: headers, parameters: parameters, method: method)
+
+    // print(response!.response!.allHeaderFields)
+
+    return response
+  }
+
   public func fetchData(_ url: String,
                         headers: HTTPHeaders = [:],
                         parameters: Parameters = [:],
                         method: HTTPMethod = .get) -> Data? {
     let response: DataResponse<Data>? = httpRequest(url, headers: headers, parameters: parameters, method: method)
-    
+
     return response?.data
   }
   
@@ -98,7 +109,8 @@ open class HttpService {
                             encoding: String.Encoding = .utf8) throws -> Document? {
     var document: Document?
     
-    if let data = fetchData(url, headers: headers, parameters: parameters, method: method),
+    if let dataResponse = fetchDataResponse(url, headers: headers, parameters: parameters, method: method),
+      let data = dataResponse.data,
       let html = String(data: data, encoding: encoding) {
       document = try SwiftSoup.parse(html)
     }

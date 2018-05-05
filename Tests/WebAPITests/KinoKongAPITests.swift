@@ -14,42 +14,40 @@ class KinoKongAPITests: XCTestCase {
   func testGetAllMovies() throws {
     let list = try subject.getAllMovies()
 
-    print(list)
-
-//    print(list)
+    //print(list)
 
 //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)
 //    })
-//
-//    XCTAssertNotNil(list)
-//    XCTAssert(list.count > 0)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testGetNewMovies() throws {
     let list = try subject.getNewMovies()
 
-    print(list)
+    //print(list)
 
 //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)
 //    })
-//
-//    XCTAssertNotNil(list)
-//    XCTAssert(list.count > 0)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testGetAllSeries() throws {
     let list = try subject.getAllSeries()
 
-    print(list)
+    //print(list)
 
     //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)
 //    })
-//
-//    XCTAssertNotNil(list)
-//    XCTAssert(list.count > 0)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testGetGroupedGenres() throws {
@@ -66,7 +64,7 @@ class KinoKongAPITests: XCTestCase {
   }
 
   func testGetUrls() throws {
-    let path = "/26545-lovushka-dlya-privideniya-2015-smotret-online.html"
+    let path = "/32334-chernaya-pantera-2018-online.html"
 
     let list = try subject.getUrls(path)
 
@@ -77,9 +75,9 @@ class KinoKongAPITests: XCTestCase {
     //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)
 //    })
-//
-//    XCTAssertNotNil(list)
-//    XCTAssert(list.count > 0)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testGetSeriePlaylistUrl() throws {
@@ -101,14 +99,14 @@ class KinoKongAPITests: XCTestCase {
 
     //print(result as Any)
 
-    print(list)
+    //print(list)
 
     //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)
 //    })
-//
-//    XCTAssertNotNil(list)
-//    XCTAssert(list.count > 0)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testSearch() throws {
@@ -133,21 +131,22 @@ class KinoKongAPITests: XCTestCase {
 
     let pagination1 = result1["pagination"] as! [String: Any]
 
-    //print(pagination1)
+    print(pagination1)
 
     XCTAssertTrue(pagination1["has_next"] as! Bool)
     XCTAssertFalse(pagination1["has_previous"] as! Bool)
     XCTAssertEqual(pagination1["page"] as! Int, 1)
 
     let result2 = try subject.getAllMovies(page: 2)
+    print(result2)
 
-    let pagination2 = result2["pagination"] as! [String: Any]
-
-    //print(pagination2)
-
-    XCTAssertTrue(pagination2["has_next"] as! Bool)
-    XCTAssertTrue(pagination2["has_previous"] as! Bool)
-    XCTAssertEqual(pagination2["page"] as! Int, 2)
+//    let pagination2 = result2["pagination"] as! [String: Any]
+//
+//    //print(pagination2)
+//
+//    XCTAssertTrue(pagination2["has_next"] as! Bool)
+//    XCTAssertTrue(pagination2["has_previous"] as! Bool)
+//    XCTAssertEqual(pagination2["page"] as! Int, 2)
   }
 
   func testPaginationInMoviesByRating() throws {
@@ -167,7 +166,7 @@ class KinoKongAPITests: XCTestCase {
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
 
-    let list = try subject.getSeasons(playlistUrl)
+    let list = try subject.getSeasons(playlistUrl, path: "")
 
     print(try Prettifier.prettify { encoder in
       return try encoder.encode(list)
@@ -182,7 +181,7 @@ class KinoKongAPITests: XCTestCase {
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
 
-    let list = try subject.getSeasons(playlistUrl)
+    let list = try subject.getSeasons(playlistUrl, path: "")
 
     print(try Prettifier.prettify { encoder in
       return try encoder.encode(list)
@@ -226,7 +225,7 @@ class KinoKongAPITests: XCTestCase {
     let path = "/15479-smotret-dedpul-2016-smotet-online.html"
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
-    let list = try subject.getSeasons(playlistUrl)
+    let list = try subject.getSeasons(playlistUrl, path: "")
 
     print(try Prettifier.prettify { encoder in
       return try encoder.encode(list)
