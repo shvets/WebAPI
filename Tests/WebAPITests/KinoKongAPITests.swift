@@ -68,7 +68,7 @@ class KinoKongAPITests: XCTestCase {
 
     let list = try subject.getUrls(path)
 
-    print(list)
+//    print(list)
 
     //print(result as Any)
 
@@ -116,14 +116,14 @@ class KinoKongAPITests: XCTestCase {
 
     //print(result as Any)
 
-    print(list)
+    //print(list)
 
     //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)
 //    })
-//
-//    XCTAssertNotNil(list)
-//    XCTAssert(list.count > 0)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
   }
 
   func testPaginationInAllMovies() throws {

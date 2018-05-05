@@ -153,7 +153,7 @@ open class KinoKongAPI: HttpService {
   public func getTags() throws -> [Any] {
     var data = [Any]()
 
-    if let document = try getDocument(KinoKongAPI.SiteUrl + "/podborka.html") {
+    if let document = try getDocument(KinoKongAPI.SiteUrl + "/kino-podborka.html") {
       let items = try document.select("div[class=podborki-item-block]")
 
       for item: Element in items.array() {
@@ -329,8 +329,8 @@ open class KinoKongAPI: HttpService {
             let path = try genre.attr("href")
             let name = try genre.text()
 
-            if !["/recenzii/", "/news/"].contains(path), var href = data[href] {
-              href.append(["id": path, "name": name])
+            if !["/kino-recenzii/", "/news-kino/"].contains(path) {
+              data[href]!.append(["id": path, "name": name])
             }
           }
         }
@@ -348,7 +348,8 @@ open class KinoKongAPI: HttpService {
       "do": "search",
       "subaction": "search",
       "search_start": "\(page)",
-      "full_search": "1",
+      "full_search": "0",
+      "result_from": "1",
       "story": query.windowsCyrillicPercentEscapes()
     ]
 
@@ -361,11 +362,16 @@ open class KinoKongAPI: HttpService {
     if let document = try searchDocument(KinoKongAPI.SiteUrl + path, parameters: searchData) {
       let items = try document.select("div[class=owl-item]")
 
+print(items.array().count)
       for item: Element in items.array() {
         var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
         let name = try item.select("div[class=main-sliders-title] a").text()
-        let thumb = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
+        let thumb = try item.select("div[class=item] span[class=main-sliders-bg] img").attr("src")
+        //try item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
 
+print(href)
+print(name)
+print(name)
         let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()
 
         if href.find(KinoKongAPI.SiteUrl) != nil {
@@ -469,7 +475,8 @@ open class KinoKongAPI: HttpService {
 
   func getHeaders(_ referer: String="") -> [String: String] {
     var headers = [
-      "User-Agent": UserAgent
+      "User-Agent": UserAgent,
+      "Host": "kinokongo.cc"
     ];
 
     if !referer.isEmpty {
