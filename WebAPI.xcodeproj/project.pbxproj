@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		0F9F1CD4816DD5FEA0298655 /* Pods_WebAPI_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91613095040FEED6BA78DAAB /* Pods_WebAPI_iOS.framework */; };
 		108C5C0B62A21CCC0B7632C7 /* Pods_WebAPI_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D751DC708DA55F3F3643E77A /* Pods_WebAPI_tvOSTests.framework */; };
+		2DBA10427B70D95EFEA7B483 /* KinoTochkaAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */; };
+		2DBA136799616B01C39D58DE /* KinoTochkaAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */; };
+		2DBA184ECC9CDA2BBD1036FA /* KinoTochkaAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */; };
+		2DBA1889222C8E7759CB1E94 /* KinoTockaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */; };
+		2DBA1EC2797B05A5C3DC2886 /* KinoTockaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */; };
+		2DBA1FEB1A00DB5EE54B2DC7 /* KinoTochkaAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */; };
 		6710BA3335C264E108DA6F3B /* Pods_WebAPI_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FA3DA2A7974E36C1F4D43C /* Pods_WebAPI_iOSTests.framework */; };
 		8036985D69BC2EAB0A2CBF1A /* Pods_WebAPI_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D4AE52BBDEC62DB761A9F /* Pods_WebAPI_macOS.framework */; };
 		BC14EA24C192D9976EA00644 /* Pods_WebAPI_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 136EDDFE65DA271E12AE284A /* Pods_WebAPI_tvOS.framework */; };
@@ -155,6 +161,9 @@
 		1E00AC5F26B6B61D6DDDAF15 /* Pods-WebAPI_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_iOSTests/Pods-WebAPI_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2618BC2AF025C696CD4AB89A /* Pods-WebAPI_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_iOS/Pods-WebAPI_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GidOnline2APITests.swift; sourceTree = "<group>"; };
+		2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KinoTochkaAPI-models.swift"; path = "WebAPI/KinoTochkaAPI-models.swift"; sourceTree = "<group>"; };
+		2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KinoTockaAPI.swift; path = WebAPI/KinoTockaAPI.swift; sourceTree = "<group>"; };
+		2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KinoTochkaAPITests.swift; sourceTree = "<group>"; };
 		2FCDE7B8924B8FFA34C78BDD /* Pods-WebAPI_macOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_macOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_macOSTests/Pods-WebAPI_macOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		33DC11B73776705AC467D47C /* Pods-WebAPI_tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_tvOS/Pods-WebAPI_tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		3C0E3E236BACC26A44C6844E /* Pods-WebAPI_tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_tvOS/Pods-WebAPI_tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -324,6 +333,7 @@
 				FA858B9A1FBA90A000A54968 /* MuzArbuzAPITests.swift */,
 				FA858B9B1FBA90A000A54968 /* MyHitAPITests.swift */,
 				2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */,
+				2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */,
 			);
 			path = WebAPITests;
 			sourceTree = "<group>";
@@ -438,6 +448,8 @@
 				FAA124B31FA39AD700CA1DE2 /* Prettifier.swift */,
 				FAA124B51FA39AD700CA1DE2 /* String-extension.swift */,
 				FAAA76451FAE8D58001FD188 /* OAuth2Handler.swift */,
+				2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */,
+				2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -1021,6 +1033,9 @@
 				FAA124D11FA39AD900CA1DE2 /* AuthService.swift in Sources */,
 				FAA124C61FA39AD900CA1DE2 /* KinoKongAPI-models.swift in Sources */,
 				FAA124C31FA39AD900CA1DE2 /* HttpService.swift in Sources */,
+				2DBA1889222C8E7759CB1E94 /* KinoTockaAPI.swift in Sources */,
+				2DBA1FEB1A00DB5EE54B2DC7 /* KinoTochkaAPITests.swift in Sources */,
+				2DBA184ECC9CDA2BBD1036FA /* KinoTochkaAPI-models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1069,6 +1084,9 @@
 				FA13D7231FA39E1600C86594 /* DownloadManager.swift in Sources */,
 				FA13D72C1FA39E1600C86594 /* KinoKongAPI-models.swift in Sources */,
 				FA13D72A1FA39E1600C86594 /* HttpService.swift in Sources */,
+				2DBA1EC2797B05A5C3DC2886 /* KinoTockaAPI.swift in Sources */,
+				2DBA136799616B01C39D58DE /* KinoTochkaAPITests.swift in Sources */,
+				2DBA10427B70D95EFEA7B483 /* KinoTochkaAPI-models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
