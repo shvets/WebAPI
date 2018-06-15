@@ -195,7 +195,7 @@ open class KinoKongAPI: HttpService {
   public func getUrls(_ path: String) throws -> [String] {
     var urls: [String] = []
 
-    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
+    if let document = try getDocument(path) {
       let items = try document.select("script")
 
       for item: Element in items.array() {

@@ -66,9 +66,9 @@ class KinoKongAPITests: XCTestCase {
   func testGetUrls() throws {
     let path = "/32334-chernaya-pantera-2018-online.html"
 
-    let list = try subject.getUrls(path)
+    let list = try subject.getUrls(KinoKongAPI.SiteUrl + path)
 
-//    print(list)
+    print(list)
 
     //print(result as Any)
 
