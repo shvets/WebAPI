@@ -213,10 +213,12 @@ open class KinoTochkaAPI: HttpService {
           if let startIndex = index1 {
             let text2 = String(text[startIndex..<text.endIndex])
 
-            let index2 = text2.find("\", embedcode:")
+            let text3 = text2.replacingOccurrences(of: "[480,720]", with: "720")
+
+            let index2 = text3.find("\", embedcode:")
 
             if let endIndex = index2 {
-              urls = text2[text.index(text2.startIndex, offsetBy: 8) ..< endIndex].components(separatedBy: ",")
+              urls = text3[text.index(text3.startIndex, offsetBy: 8) ..< endIndex].components(separatedBy: ",")
 
               break
             }
@@ -376,11 +378,10 @@ open class KinoTochkaAPI: HttpService {
     if let document = try searchDocument(KinoTochkaAPI.SiteUrl + path, parameters: searchData) {
       let items = try document.select("a[class=sres-wrap clearfix]")
 
-      print(items.array().count)
       for item: Element in items.array() {
         let href = try item.attr("href")
-        let name = try item.select("div[class=sres-text h2").text()
-        let description = try item.select("div[class=sres-desc").text()
+        let name = try item.select("div[class=sres-text] h2").text()
+        let description = try item.select("div[class=sres-desc]").text()
         let thumb = try item.select("div[class=sres-img] img").first()!.attr("src")
 
 //        let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()

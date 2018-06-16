@@ -79,11 +79,11 @@ class KinoTochkaAPITests: XCTestCase {
 //  }
 
   func testGetUrls() throws {
-    let path = "/10449-serdceed-2018.html"
+    let path = "/5271-lara-kroft-3-2018.html"
 
     let list = try subject.getUrls(KinoTochkaAPI.SiteUrl + path)
 
-    // print(list)
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
