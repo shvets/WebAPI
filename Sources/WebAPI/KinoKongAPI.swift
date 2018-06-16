@@ -369,9 +369,6 @@ print(items.array().count)
         let thumb = try item.select("div[class=item] span[class=main-sliders-bg] img").attr("src")
         //try item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
 
-print(href)
-print(name)
-print(name)
         let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()
 
         if href.find(KinoKongAPI.SiteUrl) != nil {

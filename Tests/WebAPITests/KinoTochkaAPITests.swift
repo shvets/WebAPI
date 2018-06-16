@@ -64,20 +64,7 @@ class KinoTochkaAPITests: XCTestCase {
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
-
-//  func testGetGroupedGenres() throws {
-//    let list = try subject.getGroupedGenres()
-//
-//    print(list)
-//
-//    //    print(try Prettifier.prettify { encoder in
-////      return try encoder.encode(list)
-////    })
-////
-////    XCTAssertNotNil(list)
-////    XCTAssert(list.count > 0)
-//  }
-
+  
   func testGetUrls() throws {
     let path = "/5271-lara-kroft-3-2018.html"
 
@@ -92,32 +79,13 @@ class KinoTochkaAPITests: XCTestCase {
   func testGetSeriePlaylistUrl() throws {
     let path = "/8892-legion-2-sezon-2018-11.html"
 
-    let list = try subject.getSeriePlaylistUrl(path)
+    let list = try subject.getSeasonPlaylistUrl(path)
 
     // print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
-
-//  func testGetMetadata() throws {
-//    let path = "/26545-lovushka-dlya-privideniya-2015-smotret-online.html"
-//
-//    let urls = try subject.getUrls(path)
-//
-//    let list = subject.getMetadata(urls[0])
-//
-//    //print(result as Any)
-//
-//    //print(list)
-//
-//    //    print(try Prettifier.prettify { encoder in
-////      return try encoder.encode(list)
-////    })
-//
-//    XCTAssertNotNil(list)
-//    XCTAssert(list.count > 0)
-//  }
 
   func testSearch() throws {
     let query = "красный"
@@ -146,31 +114,28 @@ class KinoTochkaAPITests: XCTestCase {
 
     let pagination2 = result2["pagination"] as! [String: Any]
 
-    //print(pagination2)
-
     XCTAssertTrue(pagination2["has_next"] as! Bool)
     XCTAssertTrue(pagination2["has_previous"] as! Bool)
     XCTAssertEqual(pagination2["page"] as! Int, 2)
   }
 
-//  func testPaginationInMoviesByRating() throws {
-//    let result1 = try subject.getMoviesByRating(page: 1)
-//
-//    let pagination1 = result1["pagination"] as! [String: Any]
-//
-//    //print(pagination1)
-//
-//    XCTAssertFalse(pagination1["has_next"] as! Bool)
-//    XCTAssertFalse(pagination1["has_previous"] as! Bool)
-//    XCTAssertEqual(pagination1["page"] as! Int, 1)
-//  }
+  func testGetSeasons() throws {
+    let path = "/6914-byvaet-i-huzhe-2-sezon-2010.html"
 
-  func testGetSeasonMovies() throws {
+    let list = try subject.getSeasons(KinoTochkaAPI.SiteUrl + path)
+
+    print(list)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testGetEpisodes() throws {
     let path = "/9146-chastnye-syschiki-2-sezon-2017-12.html"
 
-    let playlistUrl = try subject.getSeriePlaylistUrl(path)
+    let playlistUrl = try subject.getSeasonPlaylistUrl(KinoTochkaAPI.SiteUrl + path)
 
-    let list = try subject.getSeasons(playlistUrl, path: "")
+    let list = try subject.getEpisodes(playlistUrl, path: "")
 
     print(try Prettifier.prettify { encoder in
       return try encoder.encode(list)
@@ -179,18 +144,7 @@ class KinoTochkaAPITests: XCTestCase {
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
-
-  func testGetSeasonsList() throws {
-    let path = "/9146-chastnye-syschiki-2-sezon-2017-12.html"
-
-    let list = try subject.getSeasonsList(path)
-
-     // print(list)
-
-    XCTAssertNotNil(list)
-    XCTAssert(list.count > 0)
-  }
-
+  
   func testGetCollections() throws {
     let list = try subject.getCollections()
 
@@ -211,47 +165,4 @@ class KinoTochkaAPITests: XCTestCase {
     XCTAssert(list.count > 0)
   }
 
-//  func testGetMoviesByRating() throws {
-//    let list = try subject.getMoviesByRating()
-//
-//    //print(result as Any)
-//
-//    print(list)
-//
-//    //    print(try Prettifier.prettify { encoder in
-////      return try encoder.encode(list)
-////    })
-////
-////    XCTAssertNotNil(list)
-////    XCTAssert(list.count > 0)
-//  }
-//
-//  func testGetTags() throws {
-//    let list = try subject.getTags()
-//
-//    //print(result as Any)
-//
-//    print(list)
-//
-//    //    print(try Prettifier.prettify { encoder in
-////      return try encoder.encode(list)
-////    })
-////
-////    XCTAssertNotNil(list)
-////    XCTAssert(list.count > 0)
-//  }
-//
-//  func testGetSoundtracks() throws {
-//    let path = "/15479-smotret-dedpul-2016-smotet-online.html"
-//
-//    let playlistUrl = try subject.getSeriePlaylistUrl(path)
-//    let list = try subject.getSeasons(playlistUrl, path: "")
-//
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
-//
-//    XCTAssertNotNil(list)
-//    XCTAssert(list.count > 0)
-//  }
 }

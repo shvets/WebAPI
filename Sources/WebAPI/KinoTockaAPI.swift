@@ -43,7 +43,29 @@ open class KinoTochkaAPI: HttpService {
   }
 
   public func getAllSeries(page: Int=1) throws -> [String: Any] {
-    return try getMovies("/serials/", page: page, serie: true)
+    let result = try getMovies("/serials/", page: page, serie: true)
+
+    return ["pagination": result["pagination"] as Any, "movies": try sanitizeNames(result["movies"] as! [Any])]
+  }
+
+  private func sanitizeNames(_ movies: Any) throws -> [Any] {
+    var newMovies = [Any]()
+
+    for var movie in movies as! [[String: String]] {
+      let pattern = "(\\d*\\s(С|с)езон)\\s"
+
+      let regex = try NSRegularExpression(pattern: pattern)
+
+      if let name = movie["name"] {
+        let correctedName = regex.stringByReplacingMatches(in: name, options: [], range: NSMakeRange(0, name.count), withTemplate: "")
+
+        movie["name"] = correctedName
+
+        newMovies.append(movie)
+      }
+    }
+
+    return newMovies
   }
 
   public func getAnimations(page: Int=1) throws -> [String: Any] {
@@ -55,7 +77,27 @@ open class KinoTochkaAPI: HttpService {
   }
 
   public func getTvShows(page: Int=1) throws -> [String: Any] {
-    return try getMovies("/show/", page: page)
+    let result = try getMovies("/show/", page: page)
+
+    let movies1 = result["movies"] as! [Any]
+    let movies2 = try fixShowType(movies1)
+    let movies3 = try sanitizeNames(movies2)
+
+    return ["pagination": result["pagination"] as Any, "movies": movies3]
+  }
+
+  private func fixShowType(_ movies: Any) throws -> [Any] {
+    var newMovies = [Any]()
+
+    for var movie in movies as! [[String: String]] {
+      if let type = movie["type"] {
+        movie["type"] = "serie"
+
+        newMovies.append(movie)
+      }
+    }
+
+    return newMovies
   }
 
   public func getMovies(_ path: String, page: Int=1, serie: Bool=false) throws -> [String: Any] {
@@ -72,19 +114,6 @@ open class KinoTochkaAPI: HttpService {
         let name = try item.select("div[class=custom1-title").text()
         let thumb = try item.select("a[class=custom1-img] img").first()!.attr("src")
 
-//        let thumb = try KinoTochkaAPI.SiteUrl +
-//          item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
-//
-//        let seasonNode = try item.select("div[class=main-sliders-shadow] div[class=main-sliders-season]").text()
-//
-//        if href.find(KinoTochkaAPI.SiteUrl) != nil {
-//          let index = href.index(href.startIndex, offsetBy: KinoTochkaAPI.SiteUrl.count)
-//
-//          href = String(href[index ..< href.endIndex])
-//        }
-//
-//        let type = seasonNode.isEmpty ? "movie" : "serie"
-
         let type = serie ? "serie" : "movie";
 
         data.append(["id": href, "name": name, "thumb": thumb, "type": type])
@@ -97,106 +126,6 @@ open class KinoTochkaAPI: HttpService {
 
     return ["movies": data, "pagination": paginationData]
   }
-
-//  func getMoviesByRating(page: Int=1) throws -> [String: Any] {
-//    return try getMoviesByCriteriaPaginated("/?do=top&mode=rating", page: page)
-//  }
-//
-//  func getMoviesByViews(page: Int=1) throws -> [String: Any] {
-//    return try getMoviesByCriteriaPaginated("/?do=top&mode=views", page: page)
-//  }
-//
-//  func getMoviesByComments(page: Int=1) throws -> [String: Any] {
-//    return try getMoviesByCriteriaPaginated("/?do=top&mode=comments", page: page)
-//  }
-//
-//  func getMoviesByCriteria(_ path: String) throws -> [Any] {
-//    var data = [Any]()
-//
-//    if let document = try getDocument(KinoTochkaAPI.SiteUrl + path) {
-//      let items = try document.select("div[id=dle-content] div div table tr")
-//
-//      for item: Element in items.array() {
-//        let link = try item.select("td a")
-//
-//        if !link.array().isEmpty {
-//          var href = try link.attr("href")
-//
-//          let index = href.index(href.startIndex, offsetBy: KinoTochkaAPI.SiteUrl.count)
-//
-//          href = String(href[index ..< href.endIndex])
-//
-//          let name = try link.text().trim()
-//
-//          let tds = try item.select("td").array()
-//
-//          let rating = try tds[tds.count-1].text()
-//
-//          data.append(["id": href, "name": name, "rating": rating, "type": "rating"])
-//        }
-//      }
-//    }
-//
-//    return data
-//  }
-//
-//  public func getMoviesByCriteriaPaginated(_ path: String, page: Int=1, perPage: Int=25) throws -> [String: Any] {
-//    let data = try getMoviesByCriteria(path)
-//
-//    var items: [Any] = []
-//
-//    for (index, item) in data.enumerated() {
-//      if index >= (page-1)*perPage && index < page*perPage {
-//        items.append(item)
-//      }
-//    }
-//
-//    let pagination = buildPaginationData(data, page: page, perPage: perPage)
-//
-//    return ["movies": items, "pagination": pagination]
-//  }
-//
-//  public func getTags() throws -> [Any] {
-//    var data = [Any]()
-//
-//    if let document = try getDocument(KinoTochkaAPI.SiteUrl + "/kino-podborka.html") {
-//      let items = try document.select("div[class=podborki-item-block]")
-//
-//      for item: Element in items.array() {
-//        let link = try item.select("a")
-//        let img = try item.select("a span img")
-//        let title = try item.select("a span[class=podborki-title]")
-//        let href = try link.attr("href")
-//
-//        var thumb = try img.attr("src")
-//
-//        if thumb.find(KinoTochkaAPI.SiteUrl) == nil {
-//          thumb = KinoTochkaAPI.SiteUrl + thumb
-//        }
-//
-//        let name = try title.text()
-//
-//        data.append(["id": href, "name": name, "thumb": thumb, "type": "movie"])
-//      }
-//    }
-//
-//    return data
-//  }
-//
-//  func buildPaginationData(_ data: [Any], page: Int, perPage: Int) -> [String: Any] {
-//    let pages = data.count / perPage
-//
-//    return [
-//      "page": page,
-//      "pages": pages,
-//      "has_next": page < pages,
-//      "has_previous": page > 1
-//    ]
-//  }
-//
-//  func getSeries(_ path: String, page: Int=1) throws -> [String: Any] {
-//    return try getMovies(path, page: page)
-//  }
 
   public func getUrls(_ path: String) throws -> [String] {
     var urls: [String] = []
@@ -230,12 +159,10 @@ open class KinoTochkaAPI: HttpService {
     return urls.reversed()
   }
 
-  public func getSeriePlaylistUrl(_ path: String) throws -> String {
+  public func getSeasonPlaylistUrl(_ path: String) throws -> String {
     var url = ""
 
-    if let document = try getDocument(KinoTochkaAPI.SiteUrl + path) {
-      //print(document)
-
+    if let document = try getDocument(path) {
       let items = try document.select("script")
 
       for item: Element in items.array() {
@@ -261,99 +188,6 @@ open class KinoTochkaAPI: HttpService {
 
     return url
   }
-
-//  public func getMetadata(_ url: String) -> [String: String] {
-//    var data = [String: String]()
-//
-//    let groups = url.components(separatedBy: ".")
-//
-//    let text = groups[groups.count-2]
-//
-//    let pattern = "(\\d+)p_(\\d+)"
-//
-//    do {
-//      let regex = try NSRegularExpression(pattern: pattern)
-//
-//      let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
-//
-//      if let width = getMatched(text, matches: matches, index: 1) {
-//        data["width"] = width
-//      }
-//
-//      if let height = getMatched(text, matches: matches, index: 2) {
-//        data["height"] = height
-//      }
-//    }
-//    catch {
-//      print("Error in regular expression.")
-//    }
-//
-//    return data
-//  }
-//
-//  func getMatched(_ link: String, matches: [NSTextCheckingResult], index: Int) -> String? {
-//    var matched: String?
-//
-//    let match = matches.first
-//
-//    if let match = match, index < match.numberOfRanges {
-//      let capturedGroupIndex = match.range(at: index)
-//
-//      let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
-//      let index2 = link.index(index1, offsetBy: capturedGroupIndex.length-1)
-//
-//      matched = String(link[index1 ... index2])
-//    }
-//
-//    return matched
-//  }
-//
-//  public func getGroupedGenres() throws -> [String: [Any]] {
-//    var data = [String: [Any]]()
-//
-//    if let document = try getDocument(KinoTochkaAPI.SiteUrl) {
-//      let items = try document.select("div[id=header] div div div ul li")
-//
-//      for item: Element in items.array() {
-//        let hrefLink = try item.select("a")
-//        let genresNode1 = try item.select("span em a")
-//        let genresNode2 = try item.select("span a")
-//
-//        var href = try hrefLink.attr("href")
-//
-//        if href == "#" {
-//          href = "top"
-//        }
-//        else {
-//          href = String(href[href.index(href.startIndex, offsetBy: 1) ..< href.index(href.endIndex, offsetBy: -1)])
-//        }
-//
-//        var genresNode: Elements?
-//
-//        if !genresNode1.array().isEmpty {
-//          genresNode = genresNode1
-//        }
-//        else {
-//          genresNode = genresNode2
-//        }
-//
-//        if let genresNode = genresNode, !genresNode.array().isEmpty {
-//          data[href] = []
-//
-//          for genre in genresNode {
-//            let path = try genre.attr("href")
-//            let name = try genre.text()
-//
-//            if !["/kino-recenzii/", "/news-kino/"].contains(path) {
-//              data[href]!.append(["id": path, "name": name])
-//            }
-//          }
-//        }
-//      }
-//    }
-//
-//    return data
-//  }
 
   public func search(_ query: String, page: Int=1, perPage: Int=15) throws -> [String: Any] {
     var data = [Any]()
@@ -430,8 +264,58 @@ open class KinoTochkaAPI: HttpService {
     ]
   }
 
-  public func getSeasons(_ playlistUrl: String, path: String) throws -> [Season] {
-    var list: [Season] = []
+  public func getSeasons(_ path: String, _ thumb: String?=nil) throws -> [Any] {
+    var data = [Any]()
+
+    if let document = try getDocument(path) {
+      let items = try document.select("ul[class=seasons-list]")
+
+      for item: Element in items.array() {
+        let links = try item.select("li a");
+
+        for link in links {
+          let href = try link.attr("href")
+          let name = try link.text()
+
+          var item = ["id": href, "name": name, "type": "season"]
+
+          if let thumb = thumb {
+            item["thumb"] = thumb
+          }
+
+          data.append(item)
+        }
+      }
+
+      if items.array().count > 0 {
+        for item: Element in items.array() {
+          let name = try item.select("li b").text()
+
+          var item = ["id": path, "name": name, "type": "season"]
+
+          if let thumb = thumb {
+            item["thumb"] = thumb
+          }
+
+          data.append(item)
+        }
+      }
+      else {
+        var item = ["id": path, "name": "Сезон 1", "type": "season"]
+
+        if let thumb = thumb {
+          item["thumb"] = thumb
+        }
+
+        data.append(item)
+      }
+    }
+
+    return data
+  }
+
+  public func getEpisodes(_ playlistUrl: String, path: String) throws -> [Episode] {
+    var list: [Episode] = []
 
     if let data = fetchData(playlistUrl, headers: getHeaders(path)),
        let content = String(data: data, encoding: .windowsCP1251) {
@@ -444,11 +328,11 @@ open class KinoTochkaAPI: HttpService {
 
             if let result = try? decoder.decode(PlayList.self, from: localizedData) {
               for item in result.playlist {
-                list.append(Season(comment: item.comment, playlist: buildEpisodes(item.playlist)))
+                list = buildEpisodes(item.playlist)
               }
             }
             else if let result = try? decoder.decode(SingleSeasonPlayList.self, from: localizedData) {
-              list.append(Season(comment: "Сезон 1", playlist: buildEpisodes(result.playlist)))
+              list = buildEpisodes(result.playlist)
             }
           }
         }
@@ -478,33 +362,10 @@ open class KinoTochkaAPI: HttpService {
     return episodes
   }
 
-  public func getSeasonsList(_ path: String) throws -> [Any] {
-    var data = [Any]()
-
-    if let document = try getDocument(KinoTochkaAPI.SiteUrl + path) {
-      let items = try document.select("ul[class=seasons-list]")
-
-      for item: Element in items.array() {
-        let href = try item.select("li a").attr("href")
-        let name = try item.select("li a").text()
-
-        data.append(["id": href, "name": name])
-      }
-
-      for item: Element in items.array() {
-        let name = try item.select("li b").text()
-
-        data.append(["id": KinoTochkaAPI.SiteUrl + path, "name": name])
-      }
-    }
-
-    return data
-  }
-
   public func getCollections() throws -> [Any] {
     var data = [Any]()
 
-    var path = "/podborki_filmov.html"
+    let path = "/podborki_filmov.html"
 
     if let document = try getDocument(KinoTochkaAPI.SiteUrl + path) {
       let items = try document.select("div[id=dle-content] div div div")
@@ -526,7 +387,7 @@ open class KinoTochkaAPI: HttpService {
     var data = [Any]()
     var paginationData: ItemsList = [:]
 
-    let pagePath = getPagePath(path, page: page)
+    // let pagePath = getPagePath(path, page: page)
 
     if let document = try getDocument(KinoTochkaAPI.SiteUrl + path) {
       let items = try document.select("div[id=dle-content] div[class=custom1-item]")
@@ -547,22 +408,9 @@ open class KinoTochkaAPI: HttpService {
     return ["movies": data, "pagination": paginationData]
   }
 
-
-//  func getEpisodeUrl(url: String, season: String, episode: String) -> String {
-//    var episodeUrl = url
-//
-//    if !season.isEmpty {
-//      episodeUrl = "\(url)?season=\(season)&episode=\(episode)"
-//    }
-//
-//    return episodeUrl
-//  }
-
   func getHeaders(_ referer: String="") -> [String: String] {
     var headers = [
       "User-Agent": UserAgent
-//      "Host": "kinotochka.club",
-//      "Upgrade-Insecure-Requests": "1"
     ];
 
     if !referer.isEmpty {
