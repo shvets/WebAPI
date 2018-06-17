@@ -77,13 +77,9 @@ open class KinoTochkaAPI: HttpService {
   }
 
   public func getTvShows(page: Int=1) throws -> [String: Any] {
-    let result = try getMovies("/show/", page: page)
+    let result = try getMovies("/show/", page: page, serie: true)
 
-    let movies1 = result["movies"] as! [Any]
-    let movies2 = try fixShowType(movies1)
-    let movies3 = try sanitizeNames(movies2)
-
-    return ["pagination": result["pagination"] as Any, "movies": movies3]
+    return ["pagination": result["pagination"] as Any, "movies": try sanitizeNames(result["movies"] as! [Any])]
   }
 
   private func fixShowType(_ movies: Any) throws -> [Any] {
@@ -200,7 +196,6 @@ open class KinoTochkaAPI: HttpService {
       "full_search": "0",
       "result_from": "1",
       "story": query
-        //.windowsCyrillicPercentEscapes()
     ]
 
     if page > 1 {
@@ -218,19 +213,7 @@ open class KinoTochkaAPI: HttpService {
         let description = try item.select("div[class=sres-desc]").text()
         let thumb = try item.select("div[class=sres-img] img").first()!.attr("src")
 
-//        let seasonNode = try item.select("div[class=main-sliders-shadow] span[class=main-sliders-season]").text()
-//
-//        if href.find(KinoTochkaAPI.SiteUrl) != nil {
-//          let index = href.index(href.startIndex, offsetBy: KinoTochkaAPI.SiteUrl.count)
-//
-//          href = String(href[index ..< href.endIndex])
-//        }
-//
-//        let type = seasonNode.isEmpty ? "movie" : "serie"
-
-        let type = "movie";
-
-        data.append(["id": href, "name": name, "description": description, "thumb": thumb, "type": type])
+        data.append(["id": href, "name": name, "description": description, "thumb": thumb, "type": "serie"])
       }
 
       if items.size() > 0 {
@@ -360,6 +343,10 @@ open class KinoTochkaAPI: HttpService {
     }
 
     return episodes
+  }
+
+  public func buildEpisode(comment: String, files: [String]) -> Episode {
+    return Episode(comment: comment, file: "file", files: files)
   }
 
   public func getCollections() throws -> [Any] {
