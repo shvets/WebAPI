@@ -295,7 +295,7 @@ open class KinoTochkaAPI: HttpService {
     return data
   }
 
-  public func getEpisodes(_ playlistUrl: String, path: String, page: Int=0, pageSize: Int=0) throws -> [Episode] {
+  public func getEpisodes(_ playlistUrl: String, path: String) throws -> [Episode] {
     var list: [Episode] = []
 
     if let data = fetchData(playlistUrl, headers: getHeaders(path)),
@@ -309,11 +309,11 @@ open class KinoTochkaAPI: HttpService {
 
             if let result = try? decoder.decode(PlayList.self, from: localizedData) {
               for item in result.playlist {
-                list = buildEpisodes(item.playlist, page: page, pageSize:pageSize)
+                list = buildEpisodes(item.playlist)
               }
             }
             else if let result = try? decoder.decode(SingleSeasonPlayList.self, from: localizedData) {
-              list = buildEpisodes(result.playlist, page: page, pageSize:pageSize)
+              list = buildEpisodes(result.playlist)
             }
           }
         }
@@ -323,24 +323,21 @@ open class KinoTochkaAPI: HttpService {
     return list
   }
 
-  func buildEpisodes(_ playlist: [Episode], page: Int, pageSize: Int) -> [Episode] {
+  func buildEpisodes(_ playlist: [Episode]) -> [Episode] {
     var episodes: [Episode] = []
 
-    for (index, item) in playlist.enumerated() {
-      if page == 0 && pageSize == 0 ||
-        index >= (page - 1) * pageSize && index < page * pageSize {
-        let filesStr = item.file.components(separatedBy: ",")
+    for item in playlist {
+      let filesStr = item.file.components(separatedBy: ",")
 
-        var files: [String] = []
+      var files: [String] = []
 
-        for item in filesStr {
-          if !item.isEmpty {
-            files.append(item)
-          }
+      for item in filesStr {
+        if !item.isEmpty {
+          files.append(item)
         }
-
-        episodes.append(Episode(comment: item.comment, file: item.file, files: files))
       }
+
+      episodes.append(Episode(comment: item.comment, file: item.file, files: files))
     }
 
     return episodes
