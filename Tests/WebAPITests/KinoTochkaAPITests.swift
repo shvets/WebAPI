@@ -145,7 +145,7 @@ class KinoTochkaAPITests: XCTestCase {
     XCTAssert(list.count > 0)
   }
   
-  func testGetCollections() throws {
+  func testGetAllCollections() throws {
     let list = try subject.getCollections()
 
     // print(list)
@@ -160,6 +160,26 @@ class KinoTochkaAPITests: XCTestCase {
     let list = try subject.getCollection(path)
 
     // print(list)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testGetAllUserCollections() throws {
+    let list = try subject.getUserCollections()
+
+    print(list)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testGetUserCollection() throws {
+    let path = "/playlist/897/"
+
+    let list = try subject.getUserCollection(path)
+
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)

@@ -356,11 +356,16 @@ open class KinoTochkaAPI: HttpService {
       let items = try document.select("div[id=dle-content] div div div")
 
       for item: Element in items.array() {
-        let href = try item.select("a").first()!.attr("href")
-        let name = try item.select("a").first()!.text()
+        let link = try item.select("a").array()
 
-        if !name.isEmpty {
-          data.append(["id": href, "name": name])
+        if link.count > 1 {
+          let href = try link[0].attr("href")
+          let name = try link[1].text()
+          let thumb = try link[0].select("img").attr("src")
+
+          if href != "/playlist/" {
+            data.append(["id": href, "name": name, "thumb": thumb])
+          }
         }
       }
     }
@@ -372,9 +377,11 @@ open class KinoTochkaAPI: HttpService {
     var data = [Any]()
     var paginationData: ItemsList = [:]
 
-    // let pagePath = getPagePath(path, page: page)
+    let pagePath = getPagePath(path, page: page)
 
-    if let document = try getDocument(KinoTochkaAPI.SiteUrl + path) {
+    print(KinoTochkaAPI.SiteUrl + pagePath);
+
+    if let document = try getDocument(KinoTochkaAPI.SiteUrl + pagePath) {
       let items = try document.select("div[id=dle-content] div[class=custom1-item]")
 
       for item: Element in items.array() {
@@ -383,6 +390,61 @@ open class KinoTochkaAPI: HttpService {
         let thumb = try item.select("a[class=custom1-img] img").first()!.attr("src")
 
         data.append(["id": href, "name": name, "thumb": thumb])
+      }
+
+      if items.size() > 0 {
+        paginationData = try extractPaginationData(document, page: page)
+      }
+    }
+
+    return ["movies": data, "pagination": paginationData]
+  }
+
+  public func getUserCollections() throws -> [Any] {
+    var data = [Any]()
+
+    let path = "/playlist/"
+
+    if let document = try getDocument(KinoTochkaAPI.SiteUrl + path) {
+      let items = try document.select("div[id=dle-content] div div div[class=custom1-img]")
+
+      for item: Element in items.array() {
+        let link = try item.select("a").array()
+
+        if link.count > 1 {
+          let href = try link[0].attr("href")
+          let name = try link[1].text()
+          let thumb = try link[0].select("img").attr("src")
+
+          data.append(["id": href, "name": name, "thumb": thumb])
+        }
+      }
+    }
+
+    return data
+  }
+
+  public func getUserCollection(_ path: String, page: Int=1) throws -> [String: Any] {
+    var data = [Any]()
+    var paginationData: ItemsList = [:]
+
+    let pagePath = getPagePath(path, page: page)
+
+    print(KinoTochkaAPI.SiteUrl + pagePath);
+
+    if let document = try getDocument(KinoTochkaAPI.SiteUrl + pagePath) {
+      let items = try document.select("div[id=dle-content] div div")
+
+      for item: Element in items.array() {
+        let link = try item.select("div[class=p-playlist-post custom1-item custom1-img] a").array()
+
+        if link.count == 2 {
+          let href = try link[0].attr("href")
+          let name = try link[1].text()
+          let thumb = try link[0].select("img").attr("src")
+          
+          data.append(["id": href, "name": name, "thumb": thumb])
+        }
       }
 
       if items.size() > 0 {
