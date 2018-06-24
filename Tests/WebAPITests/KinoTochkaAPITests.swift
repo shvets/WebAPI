@@ -32,7 +32,7 @@ class KinoTochkaAPITests: XCTestCase {
   func testGetAllSeries() throws {
     let list = try subject.getAllSeries()
 
-    // print(list)
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -92,7 +92,7 @@ class KinoTochkaAPITests: XCTestCase {
 
     let list = try subject.search(query)
 
-    // print(list)
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -148,18 +148,18 @@ class KinoTochkaAPITests: XCTestCase {
   func testGetAllCollections() throws {
     let list = try subject.getCollections()
 
-    // print(list)
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
 
   func testGetCollection() throws {
-    let path = "/podborki/new_year/"
+    let path = "/podborki/bestfilms2017/"
 
     let list = try subject.getCollection(path)
 
-    // print(list)
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)

@@ -211,7 +211,13 @@ open class KinoTochkaAPI: HttpService {
         let description = try item.select("div[class=sres-desc]").text()
         let thumb = try item.select("div[class=sres-img] img").first()!.attr("src")
 
-        data.append(["id": href, "name": name, "description": description, "thumb": thumb, "type": "serie"])
+        var type = "movie"
+
+        if name.contains("Сезон") || name.contains("сезон") {
+          type = "serie"
+        }
+
+        data.append(["id": href, "name": name, "description": description, "thumb": thumb, "type": type])
       }
 
       if items.size() > 0 {
@@ -379,7 +385,7 @@ open class KinoTochkaAPI: HttpService {
 
     let pagePath = getPagePath(path, page: page)
 
-    print(KinoTochkaAPI.SiteUrl + pagePath);
+    // print(KinoTochkaAPI.SiteUrl + pagePath);
 
     if let document = try getDocument(KinoTochkaAPI.SiteUrl + pagePath) {
       let items = try document.select("div[id=dle-content] div[class=custom1-item]")
@@ -389,7 +395,13 @@ open class KinoTochkaAPI: HttpService {
         let name = try item.select("div[class=custom1-title").text()
         let thumb = try item.select("a[class=custom1-img] img").first()!.attr("src")
 
-        data.append(["id": href, "name": name, "thumb": thumb])
+        var type = "movie"
+
+        if name.contains("Сезон") || name.contains("сезон") {
+          type = "serie"
+        }
+
+        data.append(["id": href, "name": name, "thumb": thumb, "type": type])
       }
 
       if items.size() > 0 {
@@ -442,8 +454,14 @@ open class KinoTochkaAPI: HttpService {
           let href = try link[0].attr("href")
           let name = try link[1].text()
           let thumb = try link[0].select("img").attr("src")
-          
-          data.append(["id": href, "name": name, "thumb": thumb])
+
+          var type = "movie"
+
+          if name.contains("Сезон") || name.contains("сезон") {
+            type = "serie"
+          }
+
+          data.append(["id": href, "name": name, "thumb": thumb, "type": type])
         }
       }
 
