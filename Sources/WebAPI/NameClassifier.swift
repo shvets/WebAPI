@@ -18,18 +18,20 @@ open class NameClassifier {
       let name = item.name
       let id = item.id
 
-      let index = name.count < 3 ? name.index(name.startIndex, offsetBy: name.count) : name.index(name.startIndex, offsetBy: 3)
-      let groupName = name[name.startIndex..<index].uppercased()
+      if name.count > 0 {
+        let index = name.count < 3 ? name.index(name.startIndex, offsetBy: name.count) : name.index(name.startIndex, offsetBy: 3)
+        let groupName = name[name.startIndex..<index].uppercased()
 
-      if !groups.keys.contains(groupName) {
-        let group: [Item] = []
+        if !groups.keys.contains(groupName) {
+          let group: [Item] = []
 
-        groups[groupName] = group
+          groups[groupName] = group
+        }
+
+        let newItem = NameClassifier.Item(id: id, name: name.isEmpty ? " " : name)
+
+        groups[groupName]?.append(newItem)
       }
-
-      let newItem = NameClassifier.Item(id: id, name: name.isEmpty ? " " : name)
-
-      groups[groupName]?.append(newItem)
     }
 
     let sortedGroups = groups.sorted { $0.key < $1.key }
