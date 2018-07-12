@@ -362,7 +362,7 @@ open class GidOnline2API: HttpService {
   }
 
   func getJsonData(_ content: String) -> [String] {
-    var items = [String]()
+    let items = [String]()
 
     var dataSection = false
 
@@ -383,14 +383,14 @@ open class GidOnline2API: HttpService {
 
             let index11 = line.index(index1!, offsetBy: 8)
             let index21 = line.index(index2!, offsetBy: -1)
-            var urls = line[index11 ... index21]
+            let urls = line[index11 ... index21]
 
             let json = JSON(urls)
 
             //print("[ " + urls + " ]")
             //print(json)
 
-            for (key, _) in json {
+            for (_, _) in json {
               //print(key)
               //print(value)
             }
@@ -632,7 +632,7 @@ open class GidOnline2API: HttpService {
       print(baseUrls)
     }
 
-    var urls: [[String: String]] = []
+    let urls: [[String: String]] = []
 
 //    let html = String(data: content!, encoding: .utf8)
 //
@@ -692,7 +692,7 @@ open class GidOnline2API: HttpService {
     var items = [String: String]()
 
     var mw_key: String?
-    var random_key: String?
+    //var random_key: String?
 
     var dataSection = false
 
@@ -727,7 +727,7 @@ open class GidOnline2API: HttpService {
             let index2 = line.find(" = {")
             let index11 = line.index(line.startIndex, offsetBy: 4)
             let index21 = line.index(index2!, offsetBy: -1)
-            random_key = String(line[index11 ... index21])
+            let random_key = String(line[index11 ... index21])
           }
 
           var data = line
