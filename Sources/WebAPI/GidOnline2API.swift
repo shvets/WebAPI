@@ -723,12 +723,12 @@ open class GidOnline2API: HttpService {
           dataSection = false
         }
         else if !line.isEmpty {
-          if line.find("var ") != nil {
-            let index2 = line.find(" = {")
-            let index11 = line.index(line.startIndex, offsetBy: 4)
-            let index21 = line.index(index2!, offsetBy: -1)
-            let random_key = String(line[index11 ... index21])
-          }
+//          if line.find("var ") != nil {
+//            let index2 = line.find(" = {")
+//            let index11 = line.index(line.startIndex, offsetBy: 4)
+//            let index21 = line.index(index2!, offsetBy: -1)
+//            let random_key = String(line[index11 ... index21])
+//          }
 
           var data = line
 

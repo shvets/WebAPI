@@ -9,10 +9,28 @@
 /* Begin PBXBuildFile section */
 		0F9F1CD4816DD5FEA0298655 /* Pods_WebAPI_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91613095040FEED6BA78DAAB /* Pods_WebAPI_iOS.framework */; };
 		108C5C0B62A21CCC0B7632C7 /* Pods_WebAPI_tvOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D751DC708DA55F3F3643E77A /* Pods_WebAPI_tvOSTests.framework */; };
+		2DBA102E825645FBFCB7C71C /* AudioBooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1EC8D5D1D9488FA1DEDF /* AudioBooAPI.swift */; };
 		2DBA10427B70D95EFEA7B483 /* KinoTochkaAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */; };
+		2DBA118F60D3171CBD412B57 /* AudioBooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1EC8D5D1D9488FA1DEDF /* AudioBooAPI.swift */; };
+		2DBA11E2858B841A303C7F0B /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1FAE7658C333BC8052A8 /* AudioBooAPITests.swift */; };
+		2DBA1264123078A6BC1AFB2F /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A8680706B7BFA168AD2 /* AudioKnigiAPI.swift */; };
+		2DBA12A09201C8DAB706F555 /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A8680706B7BFA168AD2 /* AudioKnigiAPI.swift */; };
+		2DBA12DE86033BBF165A97AE /* AudioBooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1EC8D5D1D9488FA1DEDF /* AudioBooAPI.swift */; };
+		2DBA135EBBC99CAEDD05652C /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */; };
 		2DBA136799616B01C39D58DE /* KinoTochkaAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */; };
+		2DBA14951FE2EE57A43D3B19 /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */; };
+		2DBA149F77A85C24493B8244 /* AudioBooAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1F74C6A43E80F9311AC1 /* AudioBooAPI-models.swift */; };
+		2DBA158E8E6509ECC2748F15 /* AudioBooAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1F74C6A43E80F9311AC1 /* AudioBooAPI-models.swift */; };
+		2DBA15B3E43C165BA0924D95 /* AudioBooAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1F74C6A43E80F9311AC1 /* AudioBooAPI-models.swift */; };
+		2DBA16AEA2999B064F9D246F /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1FAE7658C333BC8052A8 /* AudioBooAPITests.swift */; };
+		2DBA18367BF017D67232BE1D /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */; };
+		2DBA184B4380BB82FF392ACB /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A8680706B7BFA168AD2 /* AudioKnigiAPI.swift */; };
 		2DBA184ECC9CDA2BBD1036FA /* KinoTochkaAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */; };
+		2DBA1862EB093A639858E589 /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */; };
 		2DBA1889222C8E7759CB1E94 /* KinoTockaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */; };
+		2DBA1944CFFF0AAEE875056F /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */; };
+		2DBA1E428EFD3FD18EC7414F /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1FAE7658C333BC8052A8 /* AudioBooAPITests.swift */; };
+		2DBA1E4DCB8EC24D1CCC6154 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */; };
 		2DBA1EC2797B05A5C3DC2886 /* KinoTockaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */; };
 		2DBA1FEB1A00DB5EE54B2DC7 /* KinoTochkaAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */; };
 		6710BA3335C264E108DA6F3B /* Pods_WebAPI_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FA3DA2A7974E36C1F4D43C /* Pods_WebAPI_iOSTests.framework */; };
@@ -21,10 +39,6 @@
 		E8E7E913FF956EC6EFFE1D71 /* Pods_WebAPI_macOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 714D08245487A306DD09B4AD /* Pods_WebAPI_macOSTests.framework */; };
 		FA13D71C1FA39DFE00C86594 /* LinuxMain.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA13D71B1FA39DFE00C86594 /* LinuxMain.swift */; };
 		FA13D71D1FA39E1600C86594 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B61FA39AD700CA1DE2 /* ApiService.swift */; };
-		FA13D71E1FA39E1600C86594 /* AudioBooAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BD1FA39AD800CA1DE2 /* AudioBooAPI-models.swift */; };
-		FA13D71F1FA39E1600C86594 /* AudioBooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BA1FA39AD800CA1DE2 /* AudioBooAPI.swift */; };
-		FA13D7201FA39E1600C86594 /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124AE1FA39AD700CA1DE2 /* AudioKnigiAPI-models.swift */; };
-		FA13D7211FA39E1600C86594 /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B71FA39AD800CA1DE2 /* AudioKnigiAPI.swift */; };
 		FA13D7221FA39E1600C86594 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BB1FA39AD800CA1DE2 /* AuthService.swift */; };
 		FA13D7231FA39E1600C86594 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124C21FA39AD900CA1DE2 /* DownloadManager.swift */; };
 		FA13D7241FA39E1600C86594 /* EtvnetAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BE1FA39AD800CA1DE2 /* EtvnetAPI-models.swift */; };
@@ -43,10 +57,6 @@
 		FA13D7311FA39E1600C86594 /* Prettifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B31FA39AD700CA1DE2 /* Prettifier.swift */; };
 		FA13D7321FA39E1600C86594 /* String-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B51FA39AD700CA1DE2 /* String-extension.swift */; };
 		FA13D7331FA39E1700C86594 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B61FA39AD700CA1DE2 /* ApiService.swift */; };
-		FA13D7341FA39E1700C86594 /* AudioBooAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BD1FA39AD800CA1DE2 /* AudioBooAPI-models.swift */; };
-		FA13D7351FA39E1700C86594 /* AudioBooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BA1FA39AD800CA1DE2 /* AudioBooAPI.swift */; };
-		FA13D7361FA39E1700C86594 /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124AE1FA39AD700CA1DE2 /* AudioKnigiAPI-models.swift */; };
-		FA13D7371FA39E1700C86594 /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B71FA39AD800CA1DE2 /* AudioKnigiAPI.swift */; };
 		FA13D7381FA39E1700C86594 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BB1FA39AD800CA1DE2 /* AuthService.swift */; };
 		FA13D7391FA39E1700C86594 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124C21FA39AD900CA1DE2 /* DownloadManager.swift */; };
 		FA13D73A1FA39E1700C86594 /* EtvnetAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BE1FA39AD800CA1DE2 /* EtvnetAPI-models.swift */; };
@@ -64,8 +74,6 @@
 		FA13D7461FA39E1700C86594 /* NameClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BC1FA39AD800CA1DE2 /* NameClassifier.swift */; };
 		FA13D7471FA39E1700C86594 /* Prettifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B31FA39AD700CA1DE2 /* Prettifier.swift */; };
 		FA13D7481FA39E1700C86594 /* String-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B51FA39AD700CA1DE2 /* String-extension.swift */; };
-		FA858BA61FBA90A800A54968 /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B921FBA909F00A54968 /* AudioBooAPITests.swift */; };
-		FA858BA71FBA90A800A54968 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B981FBA90A000A54968 /* AudioKnigiAPITests.swift */; };
 		FA858BA81FBA90A800A54968 /* AuthAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B991FBA90A000A54968 /* AuthAPITests.swift */; };
 		FA858BA91FBA90A800A54968 /* EtvnetAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B931FBA909F00A54968 /* EtvnetAPITests.swift */; };
 		FA858BAA1FBA90A800A54968 /* GidOnlineAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B941FBA909F00A54968 /* GidOnlineAPITests.swift */; };
@@ -74,8 +82,6 @@
 		FA858BAD1FBA90A800A54968 /* KinoKongAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B971FBA90A000A54968 /* KinoKongAPITests.swift */; };
 		FA858BAE1FBA90A800A54968 /* MuzArbuzAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B9A1FBA90A000A54968 /* MuzArbuzAPITests.swift */; };
 		FA858BAF1FBA90A800A54968 /* MyHitAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B9B1FBA90A000A54968 /* MyHitAPITests.swift */; };
-		FA858BB01FBA90AA00A54968 /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B921FBA909F00A54968 /* AudioBooAPITests.swift */; };
-		FA858BB11FBA90AA00A54968 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B981FBA90A000A54968 /* AudioKnigiAPITests.swift */; };
 		FA858BB21FBA90AA00A54968 /* AuthAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B991FBA90A000A54968 /* AuthAPITests.swift */; };
 		FA858BB31FBA90AA00A54968 /* EtvnetAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B931FBA909F00A54968 /* EtvnetAPITests.swift */; };
 		FA858BB41FBA90AA00A54968 /* GidOnlineAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B941FBA909F00A54968 /* GidOnlineAPITests.swift */; };
@@ -84,8 +90,6 @@
 		FA858BB71FBA90AA00A54968 /* KinoKongAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B971FBA90A000A54968 /* KinoKongAPITests.swift */; };
 		FA858BB81FBA90AA00A54968 /* MuzArbuzAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B9A1FBA90A000A54968 /* MuzArbuzAPITests.swift */; };
 		FA858BB91FBA90AA00A54968 /* MyHitAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B9B1FBA90A000A54968 /* MyHitAPITests.swift */; };
-		FA858BBA1FBA90AF00A54968 /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B921FBA909F00A54968 /* AudioBooAPITests.swift */; };
-		FA858BBB1FBA90AF00A54968 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B981FBA90A000A54968 /* AudioKnigiAPITests.swift */; };
 		FA858BBC1FBA90AF00A54968 /* AuthAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B991FBA90A000A54968 /* AuthAPITests.swift */; };
 		FA858BBD1FBA90AF00A54968 /* EtvnetAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B931FBA909F00A54968 /* EtvnetAPITests.swift */; };
 		FA858BBE1FBA90AF00A54968 /* GidOnlineAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA858B941FBA909F00A54968 /* GidOnlineAPITests.swift */; };
@@ -107,7 +111,6 @@
 		FAA1249D1FA3987D00CA1DE2 /* WebAPI_macOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA1249C1FA3987D00CA1DE2 /* WebAPI_macOSTests.swift */; };
 		FAA1249F1FA3987D00CA1DE2 /* WebAPI_macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = FAA124911FA3987C00CA1DE2 /* WebAPI_macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FAA124C31FA39AD900CA1DE2 /* HttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124AD1FA39AD700CA1DE2 /* HttpService.swift */; };
-		FAA124C41FA39AD900CA1DE2 /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124AE1FA39AD700CA1DE2 /* AudioKnigiAPI-models.swift */; };
 		FAA124C51FA39AD900CA1DE2 /* ItemsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124AF1FA39AD700CA1DE2 /* ItemsList.swift */; };
 		FAA124C61FA39AD900CA1DE2 /* KinoKongAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B01FA39AD700CA1DE2 /* KinoKongAPI-models.swift */; };
 		FAA124C71FA39AD900CA1DE2 /* MuzArbuzAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B11FA39AD700CA1DE2 /* MuzArbuzAPI.swift */; };
@@ -116,13 +119,10 @@
 		FAA124CA1FA39AD900CA1DE2 /* GidOnline2API.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B41FA39AD700CA1DE2 /* GidOnline2API.swift */; };
 		FAA124CB1FA39AD900CA1DE2 /* String-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B51FA39AD700CA1DE2 /* String-extension.swift */; };
 		FAA124CC1FA39AD900CA1DE2 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B61FA39AD700CA1DE2 /* ApiService.swift */; };
-		FAA124CD1FA39AD900CA1DE2 /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B71FA39AD800CA1DE2 /* AudioKnigiAPI.swift */; };
 		FAA124CE1FA39AD900CA1DE2 /* EtvnetAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B81FA39AD800CA1DE2 /* EtvnetAPI.swift */; };
 		FAA124CF1FA39AD900CA1DE2 /* KinoKongAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124B91FA39AD800CA1DE2 /* KinoKongAPI.swift */; };
-		FAA124D01FA39AD900CA1DE2 /* AudioBooAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BA1FA39AD800CA1DE2 /* AudioBooAPI.swift */; };
 		FAA124D11FA39AD900CA1DE2 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BB1FA39AD800CA1DE2 /* AuthService.swift */; };
 		FAA124D21FA39AD900CA1DE2 /* NameClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BC1FA39AD800CA1DE2 /* NameClassifier.swift */; };
-		FAA124D31FA39AD900CA1DE2 /* AudioBooAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BD1FA39AD800CA1DE2 /* AudioBooAPI-models.swift */; };
 		FAA124D41FA39AD900CA1DE2 /* EtvnetAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BE1FA39AD800CA1DE2 /* EtvnetAPI-models.swift */; };
 		FAA124D51FA39AD900CA1DE2 /* Files-extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124BF1FA39AD800CA1DE2 /* Files-extension.swift */; };
 		FAA124D61FA39AD900CA1DE2 /* GoogleDocsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA124C01FA39AD900CA1DE2 /* GoogleDocsAPI.swift */; };
@@ -160,10 +160,16 @@
 		136EDDFE65DA271E12AE284A /* Pods_WebAPI_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebAPI_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E00AC5F26B6B61D6DDDAF15 /* Pods-WebAPI_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_iOSTests/Pods-WebAPI_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2618BC2AF025C696CD4AB89A /* Pods-WebAPI_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_iOS/Pods-WebAPI_iOS.release.xcconfig"; sourceTree = "<group>"; };
+		2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKnigiAPITests.swift; path = audio/AudioKnigiAPITests.swift; sourceTree = "<group>"; };
 		2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GidOnline2APITests.swift; sourceTree = "<group>"; };
 		2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KinoTochkaAPI-models.swift"; path = "WebAPI/KinoTochkaAPI-models.swift"; sourceTree = "<group>"; };
+		2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AudioKnigiAPI-models.swift"; path = "WebAPI/audio/AudioKnigiAPI-models.swift"; sourceTree = "<group>"; };
+		2DBA1A8680706B7BFA168AD2 /* AudioKnigiAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKnigiAPI.swift; path = WebAPI/audio/AudioKnigiAPI.swift; sourceTree = "<group>"; };
+		2DBA1EC8D5D1D9488FA1DEDF /* AudioBooAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioBooAPI.swift; path = WebAPI/audio/AudioBooAPI.swift; sourceTree = "<group>"; };
 		2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KinoTockaAPI.swift; path = WebAPI/KinoTockaAPI.swift; sourceTree = "<group>"; };
 		2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KinoTochkaAPITests.swift; sourceTree = "<group>"; };
+		2DBA1F74C6A43E80F9311AC1 /* AudioBooAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AudioBooAPI-models.swift"; path = "WebAPI/audio/AudioBooAPI-models.swift"; sourceTree = "<group>"; };
+		2DBA1FAE7658C333BC8052A8 /* AudioBooAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioBooAPITests.swift; path = audio/AudioBooAPITests.swift; sourceTree = "<group>"; };
 		2FCDE7B8924B8FFA34C78BDD /* Pods-WebAPI_macOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_macOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_macOSTests/Pods-WebAPI_macOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		33DC11B73776705AC467D47C /* Pods-WebAPI_tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_tvOS/Pods-WebAPI_tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		3C0E3E236BACC26A44C6844E /* Pods-WebAPI_tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_tvOS/Pods-WebAPI_tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -179,13 +185,11 @@
 		D65F0F97395F5BE0A21DD960 /* Pods-WebAPI_iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_iOSTests/Pods-WebAPI_iOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		D751DC708DA55F3F3643E77A /* Pods_WebAPI_tvOSTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebAPI_tvOSTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA13D71B1FA39DFE00C86594 /* LinuxMain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinuxMain.swift; sourceTree = "<group>"; };
-		FA858B921FBA909F00A54968 /* AudioBooAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBooAPITests.swift; sourceTree = "<group>"; };
 		FA858B931FBA909F00A54968 /* EtvnetAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EtvnetAPITests.swift; sourceTree = "<group>"; };
 		FA858B941FBA909F00A54968 /* GidOnlineAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GidOnlineAPITests.swift; sourceTree = "<group>"; };
 		FA858B951FBA909F00A54968 /* GoogleDocsAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleDocsAPITests.swift; sourceTree = "<group>"; };
 		FA858B961FBA909F00A54968 /* HttpServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpServiceTests.swift; sourceTree = "<group>"; };
 		FA858B971FBA90A000A54968 /* KinoKongAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KinoKongAPITests.swift; sourceTree = "<group>"; };
-		FA858B981FBA90A000A54968 /* AudioKnigiAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioKnigiAPITests.swift; sourceTree = "<group>"; };
 		FA858B991FBA90A000A54968 /* AuthAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthAPITests.swift; sourceTree = "<group>"; };
 		FA858B9A1FBA90A000A54968 /* MuzArbuzAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuzArbuzAPITests.swift; sourceTree = "<group>"; };
 		FA858B9B1FBA90A000A54968 /* MyHitAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHitAPITests.swift; sourceTree = "<group>"; };
@@ -208,7 +212,6 @@
 		FAA1249C1FA3987D00CA1DE2 /* WebAPI_macOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAPI_macOSTests.swift; sourceTree = "<group>"; };
 		FAA1249E1FA3987D00CA1DE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FAA124AD1FA39AD700CA1DE2 /* HttpService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HttpService.swift; path = WebAPI/HttpService.swift; sourceTree = "<group>"; };
-		FAA124AE1FA39AD700CA1DE2 /* AudioKnigiAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AudioKnigiAPI-models.swift"; path = "WebAPI/AudioKnigiAPI-models.swift"; sourceTree = "<group>"; };
 		FAA124AF1FA39AD700CA1DE2 /* ItemsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ItemsList.swift; path = WebAPI/ItemsList.swift; sourceTree = "<group>"; };
 		FAA124B01FA39AD700CA1DE2 /* KinoKongAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KinoKongAPI-models.swift"; path = "WebAPI/KinoKongAPI-models.swift"; sourceTree = "<group>"; };
 		FAA124B11FA39AD700CA1DE2 /* MuzArbuzAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MuzArbuzAPI.swift; path = WebAPI/MuzArbuzAPI.swift; sourceTree = "<group>"; };
@@ -217,13 +220,10 @@
 		FAA124B41FA39AD700CA1DE2 /* GidOnline2API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GidOnline2API.swift; path = WebAPI/GidOnline2API.swift; sourceTree = "<group>"; };
 		FAA124B51FA39AD700CA1DE2 /* String-extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String-extension.swift"; path = "WebAPI/String-extension.swift"; sourceTree = "<group>"; };
 		FAA124B61FA39AD700CA1DE2 /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiService.swift; path = WebAPI/ApiService.swift; sourceTree = "<group>"; };
-		FAA124B71FA39AD800CA1DE2 /* AudioKnigiAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKnigiAPI.swift; path = WebAPI/AudioKnigiAPI.swift; sourceTree = "<group>"; };
 		FAA124B81FA39AD800CA1DE2 /* EtvnetAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EtvnetAPI.swift; path = WebAPI/EtvnetAPI.swift; sourceTree = "<group>"; };
 		FAA124B91FA39AD800CA1DE2 /* KinoKongAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KinoKongAPI.swift; path = WebAPI/KinoKongAPI.swift; sourceTree = "<group>"; };
-		FAA124BA1FA39AD800CA1DE2 /* AudioBooAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioBooAPI.swift; path = WebAPI/AudioBooAPI.swift; sourceTree = "<group>"; };
 		FAA124BB1FA39AD800CA1DE2 /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthService.swift; path = WebAPI/AuthService.swift; sourceTree = "<group>"; };
 		FAA124BC1FA39AD800CA1DE2 /* NameClassifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NameClassifier.swift; path = WebAPI/NameClassifier.swift; sourceTree = "<group>"; };
-		FAA124BD1FA39AD800CA1DE2 /* AudioBooAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AudioBooAPI-models.swift"; path = "WebAPI/AudioBooAPI-models.swift"; sourceTree = "<group>"; };
 		FAA124BE1FA39AD800CA1DE2 /* EtvnetAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "EtvnetAPI-models.swift"; path = "WebAPI/EtvnetAPI-models.swift"; sourceTree = "<group>"; };
 		FAA124BF1FA39AD800CA1DE2 /* Files-extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Files-extension.swift"; path = "WebAPI/Files-extension.swift"; sourceTree = "<group>"; };
 		FAA124C01FA39AD900CA1DE2 /* GoogleDocsAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoogleDocsAPI.swift; path = WebAPI/GoogleDocsAPI.swift; sourceTree = "<group>"; };
@@ -322,8 +322,6 @@
 		FA858B911FBA908700A54968 /* WebAPITests */ = {
 			isa = PBXGroup;
 			children = (
-				FA858B921FBA909F00A54968 /* AudioBooAPITests.swift */,
-				FA858B981FBA90A000A54968 /* AudioKnigiAPITests.swift */,
 				FA858B991FBA90A000A54968 /* AuthAPITests.swift */,
 				FA858B931FBA909F00A54968 /* EtvnetAPITests.swift */,
 				FA858B941FBA909F00A54968 /* GidOnlineAPITests.swift */,
@@ -334,6 +332,8 @@
 				FA858B9B1FBA90A000A54968 /* MyHitAPITests.swift */,
 				2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */,
 				2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */,
+				2DBA1FAE7658C333BC8052A8 /* AudioBooAPITests.swift */,
+				2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */,
 			);
 			path = WebAPITests;
 			sourceTree = "<group>";
@@ -426,10 +426,6 @@
 			isa = PBXGroup;
 			children = (
 				FAA124B61FA39AD700CA1DE2 /* ApiService.swift */,
-				FAA124BD1FA39AD800CA1DE2 /* AudioBooAPI-models.swift */,
-				FAA124BA1FA39AD800CA1DE2 /* AudioBooAPI.swift */,
-				FAA124AE1FA39AD700CA1DE2 /* AudioKnigiAPI-models.swift */,
-				FAA124B71FA39AD800CA1DE2 /* AudioKnigiAPI.swift */,
 				FAA124BB1FA39AD800CA1DE2 /* AuthService.swift */,
 				FAA124C21FA39AD900CA1DE2 /* DownloadManager.swift */,
 				FAA124BE1FA39AD800CA1DE2 /* EtvnetAPI-models.swift */,
@@ -450,6 +446,10 @@
 				FAAA76451FAE8D58001FD188 /* OAuth2Handler.swift */,
 				2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */,
 				2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */,
+				2DBA1EC8D5D1D9488FA1DEDF /* AudioBooAPI.swift */,
+				2DBA1F74C6A43E80F9311AC1 /* AudioBooAPI-models.swift */,
+				2DBA1A8680706B7BFA168AD2 /* AudioKnigiAPI.swift */,
+				2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -913,21 +913,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAA124D01FA39AD900CA1DE2 /* AudioBooAPI.swift in Sources */,
 				FAA124D81FA39AD900CA1DE2 /* DownloadManager.swift in Sources */,
 				FAA124C91FA39AD900CA1DE2 /* Prettifier.swift in Sources */,
 				FAA124D61FA39AD900CA1DE2 /* GoogleDocsAPI.swift in Sources */,
 				FAA124C81FA39AD900CA1DE2 /* MyHitAPI.swift in Sources */,
 				FAA124CE1FA39AD900CA1DE2 /* EtvnetAPI.swift in Sources */,
-				FAA124CD1FA39AD900CA1DE2 /* AudioKnigiAPI.swift in Sources */,
 				FAA124D21FA39AD900CA1DE2 /* NameClassifier.swift in Sources */,
 				FAA124C51FA39AD900CA1DE2 /* ItemsList.swift in Sources */,
 				FAA124CF1FA39AD900CA1DE2 /* KinoKongAPI.swift in Sources */,
 				FAA124D51FA39AD900CA1DE2 /* Files-extension.swift in Sources */,
 				FAA124CA1FA39AD900CA1DE2 /* GidOnline2API.swift in Sources */,
 				FAA124C71FA39AD900CA1DE2 /* MuzArbuzAPI.swift in Sources */,
-				FAA124D31FA39AD900CA1DE2 /* AudioBooAPI-models.swift in Sources */,
-				FAA124C41FA39AD900CA1DE2 /* AudioKnigiAPI-models.swift in Sources */,
 				FAAA76461FAE8D58001FD188 /* OAuth2Handler.swift in Sources */,
 				FAA124D71FA39AD900CA1DE2 /* GidOnlineAPI.swift in Sources */,
 				FAA124D41FA39AD900CA1DE2 /* EtvnetAPI-models.swift in Sources */,
@@ -940,6 +936,10 @@
 				2DBA1889222C8E7759CB1E94 /* KinoTockaAPI.swift in Sources */,
 				2DBA1FEB1A00DB5EE54B2DC7 /* KinoTochkaAPITests.swift in Sources */,
 				2DBA184ECC9CDA2BBD1036FA /* KinoTochkaAPI-models.swift in Sources */,
+				2DBA12DE86033BBF165A97AE /* AudioBooAPI.swift in Sources */,
+				2DBA149F77A85C24493B8244 /* AudioBooAPI-models.swift in Sources */,
+				2DBA1264123078A6BC1AFB2F /* AudioKnigiAPI.swift in Sources */,
+				2DBA1944CFFF0AAEE875056F /* AudioKnigiAPI-models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -951,14 +951,14 @@
 				FA858BAE1FBA90A800A54968 /* MuzArbuzAPITests.swift in Sources */,
 				FA858BA81FBA90A800A54968 /* AuthAPITests.swift in Sources */,
 				FA858BCE1FBD311A00A54968 /* GidOnline2APITests.swift in Sources */,
-				FA858BA61FBA90A800A54968 /* AudioBooAPITests.swift in Sources */,
 				FA858BAA1FBA90A800A54968 /* GidOnlineAPITests.swift in Sources */,
 				FAA124651FA3985000CA1DE2 /* WebAPI_iOSTests.swift in Sources */,
 				FA858BA91FBA90A800A54968 /* EtvnetAPITests.swift in Sources */,
 				FA858BAD1FBA90A800A54968 /* KinoKongAPITests.swift in Sources */,
 				FA858BAC1FBA90A800A54968 /* HttpServiceTests.swift in Sources */,
-				FA858BA71FBA90A800A54968 /* AudioKnigiAPITests.swift in Sources */,
 				FA858BAB1FBA90A800A54968 /* GoogleDocsAPITests.swift in Sources */,
+				2DBA11E2858B841A303C7F0B /* AudioBooAPITests.swift in Sources */,
+				2DBA1E4DCB8EC24D1CCC6154 /* AudioKnigiAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -970,17 +970,13 @@
 				FA13D72B1FA39E1600C86594 /* ItemsList.swift in Sources */,
 				FA13D7291FA39E1600C86594 /* GoogleDocsAPI.swift in Sources */,
 				FA13D7271FA39E1600C86594 /* GidOnline2API.swift in Sources */,
-				FA13D7201FA39E1600C86594 /* AudioKnigiAPI-models.swift in Sources */,
 				FA13D7261FA39E1600C86594 /* Files-extension.swift in Sources */,
 				FA13D7301FA39E1600C86594 /* NameClassifier.swift in Sources */,
-				FA13D71F1FA39E1600C86594 /* AudioBooAPI.swift in Sources */,
 				FA13D72D1FA39E1600C86594 /* KinoKongAPI.swift in Sources */,
 				FA13D7241FA39E1600C86594 /* EtvnetAPI-models.swift in Sources */,
-				FA13D71E1FA39E1600C86594 /* AudioBooAPI-models.swift in Sources */,
 				FA13D7221FA39E1600C86594 /* AuthService.swift in Sources */,
 				FA13D7251FA39E1600C86594 /* EtvnetAPI.swift in Sources */,
 				FA13D7281FA39E1600C86594 /* GidOnlineAPI.swift in Sources */,
-				FA13D7211FA39E1600C86594 /* AudioKnigiAPI.swift in Sources */,
 				FA13D7311FA39E1600C86594 /* Prettifier.swift in Sources */,
 				FA13D71D1FA39E1600C86594 /* ApiService.swift in Sources */,
 				FA13D72F1FA39E1600C86594 /* MyHitAPI.swift in Sources */,
@@ -991,6 +987,10 @@
 				2DBA1EC2797B05A5C3DC2886 /* KinoTockaAPI.swift in Sources */,
 				2DBA136799616B01C39D58DE /* KinoTochkaAPITests.swift in Sources */,
 				2DBA10427B70D95EFEA7B483 /* KinoTochkaAPI-models.swift in Sources */,
+				2DBA118F60D3171CBD412B57 /* AudioBooAPI.swift in Sources */,
+				2DBA158E8E6509ECC2748F15 /* AudioBooAPI-models.swift in Sources */,
+				2DBA12A09201C8DAB706F555 /* AudioKnigiAPI.swift in Sources */,
+				2DBA1862EB093A639858E589 /* AudioKnigiAPI-models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1002,14 +1002,14 @@
 				FA858BB81FBA90AA00A54968 /* MuzArbuzAPITests.swift in Sources */,
 				FA858BB21FBA90AA00A54968 /* AuthAPITests.swift in Sources */,
 				FA858BCF1FBD311B00A54968 /* GidOnline2APITests.swift in Sources */,
-				FA858BB01FBA90AA00A54968 /* AudioBooAPITests.swift in Sources */,
 				FA858BB41FBA90AA00A54968 /* GidOnlineAPITests.swift in Sources */,
 				FAA124811FA3986700CA1DE2 /* WebAPI_tvOSTests.swift in Sources */,
 				FA858BB31FBA90AA00A54968 /* EtvnetAPITests.swift in Sources */,
 				FA858BB71FBA90AA00A54968 /* KinoKongAPITests.swift in Sources */,
 				FA858BB61FBA90AA00A54968 /* HttpServiceTests.swift in Sources */,
-				FA858BB11FBA90AA00A54968 /* AudioKnigiAPITests.swift in Sources */,
 				FA858BB51FBA90AA00A54968 /* GoogleDocsAPITests.swift in Sources */,
+				2DBA1E428EFD3FD18EC7414F /* AudioBooAPITests.swift in Sources */,
+				2DBA18367BF017D67232BE1D /* AudioKnigiAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,17 +1021,13 @@
 				FA13D7411FA39E1700C86594 /* ItemsList.swift in Sources */,
 				FA13D73F1FA39E1700C86594 /* GoogleDocsAPI.swift in Sources */,
 				FA13D73D1FA39E1700C86594 /* GidOnline2API.swift in Sources */,
-				FA13D7361FA39E1700C86594 /* AudioKnigiAPI-models.swift in Sources */,
 				FA13D73C1FA39E1700C86594 /* Files-extension.swift in Sources */,
 				FA13D7461FA39E1700C86594 /* NameClassifier.swift in Sources */,
-				FA13D7351FA39E1700C86594 /* AudioBooAPI.swift in Sources */,
 				FA13D7431FA39E1700C86594 /* KinoKongAPI.swift in Sources */,
 				FA13D73A1FA39E1700C86594 /* EtvnetAPI-models.swift in Sources */,
-				FA13D7341FA39E1700C86594 /* AudioBooAPI-models.swift in Sources */,
 				FA13D7381FA39E1700C86594 /* AuthService.swift in Sources */,
 				FA13D73B1FA39E1700C86594 /* EtvnetAPI.swift in Sources */,
 				FA13D73E1FA39E1700C86594 /* GidOnlineAPI.swift in Sources */,
-				FA13D7371FA39E1700C86594 /* AudioKnigiAPI.swift in Sources */,
 				FA13D7471FA39E1700C86594 /* Prettifier.swift in Sources */,
 				FA13D7331FA39E1700C86594 /* ApiService.swift in Sources */,
 				FA13D7451FA39E1700C86594 /* MyHitAPI.swift in Sources */,
@@ -1039,6 +1035,10 @@
 				FA13D7391FA39E1700C86594 /* DownloadManager.swift in Sources */,
 				FA13D7421FA39E1700C86594 /* KinoKongAPI-models.swift in Sources */,
 				FA13D7401FA39E1700C86594 /* HttpService.swift in Sources */,
+				2DBA102E825645FBFCB7C71C /* AudioBooAPI.swift in Sources */,
+				2DBA15B3E43C165BA0924D95 /* AudioBooAPI-models.swift in Sources */,
+				2DBA184B4380BB82FF392ACB /* AudioKnigiAPI.swift in Sources */,
+				2DBA14951FE2EE57A43D3B19 /* AudioKnigiAPI-models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1050,14 +1050,14 @@
 				FA858BC21FBA90AF00A54968 /* MuzArbuzAPITests.swift in Sources */,
 				FA858BBC1FBA90AF00A54968 /* AuthAPITests.swift in Sources */,
 				FA858BD01FBD311D00A54968 /* GidOnline2APITests.swift in Sources */,
-				FA858BBA1FBA90AF00A54968 /* AudioBooAPITests.swift in Sources */,
 				FA858BBE1FBA90AF00A54968 /* GidOnlineAPITests.swift in Sources */,
 				FAA1249D1FA3987D00CA1DE2 /* WebAPI_macOSTests.swift in Sources */,
 				FA858BBD1FBA90AF00A54968 /* EtvnetAPITests.swift in Sources */,
 				FA858BC11FBA90AF00A54968 /* KinoKongAPITests.swift in Sources */,
 				FA858BC01FBA90AF00A54968 /* HttpServiceTests.swift in Sources */,
-				FA858BBB1FBA90AF00A54968 /* AudioKnigiAPITests.swift in Sources */,
 				FA858BBF1FBA90AF00A54968 /* GoogleDocsAPITests.swift in Sources */,
+				2DBA16AEA2999B064F9D246F /* AudioBooAPITests.swift in Sources */,
+				2DBA135EBBC99CAEDD05652C /* AudioKnigiAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
