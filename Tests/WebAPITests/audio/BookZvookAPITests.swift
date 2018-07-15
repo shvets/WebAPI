@@ -32,6 +32,12 @@ class BookZvookAPITests: XCTestCase {
     }
   }
 
+  func testGetGenres() throws {
+    let result = try subject.getGenres()
+
+    print(result as Any)
+  }
+
   func testGetPlaylistUrls() throws {
     let url = "http://bookzvuk.ru/zhizn-i-neobyichaynyie-priklyucheniya-soldata-ivana-chonkina-1-litso-neprikosnovennoe-vladimir-voynovich-audiokniga-onlayn/"
 
@@ -57,11 +63,39 @@ class BookZvookAPITests: XCTestCase {
     XCTAssert(list.count > 0)
   }
 
+  func testGetLatestBooks() throws {
+    let exp = expectation(description: "Search")
+
+    _ = try subject.getLatestBooks(page: 2).subscribe(onNext: { result in
+      print(result as Any)
+
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
+  }
+
   func testSearch() throws {
     let query = "пратчетт"
     
-    let result = try subject.search(query)
+    let exp = expectation(description: "Search")
 
-    print(result as Any)
+    _ = try subject.search(query, page: 2).subscribe(onNext: { result in
+      print(result as Any)
+
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 }
