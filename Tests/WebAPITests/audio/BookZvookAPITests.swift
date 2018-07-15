@@ -6,30 +6,50 @@ class BookZvookAPITests: XCTestCase {
   var subject =  BookZvookAPI()
 
   func testGetLetters() throws {
-    let result = try subject.getLetters()
+    let exp = expectation(description: "Get Letters")
 
-    print(result as Any)
-  }
-
-  func testGetAuthorsByLetter() throws {
-    let letters = try subject.getLetters()
-
-//    print(letters as Any)
-
-    XCTAssert(letters.count > 0)
-
-    let id = letters[1]["id"]!
-
-    do {
-      let result = try self.subject.getAuthorsByLetter(id)
-
+    _ = try subject.getLetters().subscribe(onNext: { result in
       print(result as Any)
 
       XCTAssert(result.count > 0)
-    }
-    catch let e {
-      XCTFail(e.localizedDescription)
-    }
+
+      exp.fulfill()
+    },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
+  }
+
+  func testGetAuthorsByLetter() throws {
+    let exp = expectation(description: "Get Letters")
+
+    _ = try subject.getLetters().subscribe(onNext: { letters in
+      print(letters as Any)
+
+      XCTAssert(letters.count > 0)
+
+      let id = letters[1]["id"]!
+
+      do {
+        let result = try self.subject.getAuthorsByLetter(id)
+
+        print(result as Any)
+
+        XCTAssert(result.count > 0)
+      }
+      catch let e {
+        XCTFail(e.localizedDescription)
+      }
+      
+      exp.fulfill()
+    },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testGetGenres() throws {
@@ -48,7 +68,7 @@ class BookZvookAPITests: XCTestCase {
 
   func testGetAudioTracks() throws {
     let url = "http://bookzvuk.ru/zhizn-i-neobyichaynyie-priklyucheniya-soldata-ivana-chonkina-1-litso-neprikosnovennoe-vladimir-voynovich-audiokniga-onlayn/"
-
+    //let url = "http://bookzvuk.ru/zemlekopyi-terri-pratchett-audiokniga-onlayn/"
     let playlistUrls = try subject.getPlaylistUrls(url)
     
     //print(playlistUrls)
@@ -63,10 +83,10 @@ class BookZvookAPITests: XCTestCase {
     XCTAssert(list.count > 0)
   }
 
-  func testGetLatestBooks() throws {
+  func testGetBooks() throws {
     let exp = expectation(description: "Search")
 
-    _ = try subject.getLatestBooks(page: 2).subscribe(onNext: { result in
+    _ = try subject.getBooks(page: 2).subscribe(onNext: { result in
       print(result as Any)
 
       XCTAssert(result.count > 0)

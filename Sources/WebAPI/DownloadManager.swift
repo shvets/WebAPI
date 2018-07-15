@@ -52,7 +52,7 @@ open class DownloadManager {
       let path = track.url
       let name = track.title
 
-      download(name: "\(name).mp3", path: path, bookDir: currentAlbum! == nil ? bookDir + currentAlbum! : bookDir)
+      download(name: "\(name).mp3", path: path, bookDir: currentAlbum == nil ? bookDir + currentAlbum! : bookDir)
     }
   }
 
