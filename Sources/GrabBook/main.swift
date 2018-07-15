@@ -15,6 +15,10 @@ class GrabBook {
   func grabAudioBoo(_ url: String) throws {
     try downloadManager.download(clientType: .audioBoo, url: url)
   }
+
+  func grabBookZvook(_ url: String) throws {
+    try downloadManager.download(clientType: .bookZvook, url: url)
+  }
 }
 
 let grabber = GrabBook()
@@ -24,6 +28,11 @@ if grabber.parseCommandLine() {
     let url = CommandLine.arguments[2]
 
     try grabber.grabAudioBoo(url)
+  }
+  else if CommandLine.arguments[1] == "--zvook" {
+    let url = CommandLine.arguments[2]
+
+    try grabber.grabBookZvook(url)
   }
   else {
     let url = CommandLine.arguments[1]

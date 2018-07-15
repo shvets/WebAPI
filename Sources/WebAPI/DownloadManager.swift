@@ -4,7 +4,9 @@ import Files
 
 open class DownloadManager {
   public enum ClienType {
-    case audioKnigi, audioBoo
+    case audioKnigi
+    case audioBoo
+    case bookZvook
   }
 
   public init() {}
@@ -15,6 +17,8 @@ open class DownloadManager {
         try downloadAudioKnigiTracks(url)
       case .audioBoo:
         try downloadAudioBooTracks(url)
+      case .bookZvook:
+        try downloadBookZvookTracks(url)
     }
   }
 
@@ -48,15 +52,7 @@ open class DownloadManager {
       let path = track.url
       let name = track.title
 
-      let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-
-      let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-
-      let fileURL = documentsURL.appendingPathComponent(bookDir)
-        .appendingPathComponent(currentAlbum ?? "")
-        .appendingPathComponent("\(name).mp3")
-
-      downloadTrack(from: encodedPath, to: fileURL)
+      download(name: "\(name).mp3", path: path, bookDir: currentAlbum! == nil ? bookDir + currentAlbum! : bookDir)
     }
   }
 
@@ -78,18 +74,48 @@ open class DownloadManager {
         let path = "\(AudioBooAPI.ArchiveUrl)\(track.sources[0].file)"
         let name = track.orig
 
-        let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-
-        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-
-        let fileURL = documentsURL.appendingPathComponent(bookDir).appendingPathComponent("\(name)")
-
-        downloadTrack(from: encodedPath, to: fileURL)
+        download(name: name, path: path, bookDir: bookDir)
       }
     }
     else {
       print("Cannot find playlist.")
     }
+  }
+
+  public func downloadBookZvookTracks(_ url: String) throws {
+    let client = BookZvookAPI()
+
+    let playlistUrls = try client.getPlaylistUrls(url)
+
+    if playlistUrls.count > 0 {
+      let playlistUrl = playlistUrls[0]
+
+      let audioTracks = try client.getAudioTracks(playlistUrl)
+      var bookDir = URL(string: url)!.lastPathComponent
+      bookDir = String(bookDir[...bookDir.index(bookDir.endIndex, offsetBy: -".html".count-1)])
+
+      for track in audioTracks {
+        print(track)
+
+        let path = "\(AudioBooAPI.ArchiveUrl)\(track.sources[0].file)"
+        let name = track.orig
+
+        download(name: name, path: path, bookDir: bookDir)
+      }
+    }
+    else {
+      print("Cannot find playlist.")
+    }
+  }
+
+  func download(name: String, path: String, bookDir: String) {
+    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+    let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+
+    let fileURL = documentsURL.appendingPathComponent(bookDir).appendingPathComponent(name)
+
+    downloadTrack(from: encodedPath, to: fileURL)
   }
 
   func downloadTrack(from: String, to: URL) {
