@@ -8,109 +8,112 @@ extension BookZvookAPI {
 
       let table = try document.select("div[id=main-col] div[id=content] article div[class=entry-container fix]")
 
-      let sections = try table.select("div[class=entry fix]")
+      let root = try table.select("div[class=entry fix]").array()[0]
 
-      for section in sections.array() {
-        let pLinks = try section.select("p")
+      // first book
 
-        for pLink in pLinks.array() {
-          var name = ""
+      let spanLinks = try root.select("table tr td > span").array()
 
-          var books: [Book] = []
+      if spanLinks.count > 0 {
+        let (name, books) = try processFirstBlock(links: spanLinks)
 
-          var links = try pLink.select("a")
+        if !name.isEmpty {
+          data.append(Author(name: name, books: books))
+        }
+      }
+      else {
+        let name = try root.select("span > span > b > span").array()[0].parent()!.select("span").text()
 
-          if links.array().count > 0 {
-            var authorNode = try pLink.select("span > span > b > span")
+        var books: [Book] = []
 
-            name = try authorNode.text()
+        let spanLinks2 = try table.select("div[class=entry fix] > span")
 
-            for link in links.array() {
-              let href = try link.attr("href")
-              let title = try link.text()
+        if spanLinks2.array().count > 0 {
+          let links = try spanLinks2.select("a")
 
-              let book = Book(title: title, id: href)
+          for link in links.array() {
+            let href = try link.attr("href")
+            let title = try link.text()
 
-              books.append(book)
-            }
+            books.append(Book(title: title, id: href))
+          }
+
+          if !name.isEmpty {
+            data.append(Author(name: name, books: books))
+          }
+        }
+      }
+
+      // other books
+
+      let pLinks = try root.select("p")
+
+      for pLink in pLinks.array() {
+        let links = try pLink.select("a").array()
+
+        if links.count > 0 {
+          let (name, books) = try processPBlock(path: "span > span > b > span", element: pLink, links: links)
+
+          if !name.isEmpty {
+            data.append(Author(name: name, books: books))
           }
           else {
-            let firstSpan = try section.select("span").array()[0]
+            let (name, books) = try processPBlock(path: "b > span", element: pLink, links: links)
 
-            var authorNode = try firstSpan.select("span > span > b > span")
-
-            name = try authorNode.text()
-
-            let link1 = try section.select("tr td")
-
-            // print(link1.array().count)
-
-            if link1.array().count > 0 {
-              try grabFrom1(link: link1, books: &books)
-            }
-            else {
-              try grabFrom2(section: section, books: &books)
+            if !name.isEmpty {
+              data.append(Author(name: name, books: books))
             }
           }
-
-          if name.isEmpty {
-            print("Empty: \(books)")
-          }
-
-          data.append(Author(name: name, books: books))
         }
       }
 
       return data
     }
 
-    func grabFrom2(section: Element, books: inout [Book]) throws {
-      //              let link2 = try section.select("span > b > a")
-//
-//              print("--- \(link2.array().count)")
+    func processFirstBlock(links: [Element]) throws -> (String, [Book]) {
+      var name = ""
+      var books: [Book] = []
 
-      for child in section.children().array() {
+      let firstSpanLink = links[0]
 
-        //print("--- \(child.tagName())")
+      name = try firstSpanLink.select("b > span").text()
 
-        if child.tagName() == "span" {
-          let link = try child.select("a")
+      let siblings = firstSpanLink.siblingElements().array()
 
-          let href = try link.attr("href")
-          let title = try link.text()
+      var firstPTag = false
 
-          if !href.isEmpty {
-            let book = Book(title: title, id: href)
+      for sibling in siblings {
+        if sibling.tagName() == "span" && !firstPTag {
+          let links = try sibling.select("a").array()
 
-            books.append(book)
+          for link in links {
+            let href = try link.attr("href")
+            let title = try link.text()
+
+            books.append(Book(title: title, id: href))
           }
         }
-      }
-    }
-
-    func grabFrom1(link: Elements, books: inout [Book]) throws {
-      let links = link.array()[0]
-
-      for child in links.children().array() {
-        if child.tagName() == "span" {
-          let link = try child.select("a")
-
-          let href = try link.attr("href")
-          let title = try link.text()
-
-          if !href.isEmpty {
-            let book = Book(title: title, id: href)
-
-            books.append(book)
-          }
+        else if sibling.tagName() == "p" {
+          firstPTag = true
         }
       }
+
+      return (name, books)
     }
 
-//  func getAuthorName(_ link: Element) throws -> String {
-//    var authorNode = try link.select("span > span > b > span")
-//
-//    return try authorNode.text()
-//  }
+    func processPBlock(path: String, element: Element, links: [Element]) throws -> (String, [Book]) {
+      var books: [Book] = []
+
+      let name = try element.select(path).text()
+
+      for link in links {
+        let href = try link.attr("href")
+        let title = try link.text()
+
+        books.append(Book(title: title, id: href))
+      }
+
+      return (name, books)
+    }
   }
 }
