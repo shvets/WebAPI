@@ -39,38 +39,11 @@ open class BookZvookAPI: HttpService {
     }
   }
 
-  public func getAuthorsByLetter(_ url: String) throws -> [String: [[String: String]]] {
-    var data: [String: [[String: String]]] = [:]
+  public func getAuthorsByLetter(_ url: String) throws -> [Author] {
+    var data: [Author] = []
 
     if let document = try fetchDocument(url) {
-      let table = try document.select("div[id=main-col] div[id=content] article div[class=entry-container fix] table")
-
-      let links = try table.select("tr td span a")
-
-      for link in links.array() {
-        let parent = link.parent()!.parent()!.parent()!
-
-        var author = try parent.select("p > b > span").text()
-        
-        if author.isEmpty {
-          author = try parent.select("b > span").text()
-        }
-        
-        let href = try link.select("a").attr("href")
-        let name = try link.select("a").text()
-
-        let book = ["name": name, "id": href]
-
-        var element = data[author]
-
-        if element == nil {
-          element = []
-        }
-
-        element!.append(book)
-
-        data[author] = element!
-      }
+      data = try AuthorsBuilder().build(document: document)
     }
 
     return data
@@ -104,8 +77,6 @@ open class BookZvookAPI: HttpService {
       
       if let index2 = index2 {
         let path = link[index1..<index2]
-
-        print(path)
 
         data.append(BookZvookAPI.ArchiveUrl + "/details/" + path)
       }
@@ -141,13 +112,21 @@ open class BookZvookAPI: HttpService {
     return data
   }
 
-  public func getBooks(page: Int=1) throws -> Observable<[String: Any]> {
+  public func getNewBooks(page: Int=1) throws -> Observable<[String: Any]> {
+    return try getBooks(BookZvookAPI.SiteUrl, page: page)
+  }
+
+  public func getGenreBooks(_ url: String, page: Int=1) throws -> Observable<[String: Any]> {
+    return try getBooks(url, page: page)
+  }
+
+  public func getBooks(_ url: String, page: Int=1) throws -> Observable<[String: Any]> {
     var data = [Any]()
     var paginationData = ItemsList()
 
     let pagePath = getPagePath(path: "", page: page)
 
-    let url = "\(BookZvookAPI.SiteUrl)\(pagePath)"
+    let url = "\(url)\(pagePath)"
 
     return httpRequestRx(url).map { [weak self] rawData in
       if let document = try self!.toDocument(rawData) {
@@ -178,7 +157,6 @@ open class BookZvookAPI: HttpService {
 
     return httpRequestRx(url, headers: [:], parameters: ["s": encodedQuery], method: .post).map { [weak self] rawData in
       if let document = try self!.toDocument(rawData) {
-      //if let document = try fetchDocument(url, headers: [:], parameters: ["s": encodedQuery], method: .post) {
         let items = try document.select("div[id=main-col] div[id=content] article")
 
         for item in items.array() {
@@ -203,7 +181,10 @@ open class BookZvookAPI: HttpService {
 
     let href = try link.attr("href")
 
-    let name = try link.text().replacingOccurrences(of: "(Аудиокнига онлайн)", with: "")
+    let name = try link.text()
+      .replacingOccurrences(of: "(Аудиокнига онлайн)", with: "")
+      .replacingOccurrences(of: "(Аудиоспектакль онлайн)", with: "")
+      .replacingOccurrences(of: "(Audiobook online)", with: "")
 
     return ["type": "book", "id": href, "name": name, "thumb": thumb, "description": description]
   }

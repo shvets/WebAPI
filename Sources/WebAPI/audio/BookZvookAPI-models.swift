@@ -45,4 +45,14 @@ extension BookZvookAPI {
 //    }
 //  }
   }
+
+  public struct Book: Codable {
+    public let title: String
+    public let id: String
+  }
+
+  public struct Author: Codable {
+    public let name: String
+    public var books: [Book]
+  }
 }

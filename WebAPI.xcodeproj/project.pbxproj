@@ -33,11 +33,13 @@
 		2DBA1862EB093A639858E589 /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */; };
 		2DBA1867655260108B6CB8F4 /* BookZvookAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA129015A9564C777EB5AB /* BookZvookAPITests.swift */; };
 		2DBA1889222C8E7759CB1E94 /* KinoTockaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */; };
+		2DBA1921632D2EDCB3EBF119 /* AuthorsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1B037134A5F2450EAC82 /* AuthorsBuilder.swift */; };
 		2DBA1944CFFF0AAEE875056F /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */; };
 		2DBA1B622BF7B52AD9CD56E3 /* BookZvookAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1E16329A31651DB1C378 /* BookZvookAPI-models.swift */; };
 		2DBA1E428EFD3FD18EC7414F /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1FAE7658C333BC8052A8 /* AudioBooAPITests.swift */; };
 		2DBA1E4DCB8EC24D1CCC6154 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */; };
 		2DBA1EC2797B05A5C3DC2886 /* KinoTockaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */; };
+		2DBA1FB7F4837A6BF0D56DFF /* AuthorsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1B037134A5F2450EAC82 /* AuthorsBuilder.swift */; };
 		2DBA1FEB1A00DB5EE54B2DC7 /* KinoTochkaAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1EEF935964AE2889800A /* KinoTochkaAPITests.swift */; };
 		6710BA3335C264E108DA6F3B /* Pods_WebAPI_iOSTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42FA3DA2A7974E36C1F4D43C /* Pods_WebAPI_iOSTests.framework */; };
 		8036985D69BC2EAB0A2CBF1A /* Pods_WebAPI_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B23D4AE52BBDEC62DB761A9F /* Pods_WebAPI_macOS.framework */; };
@@ -172,6 +174,7 @@
 		2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KinoTochkaAPI-models.swift"; path = "WebAPI/KinoTochkaAPI-models.swift"; sourceTree = "<group>"; };
 		2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "AudioKnigiAPI-models.swift"; path = "WebAPI/audio/AudioKnigiAPI-models.swift"; sourceTree = "<group>"; };
 		2DBA1A8680706B7BFA168AD2 /* AudioKnigiAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKnigiAPI.swift; path = WebAPI/audio/AudioKnigiAPI.swift; sourceTree = "<group>"; };
+		2DBA1B037134A5F2450EAC82 /* AuthorsBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AuthorsBuilder.swift; path = WebAPI/audio/AuthorsBuilder.swift; sourceTree = "<group>"; };
 		2DBA1E16329A31651DB1C378 /* BookZvookAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "BookZvookAPI-models.swift"; path = "WebAPI/audio/BookZvookAPI-models.swift"; sourceTree = "<group>"; };
 		2DBA1EC7CEF80C9E469EFCF9 /* BookZvookAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookZvookAPI.swift; path = WebAPI/audio/BookZvookAPI.swift; sourceTree = "<group>"; };
 		2DBA1EC8D5D1D9488FA1DEDF /* AudioBooAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioBooAPI.swift; path = WebAPI/audio/AudioBooAPI.swift; sourceTree = "<group>"; };
@@ -462,6 +465,7 @@
 				2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */,
 				2DBA1EC7CEF80C9E469EFCF9 /* BookZvookAPI.swift */,
 				2DBA1E16329A31651DB1C378 /* BookZvookAPI-models.swift */,
+				2DBA1B037134A5F2450EAC82 /* AuthorsBuilder.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -954,6 +958,7 @@
 				2DBA1944CFFF0AAEE875056F /* AudioKnigiAPI-models.swift in Sources */,
 				2DBA1323FAE6211904A9EA96 /* BookZvookAPI.swift in Sources */,
 				2DBA16CD70AA39609FDD40EB /* BookZvookAPI-models.swift in Sources */,
+				2DBA1FB7F4837A6BF0D56DFF /* AuthorsBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1008,6 +1013,7 @@
 				2DBA1862EB093A639858E589 /* AudioKnigiAPI-models.swift in Sources */,
 				2DBA1473DEF619C71DEACB3E /* BookZvookAPI.swift in Sources */,
 				2DBA1B622BF7B52AD9CD56E3 /* BookZvookAPI-models.swift in Sources */,
+				2DBA1921632D2EDCB3EBF119 /* AuthorsBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

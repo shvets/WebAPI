@@ -23,19 +23,21 @@ class BookZvookAPITests: XCTestCase {
   }
 
   func testGetAuthorsByLetter() throws {
-    let exp = expectation(description: "Get Letters")
+    let exp = expectation(description: "Get Authors by Letter")
 
     _ = try subject.getLetters().subscribe(onNext: { letters in
-      print(letters as Any)
+      // print(letters as Any)
 
       XCTAssert(letters.count > 0)
 
-      let id = letters[1]["id"]!
+      let id = letters[0]["id"]!
 
       do {
         let result = try self.subject.getAuthorsByLetter(id)
 
-        print(result as Any)
+        print(try Prettifier.prettify { encoder in
+          return try encoder.encode(result)
+        })
 
         XCTAssert(result.count > 0)
       }
@@ -83,10 +85,29 @@ class BookZvookAPITests: XCTestCase {
     XCTAssert(list.count > 0)
   }
 
-  func testGetBooks() throws {
-    let exp = expectation(description: "Search")
+  func testGetNewBooks() throws {
+    let exp = expectation(description: "New Books")
 
-    _ = try subject.getBooks(page: 2).subscribe(onNext: { result in
+    _ = try subject.getNewBooks().subscribe(onNext: { result in
+      print(result as Any)
+
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
+  }
+
+  func testGetGenreBooks() throws {
+    let exp = expectation(description: "Genre Books")
+
+    let genreUrl = "http://bookzvuk.ru/category/bestseller/"
+
+    _ = try subject.getGenreBooks(genreUrl).subscribe(onNext: { result in
       print(result as Any)
 
       XCTAssert(result.count > 0)
