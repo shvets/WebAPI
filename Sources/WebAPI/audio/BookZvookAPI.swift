@@ -18,6 +18,28 @@ open class BookZvookAPI: HttpService {
     }
   }
 
+  public func getPopularBooks() throws -> Observable<[[String: String]]> {
+    var data = [[String: String]]()
+
+    return httpRequestRx(BookZvookAPI.SiteUrl).map { [weak self] rawData in
+      if let document = try self!.toDocument(rawData) {
+        let items = try document.select("div[class=textwidget] > div > a")
+
+        for item in items.array() {
+          let name = try item.select("img").attr("alt")
+          let href = try item.attr("href")
+          let thumb = try item.select("img").attr("src")
+
+          data.append(["id": href, "name": name, "thumb": thumb])
+        }
+
+        return data
+      }
+
+      return []
+    }
+  }
+
   public func getLetters() throws -> Observable<[[String: String]]> {
     var data = [[String: String]]()
 
@@ -47,6 +69,54 @@ open class BookZvookAPI: HttpService {
     }
 
     return data
+  }
+
+  public func getAuthors(_ url: String) throws -> [[String: String]] {
+    var list: [[String: String]] = []
+
+    let authors = try getAuthorsByLetter(url)
+
+    for (author) in authors {
+      list.append(["name": author.name])
+    }
+
+    return list
+  }
+
+  public func getAuthorBooks(_ url: String, name: String, page: Int=1, perPage: Int=10) throws -> [String: Any] {
+    var data: [Book] = []
+
+    let authors = try getAuthorsByLetter(url)
+
+    for (author) in authors {
+      if author.name == name {
+        data = author.books
+        break
+      }
+    }
+
+    var items: [Any] = []
+
+    for (index, item) in data.enumerated() {
+      if index >= (page-1)*perPage && index < page*perPage {
+        items.append(item)
+      }
+    }
+
+    let pagination = buildPaginationData(data, page: page, perPage: perPage)
+
+    return ["movies": items, "pagination": pagination]
+  }
+
+  func buildPaginationData(_ data: [Any], page: Int, perPage: Int) -> [String: Any] {
+    let pages = data.count / perPage
+
+    return [
+      "page": page,
+      "pages": pages,
+      "has_next": page < pages,
+      "has_previous": page > 1
+    ]
   }
 
   public func getGenres() throws -> [[String: String]] {

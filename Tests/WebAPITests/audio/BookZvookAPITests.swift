@@ -5,6 +5,23 @@ import XCTest
 class BookZvookAPITests: XCTestCase {
   var subject =  BookZvookAPI()
 
+  func testGetPopularBooks() throws {
+    let exp = expectation(description: "Popular Books")
+
+    _ = try subject.getPopularBooks().subscribe(onNext: { result in
+      print(result as Any)
+
+      XCTAssert(result.count > 0)
+
+      exp.fulfill()
+    },
+      onError: { error in
+        print("Received error:", error)
+      })
+
+    waitForExpectations(timeout: 10, handler: nil)
+  }
+  
   func testGetLetters() throws {
     let exp = expectation(description: "Get Letters")
 
