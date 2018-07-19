@@ -30,7 +30,7 @@ class BookZvookAPITests: XCTestCase {
 
       XCTAssert(letters.count > 0)
 
-      let id = letters[1]["id"]!
+      let id = letters[0]["id"]!
 
       do {
         let result = try self.subject.getAuthorsByLetter(id)

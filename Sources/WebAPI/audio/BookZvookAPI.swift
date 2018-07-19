@@ -183,7 +183,7 @@ open class BookZvookAPI: HttpService {
 
     let name = try link.text()
       .replacingOccurrences(of: "(Аудиокнига онлайн)", with: "")
-      .replacingOccurrences(of: "(Аудиоспектакль онлайн)", with: "")
+      .replacingOccurrences(of: "(Аудиоспектакль онлайн)", with: "(спектакль)")
       .replacingOccurrences(of: "(Audiobook online)", with: "")
 
     return ["type": "book", "id": href, "name": name, "thumb": thumb, "description": description]

@@ -14,14 +14,14 @@ extension BookZvookAPI {
 
       let spanLinks = try root.select("table tr td > span").array()
 
-      if spanLinks.count > 0 {
+      if spanLinks.count > 0 { // page with 'table' tag
         let (name, books) = try processFirstBlock(links: spanLinks)
 
         if !name.isEmpty {
           data.append(Author(name: name, books: books))
         }
       }
-      else {
+      else { // page without 'table' tag
         let name = try root.select("span > span > b > span").array()[0].parent()!.select("span").text()
 
         var books: [Book] = []
@@ -76,9 +76,22 @@ extension BookZvookAPI {
 
       let firstSpanLink = links[0]
 
-      name = try firstSpanLink.select("b > span").text()
+      let nameSpan = try firstSpanLink.select("b > span")
 
-      let siblings = firstSpanLink.siblingElements().array()
+//      if nameSpan.array().count == 1 {
+//        name = try nameSpan.text()
+//      }
+//      else {
+        name = try nameSpan.array()[0].text()
+      //}
+
+      //print(try firstSpanLink.select("b > span").array().count)
+
+      var siblings = firstSpanLink.siblingElements().array()
+
+      if nameSpan.array().count > 1 {
+        siblings = nameSpan.array()[0].parent()!.parent()!.siblingElements().array()
+      }
 
       var firstPTag = false
 
