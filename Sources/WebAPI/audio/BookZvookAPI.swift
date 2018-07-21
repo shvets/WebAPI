@@ -142,13 +142,15 @@ open class BookZvookAPI: HttpService {
     if let document = try fetchDocument(url) {
       let link = try document.select("iframe").attr("src")
       
-      let index1 = link.index(link.startIndex, offsetBy: (BookZvookAPI.ArchiveUrl + "/embed").count)
-      let index2 = link.find("&playlist=1")
-      
-      if let index2 = index2 {
-        let path = link[index1..<index2]
-
-        data.append(BookZvookAPI.ArchiveUrl + "/details/" + path)
+      if !link.isEmpty {
+        let index1 = link.index(link.startIndex, offsetBy: (BookZvookAPI.ArchiveUrl + "/embed").count)
+        let index2 = link.find("&playlist=1")
+        
+        if let index2 = index2 {
+          let path = link[index1..<index2]
+          
+          data.append(BookZvookAPI.ArchiveUrl + "/details/" + path)
+        }
       }
     }
 
