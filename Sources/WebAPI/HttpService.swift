@@ -39,9 +39,17 @@ open class HttpService {
       sessionManager.request(url, method: method, parameters: parameters,
          headers: headers).validate().responseData(queue: utilityQueue) { response in
           dataResponse = response
+          
+          switch response.result {
+            case .success:
+              //print("success")
 
-          if let response = response.response {
-            print("Status: \(response.statusCode)")
+              if let response = response.response {
+                print("Status: \(response.statusCode)")
+              }
+
+            case .failure:
+              print("Status: failure")
           }
 
           semaphore.signal()

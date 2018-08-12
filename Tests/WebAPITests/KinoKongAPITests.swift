@@ -14,7 +14,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetAllMovies() throws {
     let list = try subject.getAllMovies()
 
-    //print(list)
+    print(list)
 
 //    print(try Prettifier.prettify { encoder in
 //      return try encoder.encode(list)

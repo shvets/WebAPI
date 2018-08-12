@@ -3,7 +3,7 @@ import SwiftSoup
 import Alamofire
 
 open class KinoKongAPI: HttpService {
-  public static let SiteUrl = "http://kinokong.cc"
+  public static let SiteUrl = "http://kinokong2.com"
   let UserAgent = "KinoKong User Agent"
 
   public func getDocument(_ url: String) throws -> Document? {
@@ -362,7 +362,7 @@ open class KinoKongAPI: HttpService {
     if let document = try searchDocument(KinoKongAPI.SiteUrl + path, parameters: searchData) {
       let items = try document.select("div[class=owl-item]")
 
-print(items.array().count)
+      print(items.array().count)
       for item: Element in items.array() {
         var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
         let name = try item.select("div[class=main-sliders-title] a").text()
@@ -471,9 +471,11 @@ print(items.array().count)
   }
 
   func getHeaders(_ referer: String="") -> [String: String] {
-    var headers = [
+    var headers: [String: String] = [
       "User-Agent": UserAgent,
-      "Host": "kinokongo.cc"
+      "Host": "kinokong2.com",
+      "Referer": "http://kinokong2.com/",
+      "Upgrade-Insecure-Requests": "1"
     ];
 
     if !referer.isEmpty {
