@@ -34,16 +34,12 @@ extension AudioKnigiAPI {
     public init(from decoder: Decoder) throws {
       let container = try decoder.container(keyedBy: CodingKeys.self)
 
-      let albumName = try? container.decodeIfPresent(String.self, forKey: .albumName) ?? ""
-      let title = try container.decodeIfPresent(String.self, forKey: .title)
-      let url = try container.decodeIfPresent(String.self, forKey: .url)
-      let time = try container.decodeIfPresent(String.self, forKey: .time)
+      let albumName = try container.decode(forKey: .albumName, default: "")
+      let title = try container.decode(forKey: .title, default: "")
+      let url = try container.decode(forKey: .url, default: "")
+      let time = try container.decode(forKey: .time, default: 0)
 
-      self.init(albumName: albumName ?? "",
-        title: title ?? "",
-        url: url ?? "",
-        time: Int(time ?? "0") ?? 0
-      )
+      self.init(albumName: albumName, title: title, url: url, time: time)
     }
 
     public func encode(to encoder: Encoder) throws {

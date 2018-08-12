@@ -134,7 +134,7 @@ extension EtvnetAPI {
       isHd = try container.decode(Bool.self, forKey: .isHd)
 
       do {
-        files = (try container.decodeIfPresent([FileType].self, forKey: .files))!
+        files = (try container.decode(forKey: .files, default: []))!
       }
       catch {
         files = []
@@ -148,7 +148,7 @@ extension EtvnetAPI {
 
       // bug in REST API: sometimes returns empty string
       do {
-        year = try container.decodeIfPresent(Int.self, forKey: .year)!
+        year = try container.decode(forKey: .year, default: 0)!
       }
       catch {
         year = 0
@@ -288,9 +288,9 @@ extension EtvnetAPI {
     public init(from decoder: Decoder) throws {
       let container = try decoder.container(keyedBy: CodingKeys.self)
 
-      let errorCode = try container.decodeIfPresent(String.self, forKey: .errorCode)
-      let errorMessage = try container.decodeIfPresent(String.self, forKey: .errorMessage)
-      let statusCode = try container.decodeIfPresent(Int.self, forKey: .statusCode)
+      let errorCode = try container.decode(forKey: .errorCode, default: "")
+      let errorMessage = try container.decode(forKey: .errorMessage, default: "")
+      let statusCode = try container.decode(forKey: .statusCode, default: 0)
 
       let paginatedMedia = try? container.decodeIfPresent(PaginatedMediaData.self, forKey: .data)
       let paginatedChildren = try? container.decodeIfPresent(PaginatedChildrenData.self, forKey: .data)
@@ -327,11 +327,7 @@ extension EtvnetAPI {
         data = MediaData.none
       }
 
-      self.init(errorCode: errorCode ?? "",
-        errorMessage: errorMessage ?? "",
-        statusCode: statusCode ?? 0,
-        data: data!
-      )
+      self.init(errorCode: errorCode, errorMessage: errorMessage, statusCode: statusCode, data: data!)
     }
 
     public func encode(to encoder: Encoder) throws {

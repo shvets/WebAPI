@@ -14,8 +14,8 @@ public struct ActivationCodesProperties: Codable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    deviceCode = try container.decodeIfPresent(String.self, forKey: .deviceCode)
-    userCode = try container.decodeIfPresent(String.self, forKey: .userCode)
+    deviceCode = try container.decode(forKey: .deviceCode, default: nil)
+    userCode = try container.decode(forKey: .userCode, default: nil)
     activationUrl = "device/usercode"
   }
 }
@@ -36,9 +36,9 @@ public struct AuthProperties: Codable {
   public init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
 
-    accessToken = try container.decodeIfPresent(String.self, forKey: .accessToken)
-    refreshToken = try container.decodeIfPresent(String.self, forKey: .refreshToken)
-    expiresIn = try container.decodeIfPresent(Int.self, forKey: .expiresIn)
+    accessToken = try container.decode(forKey: .accessToken, default: nil)
+    refreshToken = try container.decode(forKey: .refreshToken, default: nil)
+    expiresIn = try container.decode(forKey: .expiresIn, default: nil)
 
     if let expiresIn = expiresIn {
       expires = Int(Date().timeIntervalSince1970) + expiresIn
