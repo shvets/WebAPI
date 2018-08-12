@@ -274,7 +274,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGrouping() throws {
     let data: Data? = try File(path: "authors.json").read()
 
-    let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
+    let items: [NameClassifier.Item] = try data!.decoded() as [NameClassifier.Item]
 
     let classifier = NameClassifier()
     let classified = try classifier.classify(items: items)
@@ -295,7 +295,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGenerateAuthorsInGroupsList() throws {
     let data: Data? = try File(path: "authors.json").read()
 
-    let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
+    let items: [NameClassifier.Item] = try data!.decoded() as [NameClassifier.Item]
 
     let classifier = NameClassifier()
     let classified = try classifier.classify2(items: items)
@@ -312,7 +312,7 @@ class AudioKnigiAPITests: XCTestCase {
   func testGeneratePerformersInGroupsList() throws {
     let data: Data? = try File(path: "performers.json").read()
 
-    let items: [NameClassifier.Item] = try JSONDecoder().decode([NameClassifier.Item].self, from: data!)
+    let items: [NameClassifier.Item] = try data!.decoded() as [NameClassifier.Item]
 
     let classifier = NameClassifier()
     let classified = try classifier.classify2(items: items)
