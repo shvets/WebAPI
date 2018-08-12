@@ -14,11 +14,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetAllMovies() throws {
     let list = try subject.getAllMovies()
 
-    print(list)
-
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
+    print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -27,11 +23,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetNewMovies() throws {
     let list = try subject.getNewMovies()
 
-    //print(list)
-
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
+    // print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -40,11 +32,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetAllSeries() throws {
     let list = try subject.getAllSeries()
 
-    //print(list)
-
-    //    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
+    //print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -53,11 +41,8 @@ class KinoKongAPITests: XCTestCase {
   func testGetGroupedGenres() throws {
     let list = try subject.getGroupedGenres()
 
-    print(list)
+    print(try list.prettify())
 
-    //    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
 //
 //    XCTAssertNotNil(list)
 //    XCTAssert(list.count > 0)
@@ -68,13 +53,7 @@ class KinoKongAPITests: XCTestCase {
 
     let list = try subject.getUrls(KinoKongAPI.SiteUrl + path)
 
-    print(list)
-
-    //print(result as Any)
-
-    //    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
+    print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -97,14 +76,6 @@ class KinoKongAPITests: XCTestCase {
 
     let list = subject.getMetadata(urls[0])
 
-    //print(result as Any)
-
-    //print(list)
-
-    //    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
-
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
@@ -113,14 +84,6 @@ class KinoKongAPITests: XCTestCase {
     let query = "красный"
 
     let list = try subject.search(query)
-
-    //print(result as Any)
-
-    //print(list)
-
-    //    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -168,9 +131,7 @@ class KinoKongAPITests: XCTestCase {
 
     let list = try subject.getSeasons(playlistUrl, path: "")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(list)
-    })
+    print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -183,9 +144,7 @@ class KinoKongAPITests: XCTestCase {
 
     let list = try subject.getSeasons(playlistUrl, path: "")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(list)
-    })
+    print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -194,14 +153,8 @@ class KinoKongAPITests: XCTestCase {
   func testGetMoviesByRating() throws {
     let list = try subject.getMoviesByRating()
 
-    //print(result as Any)
+    print(try list.prettify())
 
-    print(list)
-
-    //    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
-//
 //    XCTAssertNotNil(list)
 //    XCTAssert(list.count > 0)
   }
@@ -209,14 +162,8 @@ class KinoKongAPITests: XCTestCase {
   func testGetTags() throws {
     let list = try subject.getTags()
 
-    //print(result as Any)
+    print(try list.prettify())
 
-    print(list)
-
-    //    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
-//
 //    XCTAssertNotNil(list)
 //    XCTAssert(list.count > 0)
   }
@@ -227,9 +174,7 @@ class KinoKongAPITests: XCTestCase {
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
     let list = try subject.getSeasons(playlistUrl, path: "")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(list)
-    })
+    print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)

@@ -137,9 +137,7 @@ class KinoTochkaAPITests: XCTestCase {
 
     let list = try subject.getEpisodes(playlistUrl, path: "")
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(list)
-    })
+    print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)

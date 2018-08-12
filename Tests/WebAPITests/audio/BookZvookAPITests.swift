@@ -52,9 +52,7 @@ class BookZvookAPITests: XCTestCase {
       do {
         let result = try self.subject.getAuthorsByLetter(id)
 
-        print(try Prettifier.prettify { encoder in
-          return try encoder.encode(result)
-        })
+        print(try result.prettify())
 
         XCTAssert(result.count > 0)
       }
@@ -94,9 +92,7 @@ class BookZvookAPITests: XCTestCase {
 
     let list = try subject.getAudioTracks(playlistUrls[0])
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(list)
-    })
+    print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)

@@ -27,6 +27,7 @@
 		2DBA15B3E43C165BA0924D95 /* AudioBooAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1F74C6A43E80F9311AC1 /* AudioBooAPI-models.swift */; };
 		2DBA16AEA2999B064F9D246F /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1FAE7658C333BC8052A8 /* AudioBooAPITests.swift */; };
 		2DBA16CD70AA39609FDD40EB /* BookZvookAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1E16329A31651DB1C378 /* BookZvookAPI-models.swift */; };
+		2DBA180A7181E1F11DD6C6D3 /* encoder-decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA139A05BEEFA2D4BAF91C /* encoder-decoder.swift */; };
 		2DBA18367BF017D67232BE1D /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */; };
 		2DBA184B4380BB82FF392ACB /* AudioKnigiAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A8680706B7BFA168AD2 /* AudioKnigiAPI.swift */; };
 		2DBA184ECC9CDA2BBD1036FA /* KinoTochkaAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */; };
@@ -36,6 +37,7 @@
 		2DBA1921632D2EDCB3EBF119 /* AuthorsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1B037134A5F2450EAC82 /* AuthorsBuilder.swift */; };
 		2DBA1944CFFF0AAEE875056F /* AudioKnigiAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1A67FA82ABEDB73F2EED /* AudioKnigiAPI-models.swift */; };
 		2DBA1B622BF7B52AD9CD56E3 /* BookZvookAPI-models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1E16329A31651DB1C378 /* BookZvookAPI-models.swift */; };
+		2DBA1B833474687D923C63E2 /* encoder-decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA139A05BEEFA2D4BAF91C /* encoder-decoder.swift */; };
 		2DBA1E428EFD3FD18EC7414F /* AudioBooAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1FAE7658C333BC8052A8 /* AudioBooAPITests.swift */; };
 		2DBA1E4DCB8EC24D1CCC6154 /* AudioKnigiAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */; };
 		2DBA1EC2797B05A5C3DC2886 /* KinoTockaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DBA1ECC62D055BCF714E6EA /* KinoTockaAPI.swift */; };
@@ -169,6 +171,7 @@
 		1E00AC5F26B6B61D6DDDAF15 /* Pods-WebAPI_iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_iOSTests/Pods-WebAPI_iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2618BC2AF025C696CD4AB89A /* Pods-WebAPI_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAPI_iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-WebAPI_iOS/Pods-WebAPI_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		2DBA129015A9564C777EB5AB /* BookZvookAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BookZvookAPITests.swift; path = audio/BookZvookAPITests.swift; sourceTree = "<group>"; };
+		2DBA139A05BEEFA2D4BAF91C /* encoder-decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "encoder-decoder.swift"; path = "WebAPI/encoder-decoder.swift"; sourceTree = "<group>"; };
 		2DBA13AA15E46E4D960F2868 /* AudioKnigiAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AudioKnigiAPITests.swift; path = audio/AudioKnigiAPITests.swift; sourceTree = "<group>"; };
 		2DBA16263A62744FB1BB7E3B /* GidOnline2APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GidOnline2APITests.swift; sourceTree = "<group>"; };
 		2DBA176DEB7D9CD2A621B3D4 /* KinoTochkaAPI-models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "KinoTochkaAPI-models.swift"; path = "WebAPI/KinoTochkaAPI-models.swift"; sourceTree = "<group>"; };
@@ -466,6 +469,7 @@
 				2DBA1EC7CEF80C9E469EFCF9 /* BookZvookAPI.swift */,
 				2DBA1E16329A31651DB1C378 /* BookZvookAPI-models.swift */,
 				2DBA1B037134A5F2450EAC82 /* AuthorsBuilder.swift */,
+				2DBA139A05BEEFA2D4BAF91C /* encoder-decoder.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -959,6 +963,7 @@
 				2DBA1323FAE6211904A9EA96 /* BookZvookAPI.swift in Sources */,
 				2DBA16CD70AA39609FDD40EB /* BookZvookAPI-models.swift in Sources */,
 				2DBA1FB7F4837A6BF0D56DFF /* AuthorsBuilder.swift in Sources */,
+				2DBA180A7181E1F11DD6C6D3 /* encoder-decoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1014,6 +1019,7 @@
 				2DBA1473DEF619C71DEACB3E /* BookZvookAPI.swift in Sources */,
 				2DBA1B622BF7B52AD9CD56E3 /* BookZvookAPI-models.swift in Sources */,
 				2DBA1921632D2EDCB3EBF119 /* AuthorsBuilder.swift in Sources */,
+				2DBA1B833474687D923C63E2 /* encoder-decoder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

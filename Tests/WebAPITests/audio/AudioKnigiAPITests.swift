@@ -242,9 +242,7 @@ class AudioKnigiAPITests: XCTestCase {
 
     _ = subject.getAudioTracks(path).subscribe(onNext: { result in
       do {
-        print(try Prettifier.prettify { encoder in
-          return try encoder.encode(result)
-        })
+        print(try result.prettify())
       }
       catch {
 

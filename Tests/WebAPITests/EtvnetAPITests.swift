@@ -24,9 +24,7 @@ class EtvnetAPITests: XCTestCase {
   func testGetChannels() throws {
     let channels = subject.getChannels()
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(channels)
-    })
+    print(try channels.prettify())
 
     XCTAssertNotNil(channels)
     XCTAssert(channels.count > 0)
@@ -74,10 +72,6 @@ class EtvnetAPITests: XCTestCase {
 
   func testGetNewArrivals() throws {
     let data = subject.getNewArrivals()!
-
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(data)
-//    })
 
     XCTAssertNotNil(data)
     XCTAssert(data.media.count > 0)
@@ -127,10 +121,6 @@ class EtvnetAPITests: XCTestCase {
   func testGetGenres() throws {
     let list = subject.getGenres()
 
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
-
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
@@ -138,10 +128,6 @@ class EtvnetAPITests: XCTestCase {
   func testSearch() throws {
     let query = "news"
     let data = subject.search(query)!
-
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(data)
-//    })
 
     XCTAssertNotNil(data)
     XCTAssert(data.media.count > 0)
@@ -247,10 +233,6 @@ class EtvnetAPITests: XCTestCase {
   func testGetAllBookmarks() throws {
     let data = subject.getBookmarks()!
 
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(data)
-//    })
-
     XCTAssertNotNil(data)
     XCTAssert(data.bookmarks.count > 0)
     XCTAssert(data.pagination.count > 0)
@@ -269,10 +251,6 @@ class EtvnetAPITests: XCTestCase {
     let bookmarks = subject.getBookmarks()!.bookmarks
 
     let bookmarkDetails = subject.getBookmark(id: bookmarks[0].id)
-
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(bookmarkDetails)
-//    })
 
     XCTAssertNotNil(bookmarkDetails)
   }
@@ -297,10 +275,6 @@ class EtvnetAPITests: XCTestCase {
     for topic in EtvnetAPI.Topics {
       let data = subject.getTopicItems(topic)!
 
-//      print(try Prettifier.prettify { encoder in
-//        return try encoder.encode(data)
-//      })
-
       XCTAssertNotNil(data)
       XCTAssert(data.media.count > 0)
       XCTAssert(data.pagination.count > 0)
@@ -314,10 +288,6 @@ class EtvnetAPITests: XCTestCase {
   func testGetAllLiveChannels() throws {
     let list = subject.getLiveChannels()
 
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
-
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
@@ -325,20 +295,12 @@ class EtvnetAPITests: XCTestCase {
   func testGetLiveChannelsByCategory() throws {
     let list = subject.getLiveChannels(category: 7)
 
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
-
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
 
   func testGetLiveFavoriteChannels() throws {
     let list = subject.getLiveChannels(favoriteOnly: true)
-
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -362,10 +324,6 @@ class EtvnetAPITests: XCTestCase {
 
 //  func testGetLiveSchedule() throws {
 //    let list = try subject.getLiveSchedule("34")
-//
-////    print(try Prettifier.prettify { encoder in
-////      return try encoder.encode(list)
-////    })
 ////
 ////    XCTAssertNotNil(list)
 ////    XCTAssert(list.count > 0)
@@ -374,20 +332,12 @@ class EtvnetAPITests: XCTestCase {
   func testGetLiveCategories() throws {
     let list = subject.getLiveCategories()
 
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(list)
-//    })
-
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
 
   func testGetHistory() throws {
     let data = subject.getHistory()!
-
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(data)
-//    })
 
     XCTAssertNotNil(data)
     XCTAssert(data.media.count > 0)
@@ -396,10 +346,6 @@ class EtvnetAPITests: XCTestCase {
 
   func testGetChildren() throws {
     let data = subject.getChildren(488406)!
-
-//    print(try Prettifier.prettify { encoder in
-//      return try encoder.encode(data)
-//    })
 
     XCTAssertNotNil(data)
     XCTAssert(data.children.count > 0)

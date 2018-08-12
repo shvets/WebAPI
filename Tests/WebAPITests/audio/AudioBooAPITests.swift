@@ -139,9 +139,7 @@ class AudioBooAPITests: XCTestCase {
 
     let list = try subject.getAudioTracks(playlistUrls[0])
 
-    print(try Prettifier.prettify { encoder in
-      return try encoder.encode(list)
-    })
+    print(try list.prettify())
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
