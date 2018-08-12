@@ -422,14 +422,12 @@ open class KinoKongAPI: HttpService {
           let playlistContent = content[index ..< content.endIndex]
 
           if let localizedData = playlistContent.data(using: .windowsCP1251) {
-            let decoder = JSONDecoder()
-
-            if let result = try? decoder.decode(PlayList.self, from: localizedData) {
+            if let result = try? localizedData.decoded() as PlayList {
               for item in result.playlist {
                 list.append(Season(comment: item.comment, playlist: buildEpisodes(item.playlist)))
               }
             }
-            else if let result = try? decoder.decode(SingleSeasonPlayList.self, from: localizedData) {
+            else if let result = try? localizedData.decoded() as SingleSeasonPlayList {
               list.append(Season(comment: "Сезон 1", playlist: buildEpisodes(result.playlist)))
             }
           }

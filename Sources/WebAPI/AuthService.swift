@@ -94,9 +94,7 @@ open class AuthService: HttpService {
       if response.result.isSuccess {
         if let data = response.data {
           do {
-            let decoder = JSONDecoder()
-
-            var result = try decoder.decode(ActivationCodesProperties.self, from: data)
+            var result = try data.decoded() as ActivationCodesProperties
 
             result.activationUrl = authUrl + "device/usercode"
 
@@ -121,9 +119,7 @@ open class AuthService: HttpService {
       if response.result.isSuccess {
         if let data = response.data {
           do {
-            let decoder = JSONDecoder()
-
-            result = try decoder.decode(AuthProperties.self, from: data)
+            result = try data.decoded() as AuthProperties
           }
           catch let e {
             print("Error: \(e)")
@@ -144,9 +140,7 @@ open class AuthService: HttpService {
       if response.result.isSuccess {
         if let data = response.data {
           do {
-            let decoder = JSONDecoder()
-
-            result = try decoder.decode(AuthProperties.self, from: data)
+            result = try data.decoded() as AuthProperties
           }
           catch let e {
             print("Error: \(e)")

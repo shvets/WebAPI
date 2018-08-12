@@ -7,8 +7,6 @@ import RxSwift
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
 
-  let decoder = JSONDecoder()
-
   func getPagePath(path: String, page: Int=1) -> String {
     if page == 1 {
       return path
@@ -299,7 +297,7 @@ open class AudioKnigiAPI: HttpService {
           let response = self.httpRequest(newUrl)
 
           if let data = response?.data {
-            if let result = try? self.decoder.decode([Track].self, from: data) {
+            if let result = try? data.decoded() as [Track] {
               newTracks = result
             }
           }
@@ -318,10 +316,8 @@ open class AudioKnigiAPI: HttpService {
     do {
       let data: Data? = try File(path: fileName).read()
 
-      let decoder = JSONDecoder()
-
       do {
-        items = try decoder.decode([NameClassifier.ItemsGroup].self, from: data!)
+        items = try data!.decoded() as [NameClassifier.ItemsGroup]
       }
       catch let e {
         print("Error: \(e)")

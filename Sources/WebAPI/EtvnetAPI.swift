@@ -38,8 +38,6 @@ open class EtvnetAPI: ApiService {
 
   public static let Topics = ["etvslider/main", "newmedias", "best", "top", "newest", "now_watched", "recommend"]
 
-  //let decoder = JSONDecoder()
-
   public init(config: StringConfigFile) {
     super.init(config: config, apiUrl: ApiUrl, userAgent: UserAgent, authUrl: AuthUrl, clientId: ClientId,
       clientSecret: ClientSecret, grantType: GrantType, scope: Scope)
@@ -80,7 +78,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .names(let channels) = result {
             return channels
@@ -116,7 +113,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .paginatedMedia(let value) = result {
             return value
@@ -151,7 +147,6 @@ open class EtvnetAPI: ApiService {
     let url = buildUrl(path: path, params: params as [String : AnyObject])
 
     return fullRequestRx(path: url).map { data in
-      //if let result = try? self.decoder.decode(MediaResponse.self, from: data).data {
       if let result = try? (data.decoded() as MediaResponse).data {
         if case .paginatedMedia(let value) = result {
           return value
@@ -176,7 +171,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .genres(let genres) = result {
             // regroup genres
@@ -265,7 +259,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .paginatedMedia(let value) = result {
             return value
@@ -301,7 +294,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .paginatedMedia(let value) = result {
             return value
@@ -325,7 +317,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .paginatedMedia(let value) = result {
             return value
@@ -346,8 +337,6 @@ open class EtvnetAPI: ApiService {
   public func getUrl(_ mediaId: Int, format: String="mp4", mediaProtocol: String="hls", bitrate: String? = nil,
                       otherServer: String? = nil, offset: String? = nil, live: Bool=false,
                       channelId: Int? = nil, preview: Bool=false) -> [String: String] {
-    //var result = [String: String]()
-
     var newFormat = format
     var newMediaProtocol: String? = mediaProtocol
 
@@ -414,11 +403,8 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data) {
         if let result = try? (data.decoded() as MediaResponse) {
           if case .url(let value) = result.data {
-            //let itemUrl = value.url
-
             var urlInfo = [String: String]()
 
             urlInfo["url"] = value.url
@@ -449,7 +435,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .paginatedChildren(let value) = result {
             return value
@@ -477,7 +462,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .paginatedBookmarks(let value) = result {
             return value
@@ -502,7 +486,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        // if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .paginatedBookmarks(let value) = result {
             return value.bookmarks[0]
@@ -522,7 +505,6 @@ open class EtvnetAPI: ApiService {
       let data = response.data
 
       if statusCode == 201 && data != nil {
-        //if let result = try? decoder.decode(BookmarkResponse.self, from: data!) {
         if let result = try? (data!.decoded() as BookmarkResponse) {
           return result.status == "Created"
         }
@@ -558,7 +540,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .paginatedMedia(let value) = result {
             return value
@@ -592,7 +573,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .liveChannels(let liveChannels) = result {
             return liveChannels
@@ -642,7 +622,6 @@ open class EtvnetAPI: ApiService {
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
-        //if let result = try? decoder.decode(MediaResponse.self, from: data).data {
         if let result = try? (data.decoded() as MediaResponse).data {
           if case .names(let categories) = result {
             // regroup categories

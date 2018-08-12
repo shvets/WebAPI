@@ -7,8 +7,6 @@ open class AudioBooAPI: HttpService {
   public static let SiteUrl = "http://audioboo.ru"
   public static let ArchiveUrl = "https://archive.org"
 
-  let decoder = JSONDecoder()
-
   public func getDocument(_ url: String) throws -> Document? {
     return try fetchDocument(url, encoding: .windowsCP1251)
   }
@@ -145,7 +143,7 @@ open class AudioBooAPI: HttpService {
           let content2 = content[content.index(content.startIndex, offsetBy: 2) ..< content.index(content.endIndex, offsetBy: -2)]
           let content3 = content2.replacingOccurrences(of: ",", with: ", ").replacingOccurrences(of: ":", with: ": ")
 
-          if let result = try? decoder.decode([BooTrack].self, from: content3.data(using: .utf8)!) {
+          if let result = try? content3.data(using: .utf8)!.decoded() as [BooTrack] {
             data = result
           }
         }
