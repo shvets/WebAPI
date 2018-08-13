@@ -253,6 +253,8 @@ class AudioKnigiAPITests: XCTestCase {
 
       exp.fulfill()
     })
+
+    waitForExpectations(timeout: 10, handler: nil)
   }
 
   func testSearch() throws {
@@ -357,9 +359,8 @@ class AudioKnigiAPITests: XCTestCase {
 
     let filteredList = list.map {["id": ($0 as! [String: String])["id"]!, "name": ($0 as! [String: String])["name"]!] }
 
-    try FileSystem().createFile(at: fileName, contents: try Prettifier.asPrettifiedData(filteredList))
+    try FileSystem().createFile(at: fileName, contents: try asPrettifiedData(filteredList))
   }
-
 
   private func generatePerformersList(_ fileName: String) throws {
     var list = [Any]()
@@ -392,6 +393,25 @@ class AudioKnigiAPITests: XCTestCase {
 
     let filteredList = list.map {["id": ($0 as! [String: String])["id"]!, "name": ($0 as! [String: String])["name"]!] }
 
-    try FileSystem().createFile(at: fileName, contents: try Prettifier.asPrettifiedData(filteredList))
+    try FileSystem().createFile(at: fileName, contents: try asPrettifiedData(filteredList))
+  }
+
+  var encoder: JSONEncoder = {
+    let encoder = JSONEncoder()
+
+    encoder.outputFormatting = .prettyPrinted
+
+    return encoder
+  }()
+
+  public func asPrettifiedData(_ value: Any) throws -> Data {
+    if let value = value as? [[String: String]] {
+      return try encoder.encode(value)
+    }
+    else if let value = value as? [String: String] {
+      return try encoder.encode(value)
+    }
+
+    return Data()
   }
 }

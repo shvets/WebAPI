@@ -37,7 +37,7 @@ extension AudioKnigiAPI {
       let albumName = try container.decode(forKey: .albumName, default: "")
       let title = try container.decode(forKey: .title, default: "")
       let url = try container.decode(forKey: .url, default: "")
-      let time = try container.decode(forKey: .time, default: 0)
+      let time = Int(try container.decode(forKey: .time, default: "0"))!
 
       self.init(albumName: albumName, title: title, url: url, time: time)
     }

@@ -14,7 +14,8 @@ class KinoKongAPITests: XCTestCase {
   func testGetAllMovies() throws {
     let list = try subject.getAllMovies()
 
-    print(try list.prettify())
+    //print(try list.prettify())
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -41,7 +42,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetGroupedGenres() throws {
     let list = try subject.getGroupedGenres()
 
-    print(try list.prettify())
+   // print(try list.prettify())
 
 //
 //    XCTAssertNotNil(list)
@@ -153,7 +154,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetMoviesByRating() throws {
     let list = try subject.getMoviesByRating()
 
-    print(try list.prettify())
+    //print(try list.prettify())
 
 //    XCTAssertNotNil(list)
 //    XCTAssert(list.count > 0)
@@ -162,7 +163,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetTags() throws {
     let list = try subject.getTags()
 
-    print(try list.prettify())
+    //print(try list.prettify())
 
 //    XCTAssertNotNil(list)
 //    XCTAssert(list.count > 0)
