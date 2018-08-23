@@ -11,6 +11,22 @@ extension AudioKnigiAPI {
     }
   }
 
+  public struct Tracks: Codable {
+    public let aItems: [Track]
+    public let bStateError: Bool
+    public let fstate: Bool
+    public let sMsg: String
+    public let sMsgTitle: String
+
+    public init(aItems: [Track], bStateError: Bool, fstate: Bool, sMsg: String, sMsgTitle: String) {
+      self.aItems = aItems
+      self.bStateError = bStateError
+      self.fstate = fstate
+      self.sMsg = sMsg
+      self.sMsgTitle = sMsgTitle
+    }
+  }
+
   public struct Track: Codable {
     public let albumName: String
     public let title: String

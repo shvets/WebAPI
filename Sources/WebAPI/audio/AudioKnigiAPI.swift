@@ -291,14 +291,50 @@ open class AudioKnigiAPI: HttpService {
 
         var newTracks = [Track]()
 
-        if bookId > 0 {
-          let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
+//        if bookId > 0 {
+//          let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
+//
+//          let response = self.httpRequest(newUrl)
+//
+//          if let data = response?.data {
+//            if let result = try? data.decoded() as [Track] {
+//              newTracks = result
+//            }
+//          }
+//        }
 
-          let response = self.httpRequest(newUrl)
+        if bookId > 0 {
+          let newUrl = "\(AudioKnigiAPI.SiteUrl)/ajax/bid/\(bookId)"
+
+          let headers: [String: String] = [
+            ":authority": "audioknigi.club",
+            ":method": "POST",
+            ":path": "/ajax/bid/40239",
+            ":scheme": "https",
+            "accept": "application/json, text/javascript,*/*; q=0.01",
+            "x-requested-with": "XMLHttpRequest",
+            "origin": "https://audioknigi.club",
+            "referer": "https://audioknigi.club/alekseev-gleb-povesti-i-rasskazy",
+            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
+          ]
+
+          let searchData: [String: Any] = [
+            "bid": "40239",
+//            "hash": [
+//              "ct": "tBggIjTxT0zhj2AxPwT8Rf5vhT/h+8h4UKZTQJFzJb3gUSCjei850cr4tOFWy8kE",
+//              "iv": "9fdc5aaecec5c1eda7c5b210429a9ac5",
+//              "s": "30baf43c094939bc"
+//            ],
+            "security_ls_key": "2da673262dfeb2bda4a66d68335f0804"
+          ]
+
+          let response = self.httpRequest(newUrl, headers: headers, parameters: searchData, method: .post)
 
           if let data = response?.data {
-            if let result = try? data.decoded() as [Track] {
-              newTracks = result
+            print(String(data: data, encoding: .utf8))
+            if let result = try? data.decoded() as Tracks {
+              newTracks = result.aItems
             }
           }
         }

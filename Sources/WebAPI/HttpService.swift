@@ -8,21 +8,21 @@ open class HttpService {
   
   public init(proxy: Bool=false) {
     let configuration = URLSessionConfiguration.default
-    
-    if proxy {
-      let proxyPort = 3130
-      let proxyURL = "176.221.42.213"
-      
-      //      let proxyPort = 3128
-      //      let proxyURL = "93.104.210.29"
-      
-      configuration.connectionProxyDictionary = [
-        kCFNetworkProxiesHTTPEnable as AnyHashable: true,
-        kCFNetworkProxiesHTTPPort as AnyHashable: proxyPort,
-        kCFNetworkProxiesHTTPProxy as AnyHashable: proxyURL
-      ]
-    }
-    
+
+//    if proxy {
+//      let proxyPort = 3130
+//      let proxyURL = "176.221.42.213"
+//
+//      //      let proxyPort = 3128
+//      //      let proxyURL = "93.104.210.29"
+//
+//      configuration.connectionProxyDictionary = [
+//        kCFNetworkProxiesHTTPEnable as AnyHashable: true,
+//        kCFNetworkProxiesHTTPPort as AnyHashable: proxyPort,
+//        kCFNetworkProxiesHTTPProxy as AnyHashable: proxyURL
+//      ]
+//    }
+
     sessionManager = Alamofire.SessionManager(configuration: configuration)
   }
   

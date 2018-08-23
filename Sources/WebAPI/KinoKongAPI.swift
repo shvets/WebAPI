@@ -1,6 +1,7 @@
 import Foundation
 import SwiftSoup
 import Alamofire
+//import Networking
 
 open class KinoKongAPI: HttpService {
   public static let SiteUrl = "http://kinokong2.com"
@@ -13,6 +14,35 @@ open class KinoKongAPI: HttpService {
   public func searchDocument(_ url: String, parameters: [String: String]) throws -> Document? {
     return try fetchDocument(url, headers: getHeaders(), parameters: parameters, method: .post, encoding: .windowsCP1251)
   }
+
+//  public override func fetchDocument(_ url: String,
+//                            headers: HTTPHeaders = [:],
+//                            parameters: Parameters = [:],
+//                            method: HTTPMethod = .get,
+//                            encoding: String.Encoding = .utf8) throws -> Document? {
+//    var document: Document?
+//
+////    if let dataResponse = fetchDataResponse(url, headers: headers, parameters: parameters, method: method),
+////       let data = dataResponse.data,
+////       let html = String(data: data, encoding: encoding) {
+////      document = try SwiftSoup.parse(html)
+////    }
+//
+////    let networking = Networking(baseURL: url)
+////
+////    networking.get("/", headers: headers, parameters: parameters) { result in
+////      switch result {
+////      case .success(let response):
+////        let json = response.dictionaryBody
+////        // Do something with JSON, you can also get arrayBody
+////      case .failure(let response):
+////        print(response)
+////        // Handle error
+////      }
+////    }
+//
+//    return document
+//  }
 
   public func available() throws -> Bool {
     if let document = try getDocument(KinoKongAPI.SiteUrl) {
