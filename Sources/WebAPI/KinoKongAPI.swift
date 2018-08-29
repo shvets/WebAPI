@@ -225,7 +225,7 @@ open class KinoKongAPI: HttpService {
   public func getUrls(_ path: String) throws -> [String] {
     var urls: [String] = []
 
-    if let document = try getDocument(path) {
+    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
       let items = try document.select("script")
 
       for item: Element in items.array() {
@@ -250,7 +250,7 @@ open class KinoKongAPI: HttpService {
   public func getSeriePlaylistUrl(_ path: String) throws -> String {
     var url = ""
 
-    if let document = try getDocument(path) {
+    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
       let items = try document.select("script")
 
       for item: Element in items.array() {
@@ -392,7 +392,6 @@ open class KinoKongAPI: HttpService {
     if let document = try searchDocument(KinoKongAPI.SiteUrl + path, parameters: searchData) {
       let items = try document.select("div[class=owl-item]")
 
-      print(items.array().count)
       for item: Element in items.array() {
         var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
         let name = try item.select("div[class=main-sliders-title] a").text()

@@ -14,7 +14,6 @@ class KinoKongAPITests: XCTestCase {
   func testGetAllMovies() throws {
     let list = try subject.getAllMovies()
 
-    //print(try list.prettify())
     print(list)
 
     XCTAssertNotNil(list)
@@ -24,7 +23,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetNewMovies() throws {
     let list = try subject.getNewMovies()
 
-    // print(try list.prettify())
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -33,7 +32,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetAllSeries() throws {
     let list = try subject.getAllSeries()
 
-    //print(try list.prettify())
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -42,7 +41,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetGroupedGenres() throws {
     let list = try subject.getGroupedGenres()
 
-   // print(try list.prettify())
+    print(list)
 
 //
 //    XCTAssertNotNil(list)
@@ -50,9 +49,9 @@ class KinoKongAPITests: XCTestCase {
   }
 
   func testGetUrls() throws {
-    let path = "/32334-chernaya-pantera-2018-online.html"
+    let path = "/33317-za-bortom-2018-online-smotret.html"
 
-    let list = try subject.getUrls(KinoKongAPI.SiteUrl + path)
+    let list = try subject.getUrls(path)
 
     print(try list.prettify())
 
@@ -77,6 +76,8 @@ class KinoKongAPITests: XCTestCase {
 
     let list = subject.getMetadata(urls[0])
 
+    print(list)
+
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
@@ -85,6 +86,8 @@ class KinoKongAPITests: XCTestCase {
     let query = "красный"
 
     let list = try subject.search(query)
+
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -154,6 +157,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetMoviesByRating() throws {
     let list = try subject.getMoviesByRating()
 
+    print(list)
     //print(try list.prettify())
 
 //    XCTAssertNotNil(list)
@@ -163,7 +167,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetTags() throws {
     let list = try subject.getTags()
 
-    //print(try list.prettify())
+    print(list)
 
 //    XCTAssertNotNil(list)
 //    XCTAssert(list.count > 0)
