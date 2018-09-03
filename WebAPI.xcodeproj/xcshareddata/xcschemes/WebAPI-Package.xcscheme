@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SwiftSoup::SwiftSoup"
-               BuildableName = "SwiftSoup.framework"
-               BlueprintName = "SwiftSoup"
+               BlueprintIdentifier = "SwiftyJSON::SwiftyJSON"
+               BuildableName = "SwiftyJSON.framework"
+               BlueprintName = "SwiftyJSON"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "RxSwift::RxSwift"
-               BuildableName = "RxSwift.framework"
-               BlueprintName = "RxSwift"
+               BlueprintIdentifier = "Alamofire::Alamofire"
+               BuildableName = "Alamofire.framework"
+               BlueprintName = "Alamofire"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -56,9 +56,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Files::Files"
-               BuildableName = "Files.framework"
-               BlueprintName = "Files"
+               BlueprintIdentifier = "SwiftSoup::SwiftSoup"
+               BuildableName = "SwiftSoup.framework"
+               BlueprintName = "SwiftSoup"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -84,9 +84,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "SwiftyJSON::SwiftyJSON"
-               BuildableName = "SwiftyJSON.framework"
-               BlueprintName = "SwiftyJSON"
+               BlueprintIdentifier = "Networking::Networking"
+               BuildableName = "Networking.framework"
+               BlueprintName = "Networking"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -98,9 +98,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Networking::Networking"
-               BuildableName = "Networking.framework"
-               BlueprintName = "Networking"
+               BlueprintIdentifier = "CryptoSwift::CryptoSwift"
+               BuildableName = "CryptoSwift.framework"
+               BlueprintName = "CryptoSwift"
+               ReferencedContainer = "container:WebAPI.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "Files::Files"
+               BuildableName = "Files.framework"
+               BlueprintName = "Files"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -126,9 +140,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "Alamofire::Alamofire"
-               BuildableName = "Alamofire.framework"
-               BlueprintName = "Alamofire"
+               BlueprintIdentifier = "RxSwift::RxSwift"
+               BuildableName = "RxSwift.framework"
+               BlueprintName = "RxSwift"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -167,9 +181,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "SwiftSoup::SwiftSoup"
-            BuildableName = "SwiftSoup.framework"
-            BlueprintName = "SwiftSoup"
+            BlueprintIdentifier = "SwiftyJSON::SwiftyJSON"
+            BuildableName = "SwiftyJSON.framework"
+            BlueprintName = "SwiftyJSON"
             ReferencedContainer = "container:WebAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

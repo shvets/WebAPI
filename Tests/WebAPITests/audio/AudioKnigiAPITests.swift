@@ -236,7 +236,7 @@ class AudioKnigiAPITests: XCTestCase {
   }
 
   func testGetAudioTracks() throws {
-    let path = "http://audioknigi.club/alekseev-gleb-povesti-i-rasskazy"
+    let path = "http://audioknigi.club/geograf-globus-propil"
 
     let exp = expectation(description: "Gets audio tracks")
 

@@ -3,6 +3,7 @@ import SwiftSoup
 import Files
 import Alamofire
 import RxSwift
+import CryptoSwift
 
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
@@ -268,76 +269,41 @@ open class AudioKnigiAPI: HttpService {
   }
 
   public func getAudioTracks(_ url: String) -> Observable<[Track]> {
-    var bookId = 0
-
     return httpRequestRx(url).map { data in
       if let document = try self.toDocument(data) {
+        var bookId = 0
+        var security_ls_key = ""
+        var session_id = ""
+
         let scripts = try document.select("script[type='text/javascript']")
 
         for script in scripts {
-          let scriptBody =  try script.html()
+          let text = try script.html()
 
-          let index = scriptBody.find("$(document).audioPlayer")
+          if let id = try self.getBookId(text: text) {
+            bookId = id
+          }
 
-          if index != nil {
-            let index1 = scriptBody.index(scriptBody.startIndex, offsetBy: "$(document).audioPlayer".count+1)
-            let index2 = scriptBody.find(",")!
+          if let securityLsKey = try self.getSecurityLsKey(text: text) {
+            security_ls_key = securityLsKey
+          }
 
-            bookId = Int(scriptBody[index1..<index2])!
-
-            break
+          if let sessionId = try self.getSessionId(text: text) {
+            session_id = sessionId
           }
         }
+
+        //security_ls_key = "8af4d32fcbbca394d0612bc3820e422a"
+
+        let data = self.getData(bid: bookId, security_ls_key: security_ls_key)
+
+        let newUrl = "\(AudioKnigiAPI.SiteUrl)/ajax/bid/\(bookId)"
 
         var newTracks = [Track]()
 
-//        if bookId > 0 {
-//          let newUrl = "\(AudioKnigiAPI.SiteUrl)/rest/bid/\(bookId)"
-//
-//          let response = self.httpRequest(newUrl)
-//
-//          if let data = response?.data {
-//            if let result = try? data.decoded() as [Track] {
-//              newTracks = result
-//            }
-//          }
-//        }
+        //session_id = "n9fo46jbhr5v5lup3r3j0h0fk7"
 
-        if bookId > 0 {
-          let newUrl = "\(AudioKnigiAPI.SiteUrl)/ajax/bid/\(bookId)"
-
-          let headers: [String: String] = [
-            ":authority": "audioknigi.club",
-            ":method": "POST",
-            ":path": "/ajax/bid/40239",
-            ":scheme": "https",
-            "accept": "application/json, text/javascript,*/*; q=0.01",
-            "x-requested-with": "XMLHttpRequest",
-            "origin": "https://audioknigi.club",
-            "referer": "https://audioknigi.club/alekseev-gleb-povesti-i-rasskazy",
-            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
-          ]
-
-          let searchData: [String: Any] = [
-            "bid": "40239",
-//            "hash": [
-//              "ct": "tBggIjTxT0zhj2AxPwT8Rf5vhT/h+8h4UKZTQJFzJb3gUSCjei850cr4tOFWy8kE",
-//              "iv": "9fdc5aaecec5c1eda7c5b210429a9ac5",
-//              "s": "30baf43c094939bc"
-//            ],
-            "security_ls_key": "2da673262dfeb2bda4a66d68335f0804"
-          ]
-
-          let response = self.httpRequest(newUrl, headers: headers, parameters: searchData, method: .post)
-
-          if let data = response?.data {
-            print(String(data: data, encoding: .utf8))
-            if let result = try? data.decoded() as Tracks {
-              newTracks = result.aItems
-            }
-          }
-        }
+        newTracks = self.postRequest(url: newUrl, body: data, sessionId: session_id)
 
         return newTracks
       }
@@ -345,6 +311,175 @@ open class AudioKnigiAPI: HttpService {
       return []
     }
   }
+
+  func getBookId(text: String) throws -> Int? {
+    var bid: Int?
+
+    let pattern = "\\$\\(document\\)\\.audioPlayer\\((\\d{5,7}),"
+
+    let regex = try NSRegularExpression(pattern: pattern)
+
+    let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+
+    if let match = self.getMatched(text, matches: matches, index: 1) {
+      bid = Int(match)
+    }
+
+    return bid
+  }
+
+  func getSecurityLsKey(text: String) throws -> String? {
+    var security_ls_key: String?
+
+    let pattern = "var\\s+(LIVESTREET_SECURITY_KEY\\s+=\\s+'.*');"
+
+    let regex = try NSRegularExpression(pattern: pattern)
+
+    let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+
+    let match = self.getMatched(text, matches: matches, index: 1)
+
+    if let match = match, !match.isEmpty {
+      let index = match.find("'")!
+      let index1 = match.index(index, offsetBy: 1)
+      let index2 = match.find("';")!
+
+      security_ls_key = String(match[index1..<index2])
+    }
+
+    return security_ls_key
+  }
+
+  func getSessionId(text: String) throws -> String? {
+    var sessionId: String?
+
+    let pattern = "var\\s+(SESSION_ID\\s+=\\s+'.*');"
+
+    let regex = try NSRegularExpression(pattern: pattern)
+
+    let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+
+    let match = self.getMatched(text, matches: matches, index: 1)
+
+    if let match = match, !match.isEmpty {
+      let index = match.find("'")!
+      let index1 = match.index(index, offsetBy: 1)
+      let index2 = match.find("';")!
+
+      sessionId = String(match[index1..<index2])
+    }
+
+    return sessionId
+  }
+
+  func getData(bid: Int, security_ls_key: String) -> String {
+    let secretPassphrase = "EKxtcg46V";
+
+    let AES = CryptoJS.AES()
+
+    let encrypted = AES.encrypt("\"" + security_ls_key + "\"", password: secretPassphrase)
+
+//    var values: [String: String] = [
+//      //    var ct = encrypted.ciphertext.toString(CryptoJS.enc.Base64);
+//      "ct": encrypted[0],
+//      "iv": encrypted[1],
+//      "s": encrypted[2]
+//    ]
+
+//    let ct = "yWrnEqz/ujnSipf6ZDUrrF2OcrhZq+Nudy9eDefd0WqF25fH4r+kuUst8mYwrbDF"
+//    let iv = "2d1fb485279819b1d20ffb5f44b5a8ab"
+//    let salt = "a49ca3fd98f89f27"
+
+    let ct = encrypted[0]
+    let iv = encrypted[1]
+    let salt = encrypted[2]
+
+    let hashString = "{" +
+      "\"ct\":\"" + ct + "\"," +
+      "\"iv\":\"" + iv + "\"," +
+      "\"s\":\"" + salt + "\"" +
+      "}"
+
+    var hash = hashString
+      //percentEscapeString(hashString)
+      .replacingOccurrences(of: "{", with: "%7B")
+      .replacingOccurrences(of: "}", with: "%7D")
+      .replacingOccurrences(of: ",", with: "%2C")
+      .replacingOccurrences(of: "/", with: "%2F")
+      .replacingOccurrences(of: "\"", with: "%22")
+      .replacingOccurrences(of: ":", with: "%3A")
+      .replacingOccurrences(of: "+", with: "%2B")
+
+    return "bid=\(bid)&hash=\(hash)&security_ls_key=\(security_ls_key)"
+  }
+
+//  private func percentEscapeString(_ string: String) -> String {
+//    var characterSet = CharacterSet.alphanumerics
+//    characterSet.insert(charactersIn: "-._* ")
+//
+//    return string
+//      .addingPercentEncoding(withAllowedCharacters: characterSet)!
+//      .replacingOccurrences(of: " ", with: "+")
+//      .replacingOccurrences(of: " ", with: "+", options: [], range: nil)
+//  }
+
+  func postRequest(url: String, body: String, sessionId: String) -> [Track] {
+    var newTracks = [Track]()
+
+    var request = URLRequest(url: URL(string: url)!)
+
+    request.httpMethod = HTTPMethod.post.rawValue
+    request.setValue("application/x-www-form-urlencoded; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+    request.setValue("PHPSESSID=\(sessionId)", forHTTPHeaderField: "cookie")
+
+    request.httpBody = body.data(using: .utf8, allowLossyConversion: false)!
+
+    let semaphore = DispatchSemaphore.init(value: 0)
+
+    Alamofire.request(request).responseData { (response) in
+      if let data = response.data {
+        print(String(data: data, encoding: .utf8)!)
+        if let result = try? data.decoded() as Tracks {
+          newTracks = result.aItems
+        }
+      }
+
+      semaphore.signal()
+    }
+
+    _ = semaphore.wait(timeout: DispatchTime.distantFuture)
+
+    return newTracks
+  }
+
+  func getMatched(_ link: String, matches: [NSTextCheckingResult], index: Int) -> String? {
+    var matched: String?
+
+    let match = matches.first
+
+    if let match = match, index < match.numberOfRanges {
+      let capturedGroupIndex = match.range(at: index)
+
+      let index1 = link.index(link.startIndex, offsetBy: capturedGroupIndex.location)
+      let index2 = link.index(index1, offsetBy: capturedGroupIndex.length-1)
+
+      matched = String(link[index1 ... index2])
+    }
+
+    return matched
+  }
+
+//  func JSONStringify(value: AnyObject, prettyPrinted: Bool = false) -> String {
+//    var options = prettyPrinted ? JSONSerialization.WritingOptions.prettyPrinted : nil
+//    if JSONSerialization.isValidJSONObject(value) {
+//      if let data = JSONSerialization.dataWithJSONObject(value, options: options!) {
+//        if let string = NSString(data: data, encoding: NSUTF8StringEncoding) {
+//          return string
+//        }
+//      }
+//    }
+//    return ""
+//  }
 
   public func getItemsInGroups(_ fileName: String) -> [NameClassifier.ItemsGroup] {
     var items: [NameClassifier.ItemsGroup] = []

@@ -15,7 +15,8 @@ let package = Package(
     .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "4.1.0"),
     .package(url: "https://github.com/scinfu/SwiftSoup", from: "1.7.2"),
     .package(url: "https://github.com/JohnSundell/Files", from: "2.0.1"),
-    .package(url: "https://github.com/shvets/ConfigFile", from: "1.1.0")
+    .package(url: "https://github.com/shvets/ConfigFile", from: "1.1.0"),
+//    .package(url: "https://github.com/krzyzanowskim/CryptoSwift.git", from: "0.11.0")
   ],
   targets: [
     .target(
@@ -27,7 +28,8 @@ let package = Package(
         "SwiftyJSON",
         "Files",
         "ConfigFile",
-        "RxSwift"
+        "RxSwift",
+        "CryptoSwift"
       ]),
     .target(
       name: "GrabBook",
