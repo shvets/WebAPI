@@ -3,7 +3,6 @@ import SwiftSoup
 import Files
 import Alamofire
 import RxSwift
-import CryptoSwift
 
 open class AudioKnigiAPI: HttpService {
   public static let SiteUrl = "https://audioknigi.club"
@@ -379,17 +378,6 @@ open class AudioKnigiAPI: HttpService {
 
     let encrypted = AES.encrypt("\"" + security_ls_key + "\"", password: secretPassphrase)
 
-//    var values: [String: String] = [
-//      //    var ct = encrypted.ciphertext.toString(CryptoJS.enc.Base64);
-//      "ct": encrypted[0],
-//      "iv": encrypted[1],
-//      "s": encrypted[2]
-//    ]
-
-//    let ct = "yWrnEqz/ujnSipf6ZDUrrF2OcrhZq+Nudy9eDefd0WqF25fH4r+kuUst8mYwrbDF"
-//    let iv = "2d1fb485279819b1d20ffb5f44b5a8ab"
-//    let salt = "a49ca3fd98f89f27"
-
     let ct = encrypted[0]
     let iv = encrypted[1]
     let salt = encrypted[2]
@@ -400,8 +388,7 @@ open class AudioKnigiAPI: HttpService {
       "\"s\":\"" + salt + "\"" +
       "}"
 
-    var hash = hashString
-      //percentEscapeString(hashString)
+    let hash = hashString
       .replacingOccurrences(of: "{", with: "%7B")
       .replacingOccurrences(of: "}", with: "%7D")
       .replacingOccurrences(of: ",", with: "%2C")
@@ -412,16 +399,6 @@ open class AudioKnigiAPI: HttpService {
 
     return "bid=\(bid)&hash=\(hash)&security_ls_key=\(security_ls_key)"
   }
-
-//  private func percentEscapeString(_ string: String) -> String {
-//    var characterSet = CharacterSet.alphanumerics
-//    characterSet.insert(charactersIn: "-._* ")
-//
-//    return string
-//      .addingPercentEncoding(withAllowedCharacters: characterSet)!
-//      .replacingOccurrences(of: " ", with: "+")
-//      .replacingOccurrences(of: " ", with: "+", options: [], range: nil)
-//  }
 
   func postRequest(url: String, body: String, sessionId: String) -> [Track] {
     var newTracks = [Track]()
@@ -440,7 +417,15 @@ open class AudioKnigiAPI: HttpService {
       if let data = response.data {
         print(String(data: data, encoding: .utf8)!)
         if let result = try? data.decoded() as Tracks {
-          newTracks = result.aItems
+          let result2 = result.aItems
+
+          let data3 = result2.data(using: .utf8)!
+
+          if let result3 = try? data3.decoded() as [Track] {
+            newTracks = result3
+          }
+
+          print(result)
         }
       }
 

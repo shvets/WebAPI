@@ -19,6 +19,9 @@ Pod::Spec.new do |s|
   #s.tvos.source_files = "Sources/**/*.swift"
   #s.osx.source_files = "Sources/**/*.swift"
   # s.ios.source_files = 'Source/{iOS,Shared}/**/*'
+   s.resource_bundles = {
+    'com.rubikon.WebAPI' => ['Sources/**/*.js']
+  }
 
   s.source_files = "Sources/**/*.swift"
 

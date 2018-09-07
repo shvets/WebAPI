@@ -15,7 +15,21 @@ open class CryptoJS{
 //            let currentBundle = Bundle.allBundles.filter() { $0.bundlePath.hasSuffix(".xctest") }.first!
 //            let realBundle = Bundle(path: "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/Sources/WebAPI/cryptojs")
 
-        return Bundle(path: "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/Sources/WebAPI/cryptojs/components")!
+    var bundle = Bundle(identifier: "com.rubikon.WebAPI")
+
+      let podBundle = Bundle(for: WebAPI.self)
+
+      if let bundleURL = podBundle.url(forResource: "com.rubikon.WebAPI", withExtension: "bundle") {
+        bundle = Bundle(url: bundleURL)!
+      }
+
+      let cryptoJSpath = bundle?.path(forResource: "aes", ofType: "js")
+
+        if cryptoJSpath == nil {
+            bundle = Bundle(path: "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/Sources/WebAPI/cryptojs/components")!
+        }
+
+        return bundle!
     }
 
     open class AES: CryptoJS{

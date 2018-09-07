@@ -12,13 +12,13 @@ extension AudioKnigiAPI {
   }
 
   public struct Tracks: Codable {
-    public let aItems: [Track]
+    public let aItems: String
     public let bStateError: Bool
     public let fstate: Bool
     public let sMsg: String
     public let sMsgTitle: String
 
-    public init(aItems: [Track], bStateError: Bool, fstate: Bool, sMsg: String, sMsgTitle: String) {
+    public init(aItems: String, bStateError: Bool, fstate: Bool, sMsg: String, sMsgTitle: String) {
       self.aItems = aItems
       self.bStateError = bStateError
       self.fstate = fstate
