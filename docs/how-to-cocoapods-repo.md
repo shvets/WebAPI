@@ -24,8 +24,7 @@ git push --tags
 
 - push your pod:
 
-pod repo push --allow-warnings yaga-specs AudioPlayer.podspec
-
+pod repo push --allow-warnings --skip-import-validation --skip-tests yaga-specs AudioPlayer.podspec
 
 5. In project that uses pod:
 
