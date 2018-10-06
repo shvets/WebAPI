@@ -46,7 +46,7 @@ open class HttpService2 {
     let url = URL(string: url)
     var request = URLRequest(url: url!)
 
-    for var (key, value) in headers {
+    for (key, value) in headers {
       request.setValue(key, forHTTPHeaderField: value)
     }
 
@@ -57,8 +57,8 @@ open class HttpService2 {
     let semaphore = DispatchSemaphore(value: 0)
 
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
-      print(error)
-      print(data)
+//      print(error)
+//      print(data)
 
       urlResponse = data
 

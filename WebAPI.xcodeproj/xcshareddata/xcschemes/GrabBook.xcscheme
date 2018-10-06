@@ -14,20 +14,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "WebAPI::WebAPI"
-               BuildableName = "WebAPI.framework"
-               BlueprintName = "WebAPI"
-               ReferencedContainer = "container:WebAPI.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "WebAPI::GrabBook"
                BuildableName = "GrabBook"
                BlueprintName = "GrabBook"
@@ -66,15 +52,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "WebAPI::WebAPI"
-            BuildableName = "WebAPI.framework"
-            BlueprintName = "WebAPI"
+            BlueprintIdentifier = "WebAPI::GrabBook"
+            BuildableName = "GrabBook"
+            BlueprintName = "GrabBook"
             ReferencedContainer = "container:WebAPI.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

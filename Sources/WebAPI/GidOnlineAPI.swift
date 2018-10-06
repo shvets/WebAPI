@@ -5,6 +5,7 @@ import Alamofire
 
 open class GidOnlineAPI: HttpService {
   public static let SiteUrl = "http://gidonline.club"
+  //public static let SiteUrl = "http://gidvkino.club"
   let UserAgent = "Gid Online User Agent"
 
   public static let CyrillicLetters = [
