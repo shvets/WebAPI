@@ -120,6 +120,9 @@ open class HttpService {
     if let dataResponse = fetchDataResponse(url, headers: headers, parameters: parameters, method: method),
       let data = dataResponse.data,
       let html = String(data: data, encoding: encoding) {
+
+      // print(html)
+
       document = try SwiftSoup.parse(html)
     }
     

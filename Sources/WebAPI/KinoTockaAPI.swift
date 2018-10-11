@@ -82,17 +82,17 @@ open class KinoTochkaAPI: HttpService {
     return ["pagination": result["pagination"] as Any, "movies": try sanitizeNames(result["movies"] as! [Any])]
   }
 
-  private func fixShowType(_ movies: Any) throws -> [Any] {
-    var newMovies = [Any]()
-
-    for var movie in movies as! [[String: String]] {
-      movie["type"] = "serie"
-
-      newMovies.append(movie)
-    }
-
-    return newMovies
-  }
+//  private func fixShowType(_ movies: Any) throws -> [Any] {
+//    var newMovies = [Any]()
+//
+//    for var movie in movies as! [[String: String]] {
+//      movie["type"] = "serie"
+//
+//      newMovies.append(movie)
+//    }
+//
+//    return newMovies
+//  }
 
   public func getMovies(_ path: String, page: Int=1, serie: Bool=false) throws -> [String: Any] {
     var data = [Any]()
