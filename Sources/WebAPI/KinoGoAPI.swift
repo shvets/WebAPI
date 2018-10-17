@@ -210,7 +210,7 @@ open class KinoGoAPI: HttpService {
       }
     }
 
-    if !found720 {
+    if !found720 && urls.count > 0 {
       urls[urls.count-1] = urls[urls.count-1].replacingOccurrences(of: "480", with: "720")
     }
 

@@ -97,7 +97,7 @@ class KinoGoAPITests: XCTestCase {
   }
 
   func testGetUrls() throws {
-    let path = "/9958-leo-da-vinci-mission-mona-lisa_2018_12-05.html"
+    let path = "/11380-monstry-na-kanikulah-3_2018-25-09.html"
 
     let list = try subject.getUrls(KinoGoAPI.SiteUrl + path)
 
