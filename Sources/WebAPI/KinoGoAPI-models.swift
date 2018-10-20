@@ -11,6 +11,21 @@ extension KinoGoAPI {
       }
     }
 
+    public var name: String {
+      get {
+        let pattern = "(<br/><i>.*</i>)"
+
+        do {
+          let regex = try NSRegularExpression(pattern: pattern)
+
+          return regex.stringByReplacingMatches(in: self.comment, options: [], range: NSMakeRange(0, self.comment.count), withTemplate: "")
+        }
+        catch {
+          return self.comment
+        }
+      }
+    }
+
     enum CodingKeys: String, CodingKey {
       case comment
       case file

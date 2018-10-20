@@ -25,6 +25,12 @@ open class KinoGoAPI: HttpService {
     }
   }
 
+  public func getCookie(url: String) -> String? {
+    let response: DataResponse<Data>? = httpRequest(url)
+
+    return response?.response?.allHeaderFields["Set-Cookie"] as? String
+  }
+
   func getPagePath(_ path: String, page: Int=1) -> String {
     if page == 1 {
       return path

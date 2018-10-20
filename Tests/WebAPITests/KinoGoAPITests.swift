@@ -11,6 +11,16 @@ class KinoGoAPITests: XCTestCase {
     XCTAssertEqual(result, true)
   }
 
+  func testGetCookie() throws {
+    if let result = subject.getCookie(url: "https://kinogo.by/11361-venom_2018_08-10.html") {
+      print(result)
+
+      XCTAssertNotNil(result)
+    } else {
+      XCTFail("Empty result")
+    }
+  }
+
   func testGetAllCategories() throws {
     let list = try subject.getAllCategories()
 
@@ -156,6 +166,8 @@ class KinoGoAPITests: XCTestCase {
     let list = try subject.getSeasons(KinoGoAPI.SiteUrl + path)
 
     print(list)
+//    print(list.first!.playlist.first!.comment)
+//    print(list.first!.playlist.first!.name)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
