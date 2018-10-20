@@ -151,7 +151,7 @@ class KinoGoAPITests: XCTestCase {
   }
 
   func testGetSeasons() throws {
-    let path = "/3340-sladkaya-zhizn_1-2-3-sezon_20-09.html"
+    let path = "/14452-fitnes-1-sezon_2018_17-10.html"
 
     let list = try subject.getSeasons(KinoGoAPI.SiteUrl + path)
 

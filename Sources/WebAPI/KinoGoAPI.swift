@@ -320,7 +320,7 @@ open class KinoGoAPI: HttpService {
     ]
   }
 
-  public func getSeasons(_ path: String, _ thumb: String?=nil) throws -> [Season] {
+  public func getSeasons(_ path: String, _ name: String?=nil, _ thumb: String?=nil) throws -> [Season] {
     var list: [Season] = []
 
     if let document = try getDocument(path) {
@@ -349,7 +349,6 @@ open class KinoGoAPI: HttpService {
               let playlistContent = text6.replacingOccurrences(of: "'", with: "\"")
                 .replacingOccurrences(of: ":", with: ": ")
                 .replacingOccurrences(of: ",", with: ", ")
-              print(playlistContent)
 
               if let localizedData = playlistContent.data(using: .utf8) {
                 if let seasons = try? localizedData.decoded() as [Season] {
@@ -357,9 +356,13 @@ open class KinoGoAPI: HttpService {
                     list.append(season)
                   }
                 }
-//                else if let result = try? localizedData.decoded() as SingleSeasonPlayList {
-//                  //list = buildEpisodes(result.playlist)
-//                }
+                else if let result = try? localizedData.decoded() as [Episode] {
+                  let comment = (name != nil) ? name! : ""
+
+                  let season = Season(comment: comment, playlist: result)
+
+                  list.append(season)
+                }
               }
               break
             }
@@ -368,95 +371,8 @@ open class KinoGoAPI: HttpService {
       }
     }
 
-//    var found720 = false
-//
-//    for url in urls {
-//      if url.find("720.mp4") != nil {
-//        found720 = true
-//      }
-//    }
-//
-//    if !found720 {
-//      urls[urls.count-1] = urls[urls.count-1].replacingOccurrences(of: "480", with: "720")
-//    }
-
-    //return urls.reversed()
-
     return list
-
-//    var data = [Any]()
-//
-//    if let document = try getDocument(path) {
-//      let items = try document.select("div[id=videoplayer] uppod_player_div")
-//
-//      for item: Element in items.array() {
-//        let links = try item.select("li a");
-//
-//        for link in links {
-//          let href = try link.attr("href")
-//          let name = try link.text()
-//
-//          var item = ["id": href, "name": name, "type": "season"]
-//
-//          if let thumb = thumb {
-//            item["thumb"] = thumb
-//          }
-//
-//          data.append(item)
-//        }
-//      }
-//
-//      if items.array().count > 0 {
-//        for item: Element in items.array() {
-//          let name = try item.select("li b").text()
-//
-//          var item = ["id": path, "name": name, "type": "season"]
-//
-//          if let thumb = thumb {
-//            item["thumb"] = thumb
-//          }
-//
-//          data.append(item)
-//        }
-//      }
-//      else {
-//        var item = ["id": path, "name": "Сезон 1", "type": "season"]
-//
-//        if let thumb = thumb {
-//          item["thumb"] = thumb
-//        }
-//
-//        data.append(item)
-//      }
-//    }
-//
-//    return data
   }
-
-//
-//  func buildEpisodes(_ playlist: [Episode]) -> [Episode] {
-//    var episodes: [Episode] = []
-//
-//    for item in playlist {
-//      let filesStr = item.file.components(separatedBy: ",")
-//
-//      var files: [String] = []
-//
-//      for item in filesStr {
-//        if !item.isEmpty {
-//          files.append(item)
-//        }
-//      }
-//
-//      episodes.append(Episode(comment: item.comment, file: item.file, files: files))
-//    }
-//
-//    return episodes
-//  }
-
-//  public func buildEpisode(comment: String, files: [String]) -> Episode {
-//    return Episode(comment: comment, file: "file", files: files)
-//  }
 
   func getHeaders(_ referer: String="") -> [String: String] {
     var headers = [

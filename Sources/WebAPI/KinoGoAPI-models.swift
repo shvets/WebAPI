@@ -5,13 +5,11 @@ extension KinoGoAPI {
     public let comment: String
     public let file: String
 
-    public var files: [String] = []
-
-//    public var name: String {
-//      get {
-//        return comment.replacingOccurrences(of: "<br>", with: " ")
-//      }
-//    }
+    public var files: [String] {
+      get {
+        return file.split(separator: ",").map {String($0).trim().replacingOccurrences(of: " ", with: "") }
+      }
+    }
 
     enum CodingKeys: String, CodingKey {
       case comment
