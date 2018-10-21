@@ -35,9 +35,9 @@ class KinoGoAPITests: XCTestCase {
 
   func testGetCategoriesByGroup() throws {
     print(try subject.getCategoriesByTheme())
-    print(try subject.getCategoriesByYear())
-    print(try subject.getCategoriesByCountry())
-    print(try subject.getCategoriesBySerie())
+//    print(try subject.getCategoriesByYear())
+//    print(try subject.getCategoriesByCountry())
+//    print(try subject.getCategoriesBySerie())
 
 //    XCTAssertNotNil(list)
 //    XCTAssert(list.count > 0)
@@ -99,6 +99,25 @@ class KinoGoAPITests: XCTestCase {
 
   func testGetTvShows() throws {
     let list = try subject.getTvShows()
+
+    print(list)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testGetMoviesByCountry() throws {
+    print("Франция".addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!)
+    let list = try subject.getMoviesByCountry(country: "/tags/Франция/")
+//https://kinogo.by/tags/%D0%A4%D1%80%D0%B0%D0%BD%D1%86%D0%B8%D1%8F/
+    print(list)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testGetMoviesByYear() throws {
+    let list = try subject.getMoviesByYear(year: 2008)
 
     print(list)
 

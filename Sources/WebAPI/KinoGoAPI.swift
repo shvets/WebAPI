@@ -41,15 +41,19 @@ open class KinoGoAPI: HttpService {
   }
 
   public func getCategoriesByTheme() throws -> [[String: String]] {
-    return try getAllCategories()["Категории"]!
-  }
+    var categories = try getAllCategories()["Категории"]!
 
-  public func getCategoriesByYear() throws -> [[String: String]] {
-    return try getAllCategories()["По году"]!
+    categories.remove(at: categories.index(categories.endIndex, offsetBy: -1))
+
+    return categories
   }
 
   public func getCategoriesByCountry() throws -> [[String: String]] {
     return try getAllCategories()["По странам"]!
+  }
+
+  public func getCategoriesByYear() throws -> [[String: String]] {
+    return try getAllCategories()["По году"]!
   }
 
   public func getCategoriesBySerie() throws -> [[String: String]] {
@@ -140,8 +144,20 @@ open class KinoGoAPI: HttpService {
     return ["pagination": result["pagination"] as Any, "movies": try sanitizeNames(result["movies"] as! [Any])]
   }
 
+  public func getMoviesByCategory(category: String, page: Int=1) throws -> [String: Any] {
+    let encoded = category.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+    return try getMovies("\(encoded)", page: page)
+  }
+
+  public func getMoviesByCountry(country: String, page: Int=1) throws -> [String: Any] {
+    let encoded = country.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+    return try getMovies("\(encoded)", page: page)
+  }
+
   public func getMoviesByYear(year: Int, page: Int=1) throws -> [String: Any] {
-    return try getMovies("/tag/\(year)", page: page)
+    return try getMovies("/tags/\(year)/", page: page)
   }
 
   public func getMovies(_ path: String, page: Int=1, serie: Bool=false) throws -> [String: Any] {
@@ -158,7 +174,14 @@ open class KinoGoAPI: HttpService {
         let name = try item.select("div[class=shortstorytitle] h2 a").text()
         let thumb = try item.select("div[class=shortimg] a img").first()!.attr("src")
 
-        let type = serie ? "serie" : "movie";
+        var type: String
+
+        if name.contains("Сезон") || name.contains("сезон") {
+          type = "serie"
+        }
+        else {
+          type = serie ? "serie" : "movie"
+        }
 
         data.append(["id": href, "name": name, "thumb": KinoGoAPI.SiteUrl + thumb, "type": type])
       }
