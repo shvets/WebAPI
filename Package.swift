@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
   name: "WebAPI",
   products: [
-    .library(name: "WebAPI", targets: ["WebAPI"]),
+    .library(name: "WebAPI", type: .dynamic, targets: ["WebAPI"]),
     .executable(name: "grabbook", targets: ["GrabBook"])
   ],
   dependencies: [

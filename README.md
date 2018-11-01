@@ -65,6 +65,7 @@ swift test -l
 swift test -s <testname>
 swift package show-dependencies
 swift package show-dependencies --format json
+swift -I .build/debug -L .build/debug -lWebAPI
 
 git tag 1.0.0
 git push --tags

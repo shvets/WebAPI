@@ -272,10 +272,10 @@ open class BookZvookAPI: HttpService {
       if items.count == 1 {
         let text = try items[0].text()
 
-        if let index1 = text.find("из") {
+        if let index1 = try text.find("из") {
           let index2 = text.index(index1, offsetBy: 3)
 
-          pages = Int(text[index2..<text.endIndex])!
+          pages = Int(String(text[index2..<text.endIndex]).replacingOccurrences(of: " ", with: ""))!
         }
       }
     }
