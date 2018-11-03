@@ -232,8 +232,8 @@ open class KinoKongAPI: HttpService {
         let text = try item.html()
 
         if !text.isEmpty {
-          let index1 = text.find("\"file\":\"")
-          let index2 = text.find("\"};")
+          let index1 = text.find("\", file:\"")
+          let index2 = text.find("\"});")
 
           if let startIndex = index1, let endIndex = index2 {
             urls = text[text.index(startIndex, offsetBy: 8) ..< endIndex].components(separatedBy: ",")
@@ -244,7 +244,19 @@ open class KinoKongAPI: HttpService {
       }
     }
 
-    return urls.reversed()
+    var newUrls: [String] = []
+
+    for url in urls {
+      if !url.hasPrefix("cuid:") {
+        let newUrl = url.replacingOccurrences(of: "\"", with: "")
+            .replacingOccurrences(of: "[720]", with: "")
+            .replacingOccurrences(of: "[480]", with: "")
+
+          newUrls.append(newUrl)
+      }
+    }
+
+    return newUrls.reversed()
   }
 
   public func getSeriePlaylistUrl(_ path: String) throws -> String {

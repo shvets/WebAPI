@@ -148,7 +148,7 @@ class KinoGoAPITests: XCTestCase {
 //  }
 
   func testSearch() throws {
-    let query = "красный"
+    let query = "мердок"
 
     let list = try subject.search(query)
 

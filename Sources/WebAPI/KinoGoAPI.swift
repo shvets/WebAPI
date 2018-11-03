@@ -305,7 +305,7 @@ open class KinoGoAPI: HttpService {
 
         let name = try title.text()
 
-        let href = try shortimg.select("img").attr("title")
+        let href = try shortimg.select("div a").attr("href")
 
         let description = try shortimg.select("div div").text()
         let thumb = try shortimg.select("img").first()!.attr("src")

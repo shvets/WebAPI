@@ -88,7 +88,7 @@ class KinoTochkaAPITests: XCTestCase {
   }
 
   func testSearch() throws {
-    let query = "красный"
+    let query = "ивановы"
 
     let list = try subject.search(query)
 
