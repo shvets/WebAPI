@@ -41,6 +41,19 @@ class AudioBooAPITests: XCTestCase {
     waitForExpectations(timeout: 10, handler: nil)
   }
 
+  func testGetAllBooks() throws {
+    do {
+      let result = try self.subject.getAllBooks()
+
+      print(result as Any)
+
+      XCTAssert(result.count > 0)
+    }
+    catch let e {
+      XCTFail(e.localizedDescription)
+    }
+  }
+
   func testGetBooks() throws {
     let exp = expectation(description: "Gets new books")
 

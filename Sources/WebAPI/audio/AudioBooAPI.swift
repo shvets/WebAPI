@@ -87,6 +87,28 @@ open class AudioBooAPI: HttpService {
     return NameClassifier().mergeSmallGroups(newGroups)
   }
 
+  public func getAllBooks(page: Int=1) throws -> [Any] {
+    var data = [Any]()
+
+    let pagePath = page == 1 ? "" : "page/\(page)/"
+
+    print(AudioBooAPI.SiteUrl + "/" + pagePath)
+
+    if let document = try getDocument(AudioBooAPI.SiteUrl + "/" + pagePath) {
+      let items = try document.select("div[id=dle-content] div[class=biography-main]")
+
+      for item: Element in items.array() {
+        let name = try item.select("div[class=biography-title] h2 a").text()
+        let href = try item.select("div div[class=biography-image] a").attr("href")
+        let thumb = try item.select("div div[class=biography-image] a img").attr("src")
+
+        data.append(["type": "book", "id": href, "name": name, "thumb": AudioBooAPI.SiteUrl + thumb])
+      }
+    }
+
+    return data
+  }
+
   public func getBooks(_ url: String, page: Int=1) throws -> [Any] {
     var data = [Any]()
 
