@@ -10,7 +10,6 @@ let package = Package(
   ],
   dependencies: [
     .package(url: "https://github.com/Alamofire/Alamofire", from: "4.7.3"),
-    //.package(url: "https://github.com/3lvis/Networking.git", from: "4.3.0"),
     .package(url: "https://github.com/ReactiveX/RxSwift", from: "4.3.1"),
     .package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", from: "4.1.0"),
     .package(url: "https://github.com/scinfu/SwiftSoup", from: "1.7.4"),
@@ -22,7 +21,6 @@ let package = Package(
       name: "WebAPI",
       dependencies: [
         "Alamofire",
-//        "Networking",
         "SwiftSoup",
         "SwiftyJSON",
         "Files",

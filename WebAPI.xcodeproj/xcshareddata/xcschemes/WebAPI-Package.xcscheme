@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "WebAPI::GrabBook"
-               BuildableName = "GrabBook"
-               BlueprintName = "GrabBook"
+               BlueprintIdentifier = "WebAPI::WebAPI"
+               BuildableName = "WebAPI.framework"
+               BlueprintName = "WebAPI"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "WebAPI::WebAPI"
-               BuildableName = "WebAPI.framework"
-               BlueprintName = "WebAPI"
+               BlueprintIdentifier = "WebAPI::GrabBook"
+               BuildableName = "GrabBook"
+               BlueprintName = "GrabBook"
                ReferencedContainer = "container:WebAPI.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -69,9 +69,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "WebAPI::GrabBook"
-            BuildableName = "GrabBook"
-            BlueprintName = "GrabBook"
+            BlueprintIdentifier = "WebAPI::WebAPI"
+            BuildableName = "WebAPI.framework"
+            BlueprintName = "WebAPI"
             ReferencedContainer = "container:WebAPI.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
