@@ -52,7 +52,9 @@ open class DownloadManager {
       let path = track.url
       let name = track.title
 
-      download(name: "\(name).mp3", path: path, bookDir: currentAlbum == nil ? bookDir + currentAlbum! : bookDir)
+      let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+
+      download(name: "\(name).mp3", path: encodedPath, bookDir: currentAlbum == nil ? bookDir :  bookDir + currentAlbum!)
     }
   }
 
@@ -109,13 +111,11 @@ open class DownloadManager {
   }
 
   func download(name: String, path: String, bookDir: String) {
-    let encodedPath = path.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
-
     let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
     let fileURL = documentsURL.appendingPathComponent(bookDir).appendingPathComponent(name)
 
-    downloadTrack(from: encodedPath, to: fileURL)
+    downloadTrack(from: path, to: fileURL)
   }
 
   func downloadTrack(from: String, to: URL) {

@@ -413,9 +413,10 @@ open class AudioKnigiAPI: HttpService {
 
     let semaphore = DispatchSemaphore.init(value: 0)
 
-    Alamofire.request(request).responseData { (response) in
+    let utilityQueue = DispatchQueue.global(qos: .utility)
+
+    Alamofire.request(request).responseData(queue: utilityQueue) { (response) in
       if let data = response.data {
-        print(String(data: data, encoding: .utf8)!)
         if let result = try? data.decoded() as Tracks {
           let result2 = result.aItems
 
@@ -424,12 +425,10 @@ open class AudioKnigiAPI: HttpService {
           if let result3 = try? data3.decoded() as [Track] {
             newTracks = result3
           }
-
-          print(result)
         }
       }
 
-      semaphore.signal()
+     semaphore.signal()
     }
 
     _ = semaphore.wait(timeout: DispatchTime.distantFuture)
