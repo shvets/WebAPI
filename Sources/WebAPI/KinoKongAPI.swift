@@ -418,7 +418,12 @@ open class KinoKongAPI: HttpService {
           href = String(href[index ..< href.endIndex])
         }
 
-        let type = seasonNode.isEmpty ? "movie" : "serie"
+        var type = seasonNode.isEmpty ? "movie" : "serie"
+        
+        if name.contains("Сезон") || name.contains("сезон") {
+          type = "serie"
+        }
+        
         data.append(["id": href, "name": name, "thumb": thumb, "type": type])
       }
 

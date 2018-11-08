@@ -314,7 +314,7 @@ open class AudioKnigiAPI: HttpService {
   func getBookId(text: String) throws -> Int? {
     var bid: Int?
 
-    let pattern = "\\$\\(document\\)\\.audioPlayer\\((\\d{5,7}),"
+    let pattern = "\\$\\(document\\)\\.audioPlayer\\((\\d{2,7}),"
 
     let regex = try NSRegularExpression(pattern: pattern)
 

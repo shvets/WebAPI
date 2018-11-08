@@ -26,7 +26,7 @@ open class CryptoJS{
       let cryptoJSpath = bundle?.path(forResource: "aes", ofType: "js")
 
         if cryptoJSpath == nil {
-            bundle = Bundle(path: "/Users/alex/Dropbox/Alex/work/projects/swift/YagaTV/WebAPI/Sources/WebAPI/cryptojs/components")!
+            bundle = Bundle(path: "\(NSHomeDirectory())/Dropbox/Projects/swift/YagaTV/WebAPI/Sources/WebAPI/cryptojs/components")!
         }
 
         return bundle!
