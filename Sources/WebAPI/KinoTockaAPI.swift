@@ -68,8 +68,12 @@ open class KinoTochkaAPI: HttpService {
     return newMovies
   }
 
-  public func getAnimations(page: Int=1) throws -> [String: Any] {
-    return try getMovies("/cartoon/", page: page)
+  public func getRussianAnimations(page: Int=1) throws -> [String: Any] {
+    return try getMovies("/cartoon/otechmult/", page: page)
+  }
+
+  public func getForeignAnimations(page: Int=1) throws -> [String: Any] {
+    return try getMovies("/cartoon/zarubezmult/", page: page)
   }
 
   public func getAnime(page: Int=1) throws -> [String: Any] {

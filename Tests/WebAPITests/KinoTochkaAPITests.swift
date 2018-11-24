@@ -38,8 +38,17 @@ class KinoTochkaAPITests: XCTestCase {
     XCTAssert(list.count > 0)
   }
 
-  func testGetAnimations() throws {
-    let list = try subject.getAnimations()
+  func testGetRussianAnimations() throws {
+    let list = try subject.getRussianAnimations()
+
+    // print(list)
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
+
+  func testGetForeignAnimations() throws {
+    let list = try subject.getForeignAnimations()
 
     // print(list)
 
