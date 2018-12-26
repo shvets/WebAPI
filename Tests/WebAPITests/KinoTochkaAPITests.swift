@@ -75,7 +75,7 @@ class KinoTochkaAPITests: XCTestCase {
   }
   
   func testGetUrls() throws {
-    let path = "/5271-lara-kroft-3-2018.html"
+    let path = "/10474-uteya-22-iyulya-2018.html"
 
     let list = try subject.getUrls(KinoTochkaAPI.SiteUrl + path)
 

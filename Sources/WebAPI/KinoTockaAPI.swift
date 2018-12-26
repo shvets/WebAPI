@@ -112,7 +112,11 @@ open class KinoTochkaAPI: HttpService {
         let name = try item.select("div[class=custom1-title").text()
         let thumb = try item.select("a[class=custom1-img] img").first()!.attr("src")
 
-        let type = serie ? "serie" : "movie";
+        var type = serie ? "serie" : "movie";
+
+        if name.contains("Сезон") || name.contains("сезон") {
+          type = "serie"
+        }
 
         data.append(["id": href, "name": name, "thumb": thumb, "type": type])
       }
@@ -135,17 +139,17 @@ open class KinoTochkaAPI: HttpService {
         let text = try item.html()
 
         if !text.isEmpty {
-          let index1 = text.find("\"file\":\"")
+          let index1 = text.find("file:\"")
 
           if let startIndex = index1 {
             let text2 = String(text[startIndex..<text.endIndex])
 
             let text3 = text2.replacingOccurrences(of: "[480,720]", with: "720")
 
-            let index2 = text3.find("\", embedcode:")
+            let index2 = text3.find("\", ")
 
             if let endIndex = index2 {
-              urls = text3[text.index(text3.startIndex, offsetBy: 8) ..< endIndex].components(separatedBy: ",")
+              urls = text3[text.index(text3.startIndex, offsetBy: 6) ..< endIndex].components(separatedBy: ",")
 
               break
             }

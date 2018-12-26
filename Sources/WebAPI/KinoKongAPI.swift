@@ -4,8 +4,9 @@ import Alamofire
 //import Networking
 
 open class KinoKongAPI: HttpService {
-  public static let SiteUrl = "http://kinokong2.com"
-  let UserAgent = "KinoKong User Agent"
+  public static let SiteUrl = "http://kinokong.net"
+  //let UserAgent = "Kino Kong User Agent"
+  let UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"
 
   public func getDocument(_ url: String) throws -> Document? {
     return try fetchDocument(url, headers: getHeaders(), encoding: .windowsCP1251)
@@ -517,8 +518,8 @@ open class KinoKongAPI: HttpService {
   func getHeaders(_ referer: String="") -> [String: String] {
     var headers: [String: String] = [
       "User-Agent": UserAgent,
-      "Host": "kinokong2.com",
-      "Referer": "http://kinokong2.com/",
+      "Host": "kinokong.net",
+      "Referer": "http://kinokong.net/",
       "Upgrade-Insecure-Requests": "1"
     ];
 

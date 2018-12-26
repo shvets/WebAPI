@@ -49,7 +49,7 @@ class KinoKongAPITests: XCTestCase {
   }
 
   func testGetUrls() throws {
-    let path = "/34499-spasti-leningrad-2019.html"
+    let path = "/34009-dominika-2018-online.html"
 
     let list = try subject.getUrls(path)
 

@@ -4,8 +4,8 @@ import SwiftyJSON
 import Alamofire
 
 open class GidOnlineAPI: HttpService {
-  public static let SiteUrl = "http://gidonline.club"
-  //public static let SiteUrl = "http://gidvkino.club"
+  //public static let SiteUrl = "http://gidonline.club"
+  public static let SiteUrl = "http://gidvkino.club"
   let UserAgent = "Gid Online User Agent"
 
   public static let CyrillicLetters = [
@@ -312,7 +312,7 @@ open class GidOnlineAPI: HttpService {
 
     let frameBlock = try document.select("div[class=tray]").array()[0]
 
-    var urls = try frameBlock.select("iframe[class=ifram]").attr("src")
+    var urls = try frameBlock.select("iframe").attr("src")
 
     if !urls.isEmpty {
       gatewayUrl = urls
@@ -342,7 +342,7 @@ open class GidOnlineAPI: HttpService {
     var data = [Any]()
     var paginationData = [String: Any]()
 
-    let items = try document.select("div[id=main] div[id=posts] a[class=mainlink]")
+    let items = try document.select("div[id=main] div[id=posts] div[class=mainlink] a")
 
     for item: Element in items.array() {
       let href = try item.attr("href")
@@ -368,28 +368,34 @@ open class GidOnlineAPI: HttpService {
     if !paginationRoot.array().isEmpty {
       let paginationBlock = paginationRoot.get(0)
 
-      page = try Int(paginationBlock.select("span[class=current]").text())!
+      print(try paginationBlock.select("span").array()[1].text())
 
-      let lastBlock = try paginationBlock.select("a[class=last]")
+      page = try Int(try paginationBlock.select("span").array()[1].text())!
 
-      if !lastBlock.array().isEmpty {
-        let pagesLink = try lastBlock.get(0).attr("href")
+      let links = try paginationBlock.select("a").array()
 
-        pages = try findPages(path, link: pagesLink)
-      }
-      else {
-        let pageBlock = try paginationBlock.select("a[class='page larger']")
-        let pagesLen = pageBlock.array().count
+      pages = try Int(links[links.count-2].text())!
 
-        if pagesLen == 0 {
-          pages = page
-        }
-        else {
-          let pagesLink = try pageBlock.get(pagesLen - 1).attr("href")
-
-          pages = try findPages(path, link: pagesLink)
-        }
-      }
+//      let lastBlock = try paginationBlock.select("a[class=last]")
+//
+//      if !lastBlock.array().isEmpty {
+//        let pagesLink = try lastBlock.get(0).attr("href")
+//
+//        pages = try findPages(path, link: pagesLink)
+//      }
+//      else {
+//        let pageBlock = try paginationBlock.select("a[class='page larger']")
+//        let pagesLen = pageBlock.array().count
+//
+//        if pagesLen == 0 {
+//          pages = page
+//        }
+//        else {
+//          let pagesLink = try pageBlock.get(pagesLen - 1).attr("href")
+//
+//          pages = try findPages(path, link: pagesLink)
+//        }
+//      }
     }
 
     return [
@@ -415,10 +421,10 @@ open class GidOnlineAPI: HttpService {
 
     let parameters = getRequestParams(html!)
 
-    let userToken = parameters["user_token"]!
+    //let userToken = parameters["user_token"]!
 
     let headers: HTTPHeaders = [
-    "X-Access-Level": userToken,
+      //"X-Access-Level": userToken,
       "X-Requested-With": "XMLHttpRequest"
     ]
 
