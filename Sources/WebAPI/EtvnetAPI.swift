@@ -551,7 +551,7 @@ open class EtvnetAPI: ApiService {
     return nil
   }
 
-  public func getLiveChannels(favoriteOnly: Bool=false, offset: String? = nil, category: Int=0) -> [LiveChannel] {
+  public func getLiveChannels(favoriteOnly: Bool=false, offset: String? = nil) -> [LiveChannel] {
     let format = "mp4"
 
     var params = ["format": format, "allowed_only": String(1), "favorite_only": String(favoriteOnly)]
@@ -560,20 +560,44 @@ open class EtvnetAPI: ApiService {
       params["offset"] = offset
     }
 
-    var path: String
-
-    if category > 0 {
-      path = "video/live/category/\(category).json?"
-    }
-    else {
-      path = "video/live/channels.json"
-    }
+    let path = "video/live/channels.json"
 
     let url = buildUrl(path: path, params: params as [String : AnyObject])
 
     if let response = fullRequest(path: url) {
       if let data = response.data {
+        //print(String(decoding: data, as: UTF8.self))
+
         if let result = try? (data.decoded() as MediaResponse).data {
+          if case .liveChannels(let liveChannels) = result {
+            return liveChannels
+          }
+        }
+      }
+    }
+
+    return []
+  }
+
+  public func getLiveChannelsByCategory(favoriteOnly: Bool=false, offset: String? = nil, category: Int=0) -> [LiveChannel] {
+    let format = "mp4"
+
+    var params = ["format": format, "allowed_only": String(1), "favorite_only": String(favoriteOnly)]
+
+    if offset != nil {
+      params["offset"] = offset
+    }
+
+    let path = "video/live/category/\(category).json?"
+
+    let url = buildUrl(path: path, params: params as [String : AnyObject])
+
+    if let response = fullRequest(path: url) {
+      if let data = response.data {
+        //print(String(decoding: data, as: UTF8.self))
+
+        if let result = try? (data.decoded() as MediaResponse).data {
+
           if case .liveChannels(let liveChannels) = result {
             return liveChannels
           }

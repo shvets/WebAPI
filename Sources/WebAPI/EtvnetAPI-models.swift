@@ -176,42 +176,71 @@ extension EtvnetAPI {
   }
 
   public struct LiveChannel: Codable {
-    public let name: String
     public let id: Int
-    public let offset: String
+    public let name: String
+////    public let liveFormat: String
+////    public let favorite: Bool
+//    public let offset: String
     public let allowed: Int
-    //public let currentShow: Show
-    public let liveFormat: String
-    public let favorite: Bool
-    public let tvShows: [String]
+////    public let currentShow: Show
+////    public let tvShows: [String]
     public let files: [FileType]
-    public let icon: URL
+    public let icon: URL?
 
-    public init(name: String, id: Int, offset: String, allowed: Int, liveFormat: String, favorite: Bool,
-                tvShows: [String], files: [FileType], icon: URL) {
+    enum CodingKeys: String, CodingKey {
+      case id
+      case name
+//      case offset
+      case allowed
+////      case currentShow = "current_show"
+////      case liveFormat = "live_format"
+////      case favorite
+////      case tvShows = "tv_shows"
+      case files
+      case icon
+    }
+
+    public init(name: String, id: Int, allowed: Int, files: [FileType], icon: URL?) {
+
+    //}, offset: String, allowed: Int, files: [FileType], icon: URL?) {
       self.name = name
       self.id = id
-      self.offset = offset
+//      self.offset = offset
       self.allowed = allowed
+//
+//      self.liveFormat = liveFormat
+//      self.favorite = favorite
+//      self.tvShows = tvShows
 
-      self.liveFormat = liveFormat
-      self.favorite = favorite
-      self.tvShows = tvShows
       self.files = files
       self.icon = icon
     }
 
-    enum CodingKeys: String, CodingKey {
-      case name
-      case id
-      case offset
-      case allowed
-      //case currentShow = "current_show"
-      case liveFormat = "live_format"
-      case favorite
-      case tvShows = "tv_shows"
-      case files
-      case icon
+    public init(from decoder: Decoder) throws {
+      let container = try decoder.container(keyedBy: CodingKeys.self)
+
+      let name = try container.decode(String.self, forKey: .name)
+      let id = try container.decode(Int.self, forKey: .id)
+//      let offset = try container.decode(String.self, forKey: .offset)
+      let allowed = try container.decode(Int.self, forKey: .allowed)
+//      //let liveFormat = try container.decode(String.self, forKey: .liveFormat)
+//      //let favorite = try container.decode(Bool.self, forKey: .favorite)
+      let files = try container.decode([FileType].self, forKey: .files)
+      let icon = try container.decodeIfPresent(URL.self, forKey: .icon)
+
+      self.init(name: name, id: id, allowed: allowed, files: files, icon: icon)
+      //, offset: offset, allowed: allowed,  files: files, icon: icon)
+    }
+
+    public func encode(to encoder: Encoder) throws {
+      var container = encoder.container(keyedBy: CodingKeys.self)
+
+      try container.encode(name, forKey: .name)
+      try container.encode(id, forKey: .id)
+//      try container.encode(offset, forKey: .offset)
+      try container.encode(allowed, forKey: .allowed)
+      try container.encode(files, forKey: .files)
+      try container.encode(icon, forKey: .icon)
     }
   }
 

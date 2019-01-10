@@ -370,7 +370,7 @@ open class GidOnlineAPI: HttpService {
 
       print(try paginationBlock.select("span").array()[1].text())
 
-      page = try Int(try paginationBlock.select("span").array()[1].text())!
+      page = Int(try paginationBlock.select("span").array()[1].text())!
 
       let links = try paginationBlock.select("a").array()
 

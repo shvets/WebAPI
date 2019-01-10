@@ -288,12 +288,15 @@ class EtvnetAPITests: XCTestCase {
   func testGetAllLiveChannels() throws {
     let list = subject.getLiveChannels()
 
+    //print(list)
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
 
   func testGetLiveChannelsByCategory() throws {
-    let list = subject.getLiveChannels(category: 7)
+    let list = subject.getLiveChannelsByCategory(category: 7)
+
+    //print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
