@@ -165,7 +165,7 @@ class EtvnetAPITests: XCTestCase {
   }
 
   func testGetLiveChannelUrl() throws {
-    let id = 117
+    let id = 423
     let  bitrate = "800"
     let format = "mp4"
 
@@ -288,7 +288,7 @@ class EtvnetAPITests: XCTestCase {
   func testGetAllLiveChannels() throws {
     let list = subject.getLiveChannels()
 
-    //print(list)
+    print(list)
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
   }
@@ -296,7 +296,7 @@ class EtvnetAPITests: XCTestCase {
   func testGetLiveChannelsByCategory() throws {
     let list = subject.getLiveChannelsByCategory(category: 7)
 
-    //print(list)
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -325,15 +325,19 @@ class EtvnetAPITests: XCTestCase {
     //print(result as Any)
   }
 
-//  func testGetLiveSchedule() throws {
-//    let list = try subject.getLiveSchedule("34")
-////
-////    XCTAssertNotNil(list)
-////    XCTAssert(list.count > 0)
-//  }
+  func testGetLiveSchedule() throws {
+    let list = try subject.getLiveSchedule(liveChannelId: "423")
+
+    print(String(decoding: list, as: UTF8.self))
+
+    XCTAssertNotNil(list)
+    XCTAssert(list.count > 0)
+  }
 
   func testGetLiveCategories() throws {
     let list = subject.getLiveCategories()
+
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)

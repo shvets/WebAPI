@@ -624,22 +624,22 @@ open class EtvnetAPI: ApiService {
     return true
   }
 
-//  public func getLiveSchedule(liveChannelId: String, date: Date = Date()) -> JSON {
+  public func getLiveSchedule(liveChannelId: String, date: Date = Date()) -> Data {
 //    let dateFormatter = DateFormatter()
 //    dateFormatter.dateFormat = "yyyy-MM-dd@nbsp;HH:mm"
 //
 //    let dateString = dateFormatter.string(from: date)
 //
 //    let params = ["date": dateString]
-//
-//    let path = "video/live/schedule/\(liveChannelId).json"
-//
-//    let url = buildUrl(path: path, params: params as [String : AnyObject])
-//
-//    let response = fullRequest(path: url)
-//
-//    return JSON(data: response!.data!)
-//  }
+
+    let path = "video/live/schedule/\(liveChannelId).json"
+
+    //let url = buildUrl(path: path, params: params as [String : AnyObject])
+
+    let response = fullRequest(path: path)
+
+    return response!.data!
+  }
 
   public func getLiveCategories() -> [Name] {
     let url = buildUrl(path: "video/live/category.json")
