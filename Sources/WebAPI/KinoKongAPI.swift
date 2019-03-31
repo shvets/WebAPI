@@ -98,7 +98,7 @@ open class KinoKongAPI: HttpService {
 
       for item: Element in items.array() {
         var href = try item.select("div[class=item] span[class=main-sliders-bg] a").attr("href")
-        let name = try item.select("div[class=main-sliders-title] a").text()
+        let name = try item.select("h2[class=main-sliders-title] a").text()
         let thumb = try KinoKongAPI.SiteUrl +
           item.select("div[class=main-sliders-shadow] span[class=main-sliders-bg] ~ img").attr("src")
 

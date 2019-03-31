@@ -146,7 +146,7 @@ class AudioBooAPITests: XCTestCase {
 //
 //    let bookId = (books[0] as! [String: String])["id"]
 
-    let url = "http://audioboo.ru/proza/21725-pelevin-viktor-iphuck-10.html"
+    let url = "http://audioboo.ru/voina/26329-sushinskiy-bogdan-chernye-komissary.html"
 
     let playlistUrls = try subject.getPlaylistUrls(url)
 

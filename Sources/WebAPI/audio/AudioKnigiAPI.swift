@@ -270,16 +270,17 @@ open class AudioKnigiAPI: HttpService {
   public func getAudioTracks(_ url: String) -> Observable<[Track]> {
     return httpRequestRx(url).map { data in
       if let document = try self.toDocument(data) {
+
         var bookId = 0
         var security_ls_key = ""
         var session_id = ""
 
-        let scripts = try document.select("script[type='text/javascript']")
+        let scripts = try document.select("script")
 
         for script in scripts {
           let text = try script.html()
 
-          if let id = try self.getBookId(text: text) {
+          if let id = try self.getBookId(document: document) {
             bookId = id
           }
 
@@ -292,7 +293,7 @@ open class AudioKnigiAPI: HttpService {
           }
         }
 
-        //security_ls_key = "8af4d32fcbbca394d0612bc3820e422a"
+        // security_ls_key = "7543106df42ca260c44a7b2f2d4c0727"
 
         let data = self.getData(bid: bookId, security_ls_key: security_ls_key)
 
@@ -300,7 +301,7 @@ open class AudioKnigiAPI: HttpService {
 
         var newTracks = [Track]()
 
-        //session_id = "n9fo46jbhr5v5lup3r3j0h0fk7"
+        // session_id = "n5ge2c5s9gupuv211bsrboo26o"
 
         newTracks = self.postRequest(url: newUrl, body: data, sessionId: session_id)
 
@@ -311,26 +312,31 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-  func getBookId(text: String) throws -> Int? {
-    var bid: Int?
+  func getBookId(document: Document) throws -> Int? {
+    //var bid: Int?
 
-    let pattern = "\\$\\(document\\)\\.audioPlayer\\((\\d{2,7}),"
+//    let pattern = "\\$\\(document\\)\\.audioPlayer\\((\\d{2,7}),"
+//    let pattern = "data-global-id=(\\d{2,7})"
+//
+//    let regex = try NSRegularExpression(pattern: pattern)
+//
+//    let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+//
+//    if let match = self.getMatched(text, matches: matches, index: 1) {
+//      bid = Int(match)
+//    }
 
-    let regex = try NSRegularExpression(pattern: pattern)
+    let items = try document.select("div[class=player-side js-topic-player]")
 
-    let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+    let globalId = try items.first()!.attr("data-global-id")
 
-    if let match = self.getMatched(text, matches: matches, index: 1) {
-      bid = Int(match)
-    }
-
-    return bid
+    return Int(globalId)
   }
 
   func getSecurityLsKey(text: String) throws -> String? {
     var security_ls_key: String?
 
-    let pattern = "var\\s+(LIVESTREET_SECURITY_KEY\\s+=\\s+'.*');"
+    let pattern = ",(LIVESTREET_SECURITY_KEY\\s+=\\s+'.*'),"
 
     let regex = try NSRegularExpression(pattern: pattern)
 
@@ -341,7 +347,7 @@ open class AudioKnigiAPI: HttpService {
     if let match = match, !match.isEmpty {
       let index = match.find("'")!
       let index1 = match.index(index, offsetBy: 1)
-      let index2 = match.find("';")!
+      let index2 = match.find("',")!
 
       security_ls_key = String(match[index1..<index2])
     }
@@ -401,12 +407,13 @@ open class AudioKnigiAPI: HttpService {
   }
 
   func postRequest(url: String, body: String, sessionId: String) -> [Track] {
+    print(url)
     var newTracks = [Track]()
 
     var request = URLRequest(url: URL(string: url)!)
 
     request.httpMethod = HTTPMethod.post.rawValue
-    request.setValue("application/x-www-form-urlencoded; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("PHPSESSID=\(sessionId)", forHTTPHeaderField: "cookie")
 
     request.httpBody = body.data(using: .utf8, allowLossyConversion: false)!

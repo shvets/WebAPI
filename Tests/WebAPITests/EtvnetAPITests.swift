@@ -326,7 +326,7 @@ class EtvnetAPITests: XCTestCase {
   }
 
   func testGetLiveSchedule() throws {
-    let list = try subject.getLiveSchedule(liveChannelId: "423")
+    let list = subject.getLiveSchedule(liveChannelId: "423")
 
     print(String(decoding: list, as: UTF8.self))
 

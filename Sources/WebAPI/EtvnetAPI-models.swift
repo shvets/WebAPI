@@ -134,7 +134,7 @@ extension EtvnetAPI {
       isHd = try container.decode(Bool.self, forKey: .isHd)
 
       do {
-        files = (try container.decode(forKey: .files, default: []))!
+        files = (try container.decode(forKey: .files, default: []))
       }
       catch {
         files = []
@@ -148,7 +148,7 @@ extension EtvnetAPI {
 
       // bug in REST API: sometimes returns empty string
       do {
-        year = try container.decode(forKey: .year, default: 0)!
+        year = try container.decode(forKey: .year, default: 0)
       }
       catch {
         year = 0
