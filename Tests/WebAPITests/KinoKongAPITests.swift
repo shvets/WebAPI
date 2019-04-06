@@ -51,7 +51,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetUrls() throws {
     let path = "/34009-dominika-2018-online.html"
 
-    let list = try subject.getUrls(path)
+    let list = try subject.getUrls(KinoKongAPI.SiteUrl + path)
 
     print(try list.prettify())
 
@@ -62,7 +62,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetSeriePlaylistUrl() throws {
     let path = "/25213-rodoslovnaya-03-06-2016.html"
 
-    let list = try subject.getSeriePlaylistUrl(path)
+    let list = try subject.getSeriePlaylistUrl(KinoKongAPI.SiteUrl + path)
 
     //print(result as Any)
 

@@ -5,6 +5,7 @@ import Alamofire
 
 open class KinoKongAPI: HttpService {
   public static let SiteUrl = "http://kinokong.net"
+  public static let HttpsSiteUrl = "https://kinokong.net"
   //let UserAgent = "Kino Kong User Agent"
   let UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"
 
@@ -68,7 +69,7 @@ open class KinoKongAPI: HttpService {
   }
 
   public func getNewMovies(page: Int=1) throws -> [String: Any] {
-    return try getMovies("/film/novinki-kinoo", page: page)
+    return try getMovies("/film/2019", page: page)
   }
 
   public func getAllSeries(page: Int=1) throws -> [String: Any] {
@@ -226,7 +227,7 @@ open class KinoKongAPI: HttpService {
   public func getUrls(_ path: String) throws -> [String] {
     var urls: [String] = []
 
-    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
+    if let document = try getDocument(path) {
       let items = try document.select("script")
 
       for item: Element in items.array() {
@@ -263,7 +264,7 @@ open class KinoKongAPI: HttpService {
   public func getSeriePlaylistUrl(_ path: String) throws -> String {
     var url = ""
 
-    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
+    if let document = try getDocument(path) {
       let items = try document.select("script")
 
       for item: Element in items.array() {
@@ -295,27 +296,30 @@ open class KinoKongAPI: HttpService {
 
     let groups = url.components(separatedBy: ".")
 
-    let text = groups[groups.count-2]
-
-    let pattern = "(\\d+)p_(\\d+)"
-
-    do {
-      let regex = try NSRegularExpression(pattern: pattern)
-
-      let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
-
-      if let width = getMatched(text, matches: matches, index: 1) {
-        data["width"] = width
+    if (groups.count > 1) {
+      let text = groups[groups.count-2]
+      
+      let pattern = "(\\d+)p_(\\d+)"
+      
+      do {
+        let regex = try NSRegularExpression(pattern: pattern)
+        
+        let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+        
+        if let width = getMatched(text, matches: matches, index: 1) {
+          data["width"] = width
+        }
+        
+        if let height = getMatched(text, matches: matches, index: 2) {
+          data["height"] = height
+        }
+      }
+      catch {
+        print("Error in regular expression.")
       }
 
-      if let height = getMatched(text, matches: matches, index: 2) {
-        data["height"] = height
-      }
     }
-    catch {
-      print("Error in regular expression.")
-    }
-
+  
     return data
   }
 
@@ -402,7 +406,7 @@ open class KinoKongAPI: HttpService {
 
     let path = "/index.php?do=search"
 
-    if let document = try searchDocument(KinoKongAPI.SiteUrl + path, parameters: searchData) {
+    if let document = try searchDocument(KinoKongAPI.HttpsSiteUrl + path, parameters: searchData) {
       let items = try document.select("div[class=owl-item]")
 
       for item: Element in items.array() {

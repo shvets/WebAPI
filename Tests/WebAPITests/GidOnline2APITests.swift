@@ -5,117 +5,117 @@ import Alamofire
 @testable import WebAPI
 
 class GidOnline2APITests: XCTestCase {
-  var subject = GidOnline2API()
-
-  var document: Document?
-
-  var allMovies: [[String :Any]]?
-
-  override func setUp() {
-    super.setUp()
-
-    do {
-      document = try subject.fetchDocument(GidOnline2API.SiteUrl)
-    }
-    catch {
-      print("Error fetching document")
-    }
-  }
-
-  override func tearDown() {
-    super.tearDown()
-  }
-
-  func testGetGenres() throws {
-    let result = try subject.getGenres(document!)
-
-    print(result as Any)
-  }
-
-  func testGetTopLinks() throws {
-    let result = try subject.getTopLinks(document!)
-
-    print(result as Any)
-  }
-
-  func testGetActors() throws {
-    let result = try subject.getActors(document!)
-
-    print(result as Any)
-  }
-
-  func testGetActorsByLetter() throws {
-    let result = try subject.getActors(document!, letter: "А")
-
-    print(result as Any)
-  }
-
-  func testGetDirectors() throws {
-    let result = try subject.getDirectors(document!)
-
-    print(result as Any)
-  }
-
-  func testGetDirectorsByLetter() throws {
-    let result = try subject.getDirectors(document!, letter: "В")
-
-    print(result as Any)
-  }
-
-  func testGetCountries() throws {
-    let result = try subject.getCountries(document!)
-
-    print(result as Any)
-  }
-
-  func testGetYears() throws {
-    let result = try subject.getYears(document!)
-
-    print(result as Any)
-  }
-
-  func testGetSeasons() throws {
-    let result = try subject.getSeasons("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki/", parentName: "parentName")
-
-    print(result as Any)
-  }
-
-//  func testGetEpisodes() throws {
-//    let result = try subject.getEpisodes("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki", seasonNumber: "1")
+//  var subject = GidOnline2API()
+//
+//  var document: Document?
+//
+//  var allMovies: [[String :Any]]?
+//
+//  override func setUp() {
+//    super.setUp()
+//
+//    do {
+//      document = try subject.fetchDocument(GidOnline2API.SiteUrl)
+//    }
+//    catch {
+//      print("Error fetching document")
+//    }
+//  }
+//
+//  override func tearDown() {
+//    super.tearDown()
+//  }
+//
+//  func testGetGenres() throws {
+//    let result = try subject.getGenres(document!)
 //
 //    print(result as Any)
 //  }
 //
-//  func testGetAllMovies() throws {
-//    let allMovies = try subject.getAllMovies()
-//
-//    print(allMovies)
-//  }
-//
-//  func testGetMoviesByGenre() throws {
-//    let document = try subject.fetchDocument(GidOnlineAPI.SiteUrl + "/genre/vestern/")
-//
-//    let result = try subject.getMovies(document!, path: "/genre/vestern/")
+//  func testGetTopLinks() throws {
+//    let result = try subject.getTopLinks(document!)
 //
 //    print(result as Any)
 //  }
-
+//
+//  func testGetActors() throws {
+//    let result = try subject.getActors(document!)
+//
+//    print(result as Any)
+//  }
+//
+//  func testGetActorsByLetter() throws {
+//    let result = try subject.getActors(document!, letter: "А")
+//
+//    print(result as Any)
+//  }
+//
+//  func testGetDirectors() throws {
+//    let result = try subject.getDirectors(document!)
+//
+//    print(result as Any)
+//  }
+//
+//  func testGetDirectorsByLetter() throws {
+//    let result = try subject.getDirectors(document!, letter: "В")
+//
+//    print(result as Any)
+//  }
+//
+//  func testGetCountries() throws {
+//    let result = try subject.getCountries(document!)
+//
+//    print(result as Any)
+//  }
+//
+//  func testGetYears() throws {
+//    let result = try subject.getYears(document!)
+//
+//    print(result as Any)
+//  }
+//
+//  func testGetSeasons() throws {
+//    let result = try subject.getSeasons("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki/", parentName: "parentName")
+//
+//    print(result as Any)
+//  }
+//
+////  func testGetEpisodes() throws {
+////    let result = try subject.getEpisodes("\(GidOnlineAPI.SiteUrl)/2016/03/strazhi-galaktiki", seasonNumber: "1")
+////
+////    print(result as Any)
+////  }
+////
+////  func testGetAllMovies() throws {
+////    let allMovies = try subject.getAllMovies()
+////
+////    print(allMovies)
+////  }
+////
+////  func testGetMoviesByGenre() throws {
+////    let document = try subject.fetchDocument(GidOnlineAPI.SiteUrl + "/genre/vestern/")
+////
+////    let result = try subject.getMovies(document!, path: "/genre/vestern/")
+////
+////    print(result as Any)
+////  }
+//
+////  func testGetUrls() throws {
+////    //let movieUrl = "http://gidonline.club/2017/02/kosmos-mezhdu-nami/"
+////    let movieUrl = "http://gidonline.club/2016/12/moana/"
+////
+////    let urls = try subject.getUrls(movieUrl)
+////
+////    print(urls)
+////  }
+//
 //  func testGetUrls() throws {
-//    //let movieUrl = "http://gidonline.club/2017/02/kosmos-mezhdu-nami/"
-//    let movieUrl = "http://gidonline.club/2016/12/moana/"
+//    let movieUrl = "http://gidonline-kino.club/2169-princessa-monako.html"
 //
 //    let urls = try subject.getUrls(movieUrl)
 //
 //    print(urls)
 //  }
-
-  func testGetUrls() throws {
-    let movieUrl = "http://gidonline-kino.club/2169-princessa-monako.html"
-
-    let urls = try subject.getUrls(movieUrl)
-
-    print(urls)
-  }
 
 
 //  func testDownload() throws {
