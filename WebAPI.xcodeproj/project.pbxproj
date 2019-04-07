@@ -349,6 +349,7 @@
 
 /* Begin PBXFileReference section */
 		2DBA16C8D30850A4208E0F65 /* audioknigi_test.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = audioknigi_test.js; sourceTree = "<group>"; };
+		2DBA1EB5BEB9375E76B353D0 /* audioknigi-test.ts */ = {isa = PBXFileReference; lastKnownFileType = file.ts; path = "audioknigi-test.ts"; sourceTree = "<group>"; };
 		"Alamofire::Alamofire::Product" /* Alamofire.framework */ = {isa = PBXFileReference; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"ConfigFile::ConfigFile::Product" /* ConfigFile.framework */ = {isa = PBXFileReference; path = ConfigFile.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"Files::Files::Product" /* Files.framework */ = {isa = PBXFileReference; path = Files.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1058,6 +1059,7 @@
 				OBJ_79 /* Dependencies */,
 				OBJ_328 /* Products */,
 				2DBA16C8D30850A4208E0F65 /* audioknigi_test.js */,
+				2DBA1EB5BEB9375E76B353D0 /* audioknigi-test.ts */,
 			);
 			path = "";
 			sourceTree = "<group>";

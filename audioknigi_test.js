@@ -60,15 +60,16 @@ function makeRequest(bid, security_ls_key, hash, cookie) {
         headers: headers,
         body: data
     }, function (error, response, body) {
-        console.log("Response:", response.body);
+        if (response.body !== ' Hacking attemp!') {
+            const items = JSON.parse(response.body)['aItems'];
 
-        //console.log(JSON.parse(response.body)['aItems']);
+            console.log("Items:", items);
+        }
     });
 }
 
 const headers = {
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
-    'upgrade-insecure-requests': '1'
 };
 
 request({
