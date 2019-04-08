@@ -1,7 +1,19 @@
-import * as request from 'request';
+import axios from 'axios';
 import * as CryptoJS from "crypto-js";
 
+const instance = axios.create({
+    baseURL: 'https://audioknigi.club'
+});
+
 class AudioKnigi {
+    private async makeInitialRequest() {
+        const headers = {
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+        };
+
+        return await instance.get("/", {headers});
+    }
+
     private getBid(body: any) {
         const regex = /data-global-id\s?=\s?\"(\d{4,8})\"/;
 
@@ -44,7 +56,7 @@ class AudioKnigi {
         return encodeURIComponent(JSON.stringify(values));
     }
 
-    private makeRequest(bid: string, security_ls_key: string, hash: any, cookie: string) {
+    private getTracks(bid: string, security_ls_key: string, hash: any, cookie: string): any {
         let data = `bid=${bid}&hash=${hash}&security_ls_key=${security_ls_key}`;
 
         console.log("data:", data)
@@ -55,58 +67,36 @@ class AudioKnigi {
             'cookie': cookie
         };
 
-        request({
-            url: "https://audioknigi.club/ajax/bid/" + bid,
-            method: "POST",
-            headers: headers,
-            body: data
-        }, (error, response, body) => {
-            if (response.body !== ' Hacking attemp!') {
-                const items = JSON.parse(response.body)['aItems'];
-
-                console.log("Items:", items);
-            }
-        });
+        return instance.post<any>(`/ajax/bid/${bid}` + bid, data, {headers});
     }
 
-    public run() {
-        const headers = {
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
-        };
+    public async run(url: string) {
+        const response1 = await this.makeInitialRequest();
 
-        request({
-            url: "https://audioknigi.club",
-            method: "GET",
-            headers: headers
-        }, (error, response, body) => {
-            const cookie = response.headers['set-cookie'][0];
+        const cookie = response1.headers['set-cookie'][0];
 
-            console.log("cookie:", cookie);
+        console.log("cookie:", cookie);
 
-            let security_ls_key = this.getSecurityLSKey(body);
+        let security_ls_key = this.getSecurityLSKey(response1.data);
 
-            console.log("security_ls_key:", security_ls_key);
+        console.log("security_ls_key:", security_ls_key);
 
-            request({
-                url: "https://audioknigi.club/king-stiven-pyanye-feyerverki",
-                method: "GET"
-            }, (error, response, body) => {
-                //console.log(body);
+        const response2 = await instance.get(url);
 
-                const bid = this.getBid(body);
+        const bid = this.getBid(response2.data);
 
-                console.log("bid:", bid);
+        console.log("bid:", bid);
 
-                const hash = this.buildHash(security_ls_key);
+        const hash = this.buildHash(security_ls_key);
 
-                console.log("hash:", hash);
+        console.log("hash:", hash);
 
-                this.makeRequest(bid, security_ls_key, hash, cookie);
-            });
-        });
+        const response3 = await this.getTracks(bid, security_ls_key, hash, cookie);
+
+        console.log(response3.data.aItems);
     }
 }
 
 const runner = new AudioKnigi();
 
-runner.run();
+runner.run("/king-stiven-pyanye-feyerverki");

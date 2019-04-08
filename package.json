@@ -4,7 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "abooks": "ts-node audioknigi-test.ts"
+    "abooks0": "node audioknigi_test.js",
+    "abooks": "ts-node audioknigi-test.ts",
+    "tsc": "tsc"
   },
   "author": "",
   "description": "",
@@ -14,6 +16,7 @@
     "body-parser": "~1.18.3",
     "ts-node": "~8.0.3",
     "typescript": "~3.4.2",
+    "axios": "~0.18.0",
     "request": "~2.88.0"
   },
   "devDependencies": {
