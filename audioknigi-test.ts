@@ -8,7 +8,7 @@ const instance = axios.create({
 class AudioKnigi {
     private async makeInitialRequest() {
         const headers = {
-            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+            'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'
         };
 
         return await instance.get("/", {headers});
@@ -59,7 +59,7 @@ class AudioKnigi {
     private getTracks(bid: string, security_ls_key: string, hash: any, cookie: string): any {
         let data = `bid=${bid}&hash=${hash}&security_ls_key=${security_ls_key}`;
 
-        console.log("data:", data)
+        console.log("data:", data);
 
         const headers = {
             'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
@@ -70,7 +70,7 @@ class AudioKnigi {
         return instance.post<any>(`/ajax/bid/${bid}` + bid, data, {headers});
     }
 
-    public async run(url: string) {
+    public async run(path: string) {
         const response1 = await this.makeInitialRequest();
 
         const cookie = response1.headers['set-cookie'][0];
@@ -81,7 +81,7 @@ class AudioKnigi {
 
         console.log("security_ls_key:", security_ls_key);
 
-        const response2 = await instance.get(url);
+        const response2 = await instance.get(path);
 
         const bid = this.getBid(response2.data);
 

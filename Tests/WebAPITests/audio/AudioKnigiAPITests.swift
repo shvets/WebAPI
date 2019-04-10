@@ -240,7 +240,7 @@ class AudioKnigiAPITests: XCTestCase {
 
     let exp = expectation(description: "Gets audio tracks")
 
-    _ = subject.getAudioTracks(path).subscribe(onNext: { result in
+    _ = try subject.getAudioTracks(path).subscribe(onNext: { result in
       do {
         print(try result.prettify())
       }

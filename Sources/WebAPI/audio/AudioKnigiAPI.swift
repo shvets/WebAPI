@@ -267,33 +267,36 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
-  public func getAudioTracks(_ url: String) -> Observable<[Track]> {
+//  public func getCookie(url: String, headers: HTTPHeaders) -> String? {
+//    let response: DataResponse<Data>? = httpRequest(url, headers: headers)
+//
+//    return response?.response?.allHeaderFields["Set-Cookie"] as? String
+//  }
+
+  public func getAudioTracks(_ url: String) throws -> Observable<[Track]> {
+    let (cookie, response) = getCookie()
+
+    var security_ls_key = ""
+
+    if let document = try self.toDocument(response?.data!) {
+      let scripts = try document.select("script")
+
+      for script in scripts {
+        let text = try script.html()
+
+        if let securityLsKey = try self.getSecurityLsKey(text: text) {
+          security_ls_key = securityLsKey
+        }
+      }
+    }
+
     return httpRequestRx(url).map { data in
       if let document = try self.toDocument(data) {
-
         var bookId = 0
-        var security_ls_key = ""
-        var session_id = ""
 
-        let scripts = try document.select("script")
-
-        for script in scripts {
-          let text = try script.html()
-
-          if let id = try self.getBookId(document: document) {
-            bookId = id
-          }
-
-          if let securityLsKey = try self.getSecurityLsKey(text: text) {
-            security_ls_key = securityLsKey
-          }
-
-          if let sessionId = try self.getSessionId(text: text) {
-            session_id = sessionId
-          }
+        if let id = try self.getBookId(document: document) {
+          bookId = id
         }
-
-        // security_ls_key = "7543106df42ca260c44a7b2f2d4c0727"
 
         let data = self.getData(bid: bookId, security_ls_key: security_ls_key)
 
@@ -301,9 +304,9 @@ open class AudioKnigiAPI: HttpService {
 
         var newTracks = [Track]()
 
-        // session_id = "n5ge2c5s9gupuv211bsrboo26o"
-
-        newTracks = self.postRequest(url: newUrl, body: data, sessionId: session_id)
+        if let cookie = cookie {
+          newTracks = self.postRequest(url: newUrl, body: data, cookie: cookie)
+        }
 
         return newTracks
       }
@@ -312,20 +315,25 @@ open class AudioKnigiAPI: HttpService {
     }
   }
 
+  func getCookie() -> (String?, DataResponse<Data>?)  {
+    let headers: HTTPHeaders = [
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
+    ];
+
+    let response: DataResponse<Data>? = httpRequest(AudioKnigiAPI.SiteUrl, headers: headers)
+
+    var cookie: String?
+
+    for c in HTTPCookieStorage.shared.cookies! {
+      if c.name == "PHPSESSID" {
+        cookie = "\(c)"
+      }
+    }
+
+    return (cookie, response)
+  }
+
   func getBookId(document: Document) throws -> Int? {
-    //var bid: Int?
-
-//    let pattern = "\\$\\(document\\)\\.audioPlayer\\((\\d{2,7}),"
-//    let pattern = "data-global-id=(\\d{2,7})"
-//
-//    let regex = try NSRegularExpression(pattern: pattern)
-//
-//    let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
-//
-//    if let match = self.getMatched(text, matches: matches, index: 1) {
-//      bid = Int(match)
-//    }
-
     let items = try document.select("div[class=player-side js-topic-player]")
 
     let globalId = try items.first()!.attr("data-global-id")
@@ -353,28 +361,6 @@ open class AudioKnigiAPI: HttpService {
     }
 
     return security_ls_key
-  }
-
-  func getSessionId(text: String) throws -> String? {
-    var sessionId: String?
-
-    let pattern = "var\\s+(SESSION_ID\\s+=\\s+'.*');"
-
-    let regex = try NSRegularExpression(pattern: pattern)
-
-    let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
-
-    let match = self.getMatched(text, matches: matches, index: 1)
-
-    if let match = match, !match.isEmpty {
-      let index = match.find("'")!
-      let index1 = match.index(index, offsetBy: 1)
-      let index2 = match.find("';")!
-
-      sessionId = String(match[index1..<index2])
-    }
-
-    return sessionId
   }
 
   func getData(bid: Int, security_ls_key: String) -> String {
@@ -406,15 +392,17 @@ open class AudioKnigiAPI: HttpService {
     return "bid=\(bid)&hash=\(hash)&security_ls_key=\(security_ls_key)"
   }
 
-  func postRequest(url: String, body: String, sessionId: String) -> [Track] {
+  func postRequest(url: String, body: String, cookie: String) -> [Track] {
     print(url)
     var newTracks = [Track]()
 
     var request = URLRequest(url: URL(string: url)!)
 
     request.httpMethod = HTTPMethod.post.rawValue
-    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-    request.setValue("PHPSESSID=\(sessionId)", forHTTPHeaderField: "cookie")
+    request.setValue("application/x-www-form-urlencoded; charset=UTF-8", forHTTPHeaderField: "Content-Type")
+    request.setValue(cookie, forHTTPHeaderField: "cookie")
+    request.setValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36",
+      forHTTPHeaderField: "user-agent")
 
     request.httpBody = body.data(using: .utf8, allowLossyConversion: false)!
 

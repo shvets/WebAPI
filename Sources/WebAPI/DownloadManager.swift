@@ -29,7 +29,7 @@ open class DownloadManager {
     
     let semaphore = DispatchSemaphore.init(value: 0)
 
-    _ = client.getAudioTracks(url).subscribe(
+    _ = try client.getAudioTracks(url).subscribe(
       onNext: { result in
         audioTracks = result
 
