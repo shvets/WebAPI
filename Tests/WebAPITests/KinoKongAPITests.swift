@@ -49,9 +49,9 @@ class KinoKongAPITests: XCTestCase {
   }
 
   func testGetUrls() throws {
-    let path = "/34009-dominika-2018-online.html"
+    let path = "/34978-drakonchiki-2019.html"
 
-    let list = try subject.getUrls(KinoKongAPI.SiteUrl + path)
+    let list = try subject.getUrls(path)
 
     print(try list.prettify())
 
@@ -129,11 +129,13 @@ class KinoKongAPITests: XCTestCase {
   }
 
   func testGetMultipleSeasons() throws {
-    let path = "/28206-v-obezd-2015-07-06-2016.html"
+    let path = "/22926-gomorra-1-4-sezon-2019.html"
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
 
-    let list = try subject.getSeasons(playlistUrl, path: "")
+    print(playlistUrl)
+
+    let list = try subject.getSeasons(playlistUrl, path: path)
 
     print(try list.prettify())
 
@@ -146,7 +148,9 @@ class KinoKongAPITests: XCTestCase {
 
     let playlistUrl = try subject.getSeriePlaylistUrl(path)
 
-    let list = try subject.getSeasons(playlistUrl, path: "")
+    print(playlistUrl)
+
+    let list = try subject.getSeasons(playlistUrl, path: path)
 
     print(try list.prettify())
 

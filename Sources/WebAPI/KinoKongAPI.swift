@@ -4,9 +4,8 @@ import Alamofire
 //import Networking
 
 open class KinoKongAPI: HttpService {
-  public static let SiteUrl = "http://kinokong.net"
-  public static let HttpsSiteUrl = "https://kinokong.net"
-  //let UserAgent = "Kino Kong User Agent"
+  public static let SiteUrl = "https://kinokong.se"
+
   let UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36"
 
   public func getDocument(_ url: String) throws -> Document? {
@@ -227,11 +226,12 @@ open class KinoKongAPI: HttpService {
   public func getUrls(_ path: String) throws -> [String] {
     var urls: [String] = []
 
-    if let document = try getDocument(path) {
+    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
       let items = try document.select("script")
 
       for item: Element in items.array() {
-        let text = try item.html()
+        let text0 = try item.html()
+        let text = text0.replacingOccurrences(of: ",file:", with: ", file:")
 
         if !text.isEmpty {
           let index1 = text.find("\", file:\"")
@@ -241,6 +241,16 @@ open class KinoKongAPI: HttpService {
             urls = text[text.index(startIndex, offsetBy: 8) ..< endIndex].components(separatedBy: ",")
 
             break
+          }
+          else {
+            let index1 = text.find("\", file:\"")
+            let index2 = text.find("\",st:")
+
+            if let startIndex = index1, let endIndex = index2 {
+              urls = text[text.index(startIndex, offsetBy: 8) ..< endIndex].components(separatedBy: ",")
+
+              break
+            }
           }
         }
       }
@@ -264,7 +274,7 @@ open class KinoKongAPI: HttpService {
   public func getSeriePlaylistUrl(_ path: String) throws -> String {
     var url = ""
 
-    if let document = try getDocument(path) {
+    if let document = try getDocument(KinoKongAPI.SiteUrl + path) {
       let items = try document.select("script")
 
       for item: Element in items.array() {
@@ -406,7 +416,7 @@ open class KinoKongAPI: HttpService {
 
     let path = "/index.php?do=search"
 
-    if let document = try searchDocument(KinoKongAPI.HttpsSiteUrl + path, parameters: searchData) {
+    if let document = try searchDocument(KinoKongAPI.SiteUrl + path, parameters: searchData) {
       let items = try document.select("div[class=owl-item]")
 
       for item: Element in items.array() {
@@ -466,7 +476,8 @@ open class KinoKongAPI: HttpService {
   public func getSeasons(_ playlistUrl: String, path: String) throws -> [Season] {
     var list: [Season] = []
 
-    if let data = fetchData(playlistUrl, headers: getHeaders(path)),
+
+    if let data = fetchData(playlistUrl, headers: getHeaders(KinoKongAPI.SiteUrl + path)),
        let content = String(data: data, encoding: .windowsCP1251) {
       if !content.isEmpty {
         if let index = content.find("{\"playlist\":") {
@@ -522,8 +533,8 @@ open class KinoKongAPI: HttpService {
   func getHeaders(_ referer: String="") -> [String: String] {
     var headers: [String: String] = [
       "User-Agent": UserAgent,
-      "Host": "kinokong.net",
-      "Referer": "http://kinokong.net/",
+      "Host": KinoKongAPI.SiteUrl.replacingOccurrences(of: "https://", with: ""),
+      "Referer": KinoKongAPI.SiteUrl,
       "Upgrade-Insecure-Requests": "1"
     ];
 

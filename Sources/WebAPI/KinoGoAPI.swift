@@ -5,7 +5,7 @@ import Alamofire
 
 open class KinoGoAPI: HttpService {
   public static let SiteUrl = "https://kinogo.by"
-  let UserAgent = "KinoGo User Agent"
+  let UserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36"
 
   public func getDocument(_ url: String) throws -> Document? {
     return try fetchDocument(url, headers: getHeaders(), encoding: .windowsCP1251)
@@ -167,27 +167,31 @@ open class KinoGoAPI: HttpService {
     let pagePath = getPagePath(path, page: page)
 
     if let document = try getDocument(KinoGoAPI.SiteUrl + pagePath) {
-      let items = try document.select("div[id=dle-content] div[class=shortstory]")
+      let content = try document.select("div[id=dle-content]")
 
-      for item: Element in items.array() {
-        let href = try item.select("div[class=shortstorytitle] h2 a").attr("href")
-        let name = try item.select("div[class=shortstorytitle] h2 a").text()
-        let thumb = try item.select("div[class=shortimg] a img").first()!.attr("src")
+      if content.array().count > 0 {
+        let items = try content.get(0).getElementsByClass("shortstory")
 
-        var type: String
+        for item: Element in items.array() {
+          let href = try item.select("div[class=shortstorytitle] h2 a").attr("href")
+          let name = try item.select("div[class=shortstorytitle] h2 a").text()
+          let thumb = try item.select("div[class=shortimg] a img").first()!.attr("src")
 
-        if name.contains("Сезон") || name.contains("сезон") {
-          type = "serie"
+          var type: String
+
+          if name.contains("Сезон") || name.contains("сезон") {
+            type = "serie"
+          }
+          else {
+            type = serie ? "serie" : "movie"
+          }
+
+          data.append(["id": href, "name": name, "thumb": KinoGoAPI.SiteUrl + thumb, "type": type])
         }
-        else {
-          type = serie ? "serie" : "movie"
+
+        if items.size() > 0 {
+          paginationData = try extractPaginationData(document, page: page)
         }
-
-        data.append(["id": href, "name": name, "thumb": KinoGoAPI.SiteUrl + thumb, "type": type])
-      }
-
-      if items.size() > 0 {
-        paginationData = try extractPaginationData(document, page: page)
       }
     }
 
@@ -204,7 +208,7 @@ open class KinoGoAPI: HttpService {
         let text = try item.html()
 
         if !text.isEmpty {
-          let index1 = text.find("\"file\"  :")
+          let index1 = text.find("\"file\"  : ")
 
           if let startIndex = index1 {
             let text2 = String(text[startIndex..<text.endIndex])
@@ -213,7 +217,7 @@ open class KinoGoAPI: HttpService {
 
             //.replacingOccurrences(of: "[480,720]", with: "720")
 
-            let index2 = text3.find("\"bgcolor\"")
+            let index2 = text3.find("\",")
 
             if let endIndex = index2 {
               let text4 = text3[text.index(text3.startIndex, offsetBy: 11) ..< endIndex]
@@ -222,7 +226,8 @@ open class KinoGoAPI: HttpService {
 
               let text6 = String(text5[text5.startIndex ..< text5.index(text5.endIndex, offsetBy: -2)])
 
-              urls = text6.components(separatedBy: ",")
+              urls = File(comment: "", file: text6).urls()
+                //text6.components(separatedBy: ",")
 
               break
             }
@@ -359,24 +364,24 @@ open class KinoGoAPI: HttpService {
         let text = try item.html()
 
         if !text.isEmpty {
-          let index1 = text.find("var seasons = ")
+          let index1 = text.find("\"file\" : [{")
 
           if let startIndex = index1 {
             let text2 = String(text[startIndex..<text.endIndex])
 
             let text3 = text2
 
-            let index2 = text3.find("}];")
+            let index2 = text3.find("}],")
 
             if let endIndex = index2 {
-              let text4 = text3[text.index(text3.startIndex, offsetBy: 14) ..< endIndex]
+              let text4 = text3[text.index(text3.startIndex, offsetBy: 9) ..< endIndex]
 
               let text5 = text4.trimmingCharacters(in: .whitespaces).trimmingCharacters(in: .newlines)
 
               let text6 = String(text5[text5.startIndex ..< text5.index(text5.endIndex, offsetBy: 0)] + "}]")
 
               let playlistContent = text6.replacingOccurrences(of: "'", with: "\"")
-                .replacingOccurrences(of: ":", with: ": ")
+//                .replacingOccurrences(of: ":", with: ": ")
                 .replacingOccurrences(of: ",", with: ", ")
 
               if let localizedData = playlistContent.data(using: .utf8) {
@@ -388,7 +393,13 @@ open class KinoGoAPI: HttpService {
                 else if let result = try? localizedData.decoded() as [Episode] {
                   let comment = (name != nil) ? name! : ""
 
-                  let season = Season(comment: comment, playlist: result)
+                  var result2: [File] = []
+
+                  for r in result {
+                    result2.append(File(comment: r.title, file: r.file))
+                  }
+
+                  let season = Season(comment: comment, folder: result2)
 
                   list.append(season)
                 }
@@ -406,7 +417,8 @@ open class KinoGoAPI: HttpService {
   func getHeaders(_ referer: String="") -> [String: String] {
     var headers = [
       "User-Agent": UserAgent,
-      "referer": "https://kinogo.by/russkie-serialy/tnt/"
+      //"upgrade-insecure-requests": "1"
+      //"referer": "https://kinogo.by/russkie-serialy/tnt/"
     ];
 
     if !referer.isEmpty {
