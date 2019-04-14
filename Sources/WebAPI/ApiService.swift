@@ -140,7 +140,7 @@ open class ApiService: AuthService {
     if let accessToken = config.items["access_token"] {
       var accessPath: String
 
-      if path.index(of: "?") != nil {
+      if path.firstIndex(of: "?") != nil {
         accessPath = "\(path)&access_token=\(accessToken)"
       }
       else {
@@ -183,7 +183,7 @@ open class ApiService: AuthService {
     if let accessToken = config.items["access_token"] {
       var accessPath: String
       
-      if path.index(of: "?") != nil {
+      if path.firstIndex(of: "?") != nil {
         accessPath = "\(path)&access_token=\(accessToken)"
       }
       else {

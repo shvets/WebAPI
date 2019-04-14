@@ -331,26 +331,26 @@ extension EtvnetAPI {
 
       var data: MediaData?
 
-      if let value = paginatedMedia, value != nil {
-        data = MediaData.paginatedMedia(value!)
+      if let value = paginatedMedia {
+        data = MediaData.paginatedMedia(value)
       }
-      else if let value = paginatedChildren, value != nil {
-        data = MediaData.paginatedChildren(value!)
+      else if let value = paginatedChildren {
+        data = MediaData.paginatedChildren(value)
       }
-      else if let value = paginatedBookmarks, value != nil {
-        data = MediaData.paginatedBookmarks(value!)
+      else if let value = paginatedBookmarks {
+        data = MediaData.paginatedBookmarks(value)
       }
-      else if let value = genres, value != nil {
-        data = MediaData.genres(value!)
+      else if let value = genres {
+        data = MediaData.genres(value)
       }
-      else if let value = liveChannels, value != nil {
-        data = MediaData.liveChannels(value!)
+      else if let value = liveChannels {
+        data = MediaData.liveChannels(value)
       }
-      else if let value = names, value != nil {
-        data = MediaData.names(value!)
+      else if let value = names {
+        data = MediaData.names(value)
       }
-      else if let value = url, value != nil {
-        data = MediaData.url(value!)
+      else if let value = url {
+        data = MediaData.url(value)
       }
       else {
         data = MediaData.none

@@ -387,7 +387,7 @@ open class MyHitAPI: HttpService {
   }
 
   func itemIndex(_ collection: [Any], name: String) -> Int? {
-    return collection.index { item in
+    return collection.firstIndex { item in
       let nm = (item as! [String: Any])["name"]!
 
       return nm as! String == name

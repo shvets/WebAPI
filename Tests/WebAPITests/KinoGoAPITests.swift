@@ -148,6 +148,21 @@ class KinoGoAPITests: XCTestCase {
 //  }
 
   func testSearch() throws {
+//    #if swift(>=5.0)
+//    print("Hello, Swift 5.0")
+//
+//    #elseif swift(>=4.2)
+//    print("Hello, Swift 4.2")
+//
+//    #elseif swift(>=4.1)
+//    print("Hello, Swift 4.1")
+//
+//    #elseif swift(>=4.0)
+//    print("Hello, Swift 4.0")
+//    #else
+//    print("unknown")
+//    #endif
+
     let query = "мердок"
 
     let list = try subject.search(query)
