@@ -62,7 +62,7 @@ class KinoKongAPITests: XCTestCase {
   func testGetSeriePlaylistUrl() throws {
     let path = "/25213-rodoslovnaya-03-06-2016.html"
 
-    let list = try subject.getSeriePlaylistUrl(KinoKongAPI.SiteUrl + path)
+    let list = try subject.getSeriePlaylistUrl(path)
 
     //print(result as Any)
 
