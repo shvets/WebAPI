@@ -57,7 +57,8 @@ open class KinoTochkaAPI: HttpService {
       let regex = try NSRegularExpression(pattern: pattern)
 
       if let name = movie["name"] {
-        let correctedName = regex.stringByReplacingMatches(in: name, options: [], range: NSMakeRange(0, name.count), withTemplate: "")
+        let correctedName = regex.stringByReplacingMatches(in: name, options: [], range: NSMakeRange(0, name.count),
+          withTemplate: "")
 
         movie["name"] = correctedName
 
@@ -178,12 +179,18 @@ open class KinoTochkaAPI: HttpService {
           let index1 = text.find("pl:")
 
           if let startIndex = index1 {
-            let text2 = String(String(text[startIndex ..< text.endIndex]))
+            let text2 = String(text[startIndex ..< text.endIndex])
 
-            let index2 = text2.find("\",st:")
+            let index2 = text2.find("st:")
 
             if let endIndex = index2 {
-              url = String(text2[text2.index(text2.startIndex, offsetBy:4) ..< endIndex])
+              url = String(text2[text2.index(text2.startIndex, offsetBy: 4) ..< endIndex])
+
+              if url.hasSuffix("\",") {
+                let suffixIndex = url.index(url.endIndex, offsetBy: -3)
+
+                url = String(url[...suffixIndex])
+              }
 
               break
             }

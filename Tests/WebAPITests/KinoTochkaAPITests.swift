@@ -88,9 +88,9 @@ class KinoTochkaAPITests: XCTestCase {
   func testGetSeriePlaylistUrl() throws {
     let path = "/8892-legion-2-sezon-2018-11.html"
 
-    let list = try subject.getSeasonPlaylistUrl(path)
+    let list = try subject.getSeasonPlaylistUrl(KinoTochkaAPI.SiteUrl + path)
 
-    // print(list)
+    print(list)
 
     XCTAssertNotNil(list)
     XCTAssert(list.count > 0)
@@ -140,7 +140,7 @@ class KinoTochkaAPITests: XCTestCase {
   }
 
   func testGetEpisodes() throws {
-    let path = "/9146-chastnye-syschiki-2-sezon-2017-12.html"
+    let path = "/11992-milliardy-4-sezon-2019-5.html"
 
     let playlistUrl = try subject.getSeasonPlaylistUrl(KinoTochkaAPI.SiteUrl + path)
 
