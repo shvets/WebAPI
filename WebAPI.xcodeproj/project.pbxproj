@@ -1633,15 +1633,15 @@
       "OBJ_318" = {
          isa = "PBXGroup";
          children = (
-            "RxSwift::RxSwift::Product",
-            "Alamofire::Alamofire::Product",
+            "WebAPI::WebAPI::Product",
             "RxSwift::RxAtomic::Product",
             "SwiftSoup::SwiftSoup::Product",
-            "WebAPI::WebAPI::Product",
-            "Files::Files::Product",
-            "WebAPI::GrabBook::Product",
             "WebAPI::WebAPITests::Product",
-            "ConfigFile::ConfigFile::Product"
+            "Alamofire::Alamofire::Product",
+            "RxSwift::RxSwift::Product",
+            "WebAPI::GrabBook::Product",
+            "ConfigFile::ConfigFile::Product",
+            "Files::Files::Product"
          );
          name = "Products";
          path = "";
