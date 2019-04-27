@@ -1633,15 +1633,15 @@
       "OBJ_318" = {
          isa = "PBXGroup";
          children = (
-            "WebAPI::WebAPITests::Product",
+            "RxSwift::RxSwift::Product",
+            "Alamofire::Alamofire::Product",
             "RxSwift::RxAtomic::Product",
             "SwiftSoup::SwiftSoup::Product",
-            "ConfigFile::ConfigFile::Product",
             "WebAPI::WebAPI::Product",
-            "Alamofire::Alamofire::Product",
-            "WebAPI::GrabBook::Product",
             "Files::Files::Product",
-            "RxSwift::RxSwift::Product"
+            "WebAPI::GrabBook::Product",
+            "WebAPI::WebAPITests::Product",
+            "ConfigFile::ConfigFile::Product"
          );
          name = "Products";
          path = "";
@@ -5065,7 +5065,7 @@
             "OBJ_135",
             "OBJ_136"
          );
-         name = "SwiftSoup 1.7.5";
+         name = "SwiftSoup 2.0.0";
          path = ".build/checkouts/SwiftSoup/Sources";
          sourceTree = "SOURCE_ROOT";
       };
