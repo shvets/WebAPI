@@ -136,5 +136,6 @@ https://www.bignerdranch.com/blog/10-tips-for-mastering-the-focus-engine-on-tvos
 https://stackblitz.com/
 
 swift build
-./.build/debug/grabbook --boo http://audioboo.ru/didiktiva/22797-akunin-boris-priklyucheniya-erasta-fandorina-16-ne-proschayus.html
+./.build/debug/grabbook --boo http://audioboo.ru/klassika/27678-kipling-redyard-rasskazy.html
+http://audioboo.ru/didiktiva/22797-akunin-boris-priklyucheniya-erasta-fandorina-16-ne-proschayus.html
 ./.build/debug/grabbook --zvook http://bookzvuk.ru/zhizn-i-neobyichaynyie-priklyucheniya-soldata-ivana-chonkina-1-litso-neprikosnovennoe-vladimir-voynovich-audiokniga-onlayn

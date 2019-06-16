@@ -188,7 +188,7 @@ open class AudioKnigiAPI: HttpService {
   func extractPaginationData(document: Document, path: String, page: Int) throws -> ItemsList {
     var pages = 1
 
-    let paginationRoot = try document.select("div[class='paging']")
+    let paginationRoot = try document.select("ul[class='pagination']")
 
     if paginationRoot.size() > 0 {
       let paginationBlock = paginationRoot.get(0)

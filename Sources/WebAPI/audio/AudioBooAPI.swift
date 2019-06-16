@@ -12,9 +12,9 @@ open class AudioBooAPI: HttpService {
   }
 
   public func searchDocument(_ url: String, parameters: [String: String]) throws -> Document? {
-    let headers = ["X-Requested-With": "XMLHttpRequest"]
+    //let headers = ["X-Requested-With": "XMLHttpRequest"]
 
-    return try fetchDocument(url, headers: headers, parameters: parameters, method: .post, encoding: .windowsCP1251)
+    return try fetchDocument(url, headers: [:], parameters: parameters, method: .post, encoding: .windowsCP1251)
   }
 
   public func getLetters() -> Observable<[[String: String]]> {
@@ -152,24 +152,33 @@ open class AudioBooAPI: HttpService {
     var data = [BooTrack]()
 
     if let document = try fetchDocument(url) {
-      let items = try document.select("script")
+      let items = try document.select("input[class=js-play8-playlist]")
 
       for item in items.array() {
-        let text = try item.html()
+        let value = try item.attr("value")
 
-        let index1 = text.find("Play('jw6',")
-        let index2 = text.find("{\"start\":0,")
-
-        if let index1 = index1, let index2 = index2 {
-          let content = String(text[text.index(index1, offsetBy: 10) ... text.index(index2, offsetBy: -1)]).trim()
-          let content2 = content[content.index(content.startIndex, offsetBy: 2) ..< content.index(content.endIndex, offsetBy: -2)]
-          let content3 = content2.replacingOccurrences(of: ",", with: ", ").replacingOccurrences(of: ":", with: ": ")
-
-          if let result = try? content3.data(using: .utf8)!.decoded() as [BooTrack] {
-            data = result
-          }
+        if let result = try? value.data(using: .utf8)!.decoded() as [BooTrack] {
+          data = result
         }
       }
+//      let items = try document.select("script")
+//
+//      for item in items.array() {
+//        let text = try item.html()
+//
+//        let index1 = text.find("Play('jw6',")
+//        let index2 = text.find("{\"start\":0,")
+//
+//        if let index1 = index1, let index2 = index2 {
+//          let content = String(text[text.index(index1, offsetBy: 10) ... text.index(index2, offsetBy: -1)]).trim()
+//          let content2 = content[content.index(content.startIndex, offsetBy: 2) ..< content.index(content.endIndex, offsetBy: -2)]
+//          let content3 = content2.replacingOccurrences(of: ",", with: ", ").replacingOccurrences(of: ":", with: ": ")
+//
+//          if let result = try? content3.data(using: .utf8)!.decoded() as [BooTrack] {
+//            data = result
+//          }
+//        }
+//      }
     }
 
     return data
