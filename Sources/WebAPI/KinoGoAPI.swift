@@ -319,6 +319,19 @@ open class KinoGoAPI: HttpService {
         if name.contains("Сезон") || name.contains("сезон") {
           type = "serie"
         }
+        else {
+          let firstCont = try shortimg.select("div[class=lenta] div[class=cont]").first()
+
+          if let firstCont = firstCont {
+            let serieLink = try firstCont.text()
+
+            if !serieLink.isEmpty {
+              if serieLink.contains("Сезон") || serieLink.contains("сезон") {
+                type = "serie"
+              }
+            }
+          }
+        }
 
         data.append(["id": href, "name": name, "description": description, "thumb": KinoGoAPI.SiteUrl + thumb, "type": type])
       }

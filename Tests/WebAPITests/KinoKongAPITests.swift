@@ -107,13 +107,13 @@ class KinoKongAPITests: XCTestCase {
     let result2 = try subject.getAllMovies(page: 2)
     print(result2)
 
-//    let pagination2 = result2["pagination"] as! [String: Any]
-//
-//    //print(pagination2)
-//
-//    XCTAssertTrue(pagination2["has_next"] as! Bool)
-//    XCTAssertTrue(pagination2["has_previous"] as! Bool)
-//    XCTAssertEqual(pagination2["page"] as! Int, 2)
+    let pagination2 = result2["pagination"] as! [String: Any]
+
+    //print(pagination2)
+
+    XCTAssertTrue(pagination2["has_next"] as! Bool)
+    XCTAssertTrue(pagination2["has_previous"] as! Bool)
+    XCTAssertEqual(pagination2["page"] as! Int, 2)
   }
 
   func testPaginationInMoviesByRating() throws {

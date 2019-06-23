@@ -402,7 +402,7 @@ open class KinoKongAPI: HttpService {
     var paginationData: ItemsList = [:]
 
     var searchData = [
-      "do": "search",
+      //"do": "search",
       "subaction": "search",
       "search_start": "\(page)",
       "full_search": "0",

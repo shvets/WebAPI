@@ -144,6 +144,8 @@ class KinoTochkaAPITests: XCTestCase {
 
     let playlistUrl = try subject.getSeasonPlaylistUrl(KinoTochkaAPI.SiteUrl + path)
 
+    print(playlistUrl)
+
     let list = try subject.getEpisodes(playlistUrl, path: "")
 
     print(try list.prettify())
